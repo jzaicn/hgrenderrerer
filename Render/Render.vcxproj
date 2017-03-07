@@ -102,11 +102,13 @@
     <None Include="ReadMe.txt" />
     <None Include="Render.def" />
     <None Include="res\Render.rc2" />
+    <None Include="toolbar1.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ElaraHomeAPI.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="RenderingDlg.cpp" />
+    <ClCompile Include="RenderSettings.cpp" />
     <ClCompile Include="RenderUI.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -118,6 +120,7 @@
     <ClInclude Include="Export.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="RenderingDlg.h" />
+    <ClInclude Include="RenderSettings.h" />
     <ClInclude Include="RenderUI.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
