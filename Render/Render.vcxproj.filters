@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="外部">
+      <UniqueIdentifier>{9d8f4684-0914-411c-92bc-52244aca12b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -36,6 +39,9 @@
     <ClCompile Include="RenderUI.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ElaraHomeAPI.cpp">
+      <Filter>外部</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render.h">
@@ -58,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="RenderUI.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ElaraHomeAPI.h">
+      <Filter>外部</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

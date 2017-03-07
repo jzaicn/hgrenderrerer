@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenderSln", "RenderSln\RenderSln.vcxproj", "{4874384C-1217-4851-B50E-B93704D6EBEF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Render", "Render.vcxproj", "{495F857F-BF2A-47A7-B306-E4D1F7210274}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenderElara", "..\RenderElara\RenderElara.vcxproj", "{EE0E78E4-A747-4672-A8A0-6C9B10537808}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +11,14 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4874384C-1217-4851-B50E-B93704D6EBEF}.Debug|Win32.ActiveCfg = Debug|Win32
-		{4874384C-1217-4851-B50E-B93704D6EBEF}.Debug|Win32.Build.0 = Debug|Win32
-		{4874384C-1217-4851-B50E-B93704D6EBEF}.Release|Win32.ActiveCfg = Release|Win32
-		{4874384C-1217-4851-B50E-B93704D6EBEF}.Release|Win32.Build.0 = Release|Win32
+		{495F857F-BF2A-47A7-B306-E4D1F7210274}.Debug|Win32.ActiveCfg = Debug|Win32
+		{495F857F-BF2A-47A7-B306-E4D1F7210274}.Debug|Win32.Build.0 = Debug|Win32
+		{495F857F-BF2A-47A7-B306-E4D1F7210274}.Release|Win32.ActiveCfg = Release|Win32
+		{495F857F-BF2A-47A7-B306-E4D1F7210274}.Release|Win32.Build.0 = Release|Win32
+		{EE0E78E4-A747-4672-A8A0-6C9B10537808}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EE0E78E4-A747-4672-A8A0-6C9B10537808}.Debug|Win32.Build.0 = Debug|Win32
+		{EE0E78E4-A747-4672-A8A0-6C9B10537808}.Release|Win32.ActiveCfg = Release|Win32
+		{EE0E78E4-A747-4672-A8A0-6C9B10537808}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
