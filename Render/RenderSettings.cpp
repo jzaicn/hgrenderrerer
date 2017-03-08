@@ -195,7 +195,7 @@ void RenderSettings::OnEditOK()
 					{
 						cur_val = m_minniment.at(i);
 						CString newValue;
-						newValue.Format("%&0.2f",cur_val);
+						newValue.Format("%0.2f",cur_val);
 						edit->SetWindowText(newValue);
 					}
 					
