@@ -27,11 +27,13 @@ RenderSettings::RenderSettings(CWnd* pParent /*=NULL*/)
 	//                                天光控制
 	, m_sky_light_control(TRUE)			// 天光控制
 	, m_sky_light_intensity_slider(200)	// 天光强度
+	, m_hdr_string(_T(""))
 	, m_hdr_rotate_slider(0)			// 环境旋转
 
 	//////////////////////////////////////////////////////////////////////////
 	//                                  阳光控制
-	, m_sun_light_intensity_slider(100)	// 阳光控制
+	, m_sun_control(TRUE)				// 天光控制
+	, m_sun_light_intensity_slider(100)	// 阳光强度
 	, m_soft_shadow_slider(10)			// 软阴影
 	, m_sun_angle_slider(0)				// 太阳角度
 	, m_sun_hight_slider(20)			// 太阳高度
@@ -43,8 +45,8 @@ RenderSettings::~RenderSettings()
 {
 }
 
-#define RANGE(min,max,step)\
-(int)((float)min/(float)step),(int)((float)max/(float)step)
+#define RANGE(minv,maxv,step)\
+(int)((float)minv/(float)step),(int)((float)maxv/(float)step)
 
 void RenderSettings::DoDataExchange(CDataExchange* pDX)
 {
