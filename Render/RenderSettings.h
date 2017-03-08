@@ -1,7 +1,7 @@
 #pragma once
 #include "afxcmn.h"
 #include "afxwin.h"
-
+#include <vector>
 
 // RenderSettings 对话框
 
@@ -23,49 +23,49 @@ protected:
 
 public:
 	virtual BOOL OnInitDialog();
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 
+public:
 
-private:
-	//////////////////////////////////////////////////////////////////////////
-	//                                曝光控制
-	// 曝光控制
-	CButton m_expouse_control;
-	// 曝光值
-	CSliderCtrl m_exposure_silder;
-	// 高光
-	CSliderCtrl m_high_light_silder;
-	// 中间调
-	CSliderCtrl m_half_tone_silder;
-	// 阴影
-	CSliderCtrl m_shadow_slider;
-	// 饱和度
-	CSliderCtrl m_saturation_slider;
-	// 白平衡
-	CSliderCtrl m_white_balance_slider;
+	std::vector<CString> m_cn_name;
+	std::vector<CString> m_en_name;
+	std::vector<int> m_control_macro;
+	std::vector<int> m_edit_macro;
+	std::vector<CString> m_type;
+	std::vector<float> m_maximent;
+	std::vector<float> m_minniment;
+	std::vector<float> m_default_val;
+	std::vector<float> m_step_val;
 
-	//////////////////////////////////////////////////////////////////////////
-	//                                天光控制
-	// 天光控制
-	CButton m_sky_light_control;
-	// 天光强度
-	CSliderCtrl m_sky_light_intensity_slider;
-	// 环境HDR
-	CComboBox m_hdr_combo;
-	// 环境旋转
-	CSliderCtrl m_hdr_rotate_slider;
+	std::vector<std::vector<int>> m_switchControlItem;
 
-	//////////////////////////////////////////////////////////////////////////
-	//                                  阳光控制
-	// 阳光控制
-	CButton m_sun_control;
-	// 阳光强度
-	CSliderCtrl m_sun_light_intensity_slider;
-	// 阳光颜色
-	CButton m_sun_color_btn;
-	// 软阴影
-	CSliderCtrl m_soft_shadow_slider;
-	// 太阳角度
-	CSliderCtrl m_sun_angle_slider;
-	// 太阳高度
-	CSliderCtrl m_sun_hight_slider;
+	void setSilderEditTable(CString _cn_name ,CString _en_name,int _silder, int _edit )
+	{
+		m_cn_name.push_back(_cn_name);
+		m_en_name.push_back(_en_name);
+		m_control_macro.push_back(_silder);
+		m_edit_macro.push_back(_edit);
+		
+		m_type.push_back("float");
+		m_maximent.push_back(0.0);
+		m_minniment.push_back(0.0);
+		m_default_val.push_back(0.0);
+		m_step_val.push_back(0.0);
+	}
+	void setCheckBox(CString _cn_name ,CString _en_name,int _silder, int _edit ){};
+
+	int getDataIndex(CString _en_name)
+	{
+		for (int i = 0; i < m_en_name.size() ; i++)
+		{
+			if(_en_name == m_en_name.at(i))
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	afx_msg void OnEditOK();
+	afx_msg void OnBnCheckSwitch();
 };
