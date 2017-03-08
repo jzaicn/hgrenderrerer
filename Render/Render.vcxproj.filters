@@ -16,6 +16,9 @@
     <Filter Include="外部">
       <UniqueIdentifier>{9d8f4684-0914-411c-92bc-52244aca12b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{783bac14-064c-461f-91e6-66fdd8ccacc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -48,6 +51,9 @@
     <ClCompile Include="RenderSettings.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="XmlHandlePlus.cpp">
+      <Filter>外部</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render.h">
@@ -76,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="RenderSettings.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlHandlePlus.h">
+      <Filter>外部</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
