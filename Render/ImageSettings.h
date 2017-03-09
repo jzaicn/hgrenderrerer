@@ -25,6 +25,9 @@ public:
 	// Í¼Ïñ´óÐ¡
 	CComboBox m_ImageSize;
 	virtual BOOL OnInitDialog();
+
+	void SetBtnImage(int _btn_marco,int _res_marco);
+
 	virtual void OnOK();
 	virtual void OnCancel();
 };

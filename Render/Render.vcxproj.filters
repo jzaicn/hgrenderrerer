@@ -28,25 +28,22 @@
     <None Include="res\Render.rc2">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="toolbar1.bmp">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="bmp00001.bmp">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="bitmap1.bmp">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="RenderToolbar.bmp">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="RenderToolbar1.bmp">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="RenderToolbar2.bmp">
-      <Filter>资源文件</Filter>
-    </None>
     <None Include="icon1.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ImageBegin.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ImageSave.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ImageSettings.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ImageZoomFit.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ImageZoomOrigin.bmp">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

@@ -70,10 +70,22 @@ BOOL ImageSettings::OnInitDialog()
 		}
 	}
 
+
+	
+	SetBtnImage(IDC_BEGIN_BTN,IDB_BEGIN_BMP);
+	SetBtnImage(IDC_SETTING_BTN,IDB_SETTING_BMP);
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
 
+
+void ImageSettings::SetBtnImage(int _btn_marco,int _res_marco)
+{
+	HBITMAP   hBitmap;   
+	hBitmap = LoadBitmap(AfxGetInstanceHandle(),MAKEINTRESOURCE(_res_marco)); // IDB_BITMAP_TEST为资源图片ID 
+	((CButton *)GetDlgItem(_btn_marco))->SetBitmap(hBitmap);
+}
 
 void ImageSettings::OnOK()
 {

@@ -99,16 +99,15 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="bitmap1.bmp" />
-    <None Include="bmp00001.bmp" />
     <None Include="icon1.ico" />
+    <None Include="ImageBegin.bmp" />
+    <None Include="ImageSave.bmp" />
+    <None Include="ImageSettings.bmp" />
+    <None Include="ImageZoomFit.bmp" />
+    <None Include="ImageZoomOrigin.bmp" />
     <None Include="ReadMe.txt" />
     <None Include="Render.def" />
-    <None Include="RenderToolbar.bmp" />
-    <None Include="RenderToolbar1.bmp" />
-    <None Include="RenderToolbar2.bmp" />
     <None Include="res\Render.rc2" />
-    <None Include="toolbar1.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ElaraHomeAPI.cpp" />
