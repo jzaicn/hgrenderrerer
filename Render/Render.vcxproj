@@ -99,6 +99,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="bmp00001.bmp" />
     <None Include="ReadMe.txt" />
     <None Include="Render.def" />
     <None Include="res\Render.rc2" />

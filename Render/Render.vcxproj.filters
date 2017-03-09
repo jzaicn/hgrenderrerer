@@ -31,6 +31,9 @@
     <None Include="toolbar1.bmp">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="bmp00001.bmp">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Render.cpp">

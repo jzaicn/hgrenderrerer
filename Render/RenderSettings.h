@@ -2,8 +2,9 @@
 #include "afxcmn.h"
 #include "afxwin.h"
 #include <vector>
-
+#include <map>
 // RenderSettings 对话框
+#include "ElaraHomeAPI.h"
 
 class RenderSettings : public CDialogEx
 {
@@ -23,15 +24,24 @@ protected:
 
 public:
 	virtual BOOL OnInitDialog();
+
+	void initFromSetting();
+
+	void initFromTable();
+
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 
 public:
-
+	//界面表
+	std::vector<int> m_father;
+	std::vector<CString> m_type;
 	std::vector<CString> m_cn_name;
 	std::vector<CString> m_en_name;
 	std::vector<int> m_control_macro;
-	std::vector<int> m_edit_macro;
-	std::vector<CString> m_type;
+	std::vector<int> m_second_macro;
+
+	//配置表
+	std::map<int,int> m_bind_marco;	//通过宏查找配置表的index
 	std::vector<float> m_maximent;
 	std::vector<float> m_minniment;
 	std::vector<float> m_default_val;
@@ -39,33 +49,11 @@ public:
 
 	std::vector<std::vector<int>> m_switchControlItem;
 
-	void setSilderEditTable(CString _cn_name ,CString _en_name,int _silder, int _edit )
-	{
-		m_cn_name.push_back(_cn_name);
-		m_en_name.push_back(_en_name);
-		m_control_macro.push_back(_silder);
-		m_edit_macro.push_back(_edit);
-		
-		m_type.push_back("float");
-		m_maximent.push_back(0.0);
-		m_minniment.push_back(0.0);
-		m_default_val.push_back(0.0);
-		m_step_val.push_back(0.0);
-	}
+	
+	void setDialogTable(int _father_macro, CString _type,int _control_marco ,CString _cn_name ,CString _en_name, int _second_marco );
 	void setCheckBox(CString _cn_name ,CString _en_name,int _silder, int _edit ){};
 
-	int getDataIndex(CString _en_name)
-	{
-		for (int i = 0; i < m_en_name.size() ; i++)
-		{
-			if(_en_name == m_en_name.at(i))
-			{
-				return i;
-			}
-		}
-		return -1;
-	}
-
 	afx_msg void OnEditOK();
-	afx_msg void OnBnCheckSwitch();
+	afx_msg void OnCheckBtn();
+
 };
