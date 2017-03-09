@@ -26,6 +26,7 @@ RenderSettings::~RenderSettings()
 void RenderSettings::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_SUN_COLOR_BTN, m_pickColor);
 }
 
 BEGIN_MESSAGE_MAP(RenderSettings, CDialogEx)
@@ -48,6 +49,8 @@ BEGIN_MESSAGE_MAP(RenderSettings, CDialogEx)
 	ON_BN_CLICKED(IDC_SUN_CONTROL, &RenderSettings::OnCheckBtn)
 	ON_BN_CLICKED(IDC_SUN_COLOR_BTN, &RenderSettings::OnBnClickedSunColorBtn)
 	ON_BN_CLICKED(IDC_HDR_FILE_BTN, &RenderSettings::OnBnClickedHdrFileBtn)
+//	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SUN_COLOR_BTN, &RenderSettings::OnNMCustomdrawSunColorBtn)
+	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 
@@ -313,7 +316,7 @@ void RenderSettings::OnCheckBtn()
 }
 
 
-
+//选择颜色
 void RenderSettings::OnBnClickedSunColorBtn()
 {
 	CColorDialog m_setClrDlg;
@@ -322,6 +325,8 @@ void RenderSettings::OnBnClickedSunColorBtn()
 	if(IDOK ==m_setClrDlg.DoModal())
 	{
 		COLORREF color = m_setClrDlg.m_cc.rgbResult;            // 保存用户选择的颜色
+		m_pickColor.Color(color);
+		Invalidate();
 	}
 }
 
@@ -353,3 +358,7 @@ void RenderSettings::OnBnClickedHdrFileBtn()
 		//return "";
 	}
 }
+
+
+
+

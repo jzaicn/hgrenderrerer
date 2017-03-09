@@ -48,7 +48,7 @@ BOOL RenderingDlg::OnInitDialog()
 	settingDlg.GetWindowRect(m_settingDlgRect);
 	
 	GetDlgItem(IDC_SETTING_WIN)->GetWindowRect(m_settingDlgContainerRect);
-
+	ScreenToClient(m_settingDlgContainerRect);
 
 	return TRUE; 
 }
@@ -56,6 +56,7 @@ BOOL RenderingDlg::OnInitDialog()
 
 void RenderingDlg::OnSizing(UINT fwSide, LPRECT pRect)
 {
+	//TODO: ÒÆ¶¯´íÎó£¬»áÆ«ÏÂ
 	CRect winrect;
 	GetWindowRect(winrect);
 	CDialog::OnSizing(fwSide, pRect);

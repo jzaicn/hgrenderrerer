@@ -57,6 +57,9 @@
     <ClCompile Include="XmlHandlePlus.cpp">
       <Filter>外部</Filter>
     </ClCompile>
+    <ClCompile Include="PickColorButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="XmlHandlePlus.h">
       <Filter>外部</Filter>
+    </ClInclude>
+    <ClInclude Include="PickColorButton.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

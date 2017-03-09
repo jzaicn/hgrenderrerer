@@ -5,6 +5,7 @@
 #include <map>
 // RenderSettings ¶Ô»°¿ò
 #include "ElaraHomeAPI.h"
+#include "pickcolorbutton.h"
 
 class RenderSettings : public CDialogEx
 {
@@ -57,5 +58,7 @@ public:
 	afx_msg void OnCheckBtn();
 
 	afx_msg void OnBnClickedSunColorBtn();
-	afx_msg void OnBnClickedHdrFileBtn();
+	afx_msg void OnBnClickedHdrFileBtn();	
+	
+	PickColorButton m_pickColor;
 };

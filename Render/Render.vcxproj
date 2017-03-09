@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ElaraHomeAPI.cpp" />
+    <ClCompile Include="PickColorButton.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="RenderingDlg.cpp" />
     <ClCompile Include="RenderSettings.cpp" />
@@ -120,6 +121,7 @@
   <ItemGroup>
     <ClInclude Include="ElaraHomeAPI.h" />
     <ClInclude Include="Export.h" />
+    <ClInclude Include="PickColorButton.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="RenderingDlg.h" />
     <ClInclude Include="RenderSettings.h" />
