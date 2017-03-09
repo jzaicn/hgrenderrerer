@@ -56,4 +56,6 @@ public:
 	afx_msg void OnEditOK();
 	afx_msg void OnCheckBtn();
 
+	afx_msg void OnBnClickedSunColorBtn();
+	afx_msg void OnBnClickedHdrFileBtn();
 };

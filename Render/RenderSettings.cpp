@@ -46,6 +46,8 @@ BEGIN_MESSAGE_MAP(RenderSettings, CDialogEx)
 	ON_BN_CLICKED(IDC_EXPOUSE_CONTROL, &RenderSettings::OnCheckBtn)
 	ON_BN_CLICKED(IDC_SKY_LIGHT_CONTROL, &RenderSettings::OnCheckBtn)
 	ON_BN_CLICKED(IDC_SUN_CONTROL, &RenderSettings::OnCheckBtn)
+	ON_BN_CLICKED(IDC_SUN_COLOR_BTN, &RenderSettings::OnBnClickedSunColorBtn)
+	ON_BN_CLICKED(IDC_HDR_FILE_BTN, &RenderSettings::OnBnClickedHdrFileBtn)
 END_MESSAGE_MAP()
 
 
@@ -141,13 +143,28 @@ void RenderSettings::initFromSetting()
 		}
 		else if (node.getAttr("type").compare("color") == 0)
 		{
-	
+			CString colorname = node.getAttr("default").c_str();
+
+			for (int i = 0;i<m_cn_name.size();i++)
+			{
+				if (m_type.at(i) == "BUTTON")
+				{
+					if (m_en_name.at(i) == node.getAttr("en_name").c_str())
+					{
+						CButton* colorbtn = (CButton*)(GetDlgItem(m_control_macro.at(i)));
+						
+
+						//colorbtn->SetBitmap();
+						//check->SetCheck((int)defaultval);
+						//OnCheckBtn();
+					}
+				}
+
+			}
 		}
 		else if (node.getAttr("type").compare("combo") == 0)
 		{
-		}
-		else if (node.getAttr("type").compare("color") == 0)
-		{
+			
 		}
 	}
 }
@@ -295,3 +312,44 @@ void RenderSettings::OnCheckBtn()
 	}
 }
 
+
+
+void RenderSettings::OnBnClickedSunColorBtn()
+{
+	CColorDialog m_setClrDlg;
+	m_setClrDlg.m_cc.Flags |= CC_FULLOPEN|CC_RGBINIT;   // CC_RGBINIT可以让上次选择的颜色作为初始颜色显示出来
+	//m_setClrDlg.m_cc.rgbResult = m_clr;        //记录上次选择的颜色
+	if(IDOK ==m_setClrDlg.DoModal())
+	{
+		COLORREF color = m_setClrDlg.m_cc.rgbResult;            // 保存用户选择的颜色
+	}
+}
+
+
+void RenderSettings::OnBnClickedHdrFileBtn()
+{
+	CString fileType = "bmp";
+	char filterBuffer[100];
+	CString filter;
+	filter.Format("%s Files (*.%s)|*.%s|All Files (*.*)|*.*||",fileType,fileType,fileType);
+	//HGTools::Convert2FillChar(filter,filterBuffer);
+
+	//CString fileSaveName;
+	//fileSaveName.Format("%s.%s",defaultname,fileType);
+
+	CFileDialog fileDlg (true, fileType, "",
+		OFN_FILEMUSTEXIST| OFN_HIDEREADONLY, filterBuffer, this);
+	fileDlg.m_ofn.lpstrTitle = "打开HDR文件"; 
+	//fileDlg.m_ofn.lpstrInitialDir = findPath;
+
+
+	if (fileDlg.DoModal() == IDOK)
+	{
+		CString path = fileDlg.GetPathName();
+		//return fileDlg.GetPathName();
+	}
+	else
+	{
+		//return "";
+	}
+}
