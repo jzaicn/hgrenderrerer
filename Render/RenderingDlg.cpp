@@ -30,10 +30,6 @@ BEGIN_MESSAGE_MAP(RenderingDlg, CDialog)
 	ON_WM_MOVE()
 	ON_WM_SIZING()
 	
-	//工具栏
-// 	ON_COMMAND(TB_SAVE, &RenderingDlg::OnSave)						//保存
-// 	ON_COMMAND(TB_ZOOM_ORIGIN, &RenderingDlg::OnZoomOrigin)			//1:1分辨率
-// 	ON_COMMAND(TB_ZOOM_FIT, &RenderingDlg::OnZoomFit)				//适配
 END_MESSAGE_MAP()
 
 
@@ -46,23 +42,33 @@ BOOL RenderingDlg::OnInitDialog()
 
 	afxAmbientActCtx = FALSE;
 
-	// 绑定设置子窗口
+	// 绘图对话框
+	//drawImageDlg.Create(IDD_TOOLBAR_DLG,GetDlgItem(IDC_DRAWIMAGE_WIN));
+	//drawImageDlg.ShowWindow(SW_SHOW);
+	//drawImageDlg.GetWindowRect(m_toolBarDlgRect);
+	GetDlgItem(IDC_DRAWIMAGE_WIN)->GetWindowRect(m_drawImageDlgContainerRect);
+	ScreenToClient(m_drawImageDlgContainerRect);
+
+	// 工具栏对话框
+	toolBarDlg.Create(IDD_TOOLBAR_DLG,GetDlgItem(IDC_TOOLBAR_WIN));
+	toolBarDlg.ShowWindow(SW_SHOW);
+	toolBarDlg.GetWindowRect(m_toolBarDlgRect);
+	GetDlgItem(IDC_TOOLBAR_WIN)->GetWindowRect(m_toolBarDlgContainerRect);
+	ScreenToClient(m_toolBarDlgContainerRect);
+
+	// 图片对话框
+	imageSettingDlg.Create(IDD_IMAGE_DLG,GetDlgItem(IDC_IMAGE_WIN));
+	imageSettingDlg.ShowWindow(SW_SHOW);
+	imageSettingDlg.GetWindowRect(m_imageSettingDlgRect);
+	GetDlgItem(IDC_IMAGE_WIN)->GetWindowRect(m_imageSettingDlgContainerRect);
+	ScreenToClient(m_imageSettingDlgContainerRect);
+
+	// 设置参数对话框
 	paramSettingDlg.Create(IDD_SETTINGDLG,GetDlgItem(IDC_SETTING_WIN));
 	paramSettingDlg.ShowWindow(SW_SHOW);
-	paramSettingDlg.GetWindowRect(m_settingDlgRect);
-	
-	//修改设置窗口位置
-	GetDlgItem(IDC_SETTING_WIN)->GetWindowRect(m_settingDlgContainerRect);
-	ScreenToClient(m_settingDlgContainerRect);
-	GetDlgItem(IDC_SETTING_WIN)->MoveWindow(m_settingDlgContainerRect);
-
-	//图片属性设置窗口
-	imageSettingDlg.Create(IDD_IMAGEDLG,GetDlgItem(IDC_IMAGE_SETTINGS));
-	imageSettingDlg.ShowWindow(SW_SHOW);
-	imageSettingDlg.GetWindowRect(m_imageDlgRect);
-	GetDlgItem(IDC_IMAGE_SETTINGS)->GetWindowRect(m_imageDlgContainerRect);
-	ScreenToClient(m_imageDlgContainerRect);
-	GetDlgItem(IDC_IMAGE_SETTINGS)->MoveWindow(m_imageDlgContainerRect);
+	paramSettingDlg.GetWindowRect(m_paramSettingDlgRect);
+	GetDlgItem(IDC_SETTING_WIN)->GetWindowRect(m_paramSettingDlgContainerRect);
+	ScreenToClient(m_paramSettingDlgContainerRect);
 
 
 	//创建状态栏
@@ -70,8 +76,8 @@ BOOL RenderingDlg::OnInitDialog()
     GetClientRect(statusRect);
     if(!m_wndStatusBar.Create(this)|| !m_wndStatusBar.SetIndicators(indicators,sizeof(indicators)/sizeof(UINT))) return false;
     m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);// 调整状态栏的位置和大小
-	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_settingDlgContainerRect.Width());
-	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_settingDlgContainerRect.Width());
+	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
+	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
 	m_wndStatusBar.SetPaneText(0,"准备就绪");
 	m_wndStatusBar.SetPaneText(1,"当前缩放比：100%");
 
@@ -92,43 +98,41 @@ void RenderingDlg::OnSizing(UINT fwSide, LPRECT pRect)
 	offset.top = pRect->top - winrect.top;
 	offset.bottom = pRect->bottom - winrect.bottom;
 	
-
-
-	//移动属性窗口
-	m_settingDlgContainerRect.left += offset.right;
-	m_settingDlgContainerRect.right += offset.right;
-	m_settingDlgContainerRect.top += offset.top;
-	m_settingDlgContainerRect.bottom += offset.bottom;
-	GetDlgItem(IDC_SETTING_WIN)->MoveWindow(m_settingDlgContainerRect);
+	//移动图片窗口
+	m_drawImageDlgContainerRect.left = 0;
+	m_drawImageDlgContainerRect.right += offset.right;
+	m_drawImageDlgContainerRect.top += 0;
+	m_drawImageDlgContainerRect.bottom += offset.bottom;
+	GetDlgItem(IDC_DRAWIMAGE_WIN)->MoveWindow(m_drawImageDlgContainerRect);
 
 	//移动图片窗口
-	m_imageDlgContainerRect.left += offset.right;
-	m_imageDlgContainerRect.right += offset.right;
-	m_imageDlgContainerRect.top += offset.top;
-	m_imageDlgContainerRect.bottom += offset.top;
-	GetDlgItem(IDC_IMAGE_SETTINGS)->MoveWindow(m_imageDlgContainerRect);
+	m_toolBarDlgContainerRect.left = 0;
+	m_toolBarDlgContainerRect.right += offset.right;
+	m_toolBarDlgContainerRect.top += 0;
+	m_toolBarDlgContainerRect.bottom += offset.top;
+	GetDlgItem(IDC_TOOLBAR_WIN)->MoveWindow(m_toolBarDlgContainerRect);
+
+	//移动图片窗口
+	m_imageSettingDlgContainerRect.left += offset.right;
+	m_imageSettingDlgContainerRect.right += offset.right;
+	m_imageSettingDlgContainerRect.top += offset.top;
+	m_imageSettingDlgContainerRect.bottom += offset.top;
+	GetDlgItem(IDC_IMAGE_WIN)->MoveWindow(m_imageSettingDlgContainerRect);
+
+	//移动属性窗口
+	m_paramSettingDlgContainerRect.left += offset.right;
+	m_paramSettingDlgContainerRect.right += offset.right;
+	m_paramSettingDlgContainerRect.top += offset.top;
+	m_paramSettingDlgContainerRect.bottom += offset.bottom;
+	GetDlgItem(IDC_SETTING_WIN)->MoveWindow(m_paramSettingDlgContainerRect);
+
 
 	//移动状态栏
 	CRect statusRect;
     GetClientRect(statusRect);
 	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
-	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_settingDlgContainerRect.Width());
-	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_settingDlgContainerRect.Width());
+	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
+	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
 
 	Invalidate(TRUE);
-}
-
-void RenderingDlg::OnSave()
-{
-	MessageBox("OnSave");
-}
-
-void RenderingDlg::OnZoomOrigin()
-{
-	MessageBox("OnZoomOrigin");
-}
-
-void RenderingDlg::OnZoomFit()
-{
-	MessageBox("OnZoomFit");
 }

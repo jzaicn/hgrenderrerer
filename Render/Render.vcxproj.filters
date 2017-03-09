@@ -75,6 +75,9 @@
     <ClCompile Include="ImageSettings.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="RenderToolBar.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render.h">
@@ -111,6 +114,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ImageSettings.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderToolBar.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

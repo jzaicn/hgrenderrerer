@@ -13,7 +13,7 @@ public:
 	virtual ~ImageSettings();
 
 // 对话框数据
-	enum { IDD = IDD_IMAGEDLG };
+	enum { IDD = IDD_IMAGE_DLG };
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持

@@ -3,6 +3,7 @@
 // RenderingDlg 对话框
 #include "RenderSettings.h"
 #include "ImageSettings.h"
+#include "RenderToolBar.h"
 
 class RenderingDlg : public CDialog
 {
@@ -26,12 +27,25 @@ private:
 	CScrollBar m_settingScroll;				// 子窗口滚动条
 
 
-	CRect m_settingDlgContainerRect;		// 子窗口包围区域
-	CRect m_imageDlgContainerRect;		// 子窗口包围区域
-	CRect m_settingDlgRect;					// 子窗口对话框区域
-	CRect m_imageDlgRect;					// 子窗口对话框区域
-	RenderSettings paramSettingDlg;			// 属性配置对话框
+	//RenderToolBar drawImageDlg;				// 绘图对话框
+	CRect m_drawImageDlgRect;				// 绘图对话框区域
+	CRect m_drawImageDlgContainerRect;		// 绘图包围区域
+
+	RenderToolBar toolBarDlg;				// 工具栏对话框
+	CRect m_toolBarDlgRect;					// 工具栏对话框区域
+	CRect m_toolBarDlgContainerRect;		// 工具栏包围区域
+
+
 	ImageSettings imageSettingDlg;			// 图片配置对话框
+	CRect m_imageSettingDlgRect;			// 图片配置对话框区域
+	CRect m_imageSettingDlgContainerRect;	// 图片配置包围区域
+
+
+	RenderSettings paramSettingDlg;			// 属性配置对话框
+	CRect m_paramSettingDlgRect;			// 属性配置对话框区域
+	CRect m_paramSettingDlgContainerRect;	// 属性配置包围区域
+
+
 
 	static UINT indicators[];				//状态栏文字
 	CStatusBar   m_wndStatusBar;			//状态栏
@@ -39,7 +53,4 @@ private:
 	
 public:
 	afx_msg void OnSizing(UINT fwSide, LPRECT pRect);
-	afx_msg void OnSave();
-	afx_msg void OnZoomOrigin();
-	afx_msg void OnZoomFit();
 };
