@@ -2,6 +2,7 @@
 #include "resource.h"
 // RenderingDlg 对话框
 #include "RenderSettings.h"
+#include "ImageSettings.h"
 
 class RenderingDlg : public CDialog
 {
@@ -23,15 +24,22 @@ public:
 
 private:	
 	CScrollBar m_settingScroll;				// 子窗口滚动条
+
+
 	CRect m_settingDlgContainerRect;		// 子窗口包围区域
+	CRect m_imageDlgContainerRect;		// 子窗口包围区域
 	CRect m_settingDlgRect;					// 子窗口对话框区域
-	RenderSettings settingDlg;				// 属性配置对话框
+	CRect m_imageDlgRect;					// 子窗口对话框区域
+	RenderSettings paramSettingDlg;			// 属性配置对话框
+	ImageSettings imageSettingDlg;			// 图片配置对话框
 
 	static UINT indicators[];				//状态栏文字
 	CStatusBar   m_wndStatusBar;			//状态栏
 	
-	CToolBar m_wndToolbar;
 	
 public:
 	afx_msg void OnSizing(UINT fwSide, LPRECT pRect);
+	afx_msg void OnSave();
+	afx_msg void OnZoomOrigin();
+	afx_msg void OnZoomFit();
 };

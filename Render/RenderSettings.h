@@ -61,4 +61,6 @@ public:
 	afx_msg void OnBnClickedHdrFileBtn();	
 	
 	PickColorButton m_pickColor;
+	virtual void OnOK();
+	virtual void OnCancel();
 };
