@@ -28,6 +28,9 @@
     <Filter Include="Frame">
       <UniqueIdentifier>{30335a8f-07c4-44e5-84ac-c123b015c555}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Logic">
+      <UniqueIdentifier>{765c2231-57da-42ee-8042-23afed430111}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
