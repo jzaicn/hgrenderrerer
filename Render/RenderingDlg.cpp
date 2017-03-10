@@ -6,6 +6,8 @@
 #include "RenderingDlg.h"
 #include "afxdialogex.h"
 
+#pragma comment(lib,"HgLog.lib")
+#pragma comment(lib,"log4cpp.lib")
 
 // RenderingDlg ¶Ô»°¿ò
 
@@ -60,6 +62,7 @@ BOOL RenderingDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
+	HgLog::HgLog::initDebugLogCategory();
 	ShareHwnd(m_hWnd);
 	afxAmbientActCtx = FALSE;
 
@@ -151,4 +154,8 @@ void RenderingDlg::OnSizing(UINT fwSide, LPRECT pRect)
 	Invalidate(TRUE);
 }
 
+LRESULT RenderingDlg::OnSaveImage(WPARAM w,LPARAM l)
+{
+	return 0;
+}
 

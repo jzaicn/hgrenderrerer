@@ -6,7 +6,7 @@
 #include "ImageSettings.h"
 #include "RenderToolBar.h"
 #include "DisplayResult.h"
-
+#include "HgLog/HgLog.h"
 
 class RenderingDlg : public DialogPlus
 {
@@ -59,7 +59,7 @@ public:
 	void OnCancel()	{	CDialogEx::OnCancel();	};
 
 	// 打开图像
-	afx_msg virtual LRESULT OnSaveImage(WPARAM w,LPARAM l){ MessageBox("plus save"); return 0;};
+	afx_msg virtual LRESULT OnSaveImage(WPARAM w,LPARAM l);;
 	// 保存图像
 	afx_msg virtual LRESULT OnLoadImage(WPARAM w,LPARAM l){return 0;};
 	// 退出

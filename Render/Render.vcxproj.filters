@@ -96,6 +96,9 @@
     <ClCompile Include="RenderingDlg.cpp">
       <Filter>Viewer</Filter>
     </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ElaraHomeAPI.h">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="RenderingDlg.h">
       <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -117,6 +117,7 @@
     <ClCompile Include="PickColorButton.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="RenderingDlg.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="RenderSettings.cpp" />
     <ClCompile Include="RenderToolBar.cpp" />
     <ClCompile Include="RenderUI.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="PickColorButton.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="RenderingDlg.h" />
+    <ClInclude Include="RenderManager.h" />
     <ClInclude Include="RenderSettings.h" />
     <ClInclude Include="RenderToolBar.h" />
     <ClInclude Include="RenderUI.h" />
