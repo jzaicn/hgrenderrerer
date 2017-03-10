@@ -156,6 +156,16 @@ void RenderingDlg::OnSizing(UINT fwSide, LPRECT pRect)
 
 LRESULT RenderingDlg::OnSaveImage(WPARAM w,LPARAM l)
 {
+	CString m_saveImagePath;
+	RenderManager::getInstance().saveImage(m_saveImagePath);
+	return 0;
+}
+
+LRESULT RenderingDlg::OnBegin(WPARAM w,LPARAM l)
+{
+	//RenderManager::getInstance();
+
+
 	return 0;
 }
 

@@ -91,7 +91,7 @@ public:
 	// ∂¡»°≈‰÷√
 	afx_msg virtual LRESULT OnLoadSettings(WPARAM w,LPARAM l){return 0;};
 	// ‰÷»æø™ º
-	afx_msg virtual LRESULT OnBegin(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnBegin(WPARAM w,LPARAM l);;
 	// ‰÷»æÕ£÷π
 	afx_msg virtual LRESULT OnStop(WPARAM w,LPARAM l){return 0;};
 	// ‰÷»æÕ£÷π

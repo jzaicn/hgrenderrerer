@@ -37,14 +37,15 @@ private:
 public:
 	EH_Sun* create();	
 	
-	EH_Sun Sun() 
+	EH_Sun* Sun() 
 	{
-		saveToSun(m_sun);
+		saveToSun(*m_sun);
 		return m_sun; 
 	}
-	void Sun(EH_Sun val) 
+	void Sun(EH_Sun* val) 
 	{
-		loadFromSun(val);
+		m_sun = val;
+		loadFromSun(*m_sun);
 	}
 
 	void saveToSun(_Out_ EH_Sun& sun);
@@ -52,6 +53,6 @@ public:
 	void loadFromSun(const EH_Sun& sun);
 
 private:
-	EH_Sun m_sun;
+	EH_Sun* m_sun;
 };
 

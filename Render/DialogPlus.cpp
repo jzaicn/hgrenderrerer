@@ -5,6 +5,8 @@ IMPLEMENT_DYNAMIC(DialogPlus, CDialogEx)
 
 HWND DialogPlus::m_shareHwnd;
 
+CString DialogPlus::m_saveImagePath;
+
 DialogPlus::DialogPlus(void):CDialogEx()
 {
 }

@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "HG_Sun.h"
 
+#include <stdexcept>
 
 HG_Sun::HG_Sun(void)
 {
@@ -11,17 +12,25 @@ HG_Sun::HG_Sun(void)
 	m_angle = 0.0;
 	m_height = 20.0;
 	
-	saveToSun(m_sun);
+	m_sun = create();
 }
 
 
 HG_Sun::~HG_Sun(void)
 {
+	if (m_sun)
+	{
+		free(m_sun);
+	}
 }
 
 EH_Sun* HG_Sun::create()
 {
 	EH_Sun* sun = (EH_Sun*)(malloc(sizeof(EH_Sun)));
+	if (!m_sun)
+	{
+		throw std::runtime_error("EH_Sun´´½¨Ê§°Ü");
+	}
 	memset(sun,0,sizeof(EH_Sun));
 	saveToSun(*sun);
 	return sun;

@@ -112,6 +112,8 @@
     <ClCompile Include="DialogPlus.cpp" />
     <ClCompile Include="DisplayResult.cpp" />
     <ClCompile Include="ElaraHomeAPI.cpp" />
+    <ClCompile Include="HG_Core.cpp" />
+    <ClCompile Include="HG_OtherSettings.cpp" />
     <ClCompile Include="HG_Sun.cpp" />
     <ClCompile Include="ImageSettings.cpp" />
     <ClCompile Include="PickColorButton.cpp" />
@@ -132,6 +134,8 @@
     <ClInclude Include="DisplayResult.h" />
     <ClInclude Include="ElaraHomeAPI.h" />
     <ClInclude Include="Export.h" />
+    <ClInclude Include="HG_Core.h" />
+    <ClInclude Include="HG_OtherSettings.h" />
     <ClInclude Include="HG_Sun.h" />
     <ClInclude Include="ImageSettings.h" />
     <ClInclude Include="PickColorButton.h" />

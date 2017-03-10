@@ -44,17 +44,28 @@ public:
 	DialogPlus(LPCTSTR lpszTemplateName, CWnd *pParentWnd = NULL);
 	~DialogPlus(void);
 
+//////////////////////////////////////////////////////////////////////////
+// 功能函数
+public:
 	void SetBtnImage(int _btn_marco,int _res_marco);
 	virtual void OnOK();
 	virtual void OnCancel();
 	CRect getOffset(UINT fwSide, LPRECT pRect);
+	
+
+	//////////////////////////////////////////////////////////////////////////
+	// 公共数据
+public:
 	HWND ShareHwnd() const { return m_shareHwnd; }
 	void ShareHwnd(HWND val) { m_shareHwnd = val; }
 
+	CString SaveImagePath() const { return m_saveImagePath; }
+	void SaveImagePath(CString val) { m_saveImagePath = val; }
 private:
 	static HWND m_shareHwnd;
+	
+	static CString m_saveImagePath;
 
-public:
 
 };
 
