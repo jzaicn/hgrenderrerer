@@ -1,10 +1,10 @@
 #pragma once
 #include "afxwin.h"
-
+#include "DialogPlus.h"
 
 // ImageSetting ¶Ô»°¿ò
 
-class ImageSettings : public CDialogEx
+class ImageSettings : public DialogPlus
 {
 	DECLARE_DYNAMIC(ImageSettings)
 
@@ -26,8 +26,4 @@ public:
 	CComboBox m_ImageSize;
 	virtual BOOL OnInitDialog();
 
-	void SetBtnImage(int _btn_marco,int _res_marco);
-
-	virtual void OnOK();
-	virtual void OnCancel();
 };

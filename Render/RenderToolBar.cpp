@@ -12,7 +12,7 @@
 IMPLEMENT_DYNAMIC(RenderToolBar, CDialogEx)
 
 RenderToolBar::RenderToolBar(CWnd* pParent /*=NULL*/)
-	: CDialogEx(RenderToolBar::IDD, pParent)
+	: DialogPlus(RenderToolBar::IDD, pParent)
 {
 
 }
@@ -27,12 +27,6 @@ void RenderToolBar::DoDataExchange(CDataExchange* pDX)
 }
 
 
-void RenderToolBar::SetBtnImage(int _btn_marco,int _res_marco)
-{
-	HBITMAP   hBitmap;   
-	hBitmap = LoadBitmap(AfxGetInstanceHandle(),MAKEINTRESOURCE(_res_marco)); // IDB_BITMAP_TESTΪ��ԴͼƬID 
-	((CButton *)GetDlgItem(_btn_marco))->SetBitmap(hBitmap);
-}
 
 BEGIN_MESSAGE_MAP(RenderToolBar, CDialogEx)
 END_MESSAGE_MAP()

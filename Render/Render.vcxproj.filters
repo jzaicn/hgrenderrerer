@@ -19,16 +19,19 @@
     <Filter Include="Model">
       <UniqueIdentifier>{783bac14-064c-461f-91e6-66fdd8ccacc1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Viewer">
+      <UniqueIdentifier>{72b207e1-060c-4140-8827-29cbf20d302f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugs">
+      <UniqueIdentifier>{a5ee2981-d24b-48b8-b00c-d648c660777e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Frame">
+      <UniqueIdentifier>{30335a8f-07c4-44e5-84ac-c123b015c555}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
-    <None Include="Render.def">
-      <Filter>源文件</Filter>
-    </None>
     <None Include="res\Render.rc2">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="icon1.ico">
       <Filter>资源文件</Filter>
     </None>
     <None Include="ImageBegin.bmp">
@@ -46,78 +49,93 @@
     <None Include="ImageZoomOrigin.bmp">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="Render.def">
+      <Filter>Frame</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Render.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderingDlg.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderUI.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="ElaraHomeAPI.cpp">
       <Filter>外部</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderSettings.cpp">
-      <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="XmlHandlePlus.cpp">
       <Filter>外部</Filter>
     </ClCompile>
     <ClCompile Include="PickColorButton.cpp">
-      <Filter>源文件</Filter>
+      <Filter>Plugs</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayResult.cpp">
+      <Filter>Viewer</Filter>
     </ClCompile>
     <ClCompile Include="ImageSettings.cpp">
-      <Filter>源文件</Filter>
+      <Filter>Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSettings.cpp">
+      <Filter>Viewer</Filter>
     </ClCompile>
     <ClCompile Include="RenderToolBar.cpp">
-      <Filter>源文件</Filter>
+      <Filter>Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingDlg.cpp">
+      <Filter>Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="Render.cpp">
+      <Filter>Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUI.cpp">
+      <Filter>Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogPlus.cpp">
+      <Filter>Viewer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Render.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderingDlg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Export.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderUI.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="ElaraHomeAPI.h">
       <Filter>外部</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderSettings.h">
-      <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="XmlHandlePlus.h">
       <Filter>外部</Filter>
     </ClInclude>
-    <ClInclude Include="PickColorButton.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="DisplayResult.h">
+      <Filter>Viewer</Filter>
     </ClInclude>
-    <ClInclude Include="ImageSettings.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="PickColorButton.h">
+      <Filter>Plugs</Filter>
     </ClInclude>
     <ClInclude Include="RenderToolBar.h">
-      <Filter>头文件</Filter>
+      <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageSettings.h">
+      <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingDlg.h">
+      <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSettings.h">
+      <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="Export.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="Render.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUI.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogPlus.h">
+      <Filter>Viewer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

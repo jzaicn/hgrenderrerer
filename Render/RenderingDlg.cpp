@@ -12,7 +12,7 @@
 IMPLEMENT_DYNAMIC(RenderingDlg, CDialog)
 
 RenderingDlg::RenderingDlg(CWnd* pParent /*=NULL*/)
-	: CDialog(RenderingDlg::IDD, pParent)
+	: DialogPlus(RenderingDlg::IDD, pParent)
 {
 }
 
@@ -43,11 +43,11 @@ BOOL RenderingDlg::OnInitDialog()
 	afxAmbientActCtx = FALSE;
 
 	// 绘图对话框
-	//drawImageDlg.Create(IDD_TOOLBAR_DLG,GetDlgItem(IDC_DRAWIMAGE_WIN));
-	//drawImageDlg.ShowWindow(SW_SHOW);
-	//drawImageDlg.GetWindowRect(m_toolBarDlgRect);
-	GetDlgItem(IDC_DRAWIMAGE_WIN)->GetWindowRect(m_drawImageDlgContainerRect);
-	ScreenToClient(m_drawImageDlgContainerRect);
+	displayResultDlg.Create(IDD_DISPLAY_DLG,GetDlgItem(IDC_DISPLAYRESULT_WIN));
+	displayResultDlg.ShowWindow(SW_SHOW);
+	displayResultDlg.GetWindowRect(m_toolBarDlgRect);
+	GetDlgItem(IDC_DISPLAYRESULT_WIN)->GetWindowRect(m_displayResultDlgContainerRect);
+	ScreenToClient(m_displayResultDlgContainerRect);
 
 	// 工具栏对话框
 	toolBarDlg.Create(IDD_TOOLBAR_DLG,GetDlgItem(IDC_TOOLBAR_WIN));
@@ -87,28 +87,20 @@ BOOL RenderingDlg::OnInitDialog()
 
 void RenderingDlg::OnSizing(UINT fwSide, LPRECT pRect)
 {
-	CRect winrect;
-	GetWindowRect(winrect);
+	CRect offset = getOffset(fwSide,pRect);
 	CDialog::OnSizing(fwSide, pRect);
-	CRect rect(pRect->left,pRect->top,pRect->left,pRect->bottom);
-	
-	CRect offset(0,0,0,0);
-	offset.left = pRect->left - winrect.left;
-	offset.right = pRect->right - winrect.right;
-	offset.top = pRect->top - winrect.top;
-	offset.bottom = pRect->bottom - winrect.bottom;
 	
 	//移动图片窗口
-	m_drawImageDlgContainerRect.left = 0;
-	m_drawImageDlgContainerRect.right += offset.right;
-	m_drawImageDlgContainerRect.top += 0;
-	m_drawImageDlgContainerRect.bottom += offset.bottom;
-	GetDlgItem(IDC_DRAWIMAGE_WIN)->MoveWindow(m_drawImageDlgContainerRect);
+	m_displayResultDlgContainerRect.left += offset.left;
+	m_displayResultDlgContainerRect.right += offset.right;
+	m_displayResultDlgContainerRect.top += offset.top;
+	m_displayResultDlgContainerRect.bottom += offset.bottom;
+	GetDlgItem(IDC_DISPLAYRESULT_WIN)->MoveWindow(m_displayResultDlgContainerRect);
 
-	//移动图片窗口
-	m_toolBarDlgContainerRect.left = 0;
+	//工具栏窗口
+	m_toolBarDlgContainerRect.left += offset.left;
 	m_toolBarDlgContainerRect.right += offset.right;
-	m_toolBarDlgContainerRect.top += 0;
+	m_toolBarDlgContainerRect.top += offset.top;
 	m_toolBarDlgContainerRect.bottom += offset.top;
 	GetDlgItem(IDC_TOOLBAR_WIN)->MoveWindow(m_toolBarDlgContainerRect);
 

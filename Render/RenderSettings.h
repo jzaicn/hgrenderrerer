@@ -6,8 +6,9 @@
 // RenderSettings ¶Ô»°¿ò
 #include "ElaraHomeAPI.h"
 #include "pickcolorbutton.h"
+#include "DialogPlus.h"
 
-class RenderSettings : public CDialogEx
+class RenderSettings : public DialogPlus
 {
 	DECLARE_DYNAMIC(RenderSettings)
 
@@ -61,6 +62,4 @@ public:
 	afx_msg void OnBnClickedHdrFileBtn();	
 	
 	PickColorButton m_pickColor;
-	virtual void OnOK();
-	virtual void OnCancel();
 };

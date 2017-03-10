@@ -14,7 +14,7 @@
 IMPLEMENT_DYNAMIC(RenderSettings, CDialogEx)
 
 RenderSettings::RenderSettings(CWnd* pParent /*=NULL*/)
-	: CDialogEx(RenderSettings::IDD, pParent)
+	: DialogPlus(RenderSettings::IDD, pParent)
 {
 
 }
@@ -362,19 +362,3 @@ void RenderSettings::OnBnClickedHdrFileBtn()
 
 
 
-
-
-void RenderSettings::OnOK()
-{
-	// TODO: 在此添加专用代码和/或调用基类
-
-	//CDialogEx::OnOK();
-}
-
-
-void RenderSettings::OnCancel()
-{
-	// TODO: 在此添加专用代码和/或调用基类
-
-	//CDialogEx::OnCancel();
-}

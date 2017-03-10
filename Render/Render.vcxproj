@@ -99,7 +99,6 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="icon1.ico" />
     <None Include="ImageBegin.bmp" />
     <None Include="ImageSave.bmp" />
     <None Include="ImageSettings.bmp" />
@@ -110,6 +109,8 @@
     <None Include="res\Render.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DialogPlus.cpp" />
+    <ClCompile Include="DisplayResult.cpp" />
     <ClCompile Include="ElaraHomeAPI.cpp" />
     <ClCompile Include="ImageSettings.cpp" />
     <ClCompile Include="PickColorButton.cpp" />
@@ -125,6 +126,8 @@
     <ClCompile Include="XmlHandlePlus.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DialogPlus.h" />
+    <ClInclude Include="DisplayResult.h" />
     <ClInclude Include="ElaraHomeAPI.h" />
     <ClInclude Include="Export.h" />
     <ClInclude Include="ImageSettings.h" />

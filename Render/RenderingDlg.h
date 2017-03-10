@@ -1,11 +1,14 @@
 #pragma once
 #include "resource.h"
 // RenderingDlg 对话框
+#include "DialogPlus.h"
 #include "RenderSettings.h"
 #include "ImageSettings.h"
 #include "RenderToolBar.h"
+#include "DisplayResult.h"
 
-class RenderingDlg : public CDialog
+
+class RenderingDlg : public DialogPlus
 {
 	DECLARE_DYNAMIC(RenderingDlg)
 
@@ -27,9 +30,9 @@ private:
 	CScrollBar m_settingScroll;				// 子窗口滚动条
 
 
-	//RenderToolBar drawImageDlg;				// 绘图对话框
-	CRect m_drawImageDlgRect;				// 绘图对话框区域
-	CRect m_drawImageDlgContainerRect;		// 绘图包围区域
+	DisplayResult displayResultDlg;				// 绘图对话框
+	CRect m_displayResultDlgRect;				// 绘图对话框区域
+	CRect m_displayResultDlgContainerRect;		// 绘图包围区域
 
 	RenderToolBar toolBarDlg;				// 工具栏对话框
 	CRect m_toolBarDlgRect;					// 工具栏对话框区域
@@ -53,4 +56,5 @@ private:
 	
 public:
 	afx_msg void OnSizing(UINT fwSide, LPRECT pRect);
+	void OnCancel()	{	CDialogEx::OnCancel();	};
 };

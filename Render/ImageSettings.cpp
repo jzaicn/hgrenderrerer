@@ -12,7 +12,7 @@
 IMPLEMENT_DYNAMIC(ImageSettings, CDialogEx)
 
 ImageSettings::ImageSettings(CWnd* pParent /*=NULL*/)
-	: CDialogEx(ImageSettings::IDD, pParent)
+	: DialogPlus(ImageSettings::IDD, pParent)
 {
 
 }
@@ -77,27 +77,4 @@ BOOL ImageSettings::OnInitDialog()
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
-}
-
-
-void ImageSettings::SetBtnImage(int _btn_marco,int _res_marco)
-{
-	HBITMAP   hBitmap;   
-	hBitmap = LoadBitmap(AfxGetInstanceHandle(),MAKEINTRESOURCE(_res_marco)); // IDB_BITMAP_TEST为资源图片ID 
-	((CButton *)GetDlgItem(_btn_marco))->SetBitmap(hBitmap);
-}
-
-void ImageSettings::OnOK()
-{
-	// TODO: 在此添加专用代码和/或调用基类
-
-	//CDialogEx::OnOK();
-}
-
-
-void ImageSettings::OnCancel()
-{
-	// TODO: 在此添加专用代码和/或调用基类
-
-	//CDialogEx::OnCancel();
 }

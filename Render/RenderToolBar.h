@@ -1,9 +1,9 @@
 #pragma once
-
+#include "DialogPlus.h"
 
 // RenderToolBar 对话框
 
-class RenderToolBar : public CDialogEx
+class RenderToolBar : public DialogPlus
 {
 	DECLARE_DYNAMIC(RenderToolBar)
 
@@ -16,8 +16,6 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
-
-	void SetBtnImage(int _btn_marco,int _res_marco);
 
 	DECLARE_MESSAGE_MAP()
 public:
