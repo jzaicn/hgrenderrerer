@@ -20,4 +20,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedSaveBtn();
+	afx_msg void OnBnClickedZoomOriginBtn();
+	afx_msg void OnBnClickedZoomFitBtn();
 };

@@ -14,6 +14,7 @@ IMPLEMENT_DYNAMIC(RenderingDlg, CDialog)
 RenderingDlg::RenderingDlg(CWnd* pParent /*=NULL*/)
 	: DialogPlus(RenderingDlg::IDD, pParent)
 {
+	
 }
 
 RenderingDlg::~RenderingDlg()
@@ -30,6 +31,25 @@ BEGIN_MESSAGE_MAP(RenderingDlg, CDialog)
 	ON_WM_MOVE()
 	ON_WM_SIZING()
 	
+	ON_MESSAGE(RENDER_SAVE_IMAGE,&RenderingDlg::OnSaveImage)	// 打开图像
+	ON_MESSAGE(RENDER_LOAD_IMAGE,&RenderingDlg::OnLoadImage)	// 保存图像
+	ON_MESSAGE(RENDER_EXIT,&RenderingDlg::OnExit)	// 退出
+	ON_MESSAGE(RENDER_ZOOM_ORIGIN_IMAGE,&RenderingDlg::OnZoomOriginImage)	// 缩放图像到原始尺寸
+	ON_MESSAGE(RENDER_ZOOM_FIT_IMAGE,&RenderingDlg::OnZoomFitImage)	// 缩放图像到适应窗口
+	ON_MESSAGE(RENDER_ZOOM_IN_IMAGE,&RenderingDlg::OnZoomInImage)	// 放大图像
+	ON_MESSAGE(RENDER_ZOOM_OUT_IMAGE,&RenderingDlg::OnZoomOutImage)	// 缩小图像
+	ON_MESSAGE(RENDER_TOOLBAR_SHOW_HIDE,&RenderingDlg::OnToolbarShowHide)	// 工具栏 隐藏/显示
+	ON_MESSAGE(RENDER_DISPLAY_SHOW_HIDE,&RenderingDlg::OnDisplayShowHide)	// 渲染效果配置  隐藏/显示
+	ON_MESSAGE(RENDER_STATUS_SHOW_HIDE,&RenderingDlg::OnStatusShowHide)	// 状态栏  隐藏/显示
+	ON_MESSAGE(RENDER_DEFAULT_LAYOUT,&RenderingDlg::OnDefaultLayout)	// 恢复默认布局 
+	ON_MESSAGE(RENDER_SAVE_LAYOUT,&RenderingDlg::OnSaveLayout)	// 保存布局 
+	ON_MESSAGE(RENDER_LOAD_LAYOUT,&RenderingDlg::OnLoadLayout)	// 恢复布局 
+	ON_MESSAGE(RENDER_HELP,&RenderingDlg::OnHelp)	// 帮助
+	ON_MESSAGE(RENDER_SAVE_SETTINGS,&RenderingDlg::OnSaveSettings)	// 保存配置
+	ON_MESSAGE(RENDER_LOAD_SETTINGS,&RenderingDlg::OnLoadSettings)	// 读取配置
+	ON_MESSAGE(RENDER_BEGIN,&RenderingDlg::OnBegin)	// 渲染开始
+	ON_MESSAGE(RENDER_STOP,&RenderingDlg::OnStop)	// 渲染停止
+	ON_MESSAGE(RENDER_DONE,&RenderingDlg::OnDone)	// 渲染停止
 END_MESSAGE_MAP()
 
 
@@ -40,7 +60,7 @@ BOOL RenderingDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	afxAmbientActCtx = FALSE;
+	ShareHwnd(m_hWnd);
 
 	// 绘图对话框
 	displayResultDlg.Create(IDD_DISPLAY_DLG,GetDlgItem(IDC_DISPLAYRESULT_WIN));
@@ -129,3 +149,5 @@ void RenderingDlg::OnSizing(UINT fwSide, LPRECT pRect)
 
 	Invalidate(TRUE);
 }
+
+

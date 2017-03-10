@@ -78,9 +78,6 @@
     <ClCompile Include="RenderToolBar.cpp">
       <Filter>Viewer</Filter>
     </ClCompile>
-    <ClCompile Include="RenderingDlg.cpp">
-      <Filter>Viewer</Filter>
-    </ClCompile>
     <ClCompile Include="Render.cpp">
       <Filter>Frame</Filter>
     </ClCompile>
@@ -91,6 +88,12 @@
       <Filter>Frame</Filter>
     </ClCompile>
     <ClCompile Include="DialogPlus.cpp">
+      <Filter>Viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Sun.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingDlg.cpp">
       <Filter>Viewer</Filter>
     </ClCompile>
   </ItemGroup>
@@ -111,9 +114,6 @@
       <Filter>Viewer</Filter>
     </ClInclude>
     <ClInclude Include="ImageSettings.h">
-      <Filter>Viewer</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderingDlg.h">
       <Filter>Viewer</Filter>
     </ClInclude>
     <ClInclude Include="RenderSettings.h">
@@ -138,6 +138,12 @@
       <Filter>Frame</Filter>
     </ClInclude>
     <ClInclude Include="DialogPlus.h">
+      <Filter>Viewer</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Sun.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingDlg.h">
       <Filter>Viewer</Filter>
     </ClInclude>
   </ItemGroup>

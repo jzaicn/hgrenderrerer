@@ -29,6 +29,9 @@ void RenderToolBar::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(RenderToolBar, CDialogEx)
+	ON_BN_CLICKED(IDC_SAVE_BTN, &RenderToolBar::OnBnClickedSaveBtn)
+	ON_BN_CLICKED(IDC_ZOOM_ORIGIN_BTN, &RenderToolBar::OnBnClickedZoomOriginBtn)
+	ON_BN_CLICKED(IDC_ZOOM_FIT_BTN, &RenderToolBar::OnBnClickedZoomFitBtn)
 END_MESSAGE_MAP()
 
 
@@ -45,4 +48,22 @@ BOOL RenderToolBar::OnInitDialog()
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
+}
+
+
+void RenderToolBar::OnBnClickedSaveBtn()
+{
+	::SendMessage(ShareHwnd(),RENDER_SAVE_IMAGE,NULL,NULL);
+}
+
+
+void RenderToolBar::OnBnClickedZoomOriginBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+
+void RenderToolBar::OnBnClickedZoomFitBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
 }

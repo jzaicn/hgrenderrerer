@@ -1,6 +1,9 @@
 #include "StdAfx.h"
 #include "DialogPlus.h"
 
+IMPLEMENT_DYNAMIC(DialogPlus, CDialogEx)
+
+HWND DialogPlus::m_shareHwnd;
 
 DialogPlus::DialogPlus(void):CDialogEx()
 {
@@ -20,6 +23,14 @@ DialogPlus::DialogPlus(LPCTSTR lpszTemplateName, CWnd *pParentWnd /*= NULL*/):CD
 DialogPlus::~DialogPlus(void)
 {
 }
+
+void DialogPlus::DoDataExchange(CDataExchange* pDX)
+{
+	CDialogEx::DoDataExchange(pDX);
+}
+
+BEGIN_MESSAGE_MAP(DialogPlus, CDialogEx)
+END_MESSAGE_MAP()
 
 void DialogPlus::SetBtnImage(int _btn_marco,int _res_marco)
 {
@@ -52,3 +63,4 @@ CRect DialogPlus::getOffset(UINT fwSide, LPRECT pRect)
 	offset.bottom = pRect->bottom - winrect.bottom;
 	return offset;
 }
+

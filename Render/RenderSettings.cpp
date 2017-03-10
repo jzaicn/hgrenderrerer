@@ -94,7 +94,7 @@ void RenderSettings::initFromSetting()
 			m_step_val.push_back(step);
 
 			//查找相关的表格元素
-			for (int i = 0;i<m_control_macro.size();i++)
+			for (UINT i = 0;i<m_control_macro.size();i++)
 			{
 				if (m_en_name.at(i) == node.getAttr("en_name").c_str())
 				{
@@ -129,7 +129,7 @@ void RenderSettings::initFromSetting()
 		{
 			float defaultval = atof(node.getAttr("default").c_str());
 
-			for (int i = 0;i<m_cn_name.size();i++)
+			for (UINT i = 0;i<m_cn_name.size();i++)
 			{
 				if (m_type.at(i) == "CHECK")
 				{
@@ -151,7 +151,7 @@ void RenderSettings::initFromSetting()
 		}
 		else if (node.getAttr("type").compare("combo") == 0)
 		{
-			for (int i = 0;i<m_cn_name.size();i++)
+			for (UINT i = 0;i<m_cn_name.size();i++)
 			{
 				if (m_type.at(i) == "COMBO")
 				{
@@ -227,7 +227,7 @@ void RenderSettings::initFromTable()
 //拖动拖动条
 void RenderSettings::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
-	for (int i = 0; i < m_control_macro.size() ; i++)
+	for (UINT i = 0; i < m_control_macro.size() ; i++)
 	{
 		if (GetDlgItem(m_control_macro.at(i)) == (CWnd*)pScrollBar)
 		{
@@ -260,7 +260,7 @@ void RenderSettings::setDialogTable(int _father_macro, CString _type,int _contro
 //编辑框 动态更改拖动条，和输入约束
 void RenderSettings::OnEditOK()
 {
-	for (int i = 0; i < m_control_macro.size() ; i++)
+	for (UINT i = 0; i < m_control_macro.size() ; i++)
 	{
 		if (m_type.at(i) == "EDIT")
 		{
@@ -301,13 +301,13 @@ void RenderSettings::OnEditOK()
 //更改选中
 void RenderSettings::OnCheckBtn()
 {
-	for (int fatherIndex = 0; fatherIndex< m_control_macro.size() ; fatherIndex++)
+	for (UINT fatherIndex = 0; fatherIndex< m_control_macro.size() ; fatherIndex++)
 	{
 		if (m_type.at(fatherIndex) == "CHECK")
 		{
 			CButton* check = (CButton*)(GetDlgItem(m_control_macro.at(fatherIndex)));
 
-			for (int childIndex = 0; childIndex< m_control_macro.size() ; childIndex++)
+			for (UINT childIndex = 0; childIndex< m_control_macro.size() ; childIndex++)
 			{
 				if (m_father.at(childIndex) == m_control_macro.at(fatherIndex))
 				{

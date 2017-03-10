@@ -30,6 +30,8 @@ void ImageSettings::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(ImageSettings, CDialogEx)
+	ON_BN_CLICKED(IDC_BEGIN_BTN, &ImageSettings::OnBnClickedBeginBtn)
+	ON_BN_CLICKED(IDC_SETTING_BTN, &ImageSettings::OnBnClickedSettingBtn)
 END_MESSAGE_MAP()
 
 
@@ -77,4 +79,16 @@ BOOL ImageSettings::OnInitDialog()
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
+}
+
+
+void ImageSettings::OnBnClickedBeginBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+
+void ImageSettings::OnBnClickedSettingBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
 }

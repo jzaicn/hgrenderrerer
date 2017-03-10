@@ -26,4 +26,6 @@ public:
 	CComboBox m_ImageSize;
 	virtual BOOL OnInitDialog();
 
+	afx_msg void OnBnClickedBeginBtn();
+	afx_msg void OnBnClickedSettingBtn();
 };
