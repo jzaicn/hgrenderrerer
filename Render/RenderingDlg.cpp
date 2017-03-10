@@ -96,6 +96,7 @@ void RenderingDlg::OnSizing(UINT fwSide, LPRECT pRect)
 	m_displayResultDlgContainerRect.top += offset.top;
 	m_displayResultDlgContainerRect.bottom += offset.bottom;
 	GetDlgItem(IDC_DISPLAYRESULT_WIN)->MoveWindow(m_displayResultDlgContainerRect);
+	displayResultDlg.MoveWindow(0,0,m_displayResultDlgContainerRect.Width(),m_displayResultDlgContainerRect.Height());
 
 	//¹¤¾ßÀ¸´°¿Ú
 	m_toolBarDlgContainerRect.left += offset.left;

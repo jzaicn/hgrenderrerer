@@ -9,7 +9,11 @@
 	<Param cn_name="白平衡" en_name="WhiteBalance" type="float" min="100" max="20000" default="6500" step="10"/>
 	<Param cn_name="天光控制" en_name="SkySwitch" type="bool" min="0" max="1" default="1" step=""/>
 	<Param cn_name="天光强度" en_name="SkyIntensity" type="float" min="0" max="50" default="20" step="0.1"/>
-	<Param cn_name="环境HDR" en_name="HDRFile" type="combo" min="" max="" default="晴天" step=""/>
+	<Param cn_name="环境HDR" en_name="HDRFile" type="combo" min="" max="" default="0" step="">
+		<Option cn_name="晴天" en_name="Sunshine" value="C:\\0.BMP" />
+		<Option cn_name="阴天" en_name="Cloudy" value="C:\\1.BMP" />
+		<Option cn_name="夜晚" en_name="Night" value="C:\\2.BMP" />
+	</Param>
 	<Param cn_name="环境旋转" en_name="HdrRotate" type="float" min="0" max="360" default="0" step="1"/>
 	<Param cn_name="阳光控制" en_name="SunSwitch" type="bool" min="0" max="1" default="1" step=""/>
 	<Param cn_name="阳光强度" en_name="SunIntensity" type="float" min="0" max="50" default="10" step="0.1"/>

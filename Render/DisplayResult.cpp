@@ -29,6 +29,7 @@ void DisplayResult::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(DisplayResult, CDialogEx)
 	ON_WM_SIZING()
+	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 
@@ -38,6 +39,14 @@ END_MESSAGE_MAP()
 void DisplayResult::OnSizing(UINT fwSide, LPRECT pRect)
 {
 	DialogPlus::OnSizing(fwSide, pRect);
+}
 
-	// TODO: 在此处添加消息处理程序代码
+
+void DisplayResult::OnSize(UINT nType, int cx, int cy)
+{
+	DialogPlus::OnSize(nType, cx, cy);
+	CRect rect;
+	GetClientRect(rect);
+	GetDlgItem(IDC_BORDER_WIN)->MoveWindow(rect);
+	
 }
