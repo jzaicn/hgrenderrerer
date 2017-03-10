@@ -61,6 +61,7 @@ BOOL RenderingDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	ShareHwnd(m_hWnd);
+	afxAmbientActCtx = FALSE;
 
 	// »æÍ¼¶Ô»°¿ò
 	displayResultDlg.Create(IDD_DISPLAY_DLG,GetDlgItem(IDC_DISPLAYRESULT_WIN));

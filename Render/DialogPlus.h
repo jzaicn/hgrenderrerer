@@ -18,6 +18,7 @@ public:
 		RENDER_ZOOM_OUT_IMAGE,	// 缩小图像
 		RENDER_TOOLBAR_SHOW_HIDE,	// 工具栏 隐藏/显示
 		RENDER_DISPLAY_SHOW_HIDE,	// 渲染效果配置  隐藏/显示
+		RENDER_SETTINGS_SHOW_HIDE,	// 渲染配置  隐藏/显示
 		RENDER_STATUS_SHOW_HIDE,	// 状态栏  隐藏/显示
 		RENDER_DEFAULT_LAYOUT,	// 恢复默认布局 
 		RENDER_SAVE_LAYOUT,	// 保存布局 
@@ -25,6 +26,7 @@ public:
 		RENDER_HELP,	// 帮助
 		RENDER_SAVE_SETTINGS,	// 保存配置
 		RENDER_LOAD_SETTINGS,	// 读取配置
+		RENDER_CHANGE_SETTINGS,	// 更改配置
 		RENDER_BEGIN,	// 渲染开始
 		RENDER_STOP,	// 渲染停止
 		RENDER_DONE,	// 渲染停止

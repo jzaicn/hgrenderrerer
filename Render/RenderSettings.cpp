@@ -243,6 +243,7 @@ void RenderSettings::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 			}
 		}
 	}
+	::PostMessage(ShareHwnd(),DialogPlus::CMD::RENDER_CHANGE_SETTINGS,NULL,NULL);
 	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
 }
 
@@ -295,6 +296,7 @@ void RenderSettings::OnEditOK()
 			}
 		}
 	}
+	::PostMessage(ShareHwnd(),DialogPlus::CMD::RENDER_CHANGE_SETTINGS,NULL,NULL);
 }
 
 
@@ -316,6 +318,7 @@ void RenderSettings::OnCheckBtn()
 			}
 		}
 	}
+	::PostMessage(ShareHwnd(),DialogPlus::CMD::RENDER_CHANGE_SETTINGS,NULL,NULL);
 }
 
 
@@ -329,6 +332,7 @@ void RenderSettings::OnBnClickedSunColorBtn()
 	{
 		COLORREF color = m_setClrDlg.m_cc.rgbResult;            // 保存用户选择的颜色
 		m_pickColor.Color(color);
+		::PostMessage(ShareHwnd(),DialogPlus::CMD::RENDER_CHANGE_SETTINGS,NULL,NULL);
 		Invalidate();
 	}
 }
@@ -354,7 +358,8 @@ void RenderSettings::OnBnClickedHdrFileBtn()
 	if (fileDlg.DoModal() == IDOK)
 	{
 		CString path = fileDlg.GetPathName();
-		//return fileDlg.GetPathName();
+		
+		::PostMessage(ShareHwnd(),DialogPlus::CMD::RENDER_CHANGE_SETTINGS,NULL,NULL);
 	}
 	else
 	{

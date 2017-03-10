@@ -53,17 +53,17 @@ BOOL RenderToolBar::OnInitDialog()
 
 void RenderToolBar::OnBnClickedSaveBtn()
 {
-	::SendMessage(ShareHwnd(),RENDER_SAVE_IMAGE,NULL,NULL);
+	::PostMessage(ShareHwnd(),DialogPlus::CMD::RENDER_SAVE_IMAGE,NULL,NULL);
 }
 
 
 void RenderToolBar::OnBnClickedZoomOriginBtn()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	::PostMessage(ShareHwnd(),DialogPlus::CMD::RENDER_ZOOM_ORIGIN_IMAGE,NULL,NULL);
 }
 
 
 void RenderToolBar::OnBnClickedZoomFitBtn()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	::PostMessage(ShareHwnd(),DialogPlus::CMD::RENDER_ZOOM_FIT_IMAGE,NULL,NULL);
 }

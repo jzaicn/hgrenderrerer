@@ -84,11 +84,11 @@ BOOL ImageSettings::OnInitDialog()
 
 void ImageSettings::OnBnClickedBeginBtn()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	::PostMessage(ShareHwnd(),DialogPlus::CMD::RENDER_BEGIN,NULL,NULL);
 }
 
 
 void ImageSettings::OnBnClickedSettingBtn()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	::PostMessage(ShareHwnd(),DialogPlus::CMD::RENDER_SETTINGS_SHOW_HIDE,NULL,NULL);
 }
