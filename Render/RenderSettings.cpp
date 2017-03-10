@@ -146,28 +146,31 @@ void RenderSettings::initFromSetting()
 		}
 		else if (node.getAttr("type").compare("color") == 0)
 		{
-			CString colorname = node.getAttr("default").c_str();
-
+			COLORREF defaultColor = atoi(node.getAttr("default").c_str());
+			m_pickColor.Color(defaultColor);
+		}
+		else if (node.getAttr("type").compare("combo") == 0)
+		{
 			for (int i = 0;i<m_cn_name.size();i++)
 			{
-				if (m_type.at(i) == "BUTTON")
+				if (m_type.at(i) == "COMBO")
 				{
 					if (m_en_name.at(i) == node.getAttr("en_name").c_str())
 					{
-						CButton* colorbtn = (CButton*)(GetDlgItem(m_control_macro.at(i)));
+						CComboBox* combobtn = (CComboBox*)(GetDlgItem(m_control_macro.at(i)));
 						
-
-						//colorbtn->SetBitmap();
-						//check->SetCheck((int)defaultval);
-						//OnCheckBtn();
+						std::vector<TiXmlNode*> options = node.findAll("Option");
+						for (auto optItem = options.begin(); optItem != options.end() ; optItem++)
+						{
+							XmlHandlePlus optItemPlus(*optItem);
+							combobtn->AddString(optItemPlus.getAttr("cn_name").c_str());
+						}
+						combobtn->SetCurSel(atoi(node.getAttr("default").c_str()));
 					}
 				}
 
 			}
-		}
-		else if (node.getAttr("type").compare("combo") == 0)
-		{
-			
+
 		}
 	}
 }

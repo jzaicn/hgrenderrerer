@@ -10,7 +10,7 @@ class PickColorButton : public CButton
 public:
 	PickColorButton()
 	{
-		m_color = RGB(255,255,255); 
+		m_color = RGB(255,0,0); 
 	};
 	virtual ~PickColorButton();
 
