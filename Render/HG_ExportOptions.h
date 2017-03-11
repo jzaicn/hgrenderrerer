@@ -1,18 +1,23 @@
 #pragma once
 
-#include "ElaraHomeAPI.h"
+#include "BaseModel.h"
 class HG_ExportOptions
 {
 public:
 	HG_ExportOptions(void);
 	~HG_ExportOptions(void);
 
-
-	EH_ExportOptions* createExportOptions();
-	
-	EH_ExportOptions* ExportOption() const { return m_exportOption; }
-	void ExportOption(EH_ExportOptions* val) { m_exportOption = val; }
 private:
-	EH_ExportOptions* m_exportOption;
+	EH_ExportOptions* create();
+	
+public:
+	void loadFrom(const EH_ExportOptions& option);
+	void saveTo(_Out_ EH_ExportOptions& option);
+
+private:
+	GETSET(EH_ExportOptions*,exportOption);
+
+	GETSET(bool,base85_encoding);
+	GETSET(bool,left_handed);	
 };
 

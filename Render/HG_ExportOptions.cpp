@@ -4,26 +4,42 @@
 
 HG_ExportOptions::HG_ExportOptions(void)
 {
-	ExportOption(createExportOptions());
+	m_base85_encoding = true;
+	m_left_handed = false;
+	set_exportOption(create());
 }
 
 
 HG_ExportOptions::~HG_ExportOptions(void)
 {
-	if (ExportOption())
+	if (get_exportOption())
 	{
-		free(ExportOption());
+		free(get_exportOption());
+		set_exportOption(NULL);
 	}
 }
 
-EH_ExportOptions* HG_ExportOptions::createExportOptions()
+EH_ExportOptions* HG_ExportOptions::create()
 {
 	EH_ExportOptions* exportOption = (EH_ExportOptions*)(malloc(sizeof(EH_ExportOptions)));
 	if (!exportOption)
 	{
-		throw std::runtime_error("HG_OtherSettings 创建失败");
+		throw std::runtime_error("EH_ExportOptions 创建失败");
 	}
-	exportOption->base85_encoding = false;
-	exportOption->left_handed = false;
+	saveTo(*exportOption);
 	return exportOption;
+}
+
+
+void HG_ExportOptions::loadFrom(const EH_ExportOptions& option)
+{
+	m_base85_encoding = option.base85_encoding;
+	m_left_handed = option.left_handed;
+}
+
+
+void HG_ExportOptions::saveTo(_Out_ EH_ExportOptions& option)
+{
+	option.base85_encoding = m_base85_encoding;
+	option.left_handed = m_left_handed;
 }

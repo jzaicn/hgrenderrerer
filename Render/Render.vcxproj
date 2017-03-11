@@ -109,11 +109,18 @@
     <None Include="res\Render.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseModel.cpp" />
     <ClCompile Include="DialogPlus.cpp" />
     <ClCompile Include="DisplayResult.cpp" />
     <ClCompile Include="ElaraHomeAPI.cpp" />
+    <ClCompile Include="HG_Camera.cpp" />
     <ClCompile Include="HG_Core.cpp" />
-    <ClCompile Include="HG_OtherSettings.cpp" />
+    <ClCompile Include="HG_ExportOptions.cpp" />
+    <ClCompile Include="HG_Light.cpp" />
+    <ClCompile Include="HG_Material.cpp" />
+    <ClCompile Include="HG_Mesh.cpp" />
+    <ClCompile Include="HG_MeshInstance.cpp" />
+    <ClCompile Include="HG_Sky.cpp" />
     <ClCompile Include="HG_Sun.cpp" />
     <ClCompile Include="ImageSettings.cpp" />
     <ClCompile Include="PickColorButton.cpp" />
@@ -130,12 +137,19 @@
     <ClCompile Include="XmlHandlePlus.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseModel.h" />
     <ClInclude Include="DialogPlus.h" />
     <ClInclude Include="DisplayResult.h" />
     <ClInclude Include="ElaraHomeAPI.h" />
     <ClInclude Include="Export.h" />
+    <ClInclude Include="HG_Camera.h" />
     <ClInclude Include="HG_Core.h" />
-    <ClInclude Include="HG_OtherSettings.h" />
+    <ClInclude Include="HG_ExportOptions.h" />
+    <ClInclude Include="HG_Light.h" />
+    <ClInclude Include="HG_Material.h" />
+    <ClInclude Include="HG_Mesh.h" />
+    <ClInclude Include="HG_MeshInstance.h" />
+    <ClInclude Include="HG_Sky.h" />
     <ClInclude Include="HG_Sun.h" />
     <ClInclude Include="ImageSettings.h" />
     <ClInclude Include="PickColorButton.h" />

@@ -4,11 +4,22 @@
 
 HG_Core::HG_Core(void)
 {
-	RenderContext(EH_create());
+	set_renderContext(NULL);
+	set_renderContext(create());
 }
 
 
 HG_Core::~HG_Core(void)
 {	
-	EH_delete(RenderContext());
+	if (get_renderContext())
+	{
+		EH_delete(get_renderContext());
+		set_renderContext(NULL);
+	}
 }
+
+EH_Context* HG_Core::create()
+{
+	return EH_create();
+}
+
