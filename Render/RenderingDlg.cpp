@@ -5,6 +5,8 @@
 #include "Render.h"
 #include "RenderingDlg.h"
 #include "afxdialogex.h"
+#include "RenderManager.h"
+
 
 #pragma comment(lib,"HgLog.lib")
 #pragma comment(lib,"log4cpp.lib")

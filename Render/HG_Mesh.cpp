@@ -4,14 +4,6 @@
 
 HG_Mesh::HG_Mesh(void)
 {
-	GETSET(uint_t,num_verts);
-	GETSET(uint_t,num_faces);
-	GETSET(uint_t,face_indices);	
-
-	GETSET_VECTYPE(EH_Vec,verts);
-	GETSET_VECTYPE(EH_Vec,normals);
-	GETSET_VECTYPE(EH_Vec2,uvs);
-
 	set_num_verts(0);
 	set_num_faces(0);
 	set_face_indices(0);
@@ -34,10 +26,10 @@ HG_Mesh::~HG_Mesh(void)
 
 EH_Mesh* HG_Mesh::create()
 {
-	HG_Mesh* val = (HG_Mesh*)(malloc(sizeof(HG_Mesh)));
+	EH_Mesh* val = (EH_Mesh*)(malloc(sizeof(EH_Mesh)));
 	if (!val)
 	{
-		throw std::runtime_error("HG_Mesh 创建失败");
+		throw std::runtime_error("EH_Mesh 创建失败");
 	}
 	saveTo(*val);
 	return val;
@@ -45,20 +37,20 @@ EH_Mesh* HG_Mesh::create()
 
 void HG_Mesh::saveTo(_Out_ EH_Mesh& mesh)
 {
-	mesh.verts = get_num_verts();
+	mesh.num_verts = get_num_verts();
 	mesh.num_faces = get_num_faces();
-	get_verts(mesh.verts);
-	get_normals(mesh.normals);
-	get_uvs(mesh.uvs);
-	mesh.face_indices = get_face_indices();
+	get_verts(*mesh.verts);
+	get_normals(*mesh.normals);
+	get_uvs(*mesh.uvs);
+	*mesh.face_indices = get_face_indices();//TODO: 这里小心，外部创建的数组来的
 }
 
 void HG_Mesh::loadFrom(const EH_Mesh& mesh )
 {
-	set_num_verts(mesh.verts);
-	set_num_faces(mesh.num_faces);
-	set_verts(mesh.verts);
-	set_normals(mesh.normals);
-	set_uvs(mesh.uvs);
-	set_face_indices(mesh.face_indices);
+	set_num_verts(mesh.num_verts);
+	set_num_faces(mesh.num_faces); 
+	set_verts(*mesh.verts);	//TODO: 这里小心，外部创建的数组来的
+	set_normals(*mesh.normals);
+	set_uvs(*mesh.uvs);
+	set_face_indices(*mesh.face_indices);//TODO: 这里小心，外部创建的数组来的
 }

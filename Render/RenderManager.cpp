@@ -13,7 +13,7 @@ RenderManager::~RenderManager(void)
 {
 }
 
-RenderManager& RenderManager::RenderManager::getInstance()
+RenderManager& RenderManager::getInstance()
 {
 	if (!render)
 	{
@@ -33,7 +33,7 @@ void RenderManager::saveImage(CString path)
 
 void RenderManager::saveESS(CString path)
 {
-	EH_begin_export(m_core.RenderContext(),path.GetBuffer(),m_exportOptions.ExportOption());
+	EH_begin_export(m_core.get_renderContext(),path.GetBuffer(),m_exportOptions.get_exportOption());
 }
 
 void RenderManager::breakSaveESS()
@@ -48,12 +48,12 @@ void RenderManager::initialRenderCore()
 
 void RenderManager::initialRenderLog()
 {
-	EH_set_log_callback(m_core.RenderContext(),(RenderManager::loggingCallBack));
+	EH_set_log_callback(m_core.get_renderContext(),(RenderManager::loggingCallBack));
 }
 
 void RenderManager::initialRenderProc()
 {
-	EH_set_progress_callback(m_core.RenderContext(),(RenderManager::processingCallBack));
+	EH_set_progress_callback(m_core.get_renderContext(),(RenderManager::processingCallBack));
 }
 
 void RenderManager::startRenderCore()
@@ -116,7 +116,7 @@ void RenderManager::loggingCallBack(EH_Severity severity, const char *msg)
 
 }
 
-void RenderManager::processingCallBack(float progress)
+bool RenderManager::processingCallBack(float progress)
 {
-
+	return true;
 }

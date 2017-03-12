@@ -23,8 +23,8 @@ HG_MeshInstance::~HG_MeshInstance(void)
 
 void HG_MeshInstance::saveTo(_Out_ EH_MeshInstance& inst)
 {
-	inst.mesh_name = get_mesh_name();
-	inst.mtl_name = get_mtl_name();
+	inst.mesh_name = get_mesh_name().GetBuffer();
+	inst.mtl_name = get_mtl_name().GetBuffer();
 	get_mesh_to_world(inst.mesh_to_world);
 }
 

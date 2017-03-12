@@ -25,7 +25,7 @@ HG_Sky::~HG_Sky(void)
 
 EH_Sky* HG_Sky::create()
 {
-	HG_Sky* val = (HG_Sky*)(malloc(sizeof(HG_Sky)));
+	EH_Sky* val = (EH_Sky*)(malloc(sizeof(EH_Sky)));
 	if (!val)
 	{
 		throw std::runtime_error("HG_Sky ´´½¨Ê§°Ü");
@@ -37,7 +37,7 @@ EH_Sky* HG_Sky::create()
 void HG_Sky::saveTo(_Out_ EH_Sky& sky)
 {
 	sky.enabled = get_enabled();
-	sky.hdri_name = get_hdri_name();
+	sky.hdri_name = get_hdri_name().GetBuffer();
 	sky.intensity = get_intensity();
 	sky.hdri_rotation = get_hdri_rotation();
 }

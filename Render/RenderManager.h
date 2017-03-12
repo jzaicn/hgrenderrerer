@@ -12,7 +12,7 @@ private:
 	static RenderManager* render;
 
 public:
-	RenderManager& getInstance();
+	static RenderManager& getInstance();
 	void saveImage(CString path);
 	void saveESS(CString path);
 	void breakSaveESS();
@@ -38,7 +38,7 @@ public:
 
 public:
 	static void loggingCallBack(EH_Severity severity, const char *msg);
-	static void processingCallBack(float progress);
+	static bool processingCallBack(float progress);
 
 private:
 	HG_Core m_core;

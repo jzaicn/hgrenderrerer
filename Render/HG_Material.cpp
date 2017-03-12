@@ -77,14 +77,14 @@ void HG_Material::saveTo(_Out_ EH_Material& material)
 
 	material.diffuse_weight = get_diffuse_weight();
 	get_diffuse_color(material.diffuse_color);
-	material.diffuse_tex = get_diffuse_tex();
+	material.diffuse_tex = get_diffuse_tex().GetBuffer();
 	material.diffuse_tex_repeat = get_diffuse_tex_repeat();
 	material.roughness = get_roughness();
 	material.backlight = get_backlight();
 
 	material.specular_weight = get_specular_weight();
 	get_specular_color(material.specular_color);
-	material.specular_tex = get_specular_tex();	
+	material.specular_tex = get_specular_tex().GetBuffer();	
 	material.specular_tex_repeat = get_specular_tex_repeat();	
 	material.glossiness = get_glossiness();
 	material.specular_fresnel = get_specular_fresnel();
@@ -94,12 +94,12 @@ void HG_Material::saveTo(_Out_ EH_Material& material)
 
 	material.transp_weight = get_transp_weight();		
 	material.transp_invert_weight = get_transp_invert_weight();
-	material.transp_tex = get_transp_tex();		
+	material.transp_tex = get_transp_tex().GetBuffer();		
 	material.transp_tex_repeat = get_transp_tex_repeat();	
 
 
 	material.bump_weight = get_bump_weight();
-	material.bump_tex = get_bump_tex();		
+	material.bump_tex = get_bump_tex().GetBuffer();		
 	material.bump_tex_repeat = get_bump_tex_repeat();		
 	material.normal_bump = get_normal_bump();			
 

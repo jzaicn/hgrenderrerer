@@ -193,10 +193,10 @@ struct EH_Mesh
 {
 	uint_t num_verts;
 	uint_t num_faces;
-	const EH_Vec *verts;
-	const EH_Vec *normals;
-	const EH_Vec2 *uvs;
-	const uint_t *face_indices;		/** Should have (num_faces * 3) indices */
+	EH_Vec *verts;
+	EH_Vec *normals;
+	EH_Vec2 *uvs;
+	uint_t *face_indices;		/** Should have (num_faces * 3) indices */
 };
 
 /** Add a triangle mesh to the scene.
@@ -216,7 +216,7 @@ struct EH_Material
 	/* Diffuse layer */
 	float diffuse_weight;
 	EH_RGB diffuse_color;		/**< Diffuse color */
-	const char *diffuse_tex;	/**< The filename of diffuse texture */
+	char *diffuse_tex;	/**< The filename of diffuse texture */
 	float diffuse_tex_repeat;	/**< The repeat scale of diffuse texture */
 	float roughness;
 	float backlight;
@@ -224,7 +224,7 @@ struct EH_Material
 	/* Specular layer */
 	float specular_weight;
 	EH_RGB specular_color;	/**< Specular color */
-	const char *specular_tex;	/**< The filename of specular texture */
+	char *specular_tex;	/**< The filename of specular texture */
 	float specular_tex_repeat;	/**< The repeat scale of specular texture */
 	float glossiness;
 	float specular_fresnel;
@@ -234,12 +234,12 @@ struct EH_Material
 	/* Transparency layer */
 	float transp_weight;		/**< Transparency weight */
 	bool transp_invert_weight;
-	const char *transp_tex;		/**< The filename of transparency texture */
+	char *transp_tex;		/**< The filename of transparency texture */
 	float transp_tex_repeat;	/**< The repeat scale of transparency texture */
 
 	/* Bump mapping */
 	float bump_weight;
-	const char *bump_tex;		/**< The texture for bump mapping */
+	char *bump_tex;		/**< The texture for bump mapping */
 	float bump_tex_repeat;		/**< The repeat scale of bump texture */
 	bool normal_bump;			/**< The bump texture is actually a normal map? */
 
@@ -268,9 +268,9 @@ EH_API void EH_add_material(EH_Context *ctx, const char *name, const EH_Material
  */
 struct EH_MeshInstance
 {
-	const char *mesh_name;	/**< The name of the mesh which we reference to */
+	char *mesh_name;	/**< The name of the mesh which we reference to */
 	EH_Mat mesh_to_world;	/**< Mesh local space to world space transform */
-	const char *mtl_name;	/**< The name of the material which we reference to */
+	char *mtl_name;	/**< The name of the material which we reference to */
 };
 
 /** Instance a mesh into the scene.
@@ -286,7 +286,7 @@ EH_API void EH_add_mesh_instance(EH_Context *ctx, const char *name, const EH_Mes
 struct EH_Light
 {
 	EH_LightType type;
-	const char *ies_filename;	/**< Only used for IES light type */
+	char *ies_filename;	/**< Only used for IES light type */
 	float intensity;
 	EH_Vec2 size;				/**< Use size[0] as radius for sphere light, 
 									 Use size[0] as width and use size[0] as 
@@ -308,7 +308,7 @@ struct EH_Sky
 {
 	bool enabled;
 	float intensity;
-	const char *hdri_name;
+	char *hdri_name;
 	float hdri_rotation;
 };
 

@@ -44,7 +44,7 @@ void HG_Camera::saveTo(_Out_ EH_Camera& _camera)
 	_camera.image_width = m_image_width;
 	_camera.image_height = m_image_height;
 	_camera.cubemap_render = m_cubemap_render;
-	get_view_to_world(&_camera.view_to_world);
+	get_view_to_world(_camera.view_to_world);
 }
 
 
@@ -55,5 +55,5 @@ void HG_Camera::loadFrom(const EH_Camera& _camera)
 	m_image_width = _camera.image_width;
 	m_image_height = _camera.image_height;
 	m_cubemap_render = _camera.cubemap_render;
-	set_view_to_world(&(_camera.view_to_world));
+	set_view_to_world(_camera.view_to_world);
 }

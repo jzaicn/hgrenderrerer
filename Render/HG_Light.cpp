@@ -33,8 +33,8 @@ void HG_Light::loadFrom(const EH_Light& light)
 	set_type(light.type);
 	set_ies_filename(light.ies_filename);
 	set_intensity(light.intensity);
-	set_size(&light.size);
-	set_light_to_world(&light.light_to_world);
+	set_size(light.size);
+	set_light_to_world(light.light_to_world);
 }
 
 void HG_Light::saveTo(_Out_ EH_Light& light)
@@ -42,6 +42,6 @@ void HG_Light::saveTo(_Out_ EH_Light& light)
 	light.type = get_type();
 	light.ies_filename = get_ies_filename().GetBuffer();
 	light.intensity = get_intensity();
-	get_size(&light.size);
-	get_light_to_world(&light.light_to_world);
+	get_size(light.size);
+	get_light_to_world(light.light_to_world);
 }
