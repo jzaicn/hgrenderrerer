@@ -18,12 +18,12 @@ private:
 
 	GETSET(uint_t,num_verts);
 	GETSET(uint_t,num_faces);
-	GETSET(uint_t,face_indices);	
 
-	GETSET_VECTYPE(EH_Vec,verts);
-	GETSET_VECTYPE(EH_Vec,normals);
-	GETSET_VECTYPE(EH_Vec2,uvs);
+	GETSET(HG_Vec3List,verts);
+	GETSET(HG_Vec3List,normals);
+	GETSET(HG_Vec2List,uvs);
 
+	GETSET(HG_UintList,face_indices);	
 
 };
 

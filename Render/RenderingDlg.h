@@ -30,9 +30,9 @@ private:
 	CScrollBar m_settingScroll;				// 子窗口滚动条
 
 
-	DisplayResult displayResultDlg;				// 绘图对话框
-	CRect m_displayResultDlgRect;				// 绘图对话框区域
-	CRect m_displayResultDlgContainerRect;		// 绘图包围区域
+	DisplayResult displayResultDlg;			// 绘图对话框
+	CRect m_displayResultDlgRect;			// 绘图对话框区域
+	CRect m_displayResultDlgContainerRect;	// 绘图包围区域
 
 	RenderToolBar toolBarDlg;				// 工具栏对话框
 	CRect m_toolBarDlgRect;					// 工具栏对话框区域

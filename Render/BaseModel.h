@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ElaraHomeAPI.h"
+#include <vector>
+
 typedef float EH_RGB[3];
 typedef float EH_RGBA[4];
 typedef float EH_Vec[3];
@@ -28,6 +30,8 @@ type* val = (type*)(malloc(sizeof(type))); \
 if (!val) { throw std::runtime_error("##type 创建失败"); }\
 saveTo(*val); return val; \
 
+
+
 class BaseModel
 {
 public:
@@ -42,3 +46,226 @@ public:
 
 };
 
+class HG_Vec3
+{
+public:
+	HG_Vec3(void);
+	~HG_Vec3(void);
+
+public:
+	EH_Vec* create();
+	void saveTo(_Out_ EH_Vec& vec);
+	void loadFrom(const EH_Vec& vec);
+	
+private:
+	GETSET(float,x);
+	GETSET(float,y);
+	GETSET(float,z);
+	
+};
+
+
+class HG_Vec2
+{
+public:
+	HG_Vec2(void);
+	~HG_Vec2(void);
+
+public:
+	EH_Vec2* create();
+	void saveTo(_Out_ EH_Vec2& vec);
+	void loadFrom(const EH_Vec2& vec);
+
+private:
+	GETSET(float,x);
+	GETSET(float,y);
+
+};
+
+
+
+class HG_Vec3List : public std::vector<HG_Vec3>
+{
+public:
+	HG_Vec3List():m_arrPointer(NULL){};
+	~HG_Vec3List()
+	{
+		freeArray();
+	};
+
+	void fromArray(EH_Vec* arr,UINT size)
+	{
+		if (arr != NULL)
+		{
+			freeArray();
+			this->clear();
+			for (UINT i = 0; i < size ; i++)
+			{
+				HG_Vec3 newItem;
+				newItem.loadFrom(arr[i]);
+				this->push_back(newItem);
+			}
+		}
+	}
+
+	EH_Vec* toArray()
+	{
+
+		if (!isNeedToFree())
+		{ 
+			EH_Vec* arr = (EH_Vec*)( malloc(sizeof(EH_Vec) * this->size()) );
+			if (!arr)
+			{	
+				throw std::runtime_error("EH_Vec array 创建失败");
+			}
+			for (UINT i = 0; i < this->size() ; i++)
+			{
+				(*this)[i].saveTo( arr[i] );
+			}
+			set_arrPointer(arr);
+			return arr;
+		}
+		else
+		{
+			return get_arrPointer();
+		}
+	}
+	bool isNeedToFree()
+	{
+		return (get_arrPointer() != nullptr);
+	}
+	void freeArray()
+	{
+		if (isNeedToFree())
+		{
+			free(get_arrPointer());
+			set_arrPointer(NULL);
+		}
+	}
+private:
+	GETSET(EH_Vec*,arrPointer);
+};
+
+class HG_Vec2List : public std::vector<HG_Vec2>
+{
+public:
+	HG_Vec2List():m_arrPointer(NULL){};
+	~HG_Vec2List()
+	{
+		freeArray();
+	};
+
+	void fromArray(EH_Vec2* arr,UINT size)
+	{
+		if (arr != NULL)
+		{
+			freeArray();
+			this->clear();
+			for (UINT i = 0; i < size ; i++)
+			{
+				HG_Vec2 newItem;
+				newItem.loadFrom(arr[i]);
+				this->push_back(newItem);
+			}
+		}
+	}
+
+	EH_Vec2* toArray()
+	{
+		
+		if (!isNeedToFree())
+		{ 
+			EH_Vec2* arr = (EH_Vec2*)( malloc(sizeof(EH_Vec2) * this->size()) );
+			if (!arr)
+			{	
+				throw std::runtime_error("EH_Vec2 array 创建失败");
+			}
+			for (UINT i = 0; i < this->size() ; i++)
+			{
+				(*this)[i].saveTo( arr[i] );
+			}
+			set_arrPointer(arr);
+			return arr;
+		}
+		else
+		{
+			return get_arrPointer();
+		}
+	}
+	bool isNeedToFree()
+	{
+		return (get_arrPointer() != nullptr);
+	}
+	void freeArray()
+	{
+		if (isNeedToFree())
+		{
+			free(get_arrPointer());
+			set_arrPointer(NULL);
+		}
+	}
+private:
+	GETSET(EH_Vec2*,arrPointer);
+};
+
+class HG_UintList : public std::vector<UINT>
+{
+public:
+	HG_UintList():m_arrPointer(NULL){};
+	~HG_UintList()
+	{
+		freeArray();
+	};
+
+	void fromArray(UINT* arr,UINT size)
+	{
+		if (arr != NULL)
+		{
+			freeArray();
+			this->clear();
+			for (UINT i = 0; i < size ; i++)
+			{
+				UINT newItem;
+				newItem = arr[i];
+				this->push_back(newItem);
+			}
+		}
+	}
+
+	UINT* toArray()
+	{
+
+		if (!isNeedToFree())
+		{ 
+			UINT* arr = (UINT*)( malloc(sizeof(UINT) * this->size()) );
+			if (!arr)
+			{	
+				throw std::runtime_error("UINT array 创建失败");
+			}
+			for (UINT i = 0; i < this->size() ; i++)
+			{
+				arr[i] = (*this)[i];
+			}
+			set_arrPointer(arr);
+			return arr;
+		}
+		else
+		{
+			return get_arrPointer();
+		}
+	}
+	bool isNeedToFree()
+	{
+		return (get_arrPointer() != nullptr);
+	}
+	void freeArray()
+	{
+		if (isNeedToFree())
+		{
+			free(get_arrPointer());
+			set_arrPointer(NULL);
+		}
+	}
+private:
+	GETSET(UINT*,arrPointer);
+};
