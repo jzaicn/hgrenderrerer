@@ -18,11 +18,11 @@ private:
 
 #define GETSET_VECTYPE(type,name)\
 private: type m_##name; \
-public: void get_##name(type& val) { for (int i = 0; i < sizeof(type) ; i++) { val[i] = m_##name[i] ; } } \
-public: void set_##name(const type& val) { for (int i = 0; i < sizeof(type) ; i++) { m_##name[i] = val[i]; } } \
-public: float get_##name##_at(int _i) { return m_##name[_i] ; } \
-public: float set_##name##_at(int _i,float val) { m_##name[_i] = val; } \
-void clear_##name() { for (int i = 0;i<sizeof(type);i++) { m_##name[i] = 0; } }\
+public: void get_##name(type& val) { for (UINT i = 0; i < sizeof(type) ; i++) { val[i] = m_##name[i] ; } } \
+public: void set_##name(const type& val) { for (UINT i = 0; i < sizeof(type) ; i++) { m_##name[i] = val[i]; } } \
+public: float get_##name##_at(UINT _i) { return m_##name[_i] ; } \
+public: float set_##name##_at(UINT _i,float val) { m_##name[_i] = val; } \
+void clear_##name() { for (UINT i = 0;i<sizeof(type);i++) { m_##name[i] = 0; } }\
 private:
 
 #define CREATE_IMPLEMENT(type) \
