@@ -5,7 +5,7 @@
 #include "Render.h"
 #include "ImageSettings.h"
 #include "afxdialogex.h"
-#include "XmlHandlePlus.h"
+//#include "XmlHandlePlus.h"
 
 // ImageSetting ¶Ô»°¿ò
 
@@ -42,35 +42,35 @@ BOOL ImageSettings::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	TiXmlDocument doc;
-	doc.LoadFile("E:\\HGRENDER\\trunk\\Render\\ImageParam.xml");
-	XmlHandlePlus docHandler(&doc);
-
-	std::vector<TiXmlNode*> nodes = docHandler.findAll("/Root/Param/");
-	for (auto it = nodes.begin(); it != nodes.end() ; it++)
-	{
-		XmlHandlePlus node(*it);
-		if (node.getAttr("en_name").compare("RenderQuality") == 0)
-		{
-			std::vector<TiXmlNode*> options = node.findAll("Option");
-			for (auto optItem = options.begin(); optItem != options.end() ; optItem++)
-			{
-				XmlHandlePlus optItemPlus(*optItem);
-				m_RenderQuality.AddString(optItemPlus.getAttr("cn_name").c_str());
-			}
-			m_RenderQuality.SetCurSel(atoi(node.getAttr("default").c_str()));
-		}
-		else if (node.getAttr("en_name").compare("ImageSize") == 0)
-		{
-			std::vector<TiXmlNode*> options = node.findAll("Option");
-			for (auto optItem = options.begin(); optItem != options.end() ; optItem++)
-			{
-				XmlHandlePlus optItemPlus(*optItem);
-				m_ImageSize.AddString(optItemPlus.getAttr("cn_name").c_str());
-			}
-			m_ImageSize.SetCurSel(atoi(node.getAttr("default").c_str()));
-		}
-	}
+// 	TiXmlDocument doc;
+// 	doc.LoadFile("E:\\HGRENDER\\trunk\\Render\\ImageParam.xml");
+// 	XmlHandlePlus docHandler(&doc);
+// 
+// 	std::vector<TiXmlNode*> nodes = docHandler.findAll("/Root/Param/");
+// 	for (auto it = nodes.begin(); it != nodes.end() ; it++)
+// 	{
+// 		XmlHandlePlus node(*it);
+// 		if (node.getAttr("en_name").compare("RenderQuality") == 0)
+// 		{
+// 			std::vector<TiXmlNode*> options = node.findAll("Option");
+// 			for (auto optItem = options.begin(); optItem != options.end() ; optItem++)
+// 			{
+// 				XmlHandlePlus optItemPlus(*optItem);
+// 				m_RenderQuality.AddString(optItemPlus.getAttr("cn_name").c_str());
+// 			}
+// 			m_RenderQuality.SetCurSel(atoi(node.getAttr("default").c_str()));
+// 		}
+// 		else if (node.getAttr("en_name").compare("ImageSize") == 0)
+// 		{
+// 			std::vector<TiXmlNode*> options = node.findAll("Option");
+// 			for (auto optItem = options.begin(); optItem != options.end() ; optItem++)
+// 			{
+// 				XmlHandlePlus optItemPlus(*optItem);
+// 				m_ImageSize.AddString(optItemPlus.getAttr("cn_name").c_str());
+// 			}
+// 			m_ImageSize.SetCurSel(atoi(node.getAttr("default").c_str()));
+// 		}
+// 	}
 
 
 	

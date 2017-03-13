@@ -7,9 +7,9 @@
 #include "afxdialogex.h"
 #include "RenderManager.h"
 
-
-#pragma comment(lib,"HgLog.lib")
-#pragma comment(lib,"log4cpp.lib")
+// 
+// #pragma comment(lib,"HgLog.lib")
+// #pragma comment(lib,"log4cpp.lib")
 
 // RenderingDlg ¶Ô»°¿ò
 
@@ -64,7 +64,7 @@ BOOL RenderingDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	HgLog::HgLog::initDebugLogCategory();
+	//HgLog::HgLog::initDebugLogCategory();
 	ShareHwnd(m_hWnd);
 	afxAmbientActCtx = FALSE;
 

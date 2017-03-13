@@ -1,12 +1,7 @@
 #include "StdAfx.h"
 #include "RenderManager.h"
-#include "HgLog/HgLog.h"
+//#include "HgLog/HgLog.h"
 #include <ei.h>
-
-#pragma comment(lib,"liber.lib")
-#pragma comment(lib,"oslcomp.lib")
-#pragma comment(lib,"oslexec.lib")
-#pragma comment(lib,"oslquery.lib")
 
 RenderManager* RenderManager::render = NULL;
 
@@ -187,13 +182,13 @@ void RenderManager::initialRenderProc()
 
 void RenderManager::loggingCallBack(EH_Severity severity, const char *msg)
 {
-	HGLOG_DEBUG("level %d : %s",severity,msg);
+	//HGLOG_DEBUG("level %d : %s",severity,msg);
 	return;
 }
 
 bool RenderManager::processingCallBack(float progress)
 {
-	HGLOG_DEBUG("processingCallBack %f",progress);
+	//HGLOG_DEBUG("processingCallBack %f",progress);
 	return true;
 }
 

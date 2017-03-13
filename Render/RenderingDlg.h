@@ -6,7 +6,7 @@
 #include "ImageSettings.h"
 #include "RenderToolBar.h"
 #include "DisplayResult.h"
-#include "HgLog/HgLog.h"
+//#include "HgLog/HgLog.h"
 
 class RenderingDlg : public DialogPlus
 {

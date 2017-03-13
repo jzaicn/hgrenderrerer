@@ -96,9 +96,6 @@
     <ClCompile Include="RenderManager.cpp">
       <Filter>Logic</Filter>
     </ClCompile>
-    <ClCompile Include="XmlHandlePlus.cpp">
-      <Filter>外部</Filter>
-    </ClCompile>
     <ClCompile Include="HG_Core.cpp">
       <Filter>Model</Filter>
     </ClCompile>
@@ -175,9 +172,6 @@
     </ClInclude>
     <ClInclude Include="RenderManager.h">
       <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlHandlePlus.h">
-      <Filter>外部</Filter>
     </ClInclude>
     <ClInclude Include="HG_Core.h">
       <Filter>Model</Filter>
