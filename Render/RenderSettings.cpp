@@ -109,7 +109,7 @@ void RenderSettings::initFromSetting()
 						silder->SetRange(min_pos,max_pos,TRUE);
 						silder->SetPos(cur_pos);
 
-						m_bind_marco.insert(std::map<int,int>::value_type(m_control_macro.at(i),m_step_val.size()-1));
+						m_bind_marco.insert(std::map<int,int>::value_type(m_control_macro.at(i),(int)(m_step_val.size())-1));
 					}
 					//ÉèÖÃ±à¼­¿ò
 					if(m_type.at(i) == "EDIT")
@@ -119,7 +119,7 @@ void RenderSettings::initFromSetting()
 						CString text;
 						text.Format("%.2f",defaultval);
 						edit->SetWindowTextA(text);
-						m_bind_marco.insert(std::map<int,int>::value_type(m_control_macro.at(i),m_step_val.size()-1));
+						m_bind_marco.insert(std::map<int,int>::value_type(m_control_macro.at(i),(int)(m_step_val.size())-1));
 					}
 				}
 				
