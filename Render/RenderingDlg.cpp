@@ -68,6 +68,7 @@ BOOL RenderingDlg::OnInitDialog()
 	ShareHwnd(m_hWnd);
 	afxAmbientActCtx = FALSE;
 
+	//TODO: 这种写法有bug，在创建窗口，内部move的时候会报错
 	// 绘图对话框
 	displayResultDlg.Create(IDD_DISPLAY_DLG,GetDlgItem(IDC_DISPLAYRESULT_WIN));
 	displayResultDlg.ShowWindow(SW_SHOW);
@@ -165,7 +166,7 @@ LRESULT RenderingDlg::OnSaveImage(WPARAM w,LPARAM l)
 
 LRESULT RenderingDlg::OnBegin(WPARAM w,LPARAM l)
 {
-	//RenderManager::getInstance();
+	RenderManager::getInstance().startRenderCore();
 
 
 	return 0;
