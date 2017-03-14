@@ -11,6 +11,8 @@
 #include "HG_Sun.h"
 #include <map>
 
+#include "ei.h"
+
 class RenderManager
 {
 private:
@@ -61,5 +63,11 @@ private:
 	
 	std::vector<HG_Sky> m_sky;
 	std::vector<HG_Sun> m_sun;
+
+private:
+	struct RenderProcess;
+	static eiUint WINAPI render_callback(void *param);
+
+	static void display_callback(eiInt frameWidth, eiInt frameHeight, void *param);
 };
 
