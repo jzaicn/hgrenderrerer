@@ -174,7 +174,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>.\Render.def</ModuleDefinitionFile>
-      <ImportLibrary>$(ProjuectDir)..\..\..\..\lib\$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
       <AdditionalDependencies>liber.lib;oslcomp.lib;oslexec.lib;oslquery.lib;</AdditionalDependencies>
     </Link>
     <Midl>
