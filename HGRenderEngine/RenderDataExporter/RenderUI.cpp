@@ -47,7 +47,7 @@ public:
 
 
 	//递归遍历所有子节点
-	/*virtual*/ void applyA(osg::Node& node)
+	virtual void apply(osg::Node& node)
 	{
 		std::string libName = node.libraryName();
 		std::string className = node.className();
@@ -111,32 +111,6 @@ public:
 	}
 
 
-
-//	virtual void apply(osg::Node& node){HGLOG_DEBUG("Node");NodeVisitor::apply(node);};
-	virtual void apply(osg::Geode& node)
-	{
-		std::string libName = node.libraryName();
-		std::string className = node.className();
-		std::string nodeName = node.getName();
-		HGLOG_DEBUG("libname: %s, level:%02d , classname: %s , nodename: %s ",libName.c_str(),level,className.c_str(),nodeName.c_str());
-	};
-	virtual void apply(osg::Group& node)
-	{
-		HGLOG_DEBUG("Group");
-		if (node)
-		{
-			for (UINT i = 0; i < node.getNumChildren(); i++)
-			{
-				level++;
-				traverse(*(node.getChild(i)));
-				level--;
-			}
-			return;
-		}
-	};
-// 	virtual void apply(osg::Transform& node){HGLOG_DEBUG("Transform");NodeVisitor::apply(node);};
-// 	virtual void apply(osg::MatrixTransform& node){HGLOG_DEBUG("MatrixTransform");NodeVisitor::apply(node);};
-// 	virtual void apply(osg::PositionAttitudeTransform& node){HGLOG_DEBUG("PositionAttitudeTransform");NodeVisitor::apply(node);};
 };
 
 
@@ -152,13 +126,4 @@ void RenderUI::showRenderDlg()
 	SortSceneResourceVistor vistor(sm,"");
 	root->accept(vistor);
 	
-	HGLOG_DEBUG("-------------------------");
-	osg::NodePath& path = vistor.getNodePath();
-	for (int i = 0; i <  path.size(); i++)
-	{
-		std::string libName = path.at(i)->libraryName();
-		std::string className = path.at(i)->className();
-		std::string nodeName = path.at(i)->getName();
-		HGLOG_DEBUG("libname: %s, level:%02d , classname: %s , nodename: %s ",libName.c_str(),99,className.c_str(),nodeName.c_str());
-	}
 }
