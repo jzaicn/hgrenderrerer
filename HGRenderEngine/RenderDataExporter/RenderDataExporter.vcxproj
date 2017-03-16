@@ -113,6 +113,7 @@
     <None Include="res\RenderDataExporter.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="HGSceneNodeVisitor.cpp" />
     <ClCompile Include="RenderDataExporter.cpp" />
     <ClCompile Include="RenderUI.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -122,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Export.h" />
+    <ClInclude Include="HGSceneNodeVisitor.h" />
     <ClInclude Include="RenderDataExporter.h" />
     <ClInclude Include="RenderUI.h" />
     <ClInclude Include="Resource.h" />

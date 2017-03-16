@@ -42,6 +42,9 @@
     <ClCompile Include="RenderUI.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="HGSceneNodeVisitor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderDataExporter.h">
@@ -60,6 +63,9 @@
       <Filter>Frame</Filter>
     </ClInclude>
     <ClInclude Include="RenderUI.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HGSceneNodeVisitor.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
