@@ -87,7 +87,7 @@
       <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <PreprocessorDefinitions>RENDER_DLL;_AFXDLLs;WIN32;_WINDOWS;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DLL;RENDER_DLL;_AFXDLLs;WIN32;_WINDOWS;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HGSceneNodeVisitor.cpp" />
+    <ClCompile Include="MeshProcer.cpp" />
     <ClCompile Include="RenderDataExporter.cpp" />
     <ClCompile Include="RenderUI.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -124,6 +125,7 @@
   <ItemGroup>
     <ClInclude Include="Export.h" />
     <ClInclude Include="HGSceneNodeVisitor.h" />
+    <ClInclude Include="MeshProcer.h" />
     <ClInclude Include="RenderDataExporter.h" />
     <ClInclude Include="RenderUI.h" />
     <ClInclude Include="Resource.h" />

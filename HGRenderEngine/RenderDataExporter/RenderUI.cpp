@@ -29,12 +29,13 @@ void RenderUI::showRenderDlg()
 	//±éÀúÕû¸ö³¡¾°
 	HGSceneNodeVisitor vistor;
 	root->accept(vistor);
-	
-	return;
+	HGLOG_DEBUG("scene ok");
 
-	osg::Node *node00 = osgDB::readNodeFile( "E:\\XIANGMUSOFT\\TYBSOFT2016-back\\Ironware\\Á¬½ÓÀà\\²ã°åÍÐ(ÒÂ¹ñ)\\°åÍÏ.IVE" );
+	//osg::Node *node00 = osgDB::readNodeFile( "E:\\XIANGMUSOFT\\TYBSOFT2016-back\\Ironware\\Á¬½ÓÀà\\²ã°åÍÐ(ÒÂ¹ñ)\\°åÍÏ.IVE" );
+	osg::Node *node00 = osgDB::readNodeFile( "D:\\123123123\\trian2.ive" );
 	if (node00)
 	{
+		node00->accept(vistor);
 		HGLOG_DEBUG("load ok");
 	}
 // 	
