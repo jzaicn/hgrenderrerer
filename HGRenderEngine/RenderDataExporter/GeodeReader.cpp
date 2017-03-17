@@ -237,12 +237,13 @@ GeodeReader::GeodeReader(osg::Geode* _geode) : geode(_geode)
 	_currentStateSet = new osg::StateSet();
 	_listTriangles.clear();
 
+	_points = new osg::Vec3Array();
+	_normals = new osg::Vec3Array();
+	_uvs = new osg::Vec2Array();
+
 	if (_geode)
 	{
 		processGeometery(_geode);
-
-
-
 	}
 	else	
 	{
@@ -262,6 +263,7 @@ void GeodeReader::processGeometery(osg::Geode* _geode)
 
 	if(geode->getStateSet()){
 		pushStateSet(geode->getStateSet());
+		_materImages.resize(count);
 	}
 	for (unsigned int i = 0; i < count; ++i)
 	{
@@ -288,10 +290,42 @@ void GeodeReader::debugTriangleList()
 {
 	for (int i = 0; i < _listTriangles.size() ; i++)
 	{
-		HGLOG_DEBUG("vertsIndex{%d,%d,%d},normalIndex{%d,%d,%d},face:%d"
+		HGLOG_DEBUG("vertsIndex{%d,%d,%d},normalIndex{%d,%d,%d},face:%d,matrialimg:%d"
 			,_listTriangles.at(i).first.t1,_listTriangles.at(i).first.t2,_listTriangles.at(i).first.t3
 			,_listTriangles.at(i).first.normalIndex1,_listTriangles.at(i).first.normalIndex2,_listTriangles.at(i).first.normalIndex3
-			,_listTriangles.at(i).second);
+			,_listTriangles.at(i).second,_listTriangles.at(i).first.material);
+	}
+}
+
+void GeodeReader::debugGeode()
+{
+	HGLOG_DEBUG("mesh verts");
+	for (int vert_i = 0; vert_i < _points->size() ; vert_i++)
+	{
+		osg::Vec3 vec = _points->at(vert_i);
+		HGLOG_DEBUG("vertex( %f, %f, %f)",vec.x(), vec.y(), vec.z());
+	}
+
+	HGLOG_DEBUG("mesh normal");
+	for (int vert_i = 0; vert_i < _normals->size() ; vert_i++)
+	{
+		osg::Vec3 vec = _normals->at(vert_i);
+		HGLOG_DEBUG("normal( %f, %f, %f)",vec.x(), vec.y(), vec.z());
+	}
+
+	HGLOG_DEBUG("mesh uv");
+	for (int vert_i = 0; vert_i < _uvs->size() ; vert_i++)
+	{
+		osg::Vec2 vec = _uvs->at(vert_i);
+		HGLOG_DEBUG("uv( %f, %f )",vec.x(), vec.y());
+	}
+
+	debugTriangleList();
+
+	HGLOG_DEBUG("face img");
+	for (int vert_i = 0; vert_i < _materImages.size() ; vert_i++)
+	{
+		HGLOG_DEBUG("img %d( %s )",vert_i,_materImages.at(vert_i).c_str());
 	}
 }
 
@@ -308,7 +342,7 @@ void GeodeReader::pushStateSet(const osg::StateSet* ss)
 		_currentStateSet->merge(*ss);
 	}
 }
-
+	
 
 void GeodeReader::popStateSet(const osg::StateSet* ss)
 {
@@ -352,7 +386,17 @@ int GeodeReader::getMaterialIndex(const osg::StateSet* ss)
 	{
 		//TODO: ±£´æÍ¼Ïñ
 		const osg::Image* img = osgTexture->getImage(0);
-		HGLOG_DEBUG("img src:%s",img->getFileName().c_str());
+		//HGLOG_DEBUG("img src:%s",img->getFileName().c_str());
+
+		for (int i = 0; i < _materImages.size() ; i++)
+		{
+			if(_materImages.at(i).compare(img->getFileName()) == 0)
+			{
+				return i;
+			}
+		}
+		_materImages.push_back(img->getFileName());	
+		return _materImages.size() - 1;
 	}
 
 	return -1;
@@ -420,9 +464,11 @@ void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,
 		// 		lUVDiffuseLayer->SetReferenceMode(FbxLayerElement::eDirect);
 		// 		lUVDiffuseLayer->GetDirectArray().SetCount(index_vert.size());
 		// 		mesh->GetLayer(0)->SetUVs(lUVDiffuseLayer, FbxLayerElement::eTextureDiffuse);
-
-
 	}
+
+	_points->resize(index_vert.size());
+	_normals->resize(index_vert.size());
+	_uvs->resize(index_vert.size());
 
 	for (MapIndices::iterator it = index_vert.begin(); it != index_vert.end(); ++it)
 	{
@@ -441,14 +487,14 @@ void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,
 		if (basevecs->getType() == osg::Array::Vec3ArrayType)
 		{
 			const osg::Vec3  & vec = (*static_cast<const osg::Vec3Array  *>(basevecs))[vertexIndex];
-			//vertex.Set(vec.x(), vec.y(), vec.z());
-			HGLOG_DEBUG("vertex( %f, %f, %f)",vec.x(), vec.y(), vec.z());
+			(*_points)[it->second].set(vec.x(), vec.y(), vec.z());
+			//HGLOG_DEBUG("vertex( %f, %f, %f)",vec.x(), vec.y(), vec.z());
 		}
 		else if (basevecs->getType() == osg::Array::Vec3dArrayType)
 		{
 			const osg::Vec3d & vec = (*static_cast<const osg::Vec3dArray *>(basevecs))[vertexIndex];
-			//vertex.Set(vec.x(), vec.y(), vec.z());
-			HGLOG_DEBUG("vertex( %f, %f, %f)",vec.x(), vec.y(), vec.z());
+			(*_points)[it->second].set(vec.x(), vec.y(), vec.z());
+			//HGLOG_DEBUG("vertex( %f, %f, %f)",vec.x(), vec.y(), vec.z());
 		}
 		else
 		{
@@ -458,7 +504,7 @@ void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,
 			//return;
 		}
 		//mesh->SetControlPointAt(vertex, it->second);
-		HGLOG_DEBUG("vertex( point %d )",it->second);
+		//HGLOG_DEBUG("vertex( point %d )",it->second);
 
 
 		const osg::Array * basenormals = pGeometry->getNormalArray();
@@ -469,14 +515,14 @@ void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,
 			if (basenormals->getType() == osg::Array::Vec3ArrayType)
 			{
 				const osg::Vec3  & vec = (*static_cast<const osg::Vec3Array  *>(basenormals))[normalIndex];
-				//normal.Set(vec.x(), vec.y(), vec.z(), 0);
-				HGLOG_DEBUG("normal( %f, %f, %f)",vec.x(), vec.y(), vec.z());
+				(*_normals)[it->second].set(vec.x(), vec.y(), vec.z());
+				//HGLOG_DEBUG("normal( %f, %f, %f)",vec.x(), vec.y(), vec.z());
 			}
 			else if (basenormals->getType() == osg::Array::Vec3dArrayType)
 			{
 				const osg::Vec3d & vec = (*static_cast<const osg::Vec3dArray *>(basenormals))[normalIndex];
-				//normal.Set(vec.x(), vec.y(), vec.z(), 0);
-				HGLOG_DEBUG("normal( %f, %f, %f)",vec.x(), vec.y(), vec.z());
+				(*_normals)[it->second].set(vec.x(), vec.y(), vec.z());
+				//HGLOG_DEBUG("normal( %f, %f, %f)",vec.x(), vec.y(), vec.z());
 			}
 			else
 			{
@@ -485,7 +531,7 @@ void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,
 				//_succeeded = false;
 				//return;
 			}
-			HGLOG_DEBUG("normal( point %d )",it->second);
+			//HGLOG_DEBUG("normal( point %d )",it->second);
 
 			//switch (pGeometry->getNormalBinding())
 			//{
@@ -506,14 +552,14 @@ void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,
 				if (basetexcoords->getType() == osg::Array::Vec2ArrayType)
 				{
 					const osg::Vec2 & vec = (*static_cast<const osg::Vec2Array *>(basetexcoords))[vertexIndex];
-					//texcoord.Set(vec.x(), vec.y());
-					HGLOG_DEBUG("uv( %f, %f)",vec.x(), vec.y());
+					(*_uvs)[it->second].set(vec.x(), vec.y());
+					//HGLOG_DEBUG("uv( %f, %f)",vec.x(), vec.y());
 				}
 				else if (basetexcoords->getType() == osg::Array::Vec2dArrayType)
 				{
 					const osg::Vec2d & vec = (*static_cast<const osg::Vec2dArray *>(basetexcoords))[vertexIndex];
-					//texcoord.Set(vec.x(), vec.y());
-					HGLOG_DEBUG("uv( %f, %f)",vec.x(), vec.y());
+					(*_uvs)[it->second].set(vec.x(), vec.y());
+					//HGLOG_DEBUG("uv( %f, %f)",vec.x(), vec.y());
 				}
 				else
 				{
@@ -524,7 +570,7 @@ void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,
 				}
 
 				//lUVDiffuseLayer->GetDirectArray().SetAt(it->second, texcoord);
-				HGLOG_DEBUG("uv( point %d )",it->second);
+				//HGLOG_DEBUG("uv( point %d )",it->second);
 			}
 		}
 	}

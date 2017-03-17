@@ -35,7 +35,7 @@ void RenderUI::showRenderDlg()
 	osg::Node *node00 = osgDB::readNodeFile( "D:\\123123123\\trian2.ive" );
 	if (node00)
 	{
-		node00->accept(vistor);
+		//node00->accept(vistor);
 		HGLOG_DEBUG("load ok");
 	}
 

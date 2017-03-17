@@ -156,13 +156,14 @@ void HGSceneNodeVisitor::apply(osg::Node& node)
 		{
 			osg::Geode* geode = node.asGeode();
 			ProcessGeode(geode);
-
+			
 		}
 	}
 }
 void HGSceneNodeVisitor::ProcessGeode(osg::Geode* geode)
 {
 	GeodeReader reader(geode);
+	reader.debugGeode();
 }
 
 //路由子节点

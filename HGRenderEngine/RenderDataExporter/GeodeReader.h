@@ -57,13 +57,14 @@ public:
 
 	///Tell us if last Node succeed traversing.
 	bool succeedLastApply() const { return _succeedLastApply; }
-
+	
+	void debugGeode();
 protected:
 	//主处理函数
 	void processGeometery(osg::Geode* _geode);
 
-	void debugTriangleList();
 
+	void debugTriangleList();
 
 	void pushStateSet(const osg::StateSet* ss);
 	void popStateSet(const osg::StateSet* ss);
@@ -82,7 +83,11 @@ private:
 	osg::ref_ptr<osg::StateSet> _currentStateSet;
 
 	ListTriangle _listTriangles;
-
+public:
+	osg::ref_ptr<osg::Vec3Array> _points;
+	osg::ref_ptr<osg::Vec3Array> _normals;
+	osg::ref_ptr<osg::Vec2Array> _uvs;
+	std::vector<std::string> _materImages;
 };
 
 
