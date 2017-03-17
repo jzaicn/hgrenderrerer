@@ -24,6 +24,7 @@ struct Triangle
 	unsigned int normalIndex1;        ///< Normal index for all bindings except BIND_PER_VERTEX and BIND_OFF.
 	unsigned int normalIndex2;
 	unsigned int normalIndex3;
+	int material;
 };
 typedef std::vector<std::pair<Triangle, int> > ListTriangle; //三角形和section之间关系
 
@@ -33,7 +34,8 @@ class PrimitiveIndexWriter : public osg::PrimitiveIndexFunctor
 public:
 	PrimitiveIndexWriter(const osg::Geometry* inputGeometory,
 		ListTriangle&        outTriangleVec,
-		unsigned int         sectionIndex) :
+		unsigned int         sectionIndex,
+		unsigned int         material) :
 	_sectionIndex(sectionIndex),
 		_listTriangles(outTriangleVec),
 		_GLDrawModeCache(0),
@@ -42,6 +44,7 @@ public:
 		_geometory(inputGeometory),
 		_lastFaceIndex(0),
 		_curNormalIndex(0),
+		_material(material),
 		_normalBinding(inputGeometory->getNormalBinding())
 	{
 		if (!inputGeometory->getNormalArray() || inputGeometory->getNormalArray()->getNumElements()==0)
@@ -196,5 +199,6 @@ private:
 	const osg::Geometry* _geometory;
 	unsigned int         _lastFaceIndex;
 	unsigned int         _curNormalIndex;
+	unsigned int		 _material;
 	osg::Geometry::AttributeBinding _normalBinding;
 };

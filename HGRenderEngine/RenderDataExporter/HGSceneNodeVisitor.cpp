@@ -242,7 +242,7 @@ void HGSceneNodeVisitor::createListTriangle(const osg::Geometry* geo,
 
 	int material = getMaterialIndex(_currentStateSet.get());
 
-	PrimitiveIndexWriter pif(geo, listTriangles, drawable_n);
+	PrimitiveIndexWriter pif(geo, listTriangles, drawable_n, material);
 	for (unsigned int iPrimSet = 0; iPrimSet < geo->getNumPrimitiveSets(); ++iPrimSet) //Fill the Triangle List
 	{
 		const osg::PrimitiveSet* ps = geo->getPrimitiveSet(iPrimSet);

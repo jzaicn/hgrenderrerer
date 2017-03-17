@@ -29,6 +29,7 @@ void PrimitiveIndexWriter::writeTriangle(unsigned int i1, unsigned int i2, unsig
 		triangle.normalIndex2 = _curNormalIndex;
 		triangle.normalIndex3 = _curNormalIndex;
 	}
+	triangle.material = _material;
 	_listTriangles.push_back(std::make_pair(triangle, _sectionIndex));
 }
 
