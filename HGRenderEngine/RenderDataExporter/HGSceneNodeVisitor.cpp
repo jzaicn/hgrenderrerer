@@ -47,7 +47,7 @@
 #include "hg3d\ExtrudeMaterial.h"
 #include "hg3d\LineMaterial.h"
 
-#include "MeshProcer.h"
+#include "GeodeReader.h"
 
 HGSceneNodeVisitor::HGSceneNodeVisitor(void)
 {
@@ -129,10 +129,7 @@ bool HGSceneNodeVisitor::isGroupPanel(osg::Node& node)
 //////////////////////////////////////////////////////////////////////////
 // 处理节点
 #if 1
-void HGSceneNodeVisitor::ProcessGeode(osg::Geode*)
-{
-	
-}
+
 //递归遍历所有子节点
 void HGSceneNodeVisitor::apply(osg::Node& node)
 {
@@ -163,7 +160,10 @@ void HGSceneNodeVisitor::apply(osg::Node& node)
 		}
 	}
 }
-
+void HGSceneNodeVisitor::ProcessGeode(osg::Geode* geode)
+{
+	GeodeReader reader(geode);
+}
 
 //路由子节点
 void HGSceneNodeVisitor::groupRoute(osg::Node &node)

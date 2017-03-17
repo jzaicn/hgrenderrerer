@@ -62,6 +62,8 @@ protected:
 	//主处理函数
 	void processGeometery(osg::Geode* _geode);
 
+	void debugTriangleList();
+
 
 	void pushStateSet(const osg::StateSet* ss);
 	void popStateSet(const osg::StateSet* ss);
@@ -78,6 +80,9 @@ private:
 	
 	StateSetStack _stateSetStack;
 	osg::ref_ptr<osg::StateSet> _currentStateSet;
+
+	ListTriangle _listTriangles;
+
 };
 
 

@@ -4,27 +4,6 @@
 #include <stack>
 #include "osg\Geometry"
 
-struct Triangle;
-typedef std::vector<std::pair<Triangle, int> > ListTriangle;
-struct VertexIndex
-{
-	VertexIndex(unsigned int vertexIndex, unsigned int drawableIndex, unsigned int normalIndex)
-		: vertexIndex(vertexIndex), drawableIndex(drawableIndex), normalIndex(normalIndex)
-	{}
-	VertexIndex(const VertexIndex & v) : vertexIndex(v.vertexIndex), drawableIndex(v.drawableIndex), normalIndex(v.normalIndex) {}
-
-	unsigned int vertexIndex;        ///< Index of the vertice position in the vec3 array
-	unsigned int drawableIndex;
-	unsigned int normalIndex;        ///< Normal index for all bindings except BIND_PER_VERTEX and BIND_OFF.
-
-	bool operator<(const VertexIndex & v) const {
-		if (drawableIndex!=v.drawableIndex) 
-			return drawableIndex<v.drawableIndex;
-		else
-			return vertexIndex<v.vertexIndex;
-	}
-};
-typedef std::map<VertexIndex, unsigned int> MapIndices;
 
 
 

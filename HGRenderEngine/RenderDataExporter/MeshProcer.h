@@ -15,15 +15,3 @@ public:
 	~MeshProcer(void);
 };
 
-
-struct Triangle
-{
-	unsigned int t1;
-	unsigned int t2;
-	unsigned int t3;
-	unsigned int normalIndex1;        ///< Normal index for all bindings except BIND_PER_VERTEX and BIND_OFF.
-	unsigned int normalIndex2;
-	unsigned int normalIndex3;
-	int material;
-};
-typedef std::vector<std::pair<Triangle, int> > ListTriangle; //三角形和section之间关系

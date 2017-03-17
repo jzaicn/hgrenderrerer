@@ -231,12 +231,23 @@ private:
 
 
 
-GeodeReader::GeodeReader(osg::Geode* _geode)
+GeodeReader::GeodeReader(osg::Geode* _geode) : geode(_geode)
 {
 	_succeedLastApply = true;
 	_currentStateSet = new osg::StateSet();
+	_listTriangles.clear();
 
-	processGeometery(geode);
+	if (_geode)
+	{
+		processGeometery(_geode);
+
+
+
+	}
+	else	
+	{
+		failedApply();
+	}
 }
 
 
@@ -247,7 +258,6 @@ GeodeReader::~GeodeReader(void)
 void GeodeReader::processGeometery(osg::Geode* _geode)
 {
 	unsigned int count = geode->getNumDrawables();
-	ListTriangle listTriangles;
 	bool texcoords = false;
 
 	if(geode->getStateSet()){
@@ -259,27 +269,29 @@ void GeodeReader::processGeometery(osg::Geode* _geode)
 		if (g != NULL)
 		{
 			pushStateSet(g->getStateSet());
-			//TODO: 保存多边形三角化顺序
-			createListTriangle(g, listTriangles, texcoords, i);
+			//保存多边形三角化顺序
+			createListTriangle(g, _listTriangles, texcoords, i);
 			popStateSet(g->getStateSet());
 		}
 	}
-
-	for (int i = 0; i < listTriangles.size() ; i++)
-	{
-		HGLOG_DEBUG("vertsIndex{%d,%d,%d},normalIndex{%d,%d,%d},face:%d"
-			,listTriangles.at(i).first.t1,listTriangles.at(i).first.t2,listTriangles.at(i).first.t3
-			,listTriangles.at(i).first.normalIndex1,listTriangles.at(i).first.normalIndex2,listTriangles.at(i).first.normalIndex3
-			,listTriangles.at(i).second);
-	}
-
-
+	debugTriangleList();
 	if(geode->getStateSet()){
 		popStateSet(geode->getStateSet());
 	}
 	if (count > 0)
 	{
-		buildFaces(*geode, listTriangles, texcoords);
+		buildFaces(*geode, _listTriangles, texcoords);
+	}
+}
+
+void GeodeReader::debugTriangleList()
+{
+	for (int i = 0; i < _listTriangles.size() ; i++)
+	{
+		HGLOG_DEBUG("vertsIndex{%d,%d,%d},normalIndex{%d,%d,%d},face:%d"
+			,_listTriangles.at(i).first.t1,_listTriangles.at(i).first.t2,_listTriangles.at(i).first.t3
+			,_listTriangles.at(i).first.normalIndex1,_listTriangles.at(i).first.normalIndex2,_listTriangles.at(i).first.normalIndex3
+			,_listTriangles.at(i).second);
 	}
 }
 
@@ -316,6 +328,8 @@ int GeodeReader::getMaterialIndex(const osg::StateSet* ss)
 
 	if (osgMaterial)
 	{
+		//TODO: 取颜色，取正反面，并应用起来
+		osgMaterial->getColorMode();
 		const osg::StateAttribute* attribute = ss->getAttribute(osg::StateAttribute::CULLFACE);
 		if (attribute)
 		{
@@ -386,39 +400,10 @@ void GeodeReader::buildFaces(const osg::Geode& geo,
 	bool              texcoords)
 {
 	MapIndices index_vert;
-	// 	FbxMesh* mesh = FbxMesh::Create(_pSdkManager, geo.getName().c_str());
-	// 	_curFbxNode->AddNodeAttribute(mesh);
-	// 	_curFbxNode->SetShadingMode(FbxNode::eTextureShading);
-	// 	FbxLayer* lLayer = mesh->GetLayer(0);
-	// 	if (lLayer == NULL)
-	// 	{
-	// 		mesh->CreateLayer();
-	// 		lLayer = mesh->GetLayer(0);
-	// 	}
-	// 	setLayerTextureAndMaterial(mesh);
-	// 	lLayer->GetTextures(FbxLayerElement::eTextureDiffuse)->GetIndexArray().SetCount(listTriangles.size());
-	// 	lLayer->GetMaterials()->GetIndexArray().SetCount(listTriangles.size());
-
 	unsigned int i = 0;
 	for (ListTriangle::iterator it = listTriangles.begin(); it != listTriangles.end(); ++it, ++i) //Go through the triangle list to define meshs
 	{
-		//begin polygon
 		addPolygon(/*mesh,*/ index_vert, it->first, it->second);
-		//end polygon
-
-		//		//根据是否有材质，和材质序号，决定在哪个section开始画一个三角形面
-		// 		if (it->first.material == -1)
-		// 		{
-		// 			mesh->BeginPolygon();
-		// 		}
-		// 		else
-		// 		{
-		// 			mesh->BeginPolygon(i);
-		// 			lLayer->GetTextures(FbxLayerElement::eTextureDiffuse)->GetIndexArray().SetAt(i, it->first.material);
-		// 			lLayer->GetMaterials()->GetIndexArray().SetAt(i, it->first.material);
-		// 		}
-		// 		addPolygon(mesh, index_vert, it->first, it->second);
-		// 		mesh->EndPolygon();
 	}
 	setControlPointAndNormalsAndUV(geo, index_vert, texcoords/*, mesh*/);
 }
@@ -426,17 +411,7 @@ void GeodeReader::buildFaces(const osg::Geode& geo,
 void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,
 	MapIndices&       index_vert,
 	bool              texcoords)
-	// 	FbxMesh*         mesh)
 {
-	// 	mesh->InitControlPoints(index_vert.size());
-	// 	FbxLayerElementNormal* lLayerElementNormal= FbxLayerElementNormal::Create(mesh, "");
-	// 	// For now, FBX writer only supports normals bound per vertices
-	// 	lLayerElementNormal->SetMappingMode(FbxLayerElement::eByControlPoint);
-	// 	lLayerElementNormal->SetReferenceMode(FbxLayerElement::eDirect);
-	// 	lLayerElementNormal->GetDirectArray().SetCount(index_vert.size());
-	// 	mesh->GetLayer(0)->SetNormals(lLayerElementNormal);
-	// 	FbxLayerElementUV* lUVDiffuseLayer = FbxLayerElementUV::Create(mesh, "DiffuseUV");
-
 	if (texcoords)
 	{
 		//TODO: 设置UVs
