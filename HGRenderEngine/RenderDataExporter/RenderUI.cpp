@@ -38,32 +38,6 @@ void RenderUI::showRenderDlg()
 		node00->accept(vistor);
 		HGLOG_DEBUG("load ok");
 	}
-// 	
-// 	osg::Group* group01 = dynamic_cast<osg::Group*>(node00);
-// 	if (group01)
-// 	{
-// 		HGLOG_DEBUG("group ok");
-// 		for (int i = 0; i < group01->getNumChildren() ; i++)
-// 		{
-// 			osg::Node* child01 = group01->getChild(i);
-// 			osg::Group* cgroup02 = dynamic_cast<osg::Group*>(child01);
-// 			for (int j = 0; j < cgroup02->getNumChildren() ; j++)
-// 			{
-// 				osg::Node* cchild02 = cgroup02->getChild(i);
-// 				osg::Group* ccgroup03 = dynamic_cast<osg::Group*>(cchild02);
-// 				for (int k = 0; k < ccgroup03->getNumChildren() ; k++)
-// 				{
-// 					osg::Node* node = ccgroup03->getChild(i);
-// 					TestConvert(osg::Drawable,node);
-// 					TestConvert(osg::Group,node);
-// 					TestConvert(osg::Geode,node);
-// 
-// 					HGLOG_DEBUG("123");
-// 				}
-// 
-// 			}
-// 		}
-// 	}
 
 }
 

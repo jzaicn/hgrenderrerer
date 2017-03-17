@@ -1,7 +1,10 @@
 #pragma once
 
 
+#include <stack>
 #include "osg\Geode"
+#include "osg\StateSet"
+
 //////////////////////////////////////////////////////////////////////////
 // 工具类
 
@@ -19,7 +22,8 @@ public:
 };
 //三角形列表
 typedef std::vector<std::pair<Triangle, int> > ListTriangle;
-
+//状态集合
+typedef std::stack<osg::ref_ptr<osg::StateSet> > StateSetStack;
 //顶点集合
 class VertexIndex
 {
@@ -43,15 +47,38 @@ public:
 //顶点队列
 typedef std::map<VertexIndex, unsigned int> MapIndices;
 
+
+//////////////////////////////////////////////////////////////////////////
+// Geode专门处理类
 class GeodeReader
 {
 public:
 	GeodeReader(osg::Geode* _geode);	~GeodeReader(void);
 
-protected:
-	void processGeometery();
+	///Tell us if last Node succeed traversing.
+	bool succeedLastApply() const { return _succeedLastApply; }
 
+protected:
+	//主处理函数
+	void processGeometery(osg::Geode* _geode);
+
+
+	void pushStateSet(const osg::StateSet* ss);
+	void popStateSet(const osg::StateSet* ss);
+	int getMaterialIndex(const osg::StateSet* ss);
+	void createListTriangle(const osg::Geometry* geo,ListTriangle& listTriangles,bool& texcoords,unsigned int& drawable_n);	
+	void setControlPointAndNormalsAndUV(const osg::Geode& geo, MapIndices& index_vert, bool texcoords); // FbxMesh* mesh);
+	unsigned int addPolygont3(MapIndices & index_vert, unsigned int vertIndex, unsigned int normIndex, unsigned int drawableNum);
+	void addPolygon( MapIndices & index_vert, const Triangle & tri, unsigned int drawableNum);
+	void buildFaces(const osg::Geode& geo,ListTriangle&     listTriangles,bool              texcoords);
+	void failedApply() { _succeedLastApply = false; }
 private:
 	osg::Geode* geode;
+	bool _succeedLastApply;
+	
+	StateSetStack _stateSetStack;
+	osg::ref_ptr<osg::StateSet> _currentStateSet;
 };
+
+
 
