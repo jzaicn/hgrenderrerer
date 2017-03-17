@@ -33,12 +33,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MeshProcer.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderDataExporter.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Frame</Filter>
     </ClCompile>
@@ -48,16 +42,19 @@
     <ClCompile Include="HGSceneNodeVisitor.cpp">
       <Filter>Logic</Filter>
     </ClCompile>
+    <ClCompile Include="MeshProcer.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderDataExporter.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="GeodeReader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Export.h">
       <Filter>Frame</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderDataExporter.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshProcer.h">
-      <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Frame</Filter>
@@ -73,6 +70,15 @@
     </ClInclude>
     <ClInclude Include="HGSceneNodeVisitor.h">
       <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshProcer.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderDataExporter.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="GeodeReader.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
