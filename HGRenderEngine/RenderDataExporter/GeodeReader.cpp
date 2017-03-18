@@ -231,15 +231,15 @@ private:
 
 
 
-GeodeReader::GeodeReader(osg::Geode* _geode) : geode(_geode)
+GeodeReader::GeodeReader(osg::Geode* _geode) : m_geode(_geode)
 {
-	_succeedLastApply = true;
-	_currentStateSet = new osg::StateSet();
-	_listTriangles.clear();
+	m_succeedLastApply = true;
+	m_currentStateSet = new osg::StateSet();
+	m_listTriangles.clear();
 
-	_points = new osg::Vec3Array();
-	_normals = new osg::Vec3Array();
-	_uvs = new osg::Vec2Array();
+	m_points = new osg::Vec3Array();
+	m_normals = new osg::Vec3Array();
+	m_uvs = new osg::Vec2Array();
 
 	if (_geode)
 	{
@@ -258,74 +258,74 @@ GeodeReader::~GeodeReader(void)
 
 void GeodeReader::processGeometery(osg::Geode* _geode)
 {
-	unsigned int count = geode->getNumDrawables();
+	unsigned int count = m_geode->getNumDrawables();
 	bool texcoords = false;
+	m_material.resize(count);
 
-	if(geode->getStateSet()){
-		pushStateSet(geode->getStateSet());
-		_materImages.resize(count);
+	if(m_geode->getStateSet()){
+		pushStateSet(m_geode->getStateSet());
 	}
 	for (unsigned int i = 0; i < count; ++i)
 	{
-		const osg::Geometry* g = geode->getDrawable(i)->asGeometry();
+		const osg::Geometry* g = m_geode->getDrawable(i)->asGeometry();
 		if (g != NULL)
 		{
 			pushStateSet(g->getStateSet());
 			//保存多边形三角化顺序
-			createListTriangle(g, _listTriangles, texcoords, i);
+			createListTriangle(g, m_listTriangles, texcoords, i);
 			popStateSet(g->getStateSet());
 		}
 	}
 	debugTriangleList();
-	if(geode->getStateSet()){
-		popStateSet(geode->getStateSet());
+	if(m_geode->getStateSet()){
+		popStateSet(m_geode->getStateSet());
 	}
 	if (count > 0)
 	{
-		buildFaces(*geode, _listTriangles, texcoords);
+		buildFaces(*m_geode, m_listTriangles, texcoords);
 	}
 }
 
 void GeodeReader::debugTriangleList()
 {
-	for (int i = 0; i < _listTriangles.size() ; i++)
+	for (UINT i = 0; i < m_listTriangles.size() ; i++)
 	{
 		HGLOG_DEBUG("vertsIndex{%d,%d,%d},normalIndex{%d,%d,%d},face:%d,matrialimg:%d"
-			,_listTriangles.at(i).first.t1,_listTriangles.at(i).first.t2,_listTriangles.at(i).first.t3
-			,_listTriangles.at(i).first.normalIndex1,_listTriangles.at(i).first.normalIndex2,_listTriangles.at(i).first.normalIndex3
-			,_listTriangles.at(i).second,_listTriangles.at(i).first.material);
+			,m_listTriangles.at(i).first.t1,m_listTriangles.at(i).first.t2,m_listTriangles.at(i).first.t3
+			,m_listTriangles.at(i).first.normalIndex1,m_listTriangles.at(i).first.normalIndex2,m_listTriangles.at(i).first.normalIndex3
+			,m_listTriangles.at(i).second,m_listTriangles.at(i).first.material);
 	}
 }
 
 void GeodeReader::debugGeode()
 {
 	HGLOG_DEBUG("mesh verts");
-	for (int vert_i = 0; vert_i < _points->size() ; vert_i++)
+	for (UINT vert_i = 0; vert_i < m_points->size() ; vert_i++)
 	{
-		osg::Vec3 vec = _points->at(vert_i);
+		osg::Vec3 vec = m_points->at(vert_i);
 		HGLOG_DEBUG("vertex( %f, %f, %f)",vec.x(), vec.y(), vec.z());
 	}
 
 	HGLOG_DEBUG("mesh normal");
-	for (int vert_i = 0; vert_i < _normals->size() ; vert_i++)
+	for (UINT vert_i = 0; vert_i < m_normals->size() ; vert_i++)
 	{
-		osg::Vec3 vec = _normals->at(vert_i);
+		osg::Vec3 vec = m_normals->at(vert_i);
 		HGLOG_DEBUG("normal( %f, %f, %f)",vec.x(), vec.y(), vec.z());
 	}
 
 	HGLOG_DEBUG("mesh uv");
-	for (int vert_i = 0; vert_i < _uvs->size() ; vert_i++)
+	for (UINT vert_i = 0; vert_i < m_uvs->size() ; vert_i++)
 	{
-		osg::Vec2 vec = _uvs->at(vert_i);
+		osg::Vec2 vec = m_uvs->at(vert_i);
 		HGLOG_DEBUG("uv( %f, %f )",vec.x(), vec.y());
 	}
 
 	debugTriangleList();
 
 	HGLOG_DEBUG("face img");
-	for (int vert_i = 0; vert_i < _materImages.size() ; vert_i++)
+	for (UINT vert_i = 0; vert_i < m_material.size() ; vert_i++)
 	{
-		HGLOG_DEBUG("img %d( %s )",vert_i,_materImages.at(vert_i).c_str());
+		HGLOG_DEBUG("material ( %s )",m_material.at(vert_i).toString().c_str());
 	}
 }
 
@@ -334,12 +334,12 @@ void GeodeReader::pushStateSet(const osg::StateSet* ss)
 	if (ss)
 	{
 		// Save our current stateset
-		_stateSetStack.push(_currentStateSet.get());
+		m_stateSetStack.push(m_currentStateSet.get());
 
 		// merge with node stateset
-		_currentStateSet = static_cast<osg::StateSet*>(
-			_currentStateSet->clone(osg::CopyOp::SHALLOW_COPY));
-		_currentStateSet->merge(*ss);
+		m_currentStateSet = static_cast<osg::StateSet*>(
+			m_currentStateSet->clone(osg::CopyOp::SHALLOW_COPY));
+		m_currentStateSet->merge(*ss);
 	}
 }
 	
@@ -349,21 +349,22 @@ void GeodeReader::popStateSet(const osg::StateSet* ss)
 	if (ss)
 	{
 		// restore the previous stateset
-		_currentStateSet = _stateSetStack.top();
-		_stateSetStack.pop();
+		m_currentStateSet = m_stateSetStack.top();
+		m_stateSetStack.pop();
 	}
 }
 
 
-int GeodeReader::getMaterialIndex(const osg::StateSet* ss)
+int GeodeReader::getMaterialIndex(const osg::Geometry* geo, const osg::StateSet* ss)
 {
 	const osg::Material* osgMaterial = dynamic_cast<const osg::Material*>(ss->getAttribute(osg::StateAttribute::MATERIAL));
 	const osg::Texture* osgTexture = dynamic_cast<const osg::Texture*>(ss->getTextureAttribute(0, osg::StateAttribute::TEXTURE));
+	const osg::Array* osgColorArr = geo->getColorArray();
 
 	if (osgMaterial)
 	{
 		//TODO: 取颜色，取正反面，并应用起来
-		osgMaterial->getColorMode();
+		osg::Material::ColorMode mode = osgMaterial->getColorMode();
 		const osg::StateAttribute* attribute = ss->getAttribute(osg::StateAttribute::CULLFACE);
 		if (attribute)
 		{
@@ -388,15 +389,26 @@ int GeodeReader::getMaterialIndex(const osg::StateSet* ss)
 		const osg::Image* img = osgTexture->getImage(0);
 		//HGLOG_DEBUG("img src:%s",img->getFileName().c_str());
 
-		for (int i = 0; i < _materImages.size() ; i++)
+		for (UINT i = 0; i < m_material.size() ; i++)
 		{
-			if(_materImages.at(i).compare(img->getFileName()) == 0)
+			if(m_material.at(i).Image().compare(img->getFileName()) == 0)
 			{
 				return i;
 			}
 		}
-		_materImages.push_back(img->getFileName());	
-		return _materImages.size() - 1;
+		
+		m_material.push_back(GeodeMatrial(img->getFileName()));	
+		return m_material.size() - 1;
+	}
+	else if (osgColorArr)
+	{
+		for (UINT i = 0; i < osgColorArr->getNumElements() ; i++)
+		{
+			osg::Vec4  vec = (*dynamic_cast<const osg::Vec4Array *>(osgColorArr))[i];
+			//HGLOG_DEBUG("color( %f, %f, %f, %f)",vec.x(), vec.y(), vec.z(), vec.w());
+			m_material.push_back(GeodeMatrial(vec.x(), vec.y(), vec.z(), vec.w()));
+			return m_material.size() - 1;
+		}
 	}
 
 	return -1;
@@ -428,7 +440,7 @@ void GeodeReader::createListTriangle(const osg::Geometry* geo,
 
 	if (nbVertices==0) return;
 
-	int material = getMaterialIndex(_currentStateSet.get());
+	int material = getMaterialIndex(geo, m_currentStateSet.get());
 
 	PrimitiveIndexWriter pif(geo, listTriangles, drawable_n, material);
 	for (unsigned int iPrimSet = 0; iPrimSet < geo->getNumPrimitiveSets(); ++iPrimSet) //Fill the Triangle List
@@ -466,9 +478,9 @@ void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,
 		// 		mesh->GetLayer(0)->SetUVs(lUVDiffuseLayer, FbxLayerElement::eTextureDiffuse);
 	}
 
-	_points->resize(index_vert.size());
-	_normals->resize(index_vert.size());
-	_uvs->resize(index_vert.size());
+	m_points->resize(index_vert.size());
+	m_normals->resize(index_vert.size());
+	m_uvs->resize(index_vert.size());
 
 	for (MapIndices::iterator it = index_vert.begin(); it != index_vert.end(); ++it)
 	{
@@ -486,14 +498,18 @@ void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,
 		//FbxVector4 vertex;
 		if (basevecs->getType() == osg::Array::Vec3ArrayType)
 		{
-			const osg::Vec3  & vec = (*static_cast<const osg::Vec3Array  *>(basevecs))[vertexIndex];
-			(*_points)[it->second].set(vec.x(), vec.y(), vec.z());
+			osg::Vec3  vec = (*static_cast<const osg::Vec3Array  *>(basevecs))[vertexIndex];
+			osg::Matrix mtr = m_geode->getWorldMatrices().at(0);
+			vec.set(vec * mtr);
+			(*m_points)[it->second].set(vec.x(), vec.y(), vec.z());
 			//HGLOG_DEBUG("vertex( %f, %f, %f)",vec.x(), vec.y(), vec.z());
 		}
 		else if (basevecs->getType() == osg::Array::Vec3dArrayType)
 		{
-			const osg::Vec3d & vec = (*static_cast<const osg::Vec3dArray *>(basevecs))[vertexIndex];
-			(*_points)[it->second].set(vec.x(), vec.y(), vec.z());
+			osg::Vec3d vec = (*static_cast<const osg::Vec3dArray *>(basevecs))[vertexIndex];
+			osg::Matrix mtr = m_geode->getWorldMatrices().at(0);
+			vec.set(vec * mtr);
+			(*m_points)[it->second].set(vec.x(), vec.y(), vec.z());
 			//HGLOG_DEBUG("vertex( %f, %f, %f)",vec.x(), vec.y(), vec.z());
 		}
 		else
@@ -515,13 +531,13 @@ void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,
 			if (basenormals->getType() == osg::Array::Vec3ArrayType)
 			{
 				const osg::Vec3  & vec = (*static_cast<const osg::Vec3Array  *>(basenormals))[normalIndex];
-				(*_normals)[it->second].set(vec.x(), vec.y(), vec.z());
+				(*m_normals)[it->second].set(vec.x(), vec.y(), vec.z());
 				//HGLOG_DEBUG("normal( %f, %f, %f)",vec.x(), vec.y(), vec.z());
 			}
 			else if (basenormals->getType() == osg::Array::Vec3dArrayType)
 			{
 				const osg::Vec3d & vec = (*static_cast<const osg::Vec3dArray *>(basenormals))[normalIndex];
-				(*_normals)[it->second].set(vec.x(), vec.y(), vec.z());
+				(*m_normals)[it->second].set(vec.x(), vec.y(), vec.z());
 				//HGLOG_DEBUG("normal( %f, %f, %f)",vec.x(), vec.y(), vec.z());
 			}
 			else
@@ -552,13 +568,13 @@ void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,
 				if (basetexcoords->getType() == osg::Array::Vec2ArrayType)
 				{
 					const osg::Vec2 & vec = (*static_cast<const osg::Vec2Array *>(basetexcoords))[vertexIndex];
-					(*_uvs)[it->second].set(vec.x(), vec.y());
+					(*m_uvs)[it->second].set(vec.x(), vec.y());
 					//HGLOG_DEBUG("uv( %f, %f)",vec.x(), vec.y());
 				}
 				else if (basetexcoords->getType() == osg::Array::Vec2dArrayType)
 				{
 					const osg::Vec2d & vec = (*static_cast<const osg::Vec2dArray *>(basetexcoords))[vertexIndex];
-					(*_uvs)[it->second].set(vec.x(), vec.y());
+					(*m_uvs)[it->second].set(vec.x(), vec.y());
 					//HGLOG_DEBUG("uv( %f, %f)",vec.x(), vec.y());
 				}
 				else
