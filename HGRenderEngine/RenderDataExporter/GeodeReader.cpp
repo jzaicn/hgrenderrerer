@@ -47,7 +47,6 @@
 #include "hg3d\LineMaterial.h"
 
 
-
 /** writes all primitives of a primitive-set out to a stream, decomposes quads to triangles, line-strips to lines etc */
 class PrimitiveIndexWriter : public osg::PrimitiveIndexFunctor
 {

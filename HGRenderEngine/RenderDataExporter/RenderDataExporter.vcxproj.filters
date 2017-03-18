@@ -22,6 +22,12 @@
     <Filter Include="Logic">
       <UniqueIdentifier>{6b0d6af4-7b8b-4aeb-a051-a0b6cfa5d6d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{088567f0-620f-4d96-8b72-c7a2ecc20a81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools\JsonCpp">
+      <UniqueIdentifier>{c3379db0-de56-45d4-b55e-3eba2a695e37}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />

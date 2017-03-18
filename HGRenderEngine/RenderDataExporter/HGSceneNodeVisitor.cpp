@@ -137,14 +137,12 @@ void HGSceneNodeVisitor::apply(osg::Node& node)
 	if (isGroup(node))
 	{
 		debugGroup(*node.asGroup());
-
-		//if (isGroupIgnore(node)) return;
-		//if (isGroupLiner(node)) ;
-		//if (isGroupModel(node)) ;
-		//if (isGroupPanel(node)) ;
-		//else 
-		groupRoute(node);
-
+	
+		if (!ProcessGroup(node.asGroup()))
+		{
+			groupRoute(node);
+		}		
+		
 		return;
 	}
 	else
@@ -160,10 +158,54 @@ void HGSceneNodeVisitor::apply(osg::Node& node)
 		}
 	}
 }
+bool HGSceneNodeVisitor::ProcessGroup(osg::Group* node)
+{
+	if (isGroupIgnore(*node)) return true;
+	//if (isGroupLiner(node)) ;
+	if (isGroupModel(*node)) 
+	{
+		std::string modeFile;
+		osg::Matrix mat;
+
+		CHECK_IF_DO(hg3d::Entity,node,{  modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Girder,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Door,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::AlumStrip,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Glass,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Model,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Shape,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::NDoorCore,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::NDoorFrame,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::NDoorPocket,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::DoorWindow,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::SliderDoor,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
+
+		if (!modeFile.empty())
+		{
+			//TODO: 查找高模，成功则不再分发
+			HGLOG_DEBUG("mode file: %s",modeFile.c_str());
+			HGLOG_DEBUG("[%f %f %f ]",mat(0,0),mat(0,1),mat(0,2),mat(0,3));
+			HGLOG_DEBUG("[%f %f %f ]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
+			HGLOG_DEBUG("[%f %f %f ]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
+			HGLOG_DEBUG("[%f %f %f ]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
+		}
+		else
+		{
+			return false;
+		}
+	}
+	//if (isGroupPanel(node)) ;
+	//else 
+
+
+
+	return false;
+}
+
 void HGSceneNodeVisitor::ProcessGeode(osg::Geode* geode)
 {
 	GeodeReader reader(geode);
-	reader.debugGeode();
+	//eader.debugGeode();
 }
 
 //路由子节点

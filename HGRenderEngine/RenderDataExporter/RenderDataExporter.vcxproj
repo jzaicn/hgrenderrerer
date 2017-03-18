@@ -95,7 +95,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>.\RenderDataExporter.def</ModuleDefinitionFile>
-      <AdditionalDependencies>OpenThreads.lib;osg.lib;osgDB.lib;osgGA.lib;hgIO.lib;osgText.lib;osgViewer.lib;osgUtil.lib;hg3d.lib;hgCst.lib;hgViewer.lib;MgrCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>jsoncpp.lib;OpenThreads.lib;osg.lib;osgDB.lib;osgGA.lib;hgIO.lib;osgText.lib;osgViewer.lib;osgUtil.lib;hg3d.lib;hgCst.lib;hgViewer.lib;MgrCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>

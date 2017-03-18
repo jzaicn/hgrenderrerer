@@ -53,6 +53,7 @@ private:
 	//递归遍历所有子节点
 	virtual void apply(osg::Node& node);
 
+	bool ProcessGroup(osg::Group* node);
 	void ProcessGeode(osg::Geode* geode);
 
 	//路由子节点

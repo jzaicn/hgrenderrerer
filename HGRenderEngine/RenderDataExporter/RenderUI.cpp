@@ -8,6 +8,7 @@
 #include "HGSceneNodeVisitor.h"
 
 #include "osg\StateSet"
+#include <fstream>
 
 #pragma comment(lib,"log4cpp.lib")
 #pragma comment(lib,"HgLog.lib")
@@ -17,6 +18,9 @@
 {	class_type* conv = dynamic_cast<class_type*>(point); \
 	if (conv) {	HGLOG_DEBUG(#class_type" ok");	} \
 }
+
+#include "JsonCpp/json.h"
+
 
 void RenderUI::showRenderDlg()
 {
@@ -38,6 +42,32 @@ void RenderUI::showRenderDlg()
 		//node00->accept(vistor);
 		HGLOG_DEBUG("load ok");
 	}
+	
 
+	
+// 	std::ofstream  writestream("d:\\1.txt");
+// 	if (writestream.is_open())
+// 	{
+// 		writestream << root.toStyledString().c_str() ;
+// 		writestream.flush();
+// 		writestream.close();
+// 	}
+		
+// 	std::ifstream  readstream("d:\\1.txt");
+// 	if (readstream.is_open())
+// 	{
+// 		std::string text;
+// 		readstream >> text ;
+// 		readstream.close();
+// 
+// 		Json::Reader reader;
+// 		Json::Value root;
+// 		if (reader.parse(text,root))
+// 		{
+// 			HGLOG_DEBUG("json: %s",root.toStyledString().c_str());
+// 		}
+// 	}
+
+	
 }
 
