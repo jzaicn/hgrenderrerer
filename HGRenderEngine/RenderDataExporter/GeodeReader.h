@@ -92,6 +92,25 @@ public:
 			return ss.str();
 		} 
 	}
+
+	bool compare(GeodeMatrial& other)
+	{
+		if (Type() == other.Type())
+		{
+			switch(m_type)
+			{
+			case image:
+				return (Image().compare(other.Image()) == 0);
+				break;
+			case color:
+				return ( Color()==other.Color() );
+				break;
+			default:
+				break;
+			}
+		}
+		return false;
+	}
 private:
 	MType m_type;
 	std::string m_image;

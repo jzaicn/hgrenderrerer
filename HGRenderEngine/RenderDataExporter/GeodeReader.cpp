@@ -388,16 +388,16 @@ int GeodeReader::getMaterialIndex(const osg::Geometry* geo, const osg::StateSet*
 		//TODO: ±£´æÍ¼Ïñ
 		const osg::Image* img = osgTexture->getImage(0);
 		//HGLOG_DEBUG("img src:%s",img->getFileName().c_str());
-
+		GeodeMatrial mat_image(img->getFileName());
 		for (UINT i = 0; i < m_material.size() ; i++)
 		{
-			if(m_material.at(i).Image().compare(img->getFileName()) == 0)
+			if(mat_image.compare(m_material.at(i)))
 			{
 				return i;
 			}
 		}
 		
-		m_material.push_back(GeodeMatrial(img->getFileName()));	
+		m_material.push_back(mat_image);	
 		return m_material.size() - 1;
 	}
 // 	else if (osgColorArr)
