@@ -63,9 +63,10 @@ public:
 		Image(img);	
 		Type(_type);
 	}
+	//没有贴图的全部默认为白色，不作其他处理
 	GeodeMatrial(float r,float g,float b,float a ,GeodeMatrial::MType _type = color)
 	{
-		Color(r,g,b,a);
+		Color(1.0,1.0,1.0,1.0);
 		Type(_type);
 	}
 

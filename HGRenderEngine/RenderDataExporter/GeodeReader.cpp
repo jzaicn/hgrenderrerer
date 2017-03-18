@@ -260,7 +260,7 @@ void GeodeReader::processGeometery(osg::Geode* _geode)
 {
 	unsigned int count = m_geode->getNumDrawables();
 	bool texcoords = false;
-	m_material.resize(count);
+	//m_material.resize(count);
 
 	if(m_geode->getStateSet()){
 		pushStateSet(m_geode->getStateSet());
@@ -400,16 +400,16 @@ int GeodeReader::getMaterialIndex(const osg::Geometry* geo, const osg::StateSet*
 		m_material.push_back(GeodeMatrial(img->getFileName()));	
 		return m_material.size() - 1;
 	}
-	else if (osgColorArr)
-	{
-		for (UINT i = 0; i < osgColorArr->getNumElements() ; i++)
-		{
-			osg::Vec4  vec = (*dynamic_cast<const osg::Vec4Array *>(osgColorArr))[i];
-			//HGLOG_DEBUG("color( %f, %f, %f, %f)",vec.x(), vec.y(), vec.z(), vec.w());
-			m_material.push_back(GeodeMatrial(vec.x(), vec.y(), vec.z(), vec.w()));
-			return m_material.size() - 1;
-		}
-	}
+// 	else if (osgColorArr)
+// 	{
+// 		for (UINT i = 0; i < osgColorArr->getNumElements() ; i++)
+// 		{
+// 			osg::Vec4  vec = (*dynamic_cast<const osg::Vec4Array *>(osgColorArr))[i];
+// 			//HGLOG_DEBUG("color( %f, %f, %f, %f)",vec.x(), vec.y(), vec.z(), vec.w());
+// 			m_material.push_back(GeodeMatrial(vec.x(), vec.y(), vec.z(), vec.w()));
+// 			return m_material.size() - 1;
+// 		}
+// 	}
 
 	return -1;
 }
