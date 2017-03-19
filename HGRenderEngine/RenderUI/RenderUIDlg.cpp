@@ -63,6 +63,7 @@ BEGIN_MESSAGE_MAP(CRenderUIDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDOK, &CRenderUIDlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -153,3 +154,29 @@ HCURSOR CRenderUIDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+#include "JsonCpp/json.h"
+#include <fstream>
+
+void CRenderUIDlg::OnBnClickedOk()
+{
+	std::ifstream  readstream("d:\\1.txt");
+	if (readstream.is_open())
+	{
+		std::string text;
+		readstream >> text ;
+		readstream.close();
+
+		Json::Reader reader;
+		Json::Value root;
+		if (reader.parse(text,root))
+		{
+			MessageBox(root.toStyledString().c_str());
+		}
+	}
+	
+
+
+
+	CDialogEx::OnOK();
+}
