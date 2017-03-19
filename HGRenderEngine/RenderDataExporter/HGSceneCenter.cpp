@@ -15,3 +15,8 @@ void HGSceneCenter::debug()
 {
 
 }
+
+HGSceneCenter& HGSceneCenter::HGSceneCenter::inst()
+{
+	return *this;
+}

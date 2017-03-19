@@ -202,9 +202,17 @@ bool HGSceneNodeVisitor::ProcessGroup(osg::Group* node)
 	return false;
 }
 
+#include "HG_Mesh.h"
+
 void HGSceneNodeVisitor::ProcessGeode(osg::Geode* geode)
 {
 	GeodeReader reader(geode);
+
+	
+	HG_Mesh mesh;
+	mesh.
+
+	HGSceneCenter::inst().addMesh();
 	//eader.debugGeode();
 }
 

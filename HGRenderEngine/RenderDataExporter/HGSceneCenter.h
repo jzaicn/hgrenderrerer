@@ -7,29 +7,39 @@
 #include "HG_Material.h"
 #include "HG_MeshInstance.h"
 
-class HGSceneCenter
+#include "BaseModel.h"
+
+class HGSceneCenter : BaseModel
 {
 public:
 	HGSceneCenter(void);
 	~HGSceneCenter(void);
-
+public:
 	void debug();
+	
+	HGSceneCenter& inst();
+	
+	void addMesh();
+
+	void addMaterial();
+
+	void addMeshUseMaterial();
 
 private:
 	//camera
-	std::vector<HG_Camera> m_cameraList;
+	GETSET(std::vector<HG_Camera>,m_cameraList);
 
 	//light
-	std::vector<HG_Light> m_lightList;
+	GETSET(std::vector<HG_Light>,m_lightList);
 
 	//mesh
-	std::vector<HG_Mesh> m_meshList;
+	GETSET(std::vector<HG_Mesh>,m_meshList);
 
 	//material
-	std::vector<HG_Material> m_materialList;
+	GETSET(std::vector<HG_Material>,m_materialList);
 
 	//mesh实例 多大，在哪，方向，和什么材质关联，用的是哪个实例
-	std::vector<HG_MeshInstance> m_meshInstanceList;
+	GETSET(std::vector<HG_MeshInstance>,m_meshInstanceList);
 	
 };
 
