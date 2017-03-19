@@ -55,7 +55,10 @@
       <Filter>Logic</Filter>
     </ClCompile>
     <ClCompile Include="GeodeReader.cpp">
-      <Filter>源文件</Filter>
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="HGSceneCenter.cpp">
+      <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,7 +87,10 @@
       <Filter>Logic</Filter>
     </ClInclude>
     <ClInclude Include="GeodeReader.h">
-      <Filter>头文件</Filter>
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="HGSceneCenter.h">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

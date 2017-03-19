@@ -95,7 +95,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>.\RenderDataExporter.def</ModuleDefinitionFile>
-      <AdditionalDependencies>jsoncpp.lib;OpenThreads.lib;osg.lib;osgDB.lib;osgGA.lib;hgIO.lib;osgText.lib;osgViewer.lib;osgUtil.lib;hg3d.lib;hgCst.lib;hgViewer.lib;MgrCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>jsoncpp86.lib;OpenThreads.lib;osg.lib;osgDB.lib;osgGA.lib;hgIO.lib;osgText.lib;osgViewer.lib;osgUtil.lib;hg3d.lib;hgCst.lib;hgViewer.lib;MgrCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeodeReader.cpp" />
+    <ClCompile Include="HGSceneCenter.cpp" />
     <ClCompile Include="HGSceneNodeVisitor.cpp" />
     <ClCompile Include="MeshProcer.cpp" />
     <ClCompile Include="RenderDataExporter.cpp" />
@@ -126,6 +127,7 @@
   <ItemGroup>
     <ClInclude Include="Export.h" />
     <ClInclude Include="GeodeReader.h" />
+    <ClInclude Include="HGSceneCenter.h" />
     <ClInclude Include="HGSceneNodeVisitor.h" />
     <ClInclude Include="MeshProcer.h" />
     <ClInclude Include="RenderDataExporter.h" />
