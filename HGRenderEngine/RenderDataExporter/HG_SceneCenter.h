@@ -7,6 +7,7 @@
 #include "HG_Material.h"
 #include "HG_MeshInstance.h"
 #include "HG_BaseModel.h"
+#include "HG_ModelInstance.h"
 
 class HG_SceneCenter
 {
@@ -40,6 +41,19 @@ public:
 // 		vec.push_back(item);
 // 	}
 
+	void addModelInstance(HG_ModelInstance model)
+	{
+		for (int i = 0; i < m_modelList.size() ; i++)
+		{
+			if (m_modelList.at(i).get_unique_code().compare(model.get_unique_code()) == 0)
+			{
+				m_modelList[i] = model;
+				return;
+			}
+		}
+		m_modelList.push_back(model);
+	}
+
 	void addMesh(HG_Mesh mesh)
 	{
 		for (int i = 0; i < m_meshList.size() ; i++)
@@ -70,7 +84,7 @@ public:
 	{
 		for (int i = 0; i < m_meshInstanceList.size() ; i++)
 		{
-			if (m_meshInstanceList.at(i).getUniqueCode().compare(inst.getUniqueCode()) == 0)
+			if (m_meshInstanceList.at(i).get_unique_code().compare(inst.get_unique_code()) == 0)
 			{
 				m_meshInstanceList[i] = inst;
 				return;
@@ -89,6 +103,9 @@ private:
 
 	//mesh
 	GETSET(std::vector<HG_Mesh>,meshList);
+
+	//model
+	GETSET(std::vector<HG_ModelInstance>,modelList);
 
 	//material
 	GETSET(std::vector<HG_Material>,materialList);

@@ -47,6 +47,7 @@
 #include "hg3d\ExtrudeMaterial.h"
 #include "hg3d\LineMaterial.h"
 
+
 #include "GeodeReader.h"
 
 HGSceneNodeVisitor::HGSceneNodeVisitor(void)
@@ -198,6 +199,9 @@ bool HGSceneNodeVisitor::ProcessGroup(osg::Group* node)
 			HGLOG_DEBUG("[%f %f %f ]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
 			HGLOG_DEBUG("[%f %f %f ]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
 			HGLOG_DEBUG("[%f %f %f ]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
+
+			HG_SceneCenter::inst().addModelInstance(HG_ModelInstance(modeFile,convertToHG_Mat(mat)));
+
 			return true;
 		}
 		else
@@ -211,6 +215,16 @@ bool HGSceneNodeVisitor::ProcessGroup(osg::Group* node)
 
 
 	return false;
+}
+
+HG_Mat HGSceneNodeVisitor::convertToHG_Mat(osg::Matrix mat)
+{
+	HG_Mat hgmat;
+	hgmat.ref_mat()[0] = HG_Vec4(mat(0,0),mat(0,1),mat(0,2),mat(0,3));
+	hgmat.ref_mat()[1] = HG_Vec4(mat(1,0),mat(1,1),mat(1,2),mat(1,3));
+	hgmat.ref_mat()[2] = HG_Vec4(mat(2,0),mat(2,1),mat(2,2),mat(2,3));
+	hgmat.ref_mat()[3] = HG_Vec4(mat(3,0),mat(3,1),mat(3,2),mat(3,3));
+	return hgmat;
 }
 
 #include "HG_Mesh.h"
@@ -257,10 +271,12 @@ void HGSceneNodeVisitor::ProcessGeode(osg::Geode* geode)
 			
 		}
 		//TODO: 修改唯一码获取方式
-		CString mm;
-		mm.Format("mesh_%0X_scetion%02",*geode,material_i);
-		mesh.set_unique_code(mm.GetBuffer());
-		HG_SceneCenter::inst().addMesh(mesh);
+		{
+			CString mm;
+			mm.Format("mesh_%0X_scetion%02",*geode,material_i);
+			mesh.set_unique_code(mm.GetBuffer());
+			HG_SceneCenter::inst().addMesh(mesh);
+		}
 
 		HG_Material material;
 		GeodeMatrial gmat = reader.get_material().at(material_i);
@@ -273,10 +289,12 @@ void HGSceneNodeVisitor::ProcessGeode(osg::Geode* geode)
 		{
 			material.set_color(HG_Vec4(gmat.Color().r(),gmat.Color().g(),gmat.Color().b(),gmat.Color().a()));
 		}
-		CString mm;
-		mm.Format("material_%0X_materialIndex%02",*geode,material_i);
-		material.set_unique_code(mm.GetBuffer());
-		HG_SceneCenter::inst().addMaterial(material);
+		{
+			CString mm;
+			mm.Format("material_%0X_materialIndex%02",*geode,material_i);
+			material.set_unique_code(mm.GetBuffer());
+			HG_SceneCenter::inst().addMaterial(material);
+		}
 
 		//世界坐标矩阵
 		osg::Matrix matrixWorld = geode->getWorldMatrices().at(0);

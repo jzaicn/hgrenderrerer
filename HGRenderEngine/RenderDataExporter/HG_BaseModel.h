@@ -2,7 +2,6 @@
 
 #include <vector>
 
-
 #define GETSET(type,name)\
 private: type m_##name;\
 public: type get_##name() const {return this->m_##name;}\
@@ -30,6 +29,7 @@ class HG_Vec3;
 class HG_Vec4;
 class HG_Mat;
 
+
 class HG_BaseModel
 {
 public:
@@ -55,6 +55,8 @@ public:
 	~HG_Vec2(void){};
 
 	std::string toString();
+
+
 
 private:
 	GETSET(float,x);

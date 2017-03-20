@@ -53,6 +53,9 @@ private:
 	virtual void apply(osg::Node& node);
 
 	bool ProcessGroup(osg::Group* node);
+
+	HG_Mat convertToHG_Mat(osg::Matrix mat);
+
 	void ProcessGeode(osg::Geode* geode);
 
 	//路由子节点
