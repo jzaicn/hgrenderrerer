@@ -1,22 +1,14 @@
 #include "StdAfx.h"
-#include "HGSceneCenter.h"
+#include "HG_SceneCenter.h"
 
 
-HGSceneCenter::HGSceneCenter(void)
+HG_SceneCenter::HG_SceneCenter(void)
 {
 }
 
 
-HGSceneCenter::~HGSceneCenter(void)
+HG_SceneCenter::~HG_SceneCenter(void)
 {
 }
 
-void HGSceneCenter::debug()
-{
-
-}
-
-HGSceneCenter& HGSceneCenter::HGSceneCenter::inst()
-{
-	return *this;
-}
+HG_SceneCenter HG_SceneCenter::m_inst;
