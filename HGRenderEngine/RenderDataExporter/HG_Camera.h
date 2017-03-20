@@ -6,6 +6,11 @@ public:
 	HG_Camera(void);
 	~HG_Camera(void);
 
+
+	virtual std::string get_classname() { return "HG_Camera"; };
+	virtual void save(Json::Value& out) override;
+	virtual void load(const Json::Value& in) override;
+
 private:
 
 	GETSET(float,fov);

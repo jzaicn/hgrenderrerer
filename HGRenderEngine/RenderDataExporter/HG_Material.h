@@ -13,11 +13,20 @@ public:
 		color
 	}MType;
 
+
+	virtual std::string get_classname() override;
+
+
+	virtual void save(Json::Value& out) override;
+
+
+	virtual void load(const Json::Value& in) override;
+
 private:
 
 	GETSET(MType,type);
 	GETSET(std::string,image);
-	GETSET(HG_Vec4,color);
 	GETSET(std::string,unique_code);
+	GETSET(HG_Vec4,color);
 };
 

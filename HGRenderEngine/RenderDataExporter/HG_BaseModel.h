@@ -25,6 +25,19 @@ private:
 // 	saveTo(*val); return val; \
 // 
 
+#define JsonVectorSave(type,name)	\
+{ Json::Value arr##name; for (UINT i = 0; i < m_##name##.size() ; i++) {  \
+	Json::Value val;	m_##name##.at(i).save(val);	arr##name##.append(val); } \
+	out[#name] = arr##name; }
+
+#define JsonVectorLoad(type,name) \
+	if (in[#name].isArray()) { for (UINT i = 0; i < in[#name].size() ; i++) {\
+	type name##Temp;\
+	name##Temp.load(in[#name][i]);\
+	m_##name.push_back(##name##Temp);	}}
+
+
+
 class HG_Vec2;
 class HG_Vec3;
 class HG_Vec4;
@@ -58,6 +71,7 @@ public:
 	}
 	~HG_Vec2(void){};
 
+	virtual std::string get_classname() override { return "HG_Vec2"; };
 
 	virtual void save(Json::Value& out) override
 	{
@@ -72,7 +86,6 @@ public:
 	}
 
 
-	virtual std::string get_classname() override;
 
 private:
 	GETSET(float,x);
@@ -97,7 +110,7 @@ public:
 	}
 	~HG_Vec3(void){};
 
-	std::string classname(){ return "HG_BaseModel"; };
+	std::string get_classname(){ return "HG_Vec3"; };
 
 	virtual void save(Json::Value& out) override
 	{
@@ -139,7 +152,7 @@ public:
 	}
 	~HG_Vec4(void){};
 
-	std::string toString();
+	virtual std::string get_classname() { return "HG_Vec4"; };
 
 	virtual void save(Json::Value& out) override
 	{
@@ -175,7 +188,7 @@ public:
 	}
 	~HG_Mat(void){};
 
-	std::string toString();
+	virtual std::string get_classname() { return "HG_Mat"; };
 
 	void clear()
 	{

@@ -17,3 +17,27 @@ HG_Light::~HG_Light(void)
 	
 }
 
+std::string HG_Light::get_classname()
+{
+	return "HG_Light";
+}
+
+void HG_Light::save(Json::Value& out)
+{
+	out["type"] = get_type();
+	out["ies_filename"] = get_ies_filename();
+	out["intensity"] = get_intensity();
+	ref_size().save(out["size"]);
+	ref_light_to_world().save(out["light_to_world"]);
+
+}
+
+void HG_Light::load(const Json::Value& in)
+{
+	set_type((LightType)in["type"].asUInt());
+	set_ies_filename(in["ies_filename"].asString());
+	set_intensity(in["intensity"].asFloat());
+	ref_size().load(in["size"]);
+	ref_light_to_world().load(in["light_to_world"]);
+}
+

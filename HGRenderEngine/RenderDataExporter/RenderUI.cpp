@@ -44,8 +44,9 @@ void RenderUI::showRenderDlg()
 	}
 	
 	Json::Value output;
-	HG_Mat mat;
-	mat.ref_mat()[2] = HG_Vec4(1.0,2.0,3.0,4.0);
+	HG_SceneCenter mat;
+	mat.addModelInstance(HG_ModelInstance("123123",HG_Mat()));
+
 	mat.save(output);
 	HGLOG_DEBUG(output.toStyledString().c_str());
 

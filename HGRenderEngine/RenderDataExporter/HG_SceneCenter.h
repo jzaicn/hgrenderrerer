@@ -9,11 +9,20 @@
 #include "HG_BaseModel.h"
 #include "HG_ModelInstance.h"
 
-class HG_SceneCenter
+class HG_SceneCenter : HG_BaseModel
 {
 public:
 	HG_SceneCenter(void);
 	~HG_SceneCenter(void);
+
+	virtual std::string get_classname() override;
+
+
+	virtual void save(Json::Value& out) override;
+
+
+	virtual void load(const Json::Value& in) override;
+
 public:
 	std::string debug()
 	{
@@ -27,70 +36,38 @@ public:
 	}
 
 	
-// 	template <typename T> 
-// 	void checkAndPushBack(std::vector<T>& vec,T& item)
-// 	{
-// 		for (int i = 0; i < vec.size() ; i++)
-// 		{
-// 			if (vec.at(i).getUniqueCode().compare(item.getUniqueCode()) == 0)
-// 			{
-// 				vec[i] = item;
-// 				return;
-// 			}
-// 		}
-// 		vec.push_back(item);
-// 	}
-
-	void addModelInstance(HG_ModelInstance model)
+	template <typename T> 
+	void checkAndPushBack(std::vector<T>& vec,T& item)
 	{
-		for (int i = 0; i < m_modelList.size() ; i++)
+		for (UINT i = 0; i < vec.size() ; i++)
 		{
-			if (m_modelList.at(i).get_unique_code().compare(model.get_unique_code()) == 0)
+			if (vec.at(i).get_unique_code().compare(item.get_unique_code()) == 0)
 			{
-				m_modelList[i] = model;
+				vec[i] = item;
 				return;
 			}
 		}
-		m_modelList.push_back(model);
+		vec.push_back(item);
+	}
+
+	void addModelInstance(HG_ModelInstance model)
+	{
+		checkAndPushBack(m_modelList,model);
 	}
 
 	void addMesh(HG_Mesh mesh)
 	{
-		for (int i = 0; i < m_meshList.size() ; i++)
-		{
-			if (m_meshList.at(i).get_unique_code().compare(mesh.get_unique_code()) == 0)
-			{
-				m_meshList[i] = mesh;
-				return;
-			}
-		}
-		m_meshList.push_back(mesh);
+		checkAndPushBack(m_meshList,mesh);
 	}
 
 	void addMaterial(HG_Material material)
 	{
-		for (int i = 0; i < m_materialList.size() ; i++)
-		{
-			if (m_materialList.at(i).get_unique_code().compare(material.get_unique_code()) == 0)
-			{
-				m_materialList[i] = material;
-				return;
-			}
-		}
-		m_materialList.push_back(material);
+		checkAndPushBack(m_materialList,material);
 	}
 
-	void addMeshUseMaterial(HG_MeshInstance inst)
+	void addMeshUseMaterial(HG_MeshInstance instance)
 	{
-		for (int i = 0; i < m_meshInstanceList.size() ; i++)
-		{
-			if (m_meshInstanceList.at(i).get_unique_code().compare(inst.get_unique_code()) == 0)
-			{
-				m_meshInstanceList[i] = inst;
-				return;
-			}
-		}
-		m_meshInstanceList.push_back(inst);
+		checkAndPushBack(m_meshInstanceList,instance);
 	}
 
 

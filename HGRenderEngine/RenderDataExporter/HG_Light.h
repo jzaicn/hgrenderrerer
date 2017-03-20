@@ -13,6 +13,15 @@ public:
 		flat_light,
 	}LightType;
 
+
+	virtual std::string get_classname() override;
+
+
+	virtual void save(Json::Value& out) override;
+
+
+	virtual void load(const Json::Value& in) override;
+
 private:
 	
 	GETSET(LightType,type);

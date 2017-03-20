@@ -18,18 +18,38 @@ public:
 		set_t1(t3);
 		set_material(material);
 	};
+
+
+
+	virtual std::string get_classname() override;
+
+
+	virtual void save(Json::Value& out) override;
+
+
+	virtual void load(const Json::Value& in) override;
+
 public:
-	GETSET(UINT,t1);				// ¶¥µãindex
+	GETSET(UINT,t1);				
 	GETSET(UINT,t2);
 	GETSET(UINT,t3);
-	GETSET(UINT,material) ;			//²ÄÖÊindex
+	GETSET(UINT,material) ;			
 };
 
-class HG_Mesh
+class HG_Mesh :public HG_BaseModel
 {
 public:
 	HG_Mesh(void);
 	~HG_Mesh(void);
+
+
+	virtual std::string get_classname() override;
+
+
+	virtual void save(Json::Value& out) override;
+
+
+	virtual void load(const Json::Value& in) override;
 
 private:
 	GETSET(std::vector<HG_MeshTriangle>,faces);
