@@ -113,9 +113,15 @@
     <None Include="res\RenderDataExporter.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="HG_BaseModel.cpp" />
     <ClCompile Include="GeodeReader.cpp" />
-    <ClCompile Include="HGSceneCenter.cpp" />
+    <ClCompile Include="HG_SceneCenter.cpp" />
     <ClCompile Include="HGSceneNodeVisitor.cpp" />
+    <ClCompile Include="HG_Camera.cpp" />
+    <ClCompile Include="HG_Light.cpp" />
+    <ClCompile Include="HG_Material.cpp" />
+    <ClCompile Include="HG_Mesh.cpp" />
+    <ClCompile Include="HG_MeshInstance.cpp" />
     <ClCompile Include="MeshProcer.cpp" />
     <ClCompile Include="RenderDataExporter.cpp" />
     <ClCompile Include="RenderUI.cpp" />
@@ -125,10 +131,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HG_BaseModel.h" />
     <ClInclude Include="Export.h" />
     <ClInclude Include="GeodeReader.h" />
-    <ClInclude Include="HGSceneCenter.h" />
+    <ClInclude Include="HG_SceneCenter.h" />
     <ClInclude Include="HGSceneNodeVisitor.h" />
+    <ClInclude Include="HG_Camera.h" />
+    <ClInclude Include="HG_Light.h" />
+    <ClInclude Include="HG_Material.h" />
+    <ClInclude Include="HG_Mesh.h" />
+    <ClInclude Include="HG_MeshInstance.h" />
     <ClInclude Include="MeshProcer.h" />
     <ClInclude Include="RenderDataExporter.h" />
     <ClInclude Include="RenderUI.h" />

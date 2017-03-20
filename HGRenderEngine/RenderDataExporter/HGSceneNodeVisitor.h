@@ -3,7 +3,7 @@
 
 #include <stack>
 #include "osg\Geometry"
-#include "HGSceneCenter.h"
+#include "HG_SceneCenter.h"
 
 
 class HGSceneNodeVisitor :public osg::NodeVisitor
@@ -14,7 +14,7 @@ public:
 
 private:
 	int m_level;
-	HGSceneCenter center;
+	HG_SceneCenter center;
 
 	//////////////////////////////////////////////////////////////////////////
 	// ¿‡–ÕºÏ≤‚

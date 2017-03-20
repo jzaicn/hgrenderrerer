@@ -207,13 +207,35 @@ bool HGSceneNodeVisitor::ProcessGroup(osg::Group* node)
 void HGSceneNodeVisitor::ProcessGeode(osg::Geode* geode)
 {
 	GeodeReader reader(geode);
-
 	
 	HG_Mesh mesh;
-	mesh.
-
-	HGSceneCenter::inst().addMesh();
-	//eader.debugGeode();
+	//face
+	for (int i = 0; i < reader.get_listTriangles().size() ; i++)
+	{
+		Triangle tri = reader.get_listTriangles().at(i).first;
+		mesh.ref_faces().push_back(HG_MeshTriangle(tri.t1,tri.t2,tri.t3));	
+	}
+	//verts
+	for (int i = 0; i < reader.get_points().get()->size() ; i++)
+	{
+		osg::Vec3 vec = reader.get_points().get()->at(i);
+		mesh.ref_verts().push_back(HG_Vec3(vec.x(),vec.y(),vec.z()));
+	}
+	//normal
+	for (int i = 0; i < reader.get_normals().get()->size() ; i++)
+	{
+		osg::Vec3 vec = reader.get_normals().get()->at(i);
+		mesh.ref_normals().push_back(HG_Vec3(vec.x(),vec.y(),vec.z()));
+	}
+	//uvs
+	for (int i = 0; i < reader.get_uvs().get()->size() ; i++)
+	{
+		osg::Vec2 vec = reader.get_uvs().get()->at(i);
+		mesh.ref_uvs().push_back(HG_Vec2(vec.x(),vec.y()));
+	}
+	
+	HG_SceneCenter::inst().addMesh(mesh);
+	
 }
 
 //路由子节点

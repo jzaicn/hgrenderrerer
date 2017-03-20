@@ -5,6 +5,7 @@
 #include <sstream> 
 #include "osg\Geode"
 #include "osg\StateSet"
+#include "HG_BaseModel.h"
 
 //////////////////////////////////////////////////////////////////////////
 // π§æﬂ¿‡
@@ -153,11 +154,11 @@ private:
 	StateSetStack m_stateSetStack;
 	osg::ref_ptr<osg::StateSet> m_currentStateSet;
 
-	ListTriangle m_listTriangles;
-	osg::ref_ptr<osg::Vec3Array> m_points;
-	osg::ref_ptr<osg::Vec3Array> m_normals;
-	osg::ref_ptr<osg::Vec2Array> m_uvs;
-	std::vector<GeodeMatrial> m_material;
+	GETSET(ListTriangle,listTriangles);
+	GETSET(osg::ref_ptr<osg::Vec3Array>,points);
+	GETSET(osg::ref_ptr<osg::Vec3Array>,normals);
+	GETSET(osg::ref_ptr<osg::Vec2Array>,uvs);
+	GETSET(std::vector<GeodeMatrial>,material);
 };
 
 

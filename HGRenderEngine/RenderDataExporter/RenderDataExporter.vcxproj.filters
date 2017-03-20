@@ -16,17 +16,26 @@
     <Filter Include="Frame">
       <UniqueIdentifier>{4064bbb0-45de-4270-abec-4d209df10215}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Model">
-      <UniqueIdentifier>{e5807e7f-2320-4883-ae60-a450b93c286f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Logic">
-      <UniqueIdentifier>{6b0d6af4-7b8b-4aeb-a051-a0b6cfa5d6d4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Tools">
       <UniqueIdentifier>{088567f0-620f-4d96-8b72-c7a2ecc20a81}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tools\JsonCpp">
       <UniqueIdentifier>{c3379db0-de56-45d4-b55e-3eba2a695e37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="histroy">
+      <UniqueIdentifier>{0f643fbb-ae7e-4233-bb4b-f1d0baf92f38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="histroy\Logic">
+      <UniqueIdentifier>{6b0d6af4-7b8b-4aeb-a051-a0b6cfa5d6d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="histroy\Model">
+      <UniqueIdentifier>{e5807e7f-2320-4883-ae60-a450b93c286f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{63ceb3cf-32f7-4acc-900f-24d987770ffa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Control">
+      <UniqueIdentifier>{c04800db-4757-4d56-87bb-65f4a01380d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -43,21 +52,39 @@
       <Filter>Frame</Filter>
     </ClCompile>
     <ClCompile Include="RenderUI.cpp">
-      <Filter>Logic</Filter>
+      <Filter>histroy\Logic</Filter>
     </ClCompile>
     <ClCompile Include="HGSceneNodeVisitor.cpp">
-      <Filter>Logic</Filter>
+      <Filter>histroy\Logic</Filter>
     </ClCompile>
     <ClCompile Include="MeshProcer.cpp">
-      <Filter>Logic</Filter>
+      <Filter>histroy\Logic</Filter>
     </ClCompile>
     <ClCompile Include="RenderDataExporter.cpp">
-      <Filter>Logic</Filter>
+      <Filter>histroy\Logic</Filter>
     </ClCompile>
     <ClCompile Include="GeodeReader.cpp">
-      <Filter>Logic</Filter>
+      <Filter>histroy\Logic</Filter>
     </ClCompile>
-    <ClCompile Include="HGSceneCenter.cpp">
+    <ClCompile Include="HG_Camera.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Light.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Material.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Mesh.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_MeshInstance.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_BaseModel.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_SceneCenter.cpp">
       <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>
@@ -75,21 +102,39 @@
       <Filter>Frame</Filter>
     </ClInclude>
     <ClInclude Include="RenderUI.h">
-      <Filter>Logic</Filter>
+      <Filter>histroy\Logic</Filter>
     </ClInclude>
     <ClInclude Include="HGSceneNodeVisitor.h">
-      <Filter>Logic</Filter>
+      <Filter>histroy\Logic</Filter>
     </ClInclude>
     <ClInclude Include="MeshProcer.h">
-      <Filter>Logic</Filter>
+      <Filter>histroy\Logic</Filter>
     </ClInclude>
     <ClInclude Include="RenderDataExporter.h">
-      <Filter>Logic</Filter>
+      <Filter>histroy\Logic</Filter>
     </ClInclude>
     <ClInclude Include="GeodeReader.h">
-      <Filter>Logic</Filter>
+      <Filter>histroy\Logic</Filter>
     </ClInclude>
-    <ClInclude Include="HGSceneCenter.h">
+    <ClInclude Include="HG_Camera.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Light.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Material.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Mesh.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_MeshInstance.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_BaseModel.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_SceneCenter.h">
       <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
