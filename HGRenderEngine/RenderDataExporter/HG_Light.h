@@ -1,27 +1,25 @@
 #pragma once
 #include "HG_BaseModel.h"
-class HG_Light
+
+class HG_Light :public HG_BaseModel
 {
 public:
 	HG_Light(void);
 	~HG_Light(void);
 
+	typedef enum {
+		spot_light,
+		point_light,
+		flat_light,
+	}LightType;
 
 private:
-	EH_Light* create();
-
-public:
-	void loadFrom(const EH_Light& light);
-	void saveTo(_Out_ EH_Light& light);
-
-private:
-	GETSET(EH_Light*,light);
 	
-	GETSET(EH_LightType,type);
-	GETSET(CString,ies_filename);	
+	GETSET(LightType,type);
+	GETSET(std::string,ies_filename);	
 	GETSET(float,intensity);
-	GETSET_VECTYPE(EH_Vec2,size);		
-	GETSET_VECTYPE(EH_Mat,light_to_world);		
+	GETSET(HG_Vec2,size);		
+	GETSET(HG_Mat,light_to_world);		
 
 
 };
