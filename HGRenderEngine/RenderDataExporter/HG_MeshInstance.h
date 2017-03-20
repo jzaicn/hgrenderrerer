@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BaseModel.h"
+#include "HG_BaseModel.h"
 class HG_MeshInstance
 {
 public:

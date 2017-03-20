@@ -1,13 +1,13 @@
 #include "StdAfx.h"
-#include "BaseModel.h"
+#include "HG_BaseModel.h"
 #include <stdexcept>
 
-BaseModel::BaseModel(void)
+HG_BaseModel::HG_BaseModel(void)
 {
 }
 
 
-BaseModel::~BaseModel(void)
+HG_BaseModel::~HG_BaseModel(void)
 {
 }
 

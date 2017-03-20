@@ -9,7 +9,7 @@
 
 #include "BaseModel.h"
 
-class HGSceneCenter : BaseModel
+class HGSceneCenter
 {
 public:
 	HGSceneCenter(void);
@@ -19,9 +19,9 @@ public:
 	
 	HGSceneCenter& inst();
 	
-	void addMesh();
+	void addMesh(HG_Mesh mesh);
 
-	void addMaterial();
+	void addMaterial(HG_Material material);
 
 	void addMeshUseMaterial();
 

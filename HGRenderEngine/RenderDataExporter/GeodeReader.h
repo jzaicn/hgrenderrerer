@@ -154,7 +154,6 @@ private:
 	osg::ref_ptr<osg::StateSet> m_currentStateSet;
 
 	ListTriangle m_listTriangles;
-public:
 	osg::ref_ptr<osg::Vec3Array> m_points;
 	osg::ref_ptr<osg::Vec3Array> m_normals;
 	osg::ref_ptr<osg::Vec2Array> m_uvs;

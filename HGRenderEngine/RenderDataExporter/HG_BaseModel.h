@@ -32,11 +32,11 @@ saveTo(*val); return val; \
 
 
 
-class BaseModel
+class HG_BaseModel
 {
 public:
-	BaseModel(void);
-	~BaseModel(void);
+	HG_BaseModel(void);
+	~HG_BaseModel(void);
 
 private:
 	virtual void create() = 0;
