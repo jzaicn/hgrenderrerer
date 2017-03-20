@@ -285,48 +285,6 @@ void GeodeReader::processGeometery(osg::Geode* _geode)
 	}
 }
 
-void GeodeReader::debugTriangleList()
-{
-	for (UINT i = 0; i < m_listTriangles.size() ; i++)
-	{
-		HGLOG_DEBUG("vertsIndex{%d,%d,%d},normalIndex{%d,%d,%d},face:%d,matrialimg:%d"
-			,m_listTriangles.at(i).first.t1,m_listTriangles.at(i).first.t2,m_listTriangles.at(i).first.t3
-			,m_listTriangles.at(i).first.normalIndex1,m_listTriangles.at(i).first.normalIndex2,m_listTriangles.at(i).first.normalIndex3
-			,m_listTriangles.at(i).second,m_listTriangles.at(i).first.material);
-	}
-}
-
-void GeodeReader::debugGeode()
-{
-	HGLOG_DEBUG("mesh verts");
-	for (UINT vert_i = 0; vert_i < m_points->size() ; vert_i++)
-	{
-		osg::Vec3 vec = m_points->at(vert_i);
-		HGLOG_DEBUG("vertex( %f, %f, %f)",vec.x(), vec.y(), vec.z());
-	}
-
-	HGLOG_DEBUG("mesh normal");
-	for (UINT vert_i = 0; vert_i < m_normals->size() ; vert_i++)
-	{
-		osg::Vec3 vec = m_normals->at(vert_i);
-		HGLOG_DEBUG("normal( %f, %f, %f)",vec.x(), vec.y(), vec.z());
-	}
-
-	HGLOG_DEBUG("mesh uv");
-	for (UINT vert_i = 0; vert_i < m_uvs->size() ; vert_i++)
-	{
-		osg::Vec2 vec = m_uvs->at(vert_i);
-		HGLOG_DEBUG("uv( %f, %f )",vec.x(), vec.y());
-	}
-
-	debugTriangleList();
-
-	HGLOG_DEBUG("face img");
-	for (UINT vert_i = 0; vert_i < m_material.size() ; vert_i++)
-	{
-		HGLOG_DEBUG("material ( %s )",m_material.at(vert_i).toString().c_str());
-	}
-}
 
 void GeodeReader::pushStateSet(const osg::StateSet* ss)
 {
@@ -498,16 +456,16 @@ void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,
 		if (basevecs->getType() == osg::Array::Vec3ArrayType)
 		{
 			osg::Vec3  vec = (*static_cast<const osg::Vec3Array  *>(basevecs))[vertexIndex];
-			osg::Matrix mtr = m_geode->getWorldMatrices().at(0);
-			vec.set(vec * mtr);
+			//osg::Matrix mtr = m_geode->getWorldMatrices().at(0);
+			//vec.set(vec * mtr);
 			(*m_points)[it->second].set(vec.x(), vec.y(), vec.z());
 			//HGLOG_DEBUG("vertex( %f, %f, %f)",vec.x(), vec.y(), vec.z());
 		}
 		else if (basevecs->getType() == osg::Array::Vec3dArrayType)
 		{
 			osg::Vec3d vec = (*static_cast<const osg::Vec3dArray *>(basevecs))[vertexIndex];
-			osg::Matrix mtr = m_geode->getWorldMatrices().at(0);
-			vec.set(vec * mtr);
+			//osg::Matrix mtr = m_geode->getWorldMatrices().at(0);
+			//vec.set(vec * mtr);
 			(*m_points)[it->second].set(vec.x(), vec.y(), vec.z());
 			//HGLOG_DEBUG("vertex( %f, %f, %f)",vec.x(), vec.y(), vec.z());
 		}
@@ -615,11 +573,6 @@ unsigned int GeodeReader::addPolygont3(MapIndices & index_vert, unsigned int ver
 	return itIndex->second;
 }
 
-
-
-
-
-
 void PrimitiveIndexWriter::writeTriangle(unsigned int i1, unsigned int i2, unsigned int i3)
 {
 	Triangle triangle;
@@ -694,4 +647,50 @@ void PrimitiveIndexWriter::drawArrays(GLenum mode,GLint first,GLsizei count)
 		break;
 	}
 	if (_normalBinding == osg::Geometry::BIND_PER_PRIMITIVE_SET) ++_curNormalIndex;
+}
+
+
+
+
+void GeodeReader::debugTriangleList()
+{
+	for (UINT i = 0; i < m_listTriangles.size() ; i++)
+	{
+		HGLOG_DEBUG("vertsIndex{%d,%d,%d},normalIndex{%d,%d,%d},face:%d,matrialimg:%d"
+			,m_listTriangles.at(i).first.t1,m_listTriangles.at(i).first.t2,m_listTriangles.at(i).first.t3
+			,m_listTriangles.at(i).first.normalIndex1,m_listTriangles.at(i).first.normalIndex2,m_listTriangles.at(i).first.normalIndex3
+			,m_listTriangles.at(i).second,m_listTriangles.at(i).first.material);
+	}
+}
+
+void GeodeReader::debugGeode()
+{
+	HGLOG_DEBUG("mesh verts");
+	for (UINT vert_i = 0; vert_i < m_points->size() ; vert_i++)
+	{
+		osg::Vec3 vec = m_points->at(vert_i);
+		HGLOG_DEBUG("vertex( %f, %f, %f)",vec.x(), vec.y(), vec.z());
+	}
+
+	HGLOG_DEBUG("mesh normal");
+	for (UINT vert_i = 0; vert_i < m_normals->size() ; vert_i++)
+	{
+		osg::Vec3 vec = m_normals->at(vert_i);
+		HGLOG_DEBUG("normal( %f, %f, %f)",vec.x(), vec.y(), vec.z());
+	}
+
+	HGLOG_DEBUG("mesh uv");
+	for (UINT vert_i = 0; vert_i < m_uvs->size() ; vert_i++)
+	{
+		osg::Vec2 vec = m_uvs->at(vert_i);
+		HGLOG_DEBUG("uv( %f, %f )",vec.x(), vec.y());
+	}
+
+	debugTriangleList();
+
+	HGLOG_DEBUG("face img");
+	for (UINT vert_i = 0; vert_i < m_material.size() ; vert_i++)
+	{
+		HGLOG_DEBUG("material ( %s )",m_material.at(vert_i).toString().c_str());
+	}
 }

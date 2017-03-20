@@ -167,6 +167,16 @@ bool HGSceneNodeVisitor::ProcessGroup(osg::Group* node)
 		std::string modeFile;
 		osg::Matrix mat;
 
+
+// 		{ 
+// 			hg3d::Entity* conv = dynamic_cast<hg3d::Entity*>(node);
+// 			osg::Quat quat = conv->getAttitude();
+// 			conv->getMatrix();
+// 			conv->computeLocalToWorldMatrix();
+// 			conv->getWorldMatrices(0);
+// 		 	if (conv) { function } 
+// 		}
+
 		CHECK_IF_DO(hg3d::Entity,node,{  modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
 		CHECK_IF_DO(hg3d::Girder,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
 		CHECK_IF_DO(hg3d::Door,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
@@ -188,6 +198,7 @@ bool HGSceneNodeVisitor::ProcessGroup(osg::Group* node)
 			HGLOG_DEBUG("[%f %f %f ]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
 			HGLOG_DEBUG("[%f %f %f ]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
 			HGLOG_DEBUG("[%f %f %f ]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
+			return true;
 		}
 		else
 		{
@@ -208,34 +219,73 @@ void HGSceneNodeVisitor::ProcessGeode(osg::Geode* geode)
 {
 	GeodeReader reader(geode);
 	
-	HG_Mesh mesh;
-	//face
-	for (int i = 0; i < reader.get_listTriangles().size() ; i++)
-	{
-		Triangle tri = reader.get_listTriangles().at(i).first;
-		mesh.ref_faces().push_back(HG_MeshTriangle(tri.t1,tri.t2,tri.t3));	
-	}
-	//verts
-	for (int i = 0; i < reader.get_points().get()->size() ; i++)
-	{
-		osg::Vec3 vec = reader.get_points().get()->at(i);
-		mesh.ref_verts().push_back(HG_Vec3(vec.x(),vec.y(),vec.z()));
-	}
-	//normal
-	for (int i = 0; i < reader.get_normals().get()->size() ; i++)
-	{
-		osg::Vec3 vec = reader.get_normals().get()->at(i);
-		mesh.ref_normals().push_back(HG_Vec3(vec.x(),vec.y(),vec.z()));
-	}
-	//uvs
-	for (int i = 0; i < reader.get_uvs().get()->size() ; i++)
-	{
-		osg::Vec2 vec = reader.get_uvs().get()->at(i);
-		mesh.ref_uvs().push_back(HG_Vec2(vec.x(),vec.y()));
-	}
 	
-	HG_SceneCenter::inst().addMesh(mesh);
-	
+
+	//有多少个材质就有多少个mesh
+	for (int material_i = 0; material_i < reader.get_material().size() ; material_i++)
+	{
+		HG_Mesh mesh;	
+		//verts 顶点集合
+		for (int i = 0; i < reader.get_points().get()->size() ; i++)
+		{
+			osg::Vec3 vec = reader.get_points().get()->at(i);
+			mesh.ref_verts().push_back(HG_Vec3(vec.x(),vec.y(),vec.z()));
+		}
+		//normal 法线集合
+		for (int i = 0; i < reader.get_normals().get()->size() ; i++)
+		{
+			osg::Vec3 vec = reader.get_normals().get()->at(i);
+			mesh.ref_normals().push_back(HG_Vec3(vec.x(),vec.y(),vec.z()));
+		}
+		//uvs 纹理集合
+		for (int i = 0; i < reader.get_uvs().get()->size() ; i++)
+		{
+			osg::Vec2 vec = reader.get_uvs().get()->at(i);
+			mesh.ref_uvs().push_back(HG_Vec2(vec.x(),vec.y()));
+		}
+
+
+		for (int triangle_i = 0; triangle_i < reader.get_listTriangles().size() ; triangle_i++)
+		{
+			Triangle tri = reader.get_listTriangles().at(triangle_i).first;
+			UINT section = reader.get_listTriangles().at(triangle_i).second;
+			if (tri.material == material_i)
+			{
+				//三角形面
+				mesh.ref_faces().push_back(HG_MeshTriangle(tri.t1,tri.t2,tri.t3));
+			}
+			
+		}
+		//TODO: 修改唯一码获取方式
+		CString mm;
+		mm.Format("mesh_%0X_scetion%02",*geode,material_i);
+		mesh.set_unique_code(mm.GetBuffer());
+		HG_SceneCenter::inst().addMesh(mesh);
+
+		HG_Material material;
+		GeodeMatrial gmat = reader.get_material().at(material_i);
+		if (gmat.Type() == GeodeMatrial::image)
+		{
+			//TODO: 查找有没有高清材质
+			material.set_image(gmat.Image());
+		}
+		else if (gmat.Type() == GeodeMatrial::color)
+		{
+			material.set_color(HG_Vec4(gmat.Color().r(),gmat.Color().g(),gmat.Color().b(),gmat.Color().a()));
+		}
+		CString mm;
+		mm.Format("material_%0X_materialIndex%02",*geode,material_i);
+		material.set_unique_code(mm.GetBuffer());
+		HG_SceneCenter::inst().addMaterial(material);
+
+		//世界坐标矩阵
+		osg::Matrix matrixWorld = geode->getWorldMatrices().at(0);
+		HG_Mat worldMatrix;
+		//TODO: 
+		//worldMatrix.ref_mat()[0].set_x(matrixWorld.ge);
+		
+		HG_SceneCenter::inst().addMeshUseMaterial(HG_MeshInstance(mesh.get_unique_code(),material.get_unique_code(),worldMatrix));
+	}
 }
 
 //路由子节点

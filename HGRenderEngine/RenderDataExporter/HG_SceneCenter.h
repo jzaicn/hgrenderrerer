@@ -44,7 +44,7 @@ public:
 	{
 		for (int i = 0; i < m_meshList.size() ; i++)
 		{
-			if (m_meshList.at(i).getUniqueCode().compare(mesh.getUniqueCode()) == 0)
+			if (m_meshList.at(i).get_unique_code().compare(mesh.get_unique_code()) == 0)
 			{
 				m_meshList[i] = mesh;
 				return;
@@ -57,7 +57,7 @@ public:
 	{
 		for (int i = 0; i < m_materialList.size() ; i++)
 		{
-			if (m_materialList.at(i).getUniqueCode().compare(material.getUniqueCode()) == 0)
+			if (m_materialList.at(i).get_unique_code().compare(material.get_unique_code()) == 0)
 			{
 				m_materialList[i] = material;
 				return;

@@ -13,12 +13,11 @@ public:
 		color
 	}MType;
 
-	std::string getUniqueCode(){ return ""; };	
-
 private:
 
 	GETSET(MType,type);
 	GETSET(std::string,image);
 	GETSET(HG_Vec4,color);
+	GETSET(std::string,unique_code);
 };
 

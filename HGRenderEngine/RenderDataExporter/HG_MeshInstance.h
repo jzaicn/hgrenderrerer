@@ -14,5 +14,6 @@ private:
 	GETSET(std::string,mesh_code);/**< The name of the mesh which we reference to */
 	GETSET(HG_Mat,mesh_to_world);/**< Mesh local space to world space transform */
 	GETSET(std::string,material_code);/**< The name of the material which we reference to */
+	GETSET(std::string,unique_code);
 };
 

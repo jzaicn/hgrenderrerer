@@ -31,12 +31,11 @@ public:
 	HG_Mesh(void);
 	~HG_Mesh(void);
 
-	std::string getUniqueCode() { return ""; }
-
 private:
 	GETSET(std::vector<HG_MeshTriangle>,faces);
 	GETSET(std::vector<HG_Vec3>,verts);
 	GETSET(std::vector<HG_Vec3>,normals);
-	GETSET(std::vector<HG_Vec2>,uvs);	
+	GETSET(std::vector<HG_Vec2>,uvs);
+	GETSET(std::string,unique_code)
 };
 
