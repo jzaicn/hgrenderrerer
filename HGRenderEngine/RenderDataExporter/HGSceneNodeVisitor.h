@@ -4,7 +4,7 @@
 #include <stack>
 #include "osg\Geometry"
 #include "HG_SceneCenter.h"
-
+#include "JsonCpp/json.h"
 
 class HGSceneNodeVisitor :public osg::NodeVisitor
 {

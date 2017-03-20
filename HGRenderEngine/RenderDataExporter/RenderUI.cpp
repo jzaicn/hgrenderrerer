@@ -32,7 +32,7 @@ void RenderUI::showRenderDlg()
 	
 	//遍历整个场景
 	HGSceneNodeVisitor vistor;
-	root->accept(vistor);
+	//root->accept(vistor);
 	HGLOG_DEBUG("scene ok");
 
 	//osg::Node *node00 = osgDB::readNodeFile( "E:\\XIANGMUSOFT\\TYBSOFT2016-back\\Ironware\\连接类\\层板托(衣柜)\\板拖.IVE" );
@@ -43,7 +43,14 @@ void RenderUI::showRenderDlg()
 		HGLOG_DEBUG("load ok");
 	}
 	
+	Json::Value output;
+	HG_Mat mat;
+	mat.ref_mat()[2] = HG_Vec4(1.0,2.0,3.0,4.0);
+	mat.save(output);
+	HGLOG_DEBUG(output.toStyledString().c_str());
 
+	HG_Mat mat2;
+	mat2.load(output);
 	
 // 	std::ofstream  writestream("d:\\1.txt");
 // 	if (writestream.is_open())

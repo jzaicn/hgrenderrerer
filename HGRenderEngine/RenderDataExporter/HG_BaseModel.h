@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "JsonCpp/json.h"
 
 #define GETSET(type,name)\
 private: type m_##name;\
@@ -35,8 +36,11 @@ class HG_BaseModel
 public:
 	HG_BaseModel(void){};
 	virtual ~HG_BaseModel(void){};
-	virtual std::string toString();
 
+	virtual std::string get_classname() { return "HG_BaseModel"; };
+
+	virtual void save(Json::Value& out){};
+	virtual void load(const Json::Value& in){};
 };
 
 class HG_Vec2 : HG_BaseModel
@@ -54,9 +58,21 @@ public:
 	}
 	~HG_Vec2(void){};
 
-	std::string toString();
+
+	virtual void save(Json::Value& out) override
+	{
+		out["x"] = get_x();
+		out["y"] = get_y();
+	}
+
+	virtual void load(const Json::Value& in) override
+	{
+		set_x(in["x"].asFloat());
+		set_y(in["y"].asFloat());
+	}
 
 
+	virtual std::string get_classname() override;
 
 private:
 	GETSET(float,x);
@@ -81,7 +97,22 @@ public:
 	}
 	~HG_Vec3(void){};
 
-	std::string toString();
+	std::string classname(){ return "HG_BaseModel"; };
+
+	virtual void save(Json::Value& out) override
+	{
+		out["x"] = get_x();
+		out["y"] = get_y();
+		out["z"] = get_z();
+	}
+
+
+	virtual void load(const Json::Value& in) override
+	{
+		set_x(in["x"].asFloat());
+		set_y(in["y"].asFloat());
+		set_z(in["z"].asFloat());
+	}
 private:
 	GETSET(float,x);
 	GETSET(float,y);
@@ -110,6 +141,23 @@ public:
 
 	std::string toString();
 
+	virtual void save(Json::Value& out) override
+	{
+		out["x"] = get_x();
+		out["y"] = get_y();
+		out["z"] = get_z();
+		out["w"] = get_w();
+	}
+
+
+	virtual void load(const Json::Value& in) override
+	{
+		set_x(in["x"].asFloat());
+		set_y(in["y"].asFloat());
+		set_z(in["z"].asFloat());
+		set_w(in["w"].asFloat());
+	}
+
 private:
 	GETSET(float,x);
 	GETSET(float,y);
@@ -128,6 +176,38 @@ public:
 	~HG_Mat(void){};
 
 	std::string toString();
+
+	void clear()
+	{
+		for (int row = 0; row < 4 ; row++)
+		{
+			m_mat[row] = HG_Vec4();
+		}
+	}
+
+	virtual void save(Json::Value& out) override
+	{
+		for (int row = 0; row < 4 ; row++)
+		{
+			Json::Value strMatRow;
+			m_mat[row].save(strMatRow);
+
+			CString strIndex;
+			strIndex.Format("%d",row);
+			out[strIndex.GetBuffer()] = strMatRow;
+		}
+	}
+
+
+	virtual void load(const Json::Value& in) override
+	{
+		for (int row = 0; row < 4 ; row++)
+		{
+			CString strIndex;
+			strIndex.Format("%d",row);
+			m_mat[row].load(in[strIndex.GetBuffer()]);
+		}
+	}
 private:
 	HG_Vec4 _matrix[4];
 	GETSET(HG_Vec4*,mat);
