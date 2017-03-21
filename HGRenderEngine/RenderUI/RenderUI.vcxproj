@@ -118,11 +118,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="ImageBegin.bmp" />
+    <None Include="ImageParam.xml" />
+    <None Include="ImageSave.bmp" />
+    <None Include="ImageSettings.bmp" />
+    <None Include="ImageZoomFit.bmp" />
+    <None Include="ImageZoomOrigin.bmp" />
     <None Include="ReadMe.txt" />
+    <None Include="RenderParam.xml" />
     <None Include="res\RenderUI.ico" />
     <None Include="res\RenderUI.rc2" />
+    <None Include="属性对话框参数.xls" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DialogPlus.h" />
+    <ClInclude Include="DisplayResult.h" />
+    <ClInclude Include="ElaraHomeAPI.h" />
     <ClInclude Include="HG_BaseModel.h" />
     <ClInclude Include="HG_Camera.h" />
     <ClInclude Include="HG_Light.h" />
@@ -131,6 +142,10 @@
     <ClInclude Include="HG_MeshInstance.h" />
     <ClInclude Include="HG_ModelInstance.h" />
     <ClInclude Include="HG_SceneCenter.h" />
+    <ClInclude Include="ImageSettings.h" />
+    <ClInclude Include="PickColorButton.h" />
+    <ClInclude Include="RenderSettings.h" />
+    <ClInclude Include="RenderToolBar.h" />
     <ClInclude Include="RenderUI.h" />
     <ClInclude Include="RenderUIDlg.h" />
     <ClInclude Include="Resource.h" />
@@ -138,6 +153,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DialogPlus.cpp" />
+    <ClCompile Include="DisplayResult.cpp" />
+    <ClCompile Include="ElaraHomeAPI.cpp" />
     <ClCompile Include="HG_BaseModel.cpp" />
     <ClCompile Include="HG_Camera.cpp" />
     <ClCompile Include="HG_Light.cpp" />
@@ -146,6 +164,10 @@
     <ClCompile Include="HG_MeshInstance.cpp" />
     <ClCompile Include="HG_ModelInstance.cpp" />
     <ClCompile Include="HG_SceneCenter.cpp" />
+    <ClCompile Include="ImageSettings.cpp" />
+    <ClCompile Include="PickColorButton.cpp" />
+    <ClCompile Include="RenderSettings.cpp" />
+    <ClCompile Include="RenderToolBar.cpp" />
     <ClCompile Include="RenderUI.cpp" />
     <ClCompile Include="RenderUIDlg.cpp" />
     <ClCompile Include="stdafx.cpp">

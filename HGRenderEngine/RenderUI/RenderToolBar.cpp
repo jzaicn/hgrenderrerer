@@ -2,7 +2,6 @@
 //
 
 #include "stdafx.h"
-#include "Render.h"
 #include "RenderToolBar.h"
 #include "afxdialogex.h"
 

@@ -2,7 +2,6 @@
 //
 
 #include "stdafx.h"
-#include "Render.h"
 #include "ImageSettings.h"
 #include "afxdialogex.h"
 //#include "XmlHandlePlus.h"
