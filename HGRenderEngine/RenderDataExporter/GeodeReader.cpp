@@ -700,7 +700,12 @@ void GeodeReader::saveMesh(const osg::Geometry* g,UINT drawable_n)
 
 		//ÊÀ½ç×ø±ê¾ØÕó
 		osg::Matrix matrixWorld = g->getWorldMatrices().at(0);
-		HG_Mat worldMatrix;
+		HG_Mat worldMatrix = HG_Mat(
+			HG_Vec4(matrixWorld(0,0),matrixWorld(0,1),matrixWorld(0,2),matrixWorld(0,3)),
+			HG_Vec4(matrixWorld(1,0),matrixWorld(1,1),matrixWorld(1,2),matrixWorld(1,3)),
+			HG_Vec4(matrixWorld(2,0),matrixWorld(2,1),matrixWorld(2,2),matrixWorld(2,3)),
+			HG_Vec4(matrixWorld(3,0),matrixWorld(3,1),matrixWorld(3,2),matrixWorld(3,3))
+		);
 		HG_SceneCenter::inst().addMeshUseMaterial(HG_MeshInstance(mesh.get_unique_code(),material.get_unique_code(),worldMatrix));
 	}
 	ref_material().clear();

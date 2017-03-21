@@ -12,6 +12,8 @@ HG_MeshInstance::HG_MeshInstance(void)
 
 HG_MeshInstance::HG_MeshInstance(std::string mesh_code,std::string material_code,HG_Mat mesh_to_world)
 {
+	set_unique_code(mesh_code + material_code);
+
 	set_mesh_code(mesh_code);
 	set_mesh_to_world(mesh_to_world);
 	set_material_code(material_code);
