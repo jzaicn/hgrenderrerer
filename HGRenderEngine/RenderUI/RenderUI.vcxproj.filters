@@ -45,30 +45,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RenderDataExporter\HG_BaseModel.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderDataExporter\HG_Camera.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderDataExporter\HG_Light.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderDataExporter\HG_Material.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderDataExporter\HG_Mesh.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderDataExporter\HG_MeshInstance.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderDataExporter\HG_ModelInstance.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderDataExporter\HG_SceneCenter.h">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="RenderUI.h">
       <Filter>Frame</Filter>
     </ClInclude>
@@ -84,32 +60,32 @@
     <ClInclude Include="RenderUIDlg.h">
       <Filter>View</Filter>
     </ClInclude>
+    <ClInclude Include="HG_BaseModel.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Camera.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Light.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Material.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Mesh.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_MeshInstance.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_ModelInstance.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_SceneCenter.h">
+      <Filter>Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RenderDataExporter\HG_BaseModel.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderDataExporter\HG_Camera.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderDataExporter\HG_Light.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderDataExporter\HG_Material.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderDataExporter\HG_Mesh.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderDataExporter\HG_MeshInstance.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderDataExporter\HG_ModelInstance.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderDataExporter\HG_SceneCenter.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
     <ClCompile Include="RenderUI.cpp">
       <Filter>Frame</Filter>
     </ClCompile>
@@ -118,6 +94,30 @@
     </ClCompile>
     <ClCompile Include="RenderUIDlg.cpp">
       <Filter>View</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_BaseModel.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Camera.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Light.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Material.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Mesh.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_MeshInstance.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_ModelInstance.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_SceneCenter.cpp">
+      <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
