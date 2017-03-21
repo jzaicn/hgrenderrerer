@@ -63,28 +63,29 @@ BEGIN_MESSAGE_MAP(CRenderUIDlg, CDialog)
 	ON_WM_MOVE()
 	ON_WM_SIZING()
 
-	ON_MESSAGE(RENDER_SAVE_IMAGE,&CRenderUIDlg::OnSaveImage)	// 打开图像
-	ON_MESSAGE(RENDER_LOAD_IMAGE,&CRenderUIDlg::OnLoadImage)	// 保存图像
-	ON_MESSAGE(RENDER_EXIT,&CRenderUIDlg::OnExit)	// 退出
-	ON_MESSAGE(RENDER_ZOOM_ORIGIN_IMAGE,&CRenderUIDlg::OnZoomOriginImage)	// 缩放图像到原始尺寸
-	ON_MESSAGE(RENDER_ZOOM_FIT_IMAGE,&CRenderUIDlg::OnZoomFitImage)	// 缩放图像到适应窗口
-	ON_MESSAGE(RENDER_ZOOM_IN_IMAGE,&CRenderUIDlg::OnZoomInImage)	// 放大图像
-	ON_MESSAGE(RENDER_ZOOM_OUT_IMAGE,&CRenderUIDlg::OnZoomOutImage)	// 缩小图像
-	ON_MESSAGE(RENDER_TOOLBAR_SHOW_HIDE,&CRenderUIDlg::OnToolbarShowHide)	// 工具栏 隐藏/显示
-	ON_MESSAGE(RENDER_DISPLAY_SHOW_HIDE,&CRenderUIDlg::OnDisplayShowHide)	// 渲染效果配置  隐藏/显示
-	ON_MESSAGE(RENDER_STATUS_SHOW_HIDE,&CRenderUIDlg::OnStatusShowHide)	// 状态栏  隐藏/显示
-	ON_MESSAGE(RENDER_DEFAULT_LAYOUT,&CRenderUIDlg::OnDefaultLayout)	// 恢复默认布局 
-	ON_MESSAGE(RENDER_SAVE_LAYOUT,&CRenderUIDlg::OnSaveLayout)	// 保存布局 
-	ON_MESSAGE(RENDER_LOAD_LAYOUT,&CRenderUIDlg::OnLoadLayout)	// 恢复布局 
-	ON_MESSAGE(RENDER_HELP,&CRenderUIDlg::OnHelp)	// 帮助
-	ON_MESSAGE(RENDER_SAVE_SETTINGS,&CRenderUIDlg::OnSaveSettings)	// 保存配置
-	ON_MESSAGE(RENDER_LOAD_SETTINGS,&CRenderUIDlg::OnLoadSettings)	// 读取配置
-	ON_MESSAGE(RENDER_BEGIN,&CRenderUIDlg::OnBegin)	// 渲染开始
-	ON_MESSAGE(RENDER_STOP,&CRenderUIDlg::OnStop)	// 渲染停止
-	ON_MESSAGE(RENDER_DONE,&CRenderUIDlg::OnDone)	// 渲染停止
+// 	ON_MESSAGE(RENDER_SAVE_IMAGE,&CRenderUIDlg::OnSaveImage)	// 打开图像
+// 	ON_MESSAGE(RENDER_LOAD_IMAGE,&CRenderUIDlg::OnLoadImage)	// 保存图像
+// 	ON_MESSAGE(RENDER_EXIT,&CRenderUIDlg::OnExit)	// 退出
+// 	ON_MESSAGE(RENDER_ZOOM_ORIGIN_IMAGE,&CRenderUIDlg::OnZoomOriginImage)	// 缩放图像到原始尺寸
+// 	ON_MESSAGE(RENDER_ZOOM_FIT_IMAGE,&CRenderUIDlg::OnZoomFitImage)	// 缩放图像到适应窗口
+// 	ON_MESSAGE(RENDER_ZOOM_IN_IMAGE,&CRenderUIDlg::OnZoomInImage)	// 放大图像
+// 	ON_MESSAGE(RENDER_ZOOM_OUT_IMAGE,&CRenderUIDlg::OnZoomOutImage)	// 缩小图像
+// 	ON_MESSAGE(RENDER_TOOLBAR_SHOW_HIDE,&CRenderUIDlg::OnToolbarShowHide)	// 工具栏 隐藏/显示
+// 	ON_MESSAGE(RENDER_DISPLAY_SHOW_HIDE,&CRenderUIDlg::OnDisplayShowHide)	// 渲染效果配置  隐藏/显示
+// 	ON_MESSAGE(RENDER_STATUS_SHOW_HIDE,&CRenderUIDlg::OnStatusShowHide)	// 状态栏  隐藏/显示
+// 	ON_MESSAGE(RENDER_DEFAULT_LAYOUT,&CRenderUIDlg::OnDefaultLayout)	// 恢复默认布局 
+// 	ON_MESSAGE(RENDER_SAVE_LAYOUT,&CRenderUIDlg::OnSaveLayout)	// 保存布局 
+// 	ON_MESSAGE(RENDER_LOAD_LAYOUT,&CRenderUIDlg::OnLoadLayout)	// 恢复布局 
+// 	ON_MESSAGE(RENDER_HELP,&CRenderUIDlg::OnHelp)	// 帮助
+// 	ON_MESSAGE(RENDER_SAVE_SETTINGS,&CRenderUIDlg::OnSaveSettings)	// 保存配置
+// 	ON_MESSAGE(RENDER_LOAD_SETTINGS,&CRenderUIDlg::OnLoadSettings)	// 读取配置
+// 	ON_MESSAGE(RENDER_BEGIN,&CRenderUIDlg::OnBegin)	// 渲染开始
+// 	ON_MESSAGE(RENDER_STOP,&CRenderUIDlg::OnStop)	// 渲染停止
+// 	ON_MESSAGE(RENDER_DONE,&CRenderUIDlg::OnDone)	// 渲染停止
+ON_BN_CLICKED(IDC_BUTTON1, &CRenderUIDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
-// CRenderUIDlg 消息处理程序
+//CRenderUIDlg 消息处理程序
 UINT CRenderUIDlg::indicators[] = {IDS_STATESTRING1, IDS_STATESTRING2};
 
 // CRenderUIDlg 消息处理程序
@@ -164,50 +165,50 @@ BOOL CRenderUIDlg::OnInitDialog()
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
-void CRenderUIDlg::OnSizing(UINT fwSide, LPRECT pRect)
-{
-	CRect offset = getOffset(fwSide,pRect);
-	CDialog::OnSizing(fwSide, pRect);
-
-	//移动图片窗口
-	m_displayResultDlgContainerRect.left += offset.left;
-	m_displayResultDlgContainerRect.right += offset.right;
-	m_displayResultDlgContainerRect.top += offset.top;
-	m_displayResultDlgContainerRect.bottom += offset.bottom;
-	GetDlgItem(IDC_DISPLAYRESULT_WIN)->MoveWindow(m_displayResultDlgContainerRect);
-	displayResultDlg.MoveWindow(0,0,m_displayResultDlgContainerRect.Width(),m_displayResultDlgContainerRect.Height());
-
-	//工具栏窗口
-	m_toolBarDlgContainerRect.left += offset.left;
-	m_toolBarDlgContainerRect.right += offset.right;
-	m_toolBarDlgContainerRect.top += offset.top;
-	m_toolBarDlgContainerRect.bottom += offset.top;
-	GetDlgItem(IDC_TOOLBAR_WIN)->MoveWindow(m_toolBarDlgContainerRect);
-
-	//移动图片窗口
-	m_imageSettingDlgContainerRect.left += offset.right;
-	m_imageSettingDlgContainerRect.right += offset.right;
-	m_imageSettingDlgContainerRect.top += offset.top;
-	m_imageSettingDlgContainerRect.bottom += offset.top;
-	GetDlgItem(IDC_IMAGE_WIN)->MoveWindow(m_imageSettingDlgContainerRect);
-
-	//移动属性窗口
-	m_paramSettingDlgContainerRect.left += offset.right;
-	m_paramSettingDlgContainerRect.right += offset.right;
-	m_paramSettingDlgContainerRect.top += offset.top;
-	m_paramSettingDlgContainerRect.bottom += offset.bottom;
-	GetDlgItem(IDC_SETTING_WIN)->MoveWindow(m_paramSettingDlgContainerRect);
-
-
-	//移动状态栏
-	CRect statusRect;
-	GetClientRect(statusRect);
-	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
-	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
-	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
-
-	Invalidate(TRUE);
-}
+// void CRenderUIDlg::OnSizing(UINT fwSide, LPRECT pRect)
+// {
+// 	CRect offset = getOffset(fwSide,pRect);
+// 	CDialog::OnSizing(fwSide, pRect);
+// 
+// // 	//移动图片窗口
+// // 	m_displayResultDlgContainerRect.left += offset.left;
+// // 	m_displayResultDlgContainerRect.right += offset.right;
+// // 	m_displayResultDlgContainerRect.top += offset.top;
+// // 	m_displayResultDlgContainerRect.bottom += offset.bottom;
+// // 	GetDlgItem(IDC_DISPLAYRESULT_WIN)->MoveWindow(m_displayResultDlgContainerRect);
+// // 	displayResultDlg.MoveWindow(0,0,m_displayResultDlgContainerRect.Width(),m_displayResultDlgContainerRect.Height());
+// // 
+// // 	//工具栏窗口
+// // 	m_toolBarDlgContainerRect.left += offset.left;
+// // 	m_toolBarDlgContainerRect.right += offset.right;
+// // 	m_toolBarDlgContainerRect.top += offset.top;
+// // 	m_toolBarDlgContainerRect.bottom += offset.top;
+// // 	GetDlgItem(IDC_TOOLBAR_WIN)->MoveWindow(m_toolBarDlgContainerRect);
+// // 
+// // 	//移动图片窗口
+// // 	m_imageSettingDlgContainerRect.left += offset.right;
+// // 	m_imageSettingDlgContainerRect.right += offset.right;
+// // 	m_imageSettingDlgContainerRect.top += offset.top;
+// // 	m_imageSettingDlgContainerRect.bottom += offset.top;
+// // 	GetDlgItem(IDC_IMAGE_WIN)->MoveWindow(m_imageSettingDlgContainerRect);
+// // 
+// // 	//移动属性窗口
+// // 	m_paramSettingDlgContainerRect.left += offset.right;
+// // 	m_paramSettingDlgContainerRect.right += offset.right;
+// // 	m_paramSettingDlgContainerRect.top += offset.top;
+// // 	m_paramSettingDlgContainerRect.bottom += offset.bottom;
+// // 	GetDlgItem(IDC_SETTING_WIN)->MoveWindow(m_paramSettingDlgContainerRect);
+// // 
+// // 
+// // 	//移动状态栏
+// // 	CRect statusRect;
+// // 	GetClientRect(statusRect);
+// // 	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
+// // 	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
+// // 	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
+// 
+// 	Invalidate(TRUE);
+// }
 
 void CRenderUIDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
@@ -284,20 +285,27 @@ HCURSOR CRenderUIDlg::OnQueryDragIcon()
 // 
 // 	CDialogEx::OnOK();
 // }
+// 
+// LRESULT CRenderUIDlg::OnSaveImage(WPARAM w,LPARAM l)
+// {
+// 	CString m_saveImagePath;
+// 	//TODO: 
+// 	//RenderManager::getInstance().saveImage(m_saveImagePath);
+// 	return 0;
+// }
+// 
+// LRESULT CRenderUIDlg::OnBegin(WPARAM w,LPARAM l)
+// {
+// //TODO: 
+// 	//RenderManager::getInstance().startRenderCore();
+// 
+// 
+// 	return 0;
+// }
 
-LRESULT CRenderUIDlg::OnSaveImage(WPARAM w,LPARAM l)
+
+void CRenderUIDlg::OnBnClickedButton1()
 {
-	CString m_saveImagePath;
-	//TODO: 
-	//RenderManager::getInstance().saveImage(m_saveImagePath);
-	return 0;
-}
-
-LRESULT CRenderUIDlg::OnBegin(WPARAM w,LPARAM l)
-{
-//TODO: 
-	//RenderManager::getInstance().startRenderCore();
-
-
-	return 0;
+	DisplayResult dlg;
+	dlg.DoModal();
 }

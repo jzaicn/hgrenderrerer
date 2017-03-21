@@ -1,6 +1,6 @@
 #pragma once
 #include "DialogPlus.h"
-
+#include "resource.h"
 // RenderToolBar ¶Ô»°¿ò
 
 class RenderToolBar : public DialogPlus

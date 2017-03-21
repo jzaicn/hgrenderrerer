@@ -1,6 +1,6 @@
 #pragma once
 #include "DialogPlus.h"
-
+#include "resource.h"
 // DisplayResult ¶Ô»°¿ò
 
 class DisplayResult : public DialogPlus

@@ -7,6 +7,7 @@
 #include "ElaraHomeAPI.h"
 #include "pickcolorbutton.h"
 #include "DialogPlus.h"
+#include "resource.h"
 
 class RenderSettings : public DialogPlus
 {

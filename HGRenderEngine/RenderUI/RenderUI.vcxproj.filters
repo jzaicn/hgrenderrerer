@@ -114,10 +114,10 @@
     <ClInclude Include="DialogPlus.h">
       <Filter>View</Filter>
     </ClInclude>
-    <ClInclude Include="DisplayResult.h">
-      <Filter>View</Filter>
+    <ClInclude Include="ElaraHomeAPI.h">
+      <Filter>API</Filter>
     </ClInclude>
-    <ClInclude Include="ImageSettings.h">
+    <ClInclude Include="DisplayResult.h">
       <Filter>View</Filter>
     </ClInclude>
     <ClInclude Include="PickColorButton.h">
@@ -126,10 +126,10 @@
     <ClInclude Include="RenderSettings.h">
       <Filter>View</Filter>
     </ClInclude>
-    <ClInclude Include="ElaraHomeAPI.h">
-      <Filter>API</Filter>
-    </ClInclude>
     <ClInclude Include="RenderToolBar.h">
+      <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageSettings.h">
       <Filter>View</Filter>
     </ClInclude>
   </ItemGroup>
@@ -170,10 +170,10 @@
     <ClCompile Include="DialogPlus.cpp">
       <Filter>View</Filter>
     </ClCompile>
-    <ClCompile Include="DisplayResult.cpp">
-      <Filter>View</Filter>
+    <ClCompile Include="ElaraHomeAPI.cpp">
+      <Filter>API</Filter>
     </ClCompile>
-    <ClCompile Include="ImageSettings.cpp">
+    <ClCompile Include="DisplayResult.cpp">
       <Filter>View</Filter>
     </ClCompile>
     <ClCompile Include="PickColorButton.cpp">
@@ -182,10 +182,10 @@
     <ClCompile Include="RenderSettings.cpp">
       <Filter>View</Filter>
     </ClCompile>
-    <ClCompile Include="ElaraHomeAPI.cpp">
-      <Filter>API</Filter>
-    </ClCompile>
     <ClCompile Include="RenderToolBar.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageSettings.cpp">
       <Filter>View</Filter>
     </ClCompile>
   </ItemGroup>

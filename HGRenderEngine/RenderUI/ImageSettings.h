@@ -1,7 +1,7 @@
 #pragma once
 #include "afxwin.h"
 #include "DialogPlus.h"
-
+#include "resource.h"
 // ImageSetting ¶Ô»°¿ò
 
 class ImageSettings : public DialogPlus
