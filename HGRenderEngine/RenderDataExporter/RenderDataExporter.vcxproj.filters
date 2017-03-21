@@ -22,20 +22,17 @@
     <Filter Include="Tools\JsonCpp">
       <UniqueIdentifier>{c3379db0-de56-45d4-b55e-3eba2a695e37}</UniqueIdentifier>
     </Filter>
-    <Filter Include="histroy">
-      <UniqueIdentifier>{0f643fbb-ae7e-4233-bb4b-f1d0baf92f38}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="histroy\Logic">
-      <UniqueIdentifier>{6b0d6af4-7b8b-4aeb-a051-a0b6cfa5d6d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="histroy\Model">
-      <UniqueIdentifier>{e5807e7f-2320-4883-ae60-a450b93c286f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Model">
       <UniqueIdentifier>{63ceb3cf-32f7-4acc-900f-24d987770ffa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Control">
       <UniqueIdentifier>{c04800db-4757-4d56-87bb-65f4a01380d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{334bb008-f9c6-4183-a0af-9bec36d03b28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic">
+      <UniqueIdentifier>{6b0d6af4-7b8b-4aeb-a051-a0b6cfa5d6d4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,20 +48,14 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Frame</Filter>
     </ClCompile>
-    <ClCompile Include="RenderUI.cpp">
-      <Filter>histroy\Logic</Filter>
-    </ClCompile>
     <ClCompile Include="HGSceneNodeVisitor.cpp">
-      <Filter>histroy\Logic</Filter>
+      <Filter>Logic</Filter>
     </ClCompile>
     <ClCompile Include="MeshProcer.cpp">
-      <Filter>histroy\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderDataExporter.cpp">
-      <Filter>histroy\Logic</Filter>
+      <Filter>Logic</Filter>
     </ClCompile>
     <ClCompile Include="GeodeReader.cpp">
-      <Filter>histroy\Logic</Filter>
+      <Filter>Logic</Filter>
     </ClCompile>
     <ClCompile Include="HG_Camera.cpp">
       <Filter>Model</Filter>
@@ -90,6 +81,12 @@
     <ClCompile Include="HG_ModelInstance.cpp">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="RenderDataExporter.cpp">
+      <Filter>Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUI.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Export.h">
@@ -104,20 +101,14 @@
     <ClInclude Include="stdafx.h">
       <Filter>Frame</Filter>
     </ClInclude>
-    <ClInclude Include="RenderUI.h">
-      <Filter>histroy\Logic</Filter>
-    </ClInclude>
     <ClInclude Include="HGSceneNodeVisitor.h">
-      <Filter>histroy\Logic</Filter>
+      <Filter>Logic</Filter>
     </ClInclude>
     <ClInclude Include="MeshProcer.h">
-      <Filter>histroy\Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderDataExporter.h">
-      <Filter>histroy\Logic</Filter>
+      <Filter>Logic</Filter>
     </ClInclude>
     <ClInclude Include="GeodeReader.h">
-      <Filter>histroy\Logic</Filter>
+      <Filter>Logic</Filter>
     </ClInclude>
     <ClInclude Include="HG_Camera.h">
       <Filter>Model</Filter>
@@ -175,6 +166,12 @@
     </ClInclude>
     <ClInclude Include="JsonCpp\writer.h">
       <Filter>Tools\JsonCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderDataExporter.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUI.h">
+      <Filter>Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
