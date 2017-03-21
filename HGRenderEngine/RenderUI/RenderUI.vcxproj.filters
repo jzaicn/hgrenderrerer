@@ -13,6 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Control">
+      <UniqueIdentifier>{8e53930a-d3f6-46ab-9e20-e8e2e24cd86d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Frame">
+      <UniqueIdentifier>{0ce29765-5975-401c-adf5-15fc14e65a18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic">
+      <UniqueIdentifier>{93bc9a9c-174a-46d8-a32c-7298a5685015}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{d217276f-97cb-4273-b5ef-67f4fd9f8210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{92b2e9ee-d7e0-4492-83cd-34bc6ad9923c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{cdea4378-121f-41ef-b4ec-f7bb4f2ce301}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="View">
+      <UniqueIdentifier>{2a9d26da-0d27-4bf8-b388-603c4ac66d26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -24,31 +45,79 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="RenderDataExporter\HG_BaseModel.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderDataExporter\HG_Camera.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderDataExporter\HG_Light.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderDataExporter\HG_Material.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderDataExporter\HG_Mesh.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderDataExporter\HG_MeshInstance.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderDataExporter\HG_ModelInstance.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderDataExporter\HG_SceneCenter.h">
+      <Filter>Model</Filter>
+    </ClInclude>
     <ClInclude Include="RenderUI.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderUIDlg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>头文件</Filter>
+      <Filter>Frame</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>头文件</Filter>
+      <Filter>Frame</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>头文件</Filter>
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUIDlg.h">
+      <Filter>View</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RenderUI.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="RenderDataExporter\HG_BaseModel.cpp">
+      <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="RenderUIDlg.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="RenderDataExporter\HG_Camera.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderDataExporter\HG_Light.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderDataExporter\HG_Material.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderDataExporter\HG_Mesh.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderDataExporter\HG_MeshInstance.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderDataExporter\HG_ModelInstance.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderDataExporter\HG_SceneCenter.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUI.cpp">
+      <Filter>Frame</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>源文件</Filter>
+      <Filter>Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUIDlg.cpp">
+      <Filter>View</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -123,6 +123,14 @@
     <None Include="res\RenderUI.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="RenderDataExporter\HG_BaseModel.h" />
+    <ClInclude Include="RenderDataExporter\HG_Camera.h" />
+    <ClInclude Include="RenderDataExporter\HG_Light.h" />
+    <ClInclude Include="RenderDataExporter\HG_Material.h" />
+    <ClInclude Include="RenderDataExporter\HG_Mesh.h" />
+    <ClInclude Include="RenderDataExporter\HG_MeshInstance.h" />
+    <ClInclude Include="RenderDataExporter\HG_ModelInstance.h" />
+    <ClInclude Include="RenderDataExporter\HG_SceneCenter.h" />
     <ClInclude Include="RenderUI.h" />
     <ClInclude Include="RenderUIDlg.h" />
     <ClInclude Include="Resource.h" />
@@ -130,6 +138,14 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="RenderDataExporter\HG_BaseModel.cpp" />
+    <ClCompile Include="RenderDataExporter\HG_Camera.cpp" />
+    <ClCompile Include="RenderDataExporter\HG_Light.cpp" />
+    <ClCompile Include="RenderDataExporter\HG_Material.cpp" />
+    <ClCompile Include="RenderDataExporter\HG_Mesh.cpp" />
+    <ClCompile Include="RenderDataExporter\HG_MeshInstance.cpp" />
+    <ClCompile Include="RenderDataExporter\HG_ModelInstance.cpp" />
+    <ClCompile Include="RenderDataExporter\HG_SceneCenter.cpp" />
     <ClCompile Include="RenderUI.cpp" />
     <ClCompile Include="RenderUIDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
