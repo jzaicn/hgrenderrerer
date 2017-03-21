@@ -344,6 +344,26 @@ int GeodeReader::getMaterialIndex(const osg::Geometry* geo, const osg::StateSet*
 	const osg::Texture* osgTexture = dynamic_cast<const osg::Texture*>(ss->getTextureAttribute(0, osg::StateAttribute::TEXTURE));
 	const osg::Array* osgColorArr = geo->getColorArray();
 
+	if (osgTexture)
+	{
+		//TODO: 保存图像
+		const osg::Image* img = osgTexture->getImage(0);
+		//HGLOG_DEBUG("img src:%s",img->getFileName().c_str());
+		GeodeMatrial mat_image(img->getFileName());
+		for (UINT i = 0; i < m_material.size() ; i++)
+		{
+			if (m_material.at(i).Type() == GeodeMatrial::MType::image)
+			{
+				if( mat_image == m_material.at(i) )
+				{
+					return i;
+				}
+			}
+		}
+
+		m_material.push_back(mat_image);	
+		return m_material.size() - 1;
+	}
 	if (osgMaterial)
 	{
 		//TODO: 取颜色，取正反面，并应用起来
@@ -365,45 +385,33 @@ int GeodeReader::getMaterialIndex(const osg::Geometry* geo, const osg::StateSet*
 				HGLOG_DEBUG("llFace::BACK");
 			}
 		}
-	}
-	if (osgTexture)
-	{
-		//TODO: 保存图像
-		const osg::Image* img = osgTexture->getImage(0);
-		//HGLOG_DEBUG("img src:%s",img->getFileName().c_str());
-		GeodeMatrial mat_image(img->getFileName());
+
+		//获得物体材质颜色
+		osg::Vec4 color = osgMaterial->getDiffuse(osg::Material::FRONT);
+		GeodeMatrial mat_color(color.r(),color.g(),color.b(),color.a());
 		for (UINT i = 0; i < m_material.size() ; i++)
 		{
-			if(mat_image.compare(m_material.at(i)))
+			if( mat_color == m_material.at(i) )
 			{
 				return i;
 			}
 		}
-
-		m_material.push_back(mat_image);	
+		m_material.push_back(mat_color);
 		return m_material.size() - 1;
+		
 	}
-	// 	else if (osgColorArr)
-	// 	{
-	// 		for (UINT i = 0; i < osgColorArr->getNumElements() ; i++)
-	// 		{
-	// 			osg::Vec4  vec = (*dynamic_cast<const osg::Vec4Array *>(osgColorArr))[i];
-	// 			//HGLOG_DEBUG("color( %f, %f, %f, %f)",vec.x(), vec.y(), vec.z(), vec.w());
-	// 			m_material.push_back(GeodeMatrial(vec.x(), vec.y(), vec.z(), vec.w()));
-	// 			return m_material.size() - 1;
-	// 		}
-	// 	}
 	else
 	{
+		GeodeMatrial defaultMaterial;
 		//没有材质用白色
 		for (UINT i = 0; i < m_material.size() ; i++)
 		{
-			if(m_material.at(i).Type() == GeodeMatrial::MType::empty)
+			if(m_material.at(i) == defaultMaterial)
 			{
 				return i;
 			}
 		}
-		m_material.push_back(GeodeMatrial());
+		m_material.push_back(defaultMaterial);
 		return m_material.size() - 1;
 	}
 
@@ -689,11 +697,10 @@ void GeodeReader::saveMesh(const osg::Geometry* g,UINT drawable_n)
 		if (material.get_unique_code().empty())
 		{
 			CString mm;
-			mm.Format("material_%08X_section%02d_matIndex%02d",*g, drawable_n, material_i);
+			mm.Format("material_%08X_section%02d_matIndex%02d", (UINT)(g), drawable_n, material_i);
 			material.set_unique_code(mm.GetBuffer());
 		}
 		HG_SceneCenter::inst().addMaterial(material);
-
 
 		//////////////////////////////////////////////////////////////////////////
 		// 物体实例

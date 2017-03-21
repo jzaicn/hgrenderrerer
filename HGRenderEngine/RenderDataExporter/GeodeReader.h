@@ -67,7 +67,7 @@ public:
 	//没有贴图的全部默认为白色，不作其他处理
 	GeodeMatrial(float r,float g,float b,float a ,GeodeMatrial::MType _type = color)
 	{
-		Color(1.0,1.0,1.0,1.0);
+		Color(r,g,b,a);
 		Type(_type);
 	}
 
@@ -94,7 +94,7 @@ public:
 		} 
 	}
 
-	bool compare(GeodeMatrial& other)
+	bool operator ==(const GeodeMatrial &other)
 	{
 		if (Type() == other.Type())
 		{
@@ -106,12 +106,16 @@ public:
 			case color:
 				return ( Color()==other.Color() );
 				break;
+			case empty:
+				return true;
+				break;
 			default:
 				break;
 			}
 		}
 		return false;
 	}
+
 private:
 	MType m_type;
 	std::string m_image;

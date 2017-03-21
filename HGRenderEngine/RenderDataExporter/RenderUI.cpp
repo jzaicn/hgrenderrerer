@@ -32,21 +32,23 @@ void RenderUI::showRenderDlg()
 	
 	//遍历整个场景
 	HGSceneNodeVisitor vistor;
-//	root->accept(vistor);
+	root->accept(vistor);
 	HGLOG_DEBUG("scene ok");
 
 	//osg::Node *node00 = osgDB::readNodeFile( "E:\\XIANGMUSOFT\\TYBSOFT2016-back\\Ironware\\连接类\\层板托(衣柜)\\板拖.IVE" );
 	osg::Node *node00 = osgDB::readNodeFile( "D:\\123123123\\trian3.ive" );
 	if (node00)
 	{
-		node00->accept(vistor);
+		//node00->accept(vistor);
 		HGLOG_DEBUG("load ok");
 	}
 	
 	Json::Value output;
 	HG_SceneCenter::inst().save(output);
-	HGLOG_DEBUG(output.toStyledString());
-
+	//HGLOG_DEBUG(output.toStyledString());
+	Json::FastWriter writer;
+	writer.write(root);
+	
 	
 }
 
