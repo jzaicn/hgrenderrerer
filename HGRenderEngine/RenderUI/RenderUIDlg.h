@@ -39,7 +39,8 @@ protected:
 
 private:	
 	CScrollBar m_settingScroll;				// 子窗口滚动条
-
+	CRect m_oldRect;						// 窗口区域
+	CRect m_newRect;						// 窗口区域
 
 	DisplayResult displayResultDlg;			// 绘图对话框
 	CRect m_displayResultDlgRect;			// 绘图对话框区域
@@ -65,9 +66,9 @@ private:
 	CStatusBar   m_wndStatusBar;			//状态栏
 
 // 
-// public:
+ public:
 // 	afx_msg void OnSizing(UINT fwSide, LPRECT pRect);
-// 	void OnCancel()	{	CDialogEx::OnCancel();	};
+ 	virtual void OnCancel()	{	CDialogEx::OnCancel();	};
 // 
 // 	// 打开图像
 // 	afx_msg virtual LRESULT OnSaveImage(WPARAM w,LPARAM l);;
@@ -109,4 +110,5 @@ private:
 // 	afx_msg virtual LRESULT OnDone(WPARAM w,LPARAM l){return 0;};
 public:
 	afx_msg void OnBnClickedButton1();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 };

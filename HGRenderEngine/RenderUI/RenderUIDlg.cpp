@@ -82,7 +82,7 @@ BEGIN_MESSAGE_MAP(CRenderUIDlg, CDialog)
 // 	ON_MESSAGE(RENDER_BEGIN,&CRenderUIDlg::OnBegin)	// 渲染开始
 // 	ON_MESSAGE(RENDER_STOP,&CRenderUIDlg::OnStop)	// 渲染停止
 // 	ON_MESSAGE(RENDER_DONE,&CRenderUIDlg::OnDone)	// 渲染停止
-ON_BN_CLICKED(IDC_BUTTON1, &CRenderUIDlg::OnBnClickedButton1)
+ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 //CRenderUIDlg 消息处理程序
@@ -119,7 +119,6 @@ BOOL CRenderUIDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
-	ShowWindow(SW_MAXIMIZE);
 
 	// TODO: 在此添加额外的初始化代码
 	//TODO: 这种写法有bug，在创建窗口，内部move的时候会报错
@@ -127,6 +126,7 @@ BOOL CRenderUIDlg::OnInitDialog()
 	displayResultDlg.Create(IDD_DISPLAY_DLG,GetDlgItem(IDC_DISPLAYRESULT_WIN));
 	displayResultDlg.ShowWindow(SW_SHOW);
 	displayResultDlg.GetWindowRect(m_toolBarDlgRect);
+
 	GetDlgItem(IDC_DISPLAYRESULT_WIN)->GetWindowRect(m_displayResultDlgContainerRect);
 	ScreenToClient(m_displayResultDlgContainerRect);
 
@@ -162,6 +162,9 @@ BOOL CRenderUIDlg::OnInitDialog()
 	m_wndStatusBar.SetPaneText(0,"准备就绪");
 	m_wndStatusBar.SetPaneText(1,"当前缩放比：100%");
 
+	m_oldRect = statusRect;
+	m_newRect = statusRect;
+	
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -308,4 +311,58 @@ void CRenderUIDlg::OnBnClickedButton1()
 {
 	DisplayResult dlg;
 	dlg.DoModal();
+}
+
+
+void CRenderUIDlg::OnSize(UINT nType, int cx, int cy)
+{
+	DialogPlus::OnSize(nType, cx, cy);
+	GetClientRect(m_newRect);
+
+	CRect offset = CRect(
+		m_newRect.left - m_oldRect.left,
+		m_newRect.top - m_oldRect.top,
+		m_newRect.right - m_oldRect.right,
+		m_newRect.bottom - m_oldRect.bottom
+	);
+	
+	//移动图片窗口
+	m_displayResultDlgContainerRect.left += offset.left;
+	m_displayResultDlgContainerRect.right += offset.right;
+	m_displayResultDlgContainerRect.top += offset.top;
+	m_displayResultDlgContainerRect.bottom += offset.bottom;
+	GetDlgItem(IDC_DISPLAYRESULT_WIN)->MoveWindow(m_displayResultDlgContainerRect);
+	displayResultDlg.MoveWindow(0,0,m_displayResultDlgContainerRect.Width(),m_displayResultDlgContainerRect.Height());
+	  
+	//工具栏窗口
+	m_toolBarDlgContainerRect.left += offset.left;
+	m_toolBarDlgContainerRect.right += offset.right;
+	m_toolBarDlgContainerRect.top += offset.top;
+	m_toolBarDlgContainerRect.bottom += offset.top;
+	GetDlgItem(IDC_TOOLBAR_WIN)->MoveWindow(m_toolBarDlgContainerRect);
+	  
+	//移动图片窗口
+	m_imageSettingDlgContainerRect.left += offset.right;
+	m_imageSettingDlgContainerRect.right += offset.right;
+	m_imageSettingDlgContainerRect.top += offset.top;
+	m_imageSettingDlgContainerRect.bottom += offset.top;
+	GetDlgItem(IDC_IMAGE_WIN)->MoveWindow(m_imageSettingDlgContainerRect);
+	  
+	//移动属性窗口
+	m_paramSettingDlgContainerRect.left += offset.right;
+	m_paramSettingDlgContainerRect.right += offset.right;
+	m_paramSettingDlgContainerRect.top += offset.top;
+	m_paramSettingDlgContainerRect.bottom += offset.bottom;
+	GetDlgItem(IDC_SETTING_WIN)->MoveWindow(m_paramSettingDlgContainerRect);
+	  
+	  
+	//移动状态栏
+	CRect statusRect;
+	GetClientRect(statusRect);
+	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
+	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
+	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
+
+
+
 }
