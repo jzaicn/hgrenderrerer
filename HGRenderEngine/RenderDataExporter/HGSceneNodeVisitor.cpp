@@ -109,6 +109,7 @@ bool HGSceneNodeVisitor::isGroupModel(osg::Node& node)
 	CHECK_IF_DO(hg3d::NDoorPocket,&node,{ return true; });
 	CHECK_IF_DO(hg3d::DoorWindow,&node,{ return true; });
 	CHECK_IF_DO(hg3d::SliderDoor,&node,{ return true; });
+	
 	return false;
 }
 

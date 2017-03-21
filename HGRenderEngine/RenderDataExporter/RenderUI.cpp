@@ -45,10 +45,18 @@ void RenderUI::showRenderDlg()
 	
 	Json::Value output;
 	HG_SceneCenter::inst().save(output);
-	//HGLOG_DEBUG(output.toStyledString());
-	Json::FastWriter writer;
-	writer.write(root);
 	
+	Json::FastWriter fastwriter;
+	
+	std::string result = fastwriter.write(output);
+	
+	std::ofstream  writestream("d:\\room.json");
+	if (writestream.is_open())
+	{
+		writestream << result ;
+		writestream.flush();
+		writestream.close();
+	}
 	
 }
 
