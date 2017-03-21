@@ -58,7 +58,7 @@ public:
 		color
 	}MType;
 
-	GeodeMatrial(){ Type(empty); };
+	GeodeMatrial(){ Type(empty); Color(1.0,1.0,1.0,1.0);};
 	GeodeMatrial(std::string img ,GeodeMatrial::MType _type = image)
 	{
 		Image(img);	
@@ -134,6 +134,13 @@ protected:
 	//主处理函数
 	void processGeometery(osg::Geode* _geode);
 
+	void createListUVs(const osg::Geometry* g);
+
+	void createListNormals(const osg::Geometry* g);
+
+	void createListVerts(const osg::Geometry* g);
+
+	void saveMesh(const osg::Geometry* g,UINT drawable_n);
 
 
 

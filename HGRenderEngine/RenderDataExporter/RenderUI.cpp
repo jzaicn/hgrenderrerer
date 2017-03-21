@@ -36,7 +36,7 @@ void RenderUI::showRenderDlg()
 	HGLOG_DEBUG("scene ok");
 
 	//osg::Node *node00 = osgDB::readNodeFile( "E:\\XIANGMUSOFT\\TYBSOFT2016-back\\Ironware\\Á¬½ÓÀà\\²ã°åÍÐ(ÒÂ¹ñ)\\°åÍÏ.IVE" );
-	osg::Node *node00 = osgDB::readNodeFile( "D:\\123123123\\trian2.ive" );
+	osg::Node *node00 = osgDB::readNodeFile( "D:\\123123123\\trian3.ive" );
 	if (node00)
 	{
 		node00->accept(vistor);

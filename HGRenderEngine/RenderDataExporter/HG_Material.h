@@ -8,10 +8,11 @@ public:
 	~HG_Material(void);
 
 	typedef enum{
-		empty,
+		color,
 		image,
-		color
 	}MType;
+
+	static HG_Material DefaultMaterial_ColorWhite;
 
 	HG_Material(const HG_Material& other)	
 	{
