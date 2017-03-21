@@ -33,7 +33,7 @@ void HG_MeshTriangle::load(const Json::Value& in)
 	set_t1(in["t1"].asUInt());
 	set_t2(in["t2"].asUInt());
 	set_t3(in["t3"].asUInt());
-	set_material(in["material"].asUInt());
+	set_material(in["material"].asInt());
 }
 
 

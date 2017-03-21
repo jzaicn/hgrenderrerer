@@ -31,7 +31,7 @@ private:
 	out[#name] = arr##name; }
 
 #define JsonVectorLoad(type,name) \
-	if (in[#name].isArray()) { for (UINT i = 0; i < in[#name].size() ; i++) {\
+	if (in[#name].isArray()) { m_##name.clear(); for (UINT i = 0; i < in[#name].size() ; i++) {\
 	type name##Temp;\
 	name##Temp.load(in[#name][i]);\
 	m_##name.push_back(##name##Temp);	}}

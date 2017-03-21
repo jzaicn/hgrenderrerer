@@ -57,12 +57,10 @@ void RenderUI::showRenderDlg()
 		HG_BaseModel model;
 		model.save(output);
 		HGLOG_DEBUG(output.toStyledString().c_str());
-		
-		output["aaa"] = "aaa";
-		
+
 		model.load(output);
 		model.save(compare);
-		ASSERT(output.compare(compare) != 0);
+		HGLOG_DEBUG(compare.toStyledString().c_str());
 	}
 
 
@@ -74,9 +72,10 @@ void RenderUI::showRenderDlg()
 		model.save(output);
 		HGLOG_DEBUG(output.toStyledString().c_str());
 
+		output["y"] = 10.0;
 		model.load(output);
 		model.save(compare);
-		ASSERT(output.compare(compare) != 0);
+		HGLOG_DEBUG(compare.toStyledString().c_str());
 	}
 
 
@@ -88,9 +87,11 @@ void RenderUI::showRenderDlg()
 		model.save(output);
 		HGLOG_DEBUG(output.toStyledString().c_str());
 
+		output["z"] = 10.0;
+
 		model.load(output);
 		model.save(compare);
-		ASSERT(output.compare(compare) != 0);
+		HGLOG_DEBUG(compare.toStyledString().c_str());
 	}
 
 
@@ -102,9 +103,11 @@ void RenderUI::showRenderDlg()
 		model.save(output);
 		HGLOG_DEBUG(output.toStyledString().c_str());
 
+		output["w"] = 10.0;
+
 		model.load(output);
 		model.save(compare);
-		ASSERT(output.compare(compare) != 0);
+		HGLOG_DEBUG(compare.toStyledString().c_str());
 	}
 
 
@@ -116,9 +119,11 @@ void RenderUI::showRenderDlg()
 		model.save(output);
 		HGLOG_DEBUG(output.toStyledString().c_str());
 
+		output["2"]["z"] = 10.0;
+
 		model.load(output);
 		model.save(compare);
-		ASSERT(output.compare(compare) != 0);
+		HGLOG_DEBUG(compare.toStyledString().c_str());
 	}
 
 
@@ -132,7 +137,7 @@ void RenderUI::showRenderDlg()
 
 		model.load(output);
 		model.save(compare);
-		ASSERT(output.compare(compare) != 0);
+		HGLOG_DEBUG(compare.toStyledString().c_str());
 	}
 
 
@@ -146,7 +151,7 @@ void RenderUI::showRenderDlg()
 
 		model.load(output);
 		model.save(compare);
-		ASSERT(output.compare(compare) != 0);
+		HGLOG_DEBUG(compare.toStyledString().c_str());
 	}
 
 
@@ -160,7 +165,7 @@ void RenderUI::showRenderDlg()
 
 		model.load(output);
 		model.save(compare);
-		ASSERT(output.compare(compare) != 0);
+		HGLOG_DEBUG(compare.toStyledString().c_str());
 	}
 
 
@@ -174,7 +179,7 @@ void RenderUI::showRenderDlg()
 
 		model.load(output);
 		model.save(compare);
-		ASSERT(output.compare(compare) != 0);
+		HGLOG_DEBUG(compare.toStyledString().c_str());
 	}
 
 
@@ -188,7 +193,7 @@ void RenderUI::showRenderDlg()
 
 		model.load(output);
 		model.save(compare);
-		ASSERT(output.compare(compare) != 0);
+		HGLOG_DEBUG(compare.toStyledString().c_str());
 	}
 
 
@@ -202,7 +207,7 @@ void RenderUI::showRenderDlg()
 
 		model.load(output);
 		model.save(compare);
-		ASSERT(output.compare(compare) != 0);
+		HGLOG_DEBUG(compare.toStyledString().c_str());
 	}
 
 
@@ -216,7 +221,7 @@ void RenderUI::showRenderDlg()
 
 		model.load(output);
 		model.save(compare);
-		ASSERT(output.compare(compare) != 0);
+		HGLOG_DEBUG(compare.toStyledString().c_str());
 	}
 
 

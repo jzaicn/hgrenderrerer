@@ -22,6 +22,7 @@ public:
 		set_intensity(other.get_intensity());
 		set_size(other.get_size());
 		set_light_to_world(other.get_light_to_world());
+		return *this;
 	}
 
 	typedef enum {

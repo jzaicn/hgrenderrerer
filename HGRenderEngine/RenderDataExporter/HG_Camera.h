@@ -31,6 +31,7 @@ public:
 		set_cubemap_render(other.get_cubemap_render());
 
 		set_view_to_world(other.get_view_to_world());
+		return *this;
 	}
 
 private:

@@ -7,15 +7,15 @@ public:
 	HG_MeshTriangle()
 	{
 		set_t1(0);
-		set_t1(0);
-		set_t1(0);
+		set_t2(0);
+		set_t3(0);
 		set_material(-1);
 	};
-	HG_MeshTriangle(UINT t1,UINT t2,UINT t3,UINT material = -1)
+	HG_MeshTriangle(UINT t1,UINT t2,UINT t3,int material = -1)
 	{
 		set_t1(t1);
-		set_t1(t2);
-		set_t1(t3);
+		set_t2(t2);
+		set_t3(t3);
 		set_material(material);
 	};
 
@@ -48,7 +48,7 @@ public:
 	GETSET(UINT,t1);				
 	GETSET(UINT,t2);
 	GETSET(UINT,t3);
-	GETSET(UINT,material) ;			
+	GETSET(int,material) ;			
 };
 
 class HG_Mesh :public HG_BaseModel
