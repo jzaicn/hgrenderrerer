@@ -13,6 +13,22 @@ public:
 		color
 	}MType;
 
+	HG_Material(const HG_Material& other)	
+	{
+		set_type(other.get_type());
+		set_image(other.get_image());
+		set_unique_code(other.get_unique_code());
+		set_color(other.get_color());
+	}
+
+	HG_Material& operator=(const HG_Material &other)	
+	{
+		set_type(other.get_type());
+		set_image(other.get_image());
+		set_unique_code(other.get_unique_code());
+		set_color(other.get_color());
+		return *this;
+	}
 
 	virtual std::string get_classname() override;
 

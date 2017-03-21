@@ -8,6 +8,20 @@ public:
 	HG_ModelInstance(std::string model_file,HG_Mat mesh_to_world);
 	~HG_ModelInstance(void);
 
+	HG_ModelInstance(const HG_ModelInstance& other)	
+	{
+		set_model_file(other.get_model_file());
+		set_mesh_to_world(other.get_mesh_to_world());
+		set_unique_code(other.get_unique_code());
+	}
+
+	HG_ModelInstance& operator=(const HG_ModelInstance &other)	
+	{
+		set_model_file(other.get_model_file());
+		set_mesh_to_world(other.get_mesh_to_world());
+		set_unique_code(other.get_unique_code());
+		return *this;
+	}
 
 	virtual std::string get_classname() override;
 

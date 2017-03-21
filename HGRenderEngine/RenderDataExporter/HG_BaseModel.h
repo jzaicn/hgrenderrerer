@@ -49,6 +49,9 @@ class HG_BaseModel
 public:
 	HG_BaseModel(void){};
 	virtual ~HG_BaseModel(void){};
+	HG_BaseModel(const HG_BaseModel& other)	{}
+	
+	HG_BaseModel& operator=(const HG_BaseModel &other)	{return *this;}
 
 	virtual std::string get_classname() { return "HG_BaseModel"; };
 
@@ -69,7 +72,19 @@ public:
 		set_x(x);
 		set_y(y);
 	}
+	HG_Vec2(const HG_Vec2& other)
+	{
+		set_x(other.get_x());
+		set_y(other.get_y());
+	}
 	~HG_Vec2(void){};
+
+	HG_Vec2& operator=(const HG_Vec2 &other)
+	{
+		set_x(other.get_x());
+		set_y(other.get_y());
+		return *this;
+	}
 
 	virtual std::string get_classname() override { return "HG_Vec2"; };
 
@@ -108,7 +123,22 @@ public:
 		set_y(y);
 		set_z(z);
 	}
+	HG_Vec3(const HG_Vec3& other)
+	{
+		set_x(other.get_x());
+		set_y(other.get_y());
+		set_z(other.get_z());
+	}
 	~HG_Vec3(void){};
+
+	HG_Vec3& operator=(const HG_Vec3 &other)
+	{
+		set_x(other.get_x());
+		set_y(other.get_y());
+		set_z(other.get_z());
+		return *this;
+	}
+
 
 	std::string get_classname(){ return "HG_Vec3"; };
 
@@ -150,7 +180,24 @@ public:
 		set_z(z);
 		set_w(w);
 	}
+	HG_Vec4(const HG_Vec4& other)
+	{
+		set_x(other.get_x());
+		set_y(other.get_y());
+		set_z(other.get_z());
+		set_w(other.get_w());
+	}
 	~HG_Vec4(void){};
+
+	HG_Vec4& operator=(const HG_Vec4 &other)
+	{
+		set_x(other.get_x());
+		set_y(other.get_y());
+		set_z(other.get_z());
+		set_w(other.get_w());
+		return *this;
+	}
+
 
 	virtual std::string get_classname() { return "HG_Vec4"; };
 
@@ -185,8 +232,38 @@ public:
 	HG_Mat(void)
 	{
 		set_mat(_matrix);
+		clear();
+	}
+	HG_Mat(const HG_Vec4& v1, const HG_Vec4& v2, const HG_Vec4& v3, const HG_Vec4& v4)
+	{
+		set_mat(_matrix);
+		clear();
+		m_mat[0] = v1;
+		m_mat[1] = v2;
+		m_mat[2] = v3;
+		m_mat[3] = v4;
+	}
+	HG_Mat(const HG_Mat& other)
+	{
+		set_mat(_matrix);
+		clear();
+		m_mat[0] = other.m_mat[0];
+		m_mat[1] = other.m_mat[1];
+		m_mat[2] = other.m_mat[2];
+		m_mat[3] = other.m_mat[3];
 	}
 	~HG_Mat(void){};
+
+	HG_Mat& operator=(const HG_Mat &other)
+	{
+		set_mat(_matrix);
+		clear();
+		m_mat[0] = other.m_mat[0];
+		m_mat[1] = other.m_mat[1];
+		m_mat[2] = other.m_mat[2];
+		m_mat[3] = other.m_mat[3];
+		return *this;
+	}
 
 	virtual std::string get_classname() { return "HG_Mat"; };
 
@@ -203,6 +280,7 @@ public:
 		for (int row = 0; row < 4 ; row++)
 		{
 			Json::Value strMatRow;
+			strMatRow.clear();
 			m_mat[row].save(strMatRow);
 
 			CString strIndex;

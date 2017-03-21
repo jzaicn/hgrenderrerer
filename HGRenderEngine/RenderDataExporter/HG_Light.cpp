@@ -29,7 +29,6 @@ void HG_Light::save(Json::Value& out)
 	out["intensity"] = get_intensity();
 	ref_size().save(out["size"]);
 	ref_light_to_world().save(out["light_to_world"]);
-
 }
 
 void HG_Light::load(const Json::Value& in)

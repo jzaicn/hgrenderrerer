@@ -44,8 +44,188 @@ void RenderUI::showRenderDlg()
 	}
 	
 	Json::Value output;
-	HG_SceneCenter mat;
-	mat.addModelInstance(HG_ModelInstance("123123",HG_Mat()));
+	Json::Value compare;
+	Json::Reader initer;
+	initer.parse("{}",output);
+
+	
+
+	if (1)
+	{
+		output.clear();
+		compare.clear();
+		HG_BaseModel model;
+		model.save(output);
+		HGLOG_DEBUG(output.toStyledString().c_str());
+		
+		output["aaa"] = "aaa";
+		
+		model.load(output);
+		model.save(compare);
+		ASSERT(output.compare(compare) != 0);
+	}
+
+
+	if (1)
+	{
+		output.clear();
+		compare.clear();
+		HG_Vec2 model;
+		model.save(output);
+		HGLOG_DEBUG(output.toStyledString().c_str());
+
+		model.load(output);
+		model.save(compare);
+		ASSERT(output.compare(compare) != 0);
+	}
+
+
+	if (1)
+	{
+		output.clear();
+		compare.clear();
+		HG_Vec3 model;
+		model.save(output);
+		HGLOG_DEBUG(output.toStyledString().c_str());
+
+		model.load(output);
+		model.save(compare);
+		ASSERT(output.compare(compare) != 0);
+	}
+
+
+	if (1)
+	{
+		output.clear();
+		compare.clear();
+		HG_Vec4 model;
+		model.save(output);
+		HGLOG_DEBUG(output.toStyledString().c_str());
+
+		model.load(output);
+		model.save(compare);
+		ASSERT(output.compare(compare) != 0);
+	}
+
+
+	if (1)
+	{
+		output.clear();
+		compare.clear();
+		HG_Mat model;
+		model.save(output);
+		HGLOG_DEBUG(output.toStyledString().c_str());
+
+		model.load(output);
+		model.save(compare);
+		ASSERT(output.compare(compare) != 0);
+	}
+
+
+	if (1)
+	{
+		output.clear();
+		compare.clear();
+		HG_Camera model;
+		model.save(output);
+		HGLOG_DEBUG(output.toStyledString().c_str());
+
+		model.load(output);
+		model.save(compare);
+		ASSERT(output.compare(compare) != 0);
+	}
+
+
+	if (1)
+	{
+		output.clear();
+		compare.clear();
+		HG_Light model;
+		model.save(output);
+		HGLOG_DEBUG(output.toStyledString().c_str());
+
+		model.load(output);
+		model.save(compare);
+		ASSERT(output.compare(compare) != 0);
+	}
+
+
+	if (1)
+	{
+		output.clear();
+		compare.clear();
+		HG_Material model;
+		model.save(output);
+		HGLOG_DEBUG(output.toStyledString().c_str());
+
+		model.load(output);
+		model.save(compare);
+		ASSERT(output.compare(compare) != 0);
+	}
+
+
+	if (1)
+	{
+		output.clear();
+		compare.clear();
+		HG_Mesh model;
+		model.save(output);
+		HGLOG_DEBUG(output.toStyledString().c_str());
+
+		model.load(output);
+		model.save(compare);
+		ASSERT(output.compare(compare) != 0);
+	}
+
+
+	if (1)
+	{
+		output.clear();
+		compare.clear();
+		HG_MeshInstance model;
+		model.save(output);
+		HGLOG_DEBUG(output.toStyledString().c_str());
+
+		model.load(output);
+		model.save(compare);
+		ASSERT(output.compare(compare) != 0);
+	}
+
+
+	if (1)
+	{
+		output.clear();
+		compare.clear();
+		HG_MeshTriangle model;
+		model.save(output);
+		HGLOG_DEBUG(output.toStyledString().c_str());
+
+		model.load(output);
+		model.save(compare);
+		ASSERT(output.compare(compare) != 0);
+	}
+
+
+	if (1)
+	{
+		output.clear();
+		compare.clear();
+		HG_SceneCenter model;
+		model.save(output);
+		HGLOG_DEBUG(output.toStyledString().c_str());
+
+		model.load(output);
+		model.save(compare);
+		ASSERT(output.compare(compare) != 0);
+	}
+
+
+
+
+
+	//HG_SceneCenter mat;
+	//mat.addModelInstance(HG_ModelInstance("123123",HG_Mat()));
+	HG_ModelInstance mat = HG_ModelInstance("123123",HG_Mat());
 
 	mat.save(output);
 	HGLOG_DEBUG(output.toStyledString().c_str());

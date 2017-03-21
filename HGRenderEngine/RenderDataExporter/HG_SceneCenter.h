@@ -14,6 +14,25 @@ class HG_SceneCenter : HG_BaseModel
 public:
 	HG_SceneCenter(void);
 	~HG_SceneCenter(void);
+	HG_SceneCenter(const HG_SceneCenter& other)	
+	{
+		set_cameraList(other.get_cameraList());
+		set_lightList(other.get_lightList());
+		set_meshList(other.get_meshList());
+		set_modelList(other.get_modelList());
+		set_materialList(other.get_materialList());
+		set_meshInstanceList(other.get_meshInstanceList());
+	}
+
+	HG_SceneCenter& operator=(const HG_SceneCenter &other)	
+	{
+		set_cameraList(other.get_cameraList());
+		set_lightList(other.get_lightList());
+		set_meshList(other.get_meshList());
+		set_modelList(other.get_modelList());
+		set_materialList(other.get_materialList());
+		set_meshInstanceList(other.get_meshInstanceList());
+	}
 
 	virtual std::string get_classname() override;
 

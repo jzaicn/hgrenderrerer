@@ -6,6 +6,23 @@ class HG_Light :public HG_BaseModel
 public:
 	HG_Light(void);
 	~HG_Light(void);
+	HG_Light(const HG_Light& other)	
+	{
+		set_type(other.get_type());
+		set_ies_filename(other.get_ies_filename());
+		set_intensity(other.get_intensity());
+		set_size(other.get_size());
+		set_light_to_world(other.get_light_to_world());
+	}
+
+	HG_Light& operator=(const HG_Light &other)	
+	{
+		set_type(other.get_type());
+		set_ies_filename(other.get_ies_filename());
+		set_intensity(other.get_intensity());
+		set_size(other.get_size());
+		set_light_to_world(other.get_light_to_world());
+	}
 
 	typedef enum {
 		spot_light,

@@ -4,6 +4,9 @@
 
 HG_Material::HG_Material(void)
 {
+	set_type(color);
+	set_image("");
+	set_color(HG_Vec4(1.0,1.0,1.0,1.0));
 }
 
 

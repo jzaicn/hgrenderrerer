@@ -236,30 +236,30 @@ void HGSceneNodeVisitor::ProcessGeode(osg::Geode* geode)
 	
 
 	//有多少个材质就有多少个mesh
-	for (int material_i = 0; material_i < reader.get_material().size() ; material_i++)
+	for (UINT material_i = 0; material_i < reader.get_material().size() ; material_i++)
 	{
 		HG_Mesh mesh;	
 		//verts 顶点集合
-		for (int i = 0; i < reader.get_points().get()->size() ; i++)
+		for (UINT i = 0; i < reader.get_points().get()->size() ; i++)
 		{
 			osg::Vec3 vec = reader.get_points().get()->at(i);
 			mesh.ref_verts().push_back(HG_Vec3(vec.x(),vec.y(),vec.z()));
 		}
 		//normal 法线集合
-		for (int i = 0; i < reader.get_normals().get()->size() ; i++)
+		for (UINT i = 0; i < reader.get_normals().get()->size() ; i++)
 		{
 			osg::Vec3 vec = reader.get_normals().get()->at(i);
 			mesh.ref_normals().push_back(HG_Vec3(vec.x(),vec.y(),vec.z()));
 		}
 		//uvs 纹理集合
-		for (int i = 0; i < reader.get_uvs().get()->size() ; i++)
+		for (UINT i = 0; i < reader.get_uvs().get()->size() ; i++)
 		{
 			osg::Vec2 vec = reader.get_uvs().get()->at(i);
 			mesh.ref_uvs().push_back(HG_Vec2(vec.x(),vec.y()));
 		}
 
 
-		for (int triangle_i = 0; triangle_i < reader.get_listTriangles().size() ; triangle_i++)
+		for (UINT triangle_i = 0; triangle_i < reader.get_listTriangles().size() ; triangle_i++)
 		{
 			Triangle tri = reader.get_listTriangles().at(triangle_i).first;
 			UINT section = reader.get_listTriangles().at(triangle_i).second;
