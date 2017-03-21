@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "HG_SceneCenter.h"
 
+HG_SceneCenter HG_SceneCenter::m_inst;
 
 HG_SceneCenter::HG_SceneCenter(void)
 {
@@ -39,4 +40,4 @@ void HG_SceneCenter::load(const Json::Value& in)
 	JsonVectorLoad(HG_MeshInstance,meshInstanceList);
 }
 
-HG_SceneCenter HG_SceneCenter::m_inst;
+

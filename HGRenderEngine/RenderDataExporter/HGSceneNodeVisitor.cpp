@@ -263,7 +263,8 @@ void HGSceneNodeVisitor::ProcessGeode(osg::Geode* geode)
 		{
 			Triangle tri = reader.get_listTriangles().at(triangle_i).first;
 			UINT section = reader.get_listTriangles().at(triangle_i).second;
-			if (tri.material == material_i)
+			//TODO: 这里有问题，材质和面之间的关系
+			//if (tri.material == material_i) 
 			{
 				//三角形面
 				mesh.ref_faces().push_back(HG_MeshTriangle(tri.t1,tri.t2,tri.t3));
@@ -273,7 +274,7 @@ void HGSceneNodeVisitor::ProcessGeode(osg::Geode* geode)
 		//TODO: 修改唯一码获取方式
 		{
 			CString mm;
-			mm.Format("mesh_%0X_scetion%02",*geode,material_i);
+			mm.Format("mesh_%08X_scetion%02d",*geode,material_i);
 			mesh.set_unique_code(mm.GetBuffer());
 			HG_SceneCenter::inst().addMesh(mesh);
 		}
@@ -291,7 +292,7 @@ void HGSceneNodeVisitor::ProcessGeode(osg::Geode* geode)
 		}
 		{
 			CString mm;
-			mm.Format("material_%0X_materialIndex%02",*geode,material_i);
+			mm.Format("material_%08X_materialIndex%02d",*geode,material_i);
 			material.set_unique_code(mm.GetBuffer());
 			HG_SceneCenter::inst().addMaterial(material);
 		}

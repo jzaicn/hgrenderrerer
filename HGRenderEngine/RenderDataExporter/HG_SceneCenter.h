@@ -11,9 +11,10 @@
 
 class HG_SceneCenter : HG_BaseModel
 {
-public:
+private:
 	HG_SceneCenter(void);
 	~HG_SceneCenter(void);
+public:
 	HG_SceneCenter(const HG_SceneCenter& other)	
 	{
 		set_cameraList(other.get_cameraList());
@@ -34,6 +35,14 @@ public:
 		set_meshInstanceList(other.get_meshInstanceList());
 	}
 
+
+	static HG_SceneCenter m_inst;
+	static HG_SceneCenter& inst()
+	{
+		return m_inst;
+	}
+
+
 	virtual std::string get_classname() override;
 
 
@@ -48,12 +57,15 @@ public:
 		return "";
 	}	
 	
-	static HG_SceneCenter m_inst;
-	static HG_SceneCenter& inst()
+	void clear()
 	{
-		return m_inst;
+		ref_cameraList().clear();
+		ref_lightList().clear();
+		ref_meshList().clear();
+		ref_modelList().clear();
+		ref_materialList().clear();
+		ref_meshInstanceList().clear();
 	}
-
 	
 	template <typename T> 
 	void checkAndPushBack(std::vector<T>& vec,T& item)
