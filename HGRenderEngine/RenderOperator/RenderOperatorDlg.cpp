@@ -162,6 +162,8 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 		HGLOG_DEBUG(output.toStyledString());
 		HG_SceneCenter::inst().load(output);
 	}
+	
+	ShowWindow(SW_MAXIMIZE);
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
