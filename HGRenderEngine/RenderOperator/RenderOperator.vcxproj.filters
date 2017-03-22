@@ -138,6 +138,9 @@
     <ClInclude Include="HG_SunLight.h">
       <Filter>Model</Filter>
     </ClInclude>
+    <ClInclude Include="HG_RenderParam.h">
+      <Filter>Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="XmlHandlePlus.cpp">
@@ -210,6 +213,9 @@
       <Filter>Model</Filter>
     </ClCompile>
     <ClCompile Include="HG_SunLight.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_RenderParam.cpp">
       <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>

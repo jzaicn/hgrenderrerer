@@ -125,6 +125,7 @@
     <ClInclude Include="HG_Mesh.h" />
     <ClInclude Include="HG_MeshInstance.h" />
     <ClInclude Include="HG_ModelInstance.h" />
+    <ClInclude Include="HG_RenderParam.h" />
     <ClInclude Include="HG_SceneCenter.h" />
     <ClInclude Include="HG_SkyLight.h" />
     <ClInclude Include="HG_SunLight.h" />
@@ -153,6 +154,7 @@
     <ClCompile Include="HG_Mesh.cpp" />
     <ClCompile Include="HG_MeshInstance.cpp" />
     <ClCompile Include="HG_ModelInstance.cpp" />
+    <ClCompile Include="HG_RenderParam.cpp" />
     <ClCompile Include="HG_SceneCenter.cpp" />
     <ClCompile Include="HG_SkyLight.cpp" />
     <ClCompile Include="HG_SunLight.cpp" />
