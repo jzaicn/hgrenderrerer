@@ -66,8 +66,8 @@ private:
 	CStatusBar   m_wndStatusBar;			//×´Ì¬À¸
 
 // 
- public:
-// 	afx_msg void OnSizing(UINT fwSide, LPRECT pRect);
+public:
+	afx_msg void OnSize(UINT nType, int cx, int cy);
  	virtual void OnCancel()	{	CDialogEx::OnCancel();	};
 // 
 // 	// ´ò¿ªÍ¼Ïñ
@@ -110,5 +110,4 @@ private:
 // 	afx_msg virtual LRESULT OnDone(WPARAM w,LPARAM l){return 0;};
 public:
 	afx_msg void OnBnClickedButton1();
-	afx_msg void OnSize(UINT nType, int cx, int cy);
 };

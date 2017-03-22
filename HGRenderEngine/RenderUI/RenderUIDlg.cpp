@@ -165,53 +165,10 @@ BOOL CRenderUIDlg::OnInitDialog()
 	m_oldRect = statusRect;
 	m_newRect = statusRect;
 	
+	ShowWindow(SW_MAXIMIZE);
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
-
-// void CRenderUIDlg::OnSizing(UINT fwSide, LPRECT pRect)
-// {
-// 	CRect offset = getOffset(fwSide,pRect);
-// 	CDialog::OnSizing(fwSide, pRect);
-// 
-// // 	//移动图片窗口
-// // 	m_displayResultDlgContainerRect.left += offset.left;
-// // 	m_displayResultDlgContainerRect.right += offset.right;
-// // 	m_displayResultDlgContainerRect.top += offset.top;
-// // 	m_displayResultDlgContainerRect.bottom += offset.bottom;
-// // 	GetDlgItem(IDC_DISPLAYRESULT_WIN)->MoveWindow(m_displayResultDlgContainerRect);
-// // 	displayResultDlg.MoveWindow(0,0,m_displayResultDlgContainerRect.Width(),m_displayResultDlgContainerRect.Height());
-// // 
-// // 	//工具栏窗口
-// // 	m_toolBarDlgContainerRect.left += offset.left;
-// // 	m_toolBarDlgContainerRect.right += offset.right;
-// // 	m_toolBarDlgContainerRect.top += offset.top;
-// // 	m_toolBarDlgContainerRect.bottom += offset.top;
-// // 	GetDlgItem(IDC_TOOLBAR_WIN)->MoveWindow(m_toolBarDlgContainerRect);
-// // 
-// // 	//移动图片窗口
-// // 	m_imageSettingDlgContainerRect.left += offset.right;
-// // 	m_imageSettingDlgContainerRect.right += offset.right;
-// // 	m_imageSettingDlgContainerRect.top += offset.top;
-// // 	m_imageSettingDlgContainerRect.bottom += offset.top;
-// // 	GetDlgItem(IDC_IMAGE_WIN)->MoveWindow(m_imageSettingDlgContainerRect);
-// // 
-// // 	//移动属性窗口
-// // 	m_paramSettingDlgContainerRect.left += offset.right;
-// // 	m_paramSettingDlgContainerRect.right += offset.right;
-// // 	m_paramSettingDlgContainerRect.top += offset.top;
-// // 	m_paramSettingDlgContainerRect.bottom += offset.bottom;
-// // 	GetDlgItem(IDC_SETTING_WIN)->MoveWindow(m_paramSettingDlgContainerRect);
-// // 
-// // 
-// // 	//移动状态栏
-// // 	CRect statusRect;
-// // 	GetClientRect(statusRect);
-// // 	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
-// // 	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
-// // 	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
-// 
-// 	Invalidate(TRUE);
-// }
 
 void CRenderUIDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
@@ -325,6 +282,7 @@ void CRenderUIDlg::OnSize(UINT nType, int cx, int cy)
 		m_newRect.right - m_oldRect.right,
 		m_newRect.bottom - m_oldRect.bottom
 	);
+	m_oldRect = m_newRect;
 	
 	//移动图片窗口
 	m_displayResultDlgContainerRect.left += offset.left;
@@ -363,6 +321,6 @@ void CRenderUIDlg::OnSize(UINT nType, int cx, int cy)
 	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
 	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
 
-
+	Invalidate();
 
 }
