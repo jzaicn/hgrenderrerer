@@ -61,6 +61,7 @@ BOOL DialogRenderSettings::OnInitDialog()
 
 	initFromTable();
 	initFromSetting();
+	OnCheckBtn();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -136,7 +137,6 @@ void DialogRenderSettings::initFromSetting()
 					{
 						CButton* check = (CButton*)(GetDlgItem(m_control_macro.at(i)));
 						check->SetCheck((int)defaultval);
-						OnCheckBtn();
 					}
 				}
 
