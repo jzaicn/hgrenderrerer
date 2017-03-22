@@ -6,6 +6,9 @@
 #include "RenderOperator.h"
 #include "RenderOperatorDlg.h"
 #include "afxdialogex.h"
+#include "JsonCpp/json.h"
+#include <fstream>
+#include "HgLog/HgLog.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -142,8 +145,27 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 	GetClientRect(m_newRect);
 	GetClientRect(m_oldRect);
 
+
+	// 加载文件
+	std::ifstream readStream("d:\\room.json");
+	if (readStream.is_open())
+	{
+		std::string result;
+		readStream >> result;
+
+		Json::Value output;
+		Json::Reader reader;
+		reader.parse(result,output);
+
+		HGLOG_DEBUG(output.toStyledString());
+
+		//HG_SceneCenter::inst().save(output);
+	}
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
+
+
 
 void CRenderOperatorDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
