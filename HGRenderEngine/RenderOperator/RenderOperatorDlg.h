@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "DialogPlus.h"
+//#include "CDialogEx.h"
 
 // CRenderOperatorDlg 对话框
-class CRenderOperatorDlg : public DialogPlus
+class CRenderOperatorDlg : public CDialogEx
 {
 // 构造
 public:

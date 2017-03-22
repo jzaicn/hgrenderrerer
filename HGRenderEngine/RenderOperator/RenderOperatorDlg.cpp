@@ -51,17 +51,17 @@ UINT CRenderOperatorDlg::indicators[] = {IDS_STATESTRING1, IDS_STATESTRING2};
 
 
 CRenderOperatorDlg::CRenderOperatorDlg(CWnd* pParent /*=NULL*/)
-	: DialogPlus(CRenderOperatorDlg::IDD, pParent)
+	: CDialogEx(CRenderOperatorDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
 void CRenderOperatorDlg::DoDataExchange(CDataExchange* pDX)
 {
-	DialogPlus::DoDataExchange(pDX);
+	CDialogEx::DoDataExchange(pDX);
 }
 
-BEGIN_MESSAGE_MAP(CRenderOperatorDlg, DialogPlus)
+BEGIN_MESSAGE_MAP(CRenderOperatorDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
@@ -73,7 +73,7 @@ END_MESSAGE_MAP()
 
 BOOL CRenderOperatorDlg::OnInitDialog()
 {
-	DialogPlus::OnInitDialog();
+	CDialogEx::OnInitDialog();
 
 	// 将“关于...”菜单项添加到系统菜单中。
 
@@ -104,13 +104,13 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 
 	//创建状态栏
 	CRect statusRect;
-	GetClientRect(statusRect);
+ 	GetClientRect(statusRect);
 	if(!m_wndStatusBar.Create(this)|| !m_wndStatusBar.SetIndicators(indicators,sizeof(indicators)/sizeof(UINT))) return false;
-	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);// 调整状态栏的位置和大小
-	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
-	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
-	m_wndStatusBar.SetPaneText(0,"准备就绪");
-	m_wndStatusBar.SetPaneText(1,"当前缩放比：100%");
+ 	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);// 调整状态栏的位置和大小
+ 	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
+ 	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
+ 	m_wndStatusBar.SetPaneText(0,"准备就绪");
+ 	m_wndStatusBar.SetPaneText(1,"当前缩放比：100%");
 
 	GetClientRect(m_newRect);
 	GetClientRect(m_oldRect);
@@ -228,22 +228,22 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 
 void CRenderOperatorDlg::OnSize(UINT nType, int cx, int cy)
 {
-	DialogPlus::OnSize(nType, cx, cy);
-	GetClientRect(m_newRect);
-	CRect offset = CRect(
-		m_newRect.left - m_oldRect.left,
-		m_newRect.top - m_oldRect.top,
-		m_newRect.right - m_oldRect.right,
-		m_newRect.bottom - m_oldRect.bottom
-		);
-	m_oldRect = m_newRect;
-	
-	//移动状态栏
-	CRect statusRect;
-	GetClientRect(statusRect);
-	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
-	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
-	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
-
-	Invalidate(TRUE);
+	CDialogEx::OnSize(nType, cx, cy);
+ 	GetClientRect(m_newRect);
+ 	CRect offset = CRect(
+ 		m_newRect.left - m_oldRect.left,
+ 		m_newRect.top - m_oldRect.top,
+ 		m_newRect.right - m_oldRect.right,
+ 		m_newRect.bottom - m_oldRect.bottom
+ 		);
+ 	m_oldRect = m_newRect;
+ 	
+ 	//移动状态栏
+ 	CRect statusRect;
+ 	GetClientRect(statusRect);
+ 	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
+// 	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
+// 	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
+// 
+ 	Invalidate(TRUE);
 }
