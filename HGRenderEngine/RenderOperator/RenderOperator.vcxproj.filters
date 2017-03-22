@@ -16,6 +16,9 @@
     <Filter Include="Tools">
       <UniqueIdentifier>{3056a713-fd19-4cd4-b716-4ddcab71d32c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="API">
+      <UniqueIdentifier>{990e3151-5612-43ac-bf58-3b23a76e9a80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -45,6 +48,15 @@
     <ClInclude Include="XmlHandlePlus.h">
       <Filter>Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Elara\ElaraHomeAPI.h">
+      <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="Elara\esslib.h">
+      <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="Elara\esswriter.h">
+      <Filter>API</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderOperator.cpp">
@@ -58,6 +70,15 @@
     </ClCompile>
     <ClCompile Include="XmlHandlePlus.cpp">
       <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Elara\ElaraHomeAPI.cpp">
+      <Filter>API</Filter>
+    </ClCompile>
+    <ClCompile Include="Elara\esslib.cpp">
+      <Filter>API</Filter>
+    </ClCompile>
+    <ClCompile Include="Elara\esswriter.cpp">
+      <Filter>API</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

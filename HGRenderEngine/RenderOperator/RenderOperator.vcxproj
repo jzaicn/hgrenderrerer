@@ -44,6 +44,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <ExecutablePath>E:\HGRENDER\Elara_SDK_1_0_76\bin;$(VCInstallDir)bin;$(WindowsSdkDir)bin\NETFX 4.0 Tools;$(WindowsSdkDir)bin;$(VSInstallDir)Common7\Tools\bin;$(VSInstallDir)Common7\tools;$(VSInstallDir)Common7\ide;$(ProgramFiles)\HTML Help Workshop;$(FrameworkSDKDir)\bin;$(MSBuildToolsPath32);$(VSInstallDir);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);</ExecutablePath>
+    <IncludePath>E:\HGRENDER\Elara_SDK_1_0_76\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <LibraryPath>E:\HGRENDER\Elara_SDK_1_0_76\lib;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -71,10 +74,10 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>TIXML_USE_STL;_AFXDLLs;WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <PreprocessorDefinitions>TIXML_USE_STL;_AFXDLLs;_AFXDLL;WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -100,6 +103,9 @@
     <None Include="res\RenderOperator.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Elara\ElaraHomeAPI.h" />
+    <ClInclude Include="Elara\esslib.h" />
+    <ClInclude Include="Elara\esswriter.h" />
     <ClInclude Include="RenderOperator.h" />
     <ClInclude Include="RenderOperatorDlg.h" />
     <ClInclude Include="Resource.h" />
@@ -108,6 +114,9 @@
     <ClInclude Include="XmlHandlePlus.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Elara\ElaraHomeAPI.cpp" />
+    <ClCompile Include="Elara\esslib.cpp" />
+    <ClCompile Include="Elara\esswriter.cpp" />
     <ClCompile Include="RenderOperator.cpp" />
     <ClCompile Include="RenderOperatorDlg.cpp" />
     <ClCompile Include="stdafx.cpp">

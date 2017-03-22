@@ -13,6 +13,7 @@
  * You should have received a copy of the End User License Agreement along 
  * with this program.  If not, see <http://www.rendease.com/licensing/>
  *************************************************************************/
+#include "StdAfx.h"
 
 #include "ElaraHomeAPI.h"
 #include <ei.h>

@@ -155,7 +155,8 @@ HCURSOR CRenderOperatorDlg::OnQueryDragIcon()
 #include "XmlHandlePlus.h"
 #include "HgLog/HgLog.h"
 #include "JsonCpp/json.h"
-
+#include "Elara/ElaraHomeAPI.h"
+#include "Elara/esslib.h"
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
  	HgLog::HgLog::initDebugLogCategory();
@@ -164,6 +165,18 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 	reader.parse("{\"hello\":\"บ๊นโ\"}",root);
 	HGLOG_DEBUG(root.toStyledString());
 
+	EH_Context* context =  EH_create();
+	
+	EH_Sky sky;
+	sky.enabled= true;
+	sky.hdri_name = "asdadad";
+	sky.hdri_rotation = 0.0;
+	sky.intensity = 50.0;
+
+	EssExporter* ess = reinterpret_cast<EssExporter*>(context);
+
+	EH_set_sky(context,&sky);
+	EH_delete(context);
 
 // 	TiXmlDocument doc;
 // 	doc.LoadFile("E:\\HGRENDER\\trunk\\HGRenderEngine\\RenderOperator\\ImageParam.xml");
