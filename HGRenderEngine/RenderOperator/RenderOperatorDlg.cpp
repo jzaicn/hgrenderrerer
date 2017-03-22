@@ -11,8 +11,9 @@
 #define new DEBUG_NEW
 #endif
 
-
+//////////////////////////////////////////////////////////////////////////
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
+#if 1
 
 class CAboutDlg : public CDialogEx
 {
@@ -41,28 +42,30 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
+#endif // 1
 
-
+//////////////////////////////////////////////////////////////////////////
 // CRenderOperatorDlg 对话框
 
-
+UINT CRenderOperatorDlg::indicators[] = {IDS_STATESTRING1, IDS_STATESTRING2};
 
 
 CRenderOperatorDlg::CRenderOperatorDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(CRenderOperatorDlg::IDD, pParent)
+	: DialogPlus(CRenderOperatorDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
 void CRenderOperatorDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
+	DialogPlus::DoDataExchange(pDX);
 }
 
-BEGIN_MESSAGE_MAP(CRenderOperatorDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CRenderOperatorDlg, DialogPlus)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 
@@ -70,7 +73,7 @@ END_MESSAGE_MAP()
 
 BOOL CRenderOperatorDlg::OnInitDialog()
 {
-	CDialogEx::OnInitDialog();
+	DialogPlus::OnInitDialog();
 
 	// 将“关于...”菜单项添加到系统菜单中。
 
@@ -98,6 +101,19 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+
+	//创建状态栏
+	CRect statusRect;
+	GetClientRect(statusRect);
+	if(!m_wndStatusBar.Create(this)|| !m_wndStatusBar.SetIndicators(indicators,sizeof(indicators)/sizeof(UINT))) return false;
+	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);// 调整状态栏的位置和大小
+	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
+	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
+	m_wndStatusBar.SetPaneText(0,"准备就绪");
+	m_wndStatusBar.SetPaneText(1,"当前缩放比：100%");
+
+	GetClientRect(m_newRect);
+	GetClientRect(m_oldRect);
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -207,4 +223,27 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 // 			m_ImageSize.SetCurSel(atoi(node.getAttr("default").c_str()));
 // 		}
 //	}
+}
+
+
+void CRenderOperatorDlg::OnSize(UINT nType, int cx, int cy)
+{
+	DialogPlus::OnSize(nType, cx, cy);
+	GetClientRect(m_newRect);
+	CRect offset = CRect(
+		m_newRect.left - m_oldRect.left,
+		m_newRect.top - m_oldRect.top,
+		m_newRect.right - m_oldRect.right,
+		m_newRect.bottom - m_oldRect.bottom
+		);
+	m_oldRect = m_newRect;
+	
+	//移动状态栏
+	CRect statusRect;
+	GetClientRect(statusRect);
+	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
+	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
+	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
+
+	Invalidate(TRUE);
 }

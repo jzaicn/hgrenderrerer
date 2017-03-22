@@ -87,6 +87,9 @@
     <ClInclude Include="Resource.h">
       <Filter>Frame</Filter>
     </ClInclude>
+    <ClInclude Include="DialogPlus.h">
+      <Filter>View</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="XmlHandlePlus.cpp">
@@ -109,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogPlus.cpp">
+      <Filter>View</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
