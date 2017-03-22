@@ -60,21 +60,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RenderOperator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderOperatorDlg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="XmlHandlePlus.h">
       <Filter>Tools</Filter>
     </ClInclude>
@@ -87,17 +72,23 @@
     <ClInclude Include="Elara\esswriter.h">
       <Filter>API</Filter>
     </ClInclude>
+    <ClInclude Include="RenderOperatorDlg.h">
+      <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderOperator.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RenderOperator.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderOperatorDlg.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="XmlHandlePlus.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
@@ -109,6 +100,15 @@
     </ClCompile>
     <ClCompile Include="Elara\esswriter.cpp">
       <Filter>API</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderOperatorDlg.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderOperator.cpp">
+      <Filter>Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Frame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
