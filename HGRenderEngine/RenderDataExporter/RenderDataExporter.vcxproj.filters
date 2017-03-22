@@ -85,7 +85,7 @@
       <Filter>Frame</Filter>
     </ClCompile>
     <ClCompile Include="RenderUI.cpp">
-      <Filter>Logic</Filter>
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,7 +171,7 @@
       <Filter>Frame</Filter>
     </ClInclude>
     <ClInclude Include="RenderUI.h">
-      <Filter>Logic</Filter>
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
