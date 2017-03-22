@@ -19,6 +19,21 @@
     <Filter Include="API">
       <UniqueIdentifier>{990e3151-5612-43ac-bf58-3b23a76e9a80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Control">
+      <UniqueIdentifier>{5d17d04f-1b8d-4162-9d10-6750fd604d3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Frame">
+      <UniqueIdentifier>{14a081bf-83d3-4f63-a2d1-58c33290a4f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic">
+      <UniqueIdentifier>{41d3d9ac-6ac3-4405-965a-62b69a6495ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="View">
+      <UniqueIdentifier>{fe39e2b7-311a-49cf-a36b-d45c83988316}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{eabf32b1-8aa0-4089-a98b-08ead099d960}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -26,6 +41,21 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="res\RenderOperator.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ImageBegin.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ImageSave.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ImageSettings.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ImageZoomFit.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="ImageZoomOrigin.bmp">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
