@@ -51,7 +51,13 @@ public:
 	virtual void OnOK();
 	virtual void OnCancel();
 	CRect getOffset(const CRect& newRect,const CRect& oldRect);
-	
+	float get_edit_float(UINT editMacro);
+	void set_edit_float(UINT editMacro,float val);
+
+	bool checkMacro(UINT editMacro);
+
+	bool get_check_bool(UINT checkMacro);
+	void set_check_bool(UINT checkMacro,bool val);
 
 	//////////////////////////////////////////////////////////////////////////
 	// 公共数据

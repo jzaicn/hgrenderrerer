@@ -365,6 +365,98 @@ void DialogRenderSettings::OnBnClickedHdrFileBtn()
 	}
 }
 
+HG_SunLight DialogRenderSettings::get_SunLight()
+{
+	HG_SunLight sun_light;
 
+	sun_light.set_sun_enable(			get_check_bool(IDC_SUN_CONTROL));
+	sun_light.set_sun_light_intensity(	get_edit_float(IDC_SUN_LIGHT_INTENSITY_EDIT)	);
+	sun_light.set_sun_color(			get_color_uint(IDC_SUN_COLOR_BTN));
+	sun_light.set_soft_shadow(			get_edit_float(IDC_SOFT_SHADOW_EDIT));
+	sun_light.set_sun_angle(			get_edit_float(IDC_SUN_ANGLE_EDIT));
+	sun_light.set_sun_height(			get_edit_float(IDC_SUN_HEIGHT_EDIT));
+
+
+	return sun_light;
+}
+
+void DialogRenderSettings::set_SunLight(HG_SunLight sun_light)
+{
+	set_check_bool(	IDC_SUN_CONTROL,				sun_light.get_sun_enable());
+	set_edit_float(	IDC_SUN_LIGHT_INTENSITY_EDIT,	sun_light.get_sun_light_intensity());
+	set_color_uint(	IDC_SUN_COLOR_BTN,				sun_light.get_sun_color());
+	set_edit_float(	IDC_SOFT_SHADOW_SLIDER,			sun_light.get_soft_shadow());
+	set_edit_float(	IDC_SUN_ANGLE_SLIDER,			sun_light.get_sun_angle());
+	set_edit_float(	IDC_SUN_HIGHT_SLIDER,			sun_light.get_sun_height());
+}
+
+HG_SkyLight DialogRenderSettings::getSkyLight()
+{
+	HG_SkyLight sky_light;
+
+	sky_light.set_sky_light_enable(true);
+	sky_light.set_sky_light_intensity(0.0);
+	sky_light.set_hdr("");
+	sky_light.set_hdr_rotate(0.0);
+
+	return sky_light;
+}
+
+void DialogRenderSettings::setSkyLight(HG_SkyLight sky_light)
+{
+	sky_light.get_sky_light_enable();
+	sky_light.get_sky_light_intensity();
+	sky_light.get_hdr();
+	sky_light.get_hdr_rotate();
+}
+
+HG_Expouse DialogRenderSettings::get_Expouse()
+{
+	HG_Expouse expouse;
+	
+	expouse.set_exposure_enable(true);
+	expouse.set_exposure(0.0);
+	expouse.set_high_light(0.0);
+	expouse.set_half_tone(0.0);
+	expouse.set_shadow(0.0);
+	expouse.set_saturation(0.0);
+	expouse.set_white_balance(0.0);
+
+
+	get_color_uint();
+
+	
+	set_color_uint();
+
+
+	
+	return expouse;
+}
+
+void DialogRenderSettings::set_Expouse(HG_Expouse expouse)
+{
+	expouse.get_exposure_enable();
+	expouse.get_exposure();
+	expouse.get_high_light();
+	expouse.get_half_tone();
+	expouse.get_shadow();
+	expouse.get_saturation();
+	expouse.get_white_balance();
+}
+
+
+void DialogRenderSettings::set_color_uint(UINT macro,UINT color)
+{
+	UINT ucolor2 = color;
+	COLORREF ref2 = ucolor2;
+	m_pickColor.Color(ref2);
+}
+
+UINT DialogRenderSettings::get_color_uint(UINT macro)
+{
+	COLORREF ref1 = m_pickColor.Color();
+	UINT ucolor1 = ref1;
+	return ucolor1;
+}
 
 

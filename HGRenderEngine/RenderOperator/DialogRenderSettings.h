@@ -9,6 +9,10 @@
 #include "DialogPlus.h"
 #include "resource.h"
 
+#include "HG_Expouse.h"
+#include "HG_SkyLight.h"
+#include "HG_SunLight.h"
+
 class DialogRenderSettings : public DialogPlus
 {
 	DECLARE_DYNAMIC(DialogRenderSettings)
@@ -34,7 +38,30 @@ public:
 
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 
-public:
+	void setDialogTable(int _father_macro, CString _type,int _control_marco ,CString _cn_name ,CString _en_name, int _second_marco );
+	void setCheckBox(CString _cn_name ,CString _en_name,int _silder, int _edit ){};
+
+	afx_msg void OnEditOK();
+	afx_msg void OnCheckBtn();
+
+	afx_msg void OnBnClickedSunColorBtn();
+	afx_msg void OnBnClickedHdrFileBtn();	
+
+	HG_SunLight get_SunLight();
+	void set_SunLight(HG_SunLight sun_light);
+
+	HG_SkyLight getSkyLight();
+	void setSkyLight(HG_SkyLight sky_light);
+	
+	HG_Expouse get_Expouse();
+
+	void set_color_uint(UINT macro,UINT color);
+
+	UINT get_color_uint(UINT macro);
+
+	void set_Expouse(HG_Expouse expouse);
+
+private:
 	//ΩÁ√Ê±Ì
 	std::vector<int> m_father;
 	std::vector<CString> m_type;
@@ -52,15 +79,5 @@ public:
 
 	std::vector<std::vector<int>> m_switchControlItem;
 
-	
-	void setDialogTable(int _father_macro, CString _type,int _control_marco ,CString _cn_name ,CString _en_name, int _second_marco );
-	void setCheckBox(CString _cn_name ,CString _en_name,int _silder, int _edit ){};
-
-	afx_msg void OnEditOK();
-	afx_msg void OnCheckBtn();
-
-	afx_msg void OnBnClickedSunColorBtn();
-	afx_msg void OnBnClickedHdrFileBtn();	
-	
 	ButtonPickColor m_pickColor;
 };

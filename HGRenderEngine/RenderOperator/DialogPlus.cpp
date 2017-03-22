@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "DialogPlus.h"
+#include <stdexcept>
 
 IMPLEMENT_DYNAMIC(DialogPlus, CDialogEx)
 
@@ -62,4 +63,54 @@ CRect DialogPlus::getOffset(const CRect& newRect,const CRect& oldRect)
 		);
 	return offset;
 }
+
+bool DialogPlus::checkMacro(UINT macro)
+{
+	if (!GetDlgItem(macro))
+	{
+		throw std::runtime_error("Dialog item ID get fail!");
+		return false;
+	}
+	return true;
+}
+
+
+float DialogPlus::get_edit_float(UINT macro)
+{
+	if (checkMacro(macro))
+	{
+		CString text;
+		GetDlgItem(macro)->GetWindowText(text);
+		float val = _tstof(text);
+		return val;
+	}
+	return 0;
+}
+
+void DialogPlus::set_edit_float(UINT macro,float val)
+{
+	if (checkMacro(macro))
+	{
+		CString text;
+		text.Format("%0.2f",val);
+		GetDlgItem(macro)->SetWindowText(text);
+	}
+}
+bool DialogPlus::get_check_bool(UINT macro)
+{
+	if (checkMacro(macro))
+	{
+		bool check = ((CButton*)GetDlgItem(macro))->GetCheck();
+		return check;
+	}
+	return false;
+}
+
+void DialogPlus::set_check_bool(UINT macro,bool val)
+{
+	if (checkMacro(macro))
+	{
+		((CButton*)GetDlgItem(macro))->SetCheck(val);
+	}
+}	
 
