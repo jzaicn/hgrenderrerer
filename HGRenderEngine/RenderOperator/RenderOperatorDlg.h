@@ -24,21 +24,21 @@ private:
 	CRect m_oldRect;						// 旧窗口区域
 	CRect m_newRect;						// 新窗口区域
 
-	//DisplayResult displayResultDlg;			// 绘图对话框
+	//DialogDisplayResult displayResultDlg;			// 绘图对话框
 	CRect m_displayResultDlgRect;			// 绘图对话框区域
 	CRect m_displayResultDlgContainerRect;	// 绘图包围区域
 
-	//RenderToolBar toolBarDlg;				// 工具栏对话框
+	//DialogRenderToolBar toolBarDlg;				// 工具栏对话框
 	CRect m_toolBarDlgRect;					// 工具栏对话框区域
 	CRect m_toolBarDlgContainerRect;		// 工具栏包围区域
 
 
-	//ImageSettings imageSettingDlg;			// 图片配置对话框
+	//DialogImageSettings imageSettingDlg;			// 图片配置对话框
 	CRect m_imageSettingDlgRect;			// 图片配置对话框区域
 	CRect m_imageSettingDlgContainerRect;	// 图片配置包围区域
 
 
-	//RenderSettings paramSettingDlg;			// 属性配置对话框
+	//DialogRenderSettings paramSettingDlg;			// 属性配置对话框
 	CRect m_paramSettingDlgRect;			// 属性配置对话框区域
 	CRect m_paramSettingDlgContainerRect;	// 属性配置包围区域
 

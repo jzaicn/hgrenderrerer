@@ -90,6 +90,21 @@
     <ClInclude Include="DialogPlus.h">
       <Filter>View</Filter>
     </ClInclude>
+    <ClInclude Include="ButtonPickColor.h">
+      <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogDisplayResult.h">
+      <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogImageSettings.h">
+      <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogRenderSettings.h">
+      <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogRenderToolBar.h">
+      <Filter>View</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="XmlHandlePlus.cpp">
@@ -114,6 +129,21 @@
       <Filter>Frame</Filter>
     </ClCompile>
     <ClCompile Include="DialogPlus.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonPickColor.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogDisplayResult.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogImageSettings.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogRenderSettings.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogRenderToolBar.cpp">
       <Filter>View</Filter>
     </ClCompile>
   </ItemGroup>

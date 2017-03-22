@@ -77,7 +77,7 @@
       <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <PreprocessorDefinitions>TIXML_USE_STL;_AFXDLLs;_AFXDLL;WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_AFXDLLs;TIXML_USE_STL;WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -108,7 +108,12 @@
     <None Include="res\RenderOperator.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ButtonPickColor.h" />
+    <ClInclude Include="DialogDisplayResult.h" />
+    <ClInclude Include="DialogImageSettings.h" />
     <ClInclude Include="DialogPlus.h" />
+    <ClInclude Include="DialogRenderSettings.h" />
+    <ClInclude Include="DialogRenderToolBar.h" />
     <ClInclude Include="Elara\ElaraHomeAPI.h" />
     <ClInclude Include="Elara\esslib.h" />
     <ClInclude Include="Elara\esswriter.h" />
@@ -120,7 +125,12 @@
     <ClInclude Include="XmlHandlePlus.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ButtonPickColor.cpp" />
+    <ClCompile Include="DialogDisplayResult.cpp" />
+    <ClCompile Include="DialogImageSettings.cpp" />
     <ClCompile Include="DialogPlus.cpp" />
+    <ClCompile Include="DialogRenderSettings.cpp" />
+    <ClCompile Include="DialogRenderToolBar.cpp" />
     <ClCompile Include="Elara\ElaraHomeAPI.cpp" />
     <ClCompile Include="Elara\esslib.cpp" />
     <ClCompile Include="Elara\esswriter.cpp" />
