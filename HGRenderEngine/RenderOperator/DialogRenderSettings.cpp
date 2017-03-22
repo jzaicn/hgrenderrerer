@@ -5,8 +5,8 @@
 #include "DialogRenderSettings.h"
 #include "afxdialogex.h"
 
-//#include "XmlHandlePlus.h"
-//#include "XmlHandlePlus/tinyxml.h"
+#include "XmlHandlePlus.h"
+#include "XmlHandlePlus/tinyxml.h"
 
 // DialogRenderSettings 对话框
 
@@ -69,109 +69,108 @@ BOOL DialogRenderSettings::OnInitDialog()
 //从外部配置信息初始化
 void DialogRenderSettings::initFromSetting()
 {
-// 	TiXmlDocument doc;
-// 	doc.LoadFile("E:\\HGRENDER\\trunk\\Render\\RenderParam.xml");
-// 	XmlHandlePlus docHandler(&doc);
-// 
-// 	std::vector<TiXmlNode*> nodes = docHandler.findAll("/Root/Param/");
-// 
-// 	for (auto it = nodes.begin(); it != nodes.end() ; it++)
-// 	{
-// 		XmlHandlePlus node(*it);
-// 		if(node.getAttr("type").compare("float") == 0)
-// 		{
-// 			float max = atof(node.getAttr("max").c_str());
-// 			m_maximent.push_back(max);
-// 
-// 			float min = atof(node.getAttr("min").c_str());
-// 			m_minniment.push_back(min);
-// 
-// 			float defaultval = atof(node.getAttr("default").c_str());
-// 			m_default_val.push_back(defaultval);
-// 
-// 			float step = atof(node.getAttr("step").c_str());
-// 			m_step_val.push_back(step);
-// 
-// 			//查找相关的表格元素
-// 			for (UINT i = 0;i<m_control_macro.size();i++)
-// 			{
-// 				if (m_en_name.at(i) == node.getAttr("en_name").c_str())
-// 				{
-// 					//设置拖动条
-// 					if (m_type.at(i) == "SILDER")
-// 					{
-// 						int min_pos = (int)(min/step);
-// 						int max_pos = (int)(max/step);
-// 						int cur_pos = (int)(defaultval/step);
-// 
-// 						CSliderCtrl* silder = (CSliderCtrl*)(GetDlgItem(m_control_macro.at(i)));
-// 						silder->SetRange(min_pos,max_pos,TRUE);
-// 						silder->SetPos(cur_pos);
-// 
-// 						m_bind_marco.insert(std::map<int,int>::value_type(m_control_macro.at(i),(int)(m_step_val.size())-1));
-// 					}
-// 					//设置编辑框
-// 					if(m_type.at(i) == "EDIT")
-// 					{
-// 						CEdit* edit = (CEdit*)(GetDlgItem(m_control_macro.at(i)));
-// 
-// 						CString text;
-// 						text.Format("%.2f",defaultval);
-// 						edit->SetWindowTextA(text);
-// 						m_bind_marco.insert(std::map<int,int>::value_type(m_control_macro.at(i),(int)(m_step_val.size())-1));
-// 					}
-// 				}
-// 				
-// 			}
-// 		}
-// 		else if (node.getAttr("type").compare("bool") == 0)
-// 		{
-// 			float defaultval = atof(node.getAttr("default").c_str());
-// 
-// 			for (UINT i = 0;i<m_cn_name.size();i++)
-// 			{
-// 				if (m_type.at(i) == "CHECK")
-// 				{
-// 					if (m_en_name.at(i) == node.getAttr("en_name").c_str())
-// 					{
-// 						CButton* check = (CButton*)(GetDlgItem(m_control_macro.at(i)));
-// 						check->SetCheck((int)defaultval);
-// 						OnCheckBtn();
-// 					}
-// 				}
-// 
-// 			}
-// 
-// 		}
-// 		else if (node.getAttr("type").compare("color") == 0)
-// 		{
-// 			COLORREF defaultColor = atoi(node.getAttr("default").c_str());
-// 			m_pickColor.Color(defaultColor);
-// 		}
-// 		else if (node.getAttr("type").compare("combo") == 0)
-// 		{
-// 			for (UINT i = 0;i<m_cn_name.size();i++)
-// 			{
-// 				if (m_type.at(i) == "COMBO")
-// 				{
-// 					if (m_en_name.at(i) == node.getAttr("en_name").c_str())
-// 					{
-// 						CComboBox* combobtn = (CComboBox*)(GetDlgItem(m_control_macro.at(i)));
-// 						
-// 						std::vector<TiXmlNode*> options = node.findAll("Option");
-// 						for (auto optItem = options.begin(); optItem != options.end() ; optItem++)
-// 						{
-// 							XmlHandlePlus optItemPlus(*optItem);
-// 							combobtn->AddString(optItemPlus.getAttr("cn_name").c_str());
-// 						}
-// 						combobtn->SetCurSel(atoi(node.getAttr("default").c_str()));
-// 					}
-// 				}
-// 
-// 			}
-// 
-// 		}
-// 	}
+	TiXmlDocument doc;
+	doc.LoadFile("E:\\HGRENDER\\trunk\\HGRenderEngine\\Release\\RenderParam.xml");
+	XmlHandlePlus docHandler(&doc);
+
+	std::vector<TiXmlNode*> nodes = docHandler.findAll("/Root/Param/");
+
+	for (auto it = nodes.begin(); it != nodes.end() ; it++)
+	{
+		XmlHandlePlus node(*it);
+		if(node.getAttr("type").compare("float") == 0)
+		{
+			float max = atof(node.getAttr("max").c_str());
+			m_maximent.push_back(max);
+
+			float min = atof(node.getAttr("min").c_str());
+			m_minniment.push_back(min);
+
+			float defaultval = atof(node.getAttr("default").c_str());
+			m_default_val.push_back(defaultval);
+
+			float step = atof(node.getAttr("step").c_str());
+			m_step_val.push_back(step);
+
+			//查找相关的表格元素
+			for (UINT i = 0;i<m_control_macro.size();i++)
+			{
+				if (m_en_name.at(i) == node.getAttr("en_name").c_str())
+				{
+					//设置拖动条
+					if (m_type.at(i) == "SILDER")
+					{
+						int min_pos = (int)(min/step);
+						int max_pos = (int)(max/step);
+						int cur_pos = (int)(defaultval/step);
+
+						CSliderCtrl* silder = (CSliderCtrl*)(GetDlgItem(m_control_macro.at(i)));
+						silder->SetRange(min_pos,max_pos,TRUE);
+						silder->SetPos(cur_pos);
+
+						m_bind_marco.insert(std::map<int,int>::value_type(m_control_macro.at(i),(int)(m_step_val.size())-1));
+					}
+					//设置编辑框
+					if(m_type.at(i) == "EDIT")
+					{
+						CEdit* edit = (CEdit*)(GetDlgItem(m_control_macro.at(i)));
+
+						CString text;
+						text.Format("%.2f",defaultval);
+						edit->SetWindowTextA(text);
+						m_bind_marco.insert(std::map<int,int>::value_type(m_control_macro.at(i),(int)(m_step_val.size())-1));
+					}
+				}
+				
+			}
+		}
+		else if (node.getAttr("type").compare("bool") == 0)
+		{
+			float defaultval = atof(node.getAttr("default").c_str());
+
+			for (UINT i = 0;i<m_cn_name.size();i++)
+			{
+				if (m_type.at(i) == "CHECK")
+				{
+					if (m_en_name.at(i) == node.getAttr("en_name").c_str())
+					{
+						CButton* check = (CButton*)(GetDlgItem(m_control_macro.at(i)));
+						check->SetCheck((int)defaultval);
+						OnCheckBtn();
+					}
+				}
+
+			}
+
+		}
+		else if (node.getAttr("type").compare("color") == 0)
+		{
+			COLORREF defaultColor = atoi(node.getAttr("default").c_str());
+			m_pickColor.Color(defaultColor);
+		}
+		else if (node.getAttr("type").compare("combo") == 0)
+		{
+			for (UINT i = 0;i<m_cn_name.size();i++)
+			{
+				if (m_type.at(i) == "COMBO")
+				{
+					if (m_en_name.at(i) == node.getAttr("en_name").c_str())
+					{
+						CComboBox* combobtn = (CComboBox*)(GetDlgItem(m_control_macro.at(i)));
+						
+						std::vector<TiXmlNode*> options = node.findAll("Option");
+						for (auto optItem = options.begin(); optItem != options.end() ; optItem++)
+						{
+							XmlHandlePlus optItemPlus(*optItem);
+							combobtn->AddString(optItemPlus.getAttr("cn_name").c_str());
+						}
+						combobtn->SetCurSel(atoi(node.getAttr("default").c_str()));
+					}
+				}
+			}
+
+		}
+	}
 }
 
 //从代码表格初始化
