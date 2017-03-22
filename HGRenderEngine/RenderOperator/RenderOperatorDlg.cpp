@@ -100,7 +100,6 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
-	// TODO: 在此添加额外的初始化代码
 
 	// 绘图对话框
 // 	displayResultDlg.Create(IDD_DISPLAY_DLG,GetDlgItem(IDC_DISPLAYRESULT_WIN));
@@ -110,23 +109,23 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 	ScreenToClient(m_displayResultDlgContainerRect);
 
 	// 工具栏对话框
-// 	toolBarDlg.Create(IDD_TOOLBAR_DLG,GetDlgItem(IDC_TOOLBAR_WIN));
-// 	toolBarDlg.ShowWindow(SW_SHOW);
-// 	toolBarDlg.GetWindowRect(m_toolBarDlgRect);
+ 	toolBarDlg.Create(IDD_TOOLBAR_DLG,GetDlgItem(IDC_TOOLBAR_WIN));
+ 	toolBarDlg.ShowWindow(SW_SHOW);
+ 	toolBarDlg.GetWindowRect(m_toolBarDlgRect);
 	GetDlgItem(IDC_TOOLBAR_WIN)->GetWindowRect(m_toolBarDlgContainerRect);
 	ScreenToClient(m_toolBarDlgContainerRect);
 
 	// 图片对话框
-// 	imageSettingDlg.Create(IDD_IMAGE_DLG,GetDlgItem(IDC_IMAGE_WIN));
-// 	imageSettingDlg.ShowWindow(SW_SHOW);
-// 	imageSettingDlg.GetWindowRect(m_imageSettingDlgRect);
+ 	imageSettingDlg.Create(IDD_IMAGE_DLG,GetDlgItem(IDC_IMAGE_WIN));
+ 	imageSettingDlg.ShowWindow(SW_SHOW);
+ 	imageSettingDlg.GetWindowRect(m_imageSettingDlgRect);
 	GetDlgItem(IDC_IMAGE_WIN)->GetWindowRect(m_imageSettingDlgContainerRect);
 	ScreenToClient(m_imageSettingDlgContainerRect);
 
 	// 设置参数对话框
-// 	paramSettingDlg.Create(IDD_SETTINGDLG,GetDlgItem(IDC_SETTING_WIN));
-// 	paramSettingDlg.ShowWindow(SW_SHOW);
-// 	paramSettingDlg.GetWindowRect(m_paramSettingDlgRect);
+ 	paramSettingDlg.Create(IDD_SETTING_DLG,GetDlgItem(IDC_SETTING_WIN));
+ 	paramSettingDlg.ShowWindow(SW_SHOW);
+ 	paramSettingDlg.GetWindowRect(m_paramSettingDlgRect);
 	GetDlgItem(IDC_SETTING_WIN)->GetWindowRect(m_paramSettingDlgContainerRect);
 	ScreenToClient(m_paramSettingDlgContainerRect);
 
@@ -300,8 +299,10 @@ void CRenderOperatorDlg::OnSize(UINT nType, int cx, int cy)
 	CRect statusRect;
 	GetClientRect(statusRect);
 	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
-	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
-	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
+	//HACK: 下面两行设置的时候会有VS异常，执行不会中断，但要注意
+	//HACK- RenderOperator.exe 中的 0x78b945e5 处最可能的异常: 0xC0000005: 读取位置 0x0000006c 时发生访问冲突
+	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());	
+	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());	
 
 	Invalidate(TRUE);
 }

@@ -5,6 +5,10 @@
 #pragma once
 
 #include "DialogPlus.h"
+// #include "DialogDisplayResult.h"
+#include "DialogImageSettings.h"
+#include "DialogRenderToolBar.h"
+#include "DialogRenderSettings.h"
 
 // CRenderOperatorDlg 对话框
 class CRenderOperatorDlg : public DialogPlus
@@ -28,17 +32,17 @@ private:
 	CRect m_displayResultDlgRect;			// 绘图对话框区域
 	CRect m_displayResultDlgContainerRect;	// 绘图包围区域
 
-	//DialogRenderToolBar toolBarDlg;				// 工具栏对话框
+	DialogRenderToolBar toolBarDlg;				// 工具栏对话框
 	CRect m_toolBarDlgRect;					// 工具栏对话框区域
 	CRect m_toolBarDlgContainerRect;		// 工具栏包围区域
 
 
-	//DialogImageSettings imageSettingDlg;			// 图片配置对话框
+	DialogImageSettings imageSettingDlg;	// 图片配置对话框
 	CRect m_imageSettingDlgRect;			// 图片配置对话框区域
 	CRect m_imageSettingDlgContainerRect;	// 图片配置包围区域
 
 
-	//DialogRenderSettings paramSettingDlg;			// 属性配置对话框
+	DialogRenderSettings paramSettingDlg;			// 属性配置对话框
 	CRect m_paramSettingDlgRect;			// 属性配置对话框区域
 	CRect m_paramSettingDlgContainerRect;	// 属性配置包围区域
 
