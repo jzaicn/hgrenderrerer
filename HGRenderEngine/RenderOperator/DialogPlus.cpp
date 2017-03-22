@@ -51,18 +51,15 @@ void DialogPlus::OnCancel()
 
 }
 
-CRect DialogPlus::getOffset(UINT fwSide, LPRECT pRect)
+
+CRect DialogPlus::getOffset(const CRect& newRect,const CRect& oldRect)
 {
-	CRect winrect;
-	GetWindowRect(winrect);
-	CDialog::OnSizing(fwSide, pRect);
-	CRect rect(pRect->left,pRect->top,pRect->left,pRect->bottom);
-	
-	CRect offset(0,0,0,0);
-	offset.left = pRect->left - winrect.left;
-	offset.right = pRect->right - winrect.right;
-	offset.top = pRect->top - winrect.top;
-	offset.bottom = pRect->bottom - winrect.bottom;
+	CRect offset = CRect(
+		newRect.left - oldRect.left,
+		newRect.top - oldRect.top,
+		newRect.right - oldRect.right,
+		newRect.bottom - oldRect.bottom
+		);
 	return offset;
 }
 

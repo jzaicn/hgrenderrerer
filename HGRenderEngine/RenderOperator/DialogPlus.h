@@ -50,7 +50,7 @@ public:
 	void SetBtnImage(int _btn_marco,int _res_marco);
 	virtual void OnOK();
 	virtual void OnCancel();
-	CRect getOffset(UINT fwSide, LPRECT pRect);
+	CRect getOffset(const CRect& newRect,const CRect& oldRect);
 	
 
 	//////////////////////////////////////////////////////////////////////////

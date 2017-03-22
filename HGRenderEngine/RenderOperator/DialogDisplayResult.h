@@ -19,6 +19,11 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnSizing(UINT fwSide, LPRECT pRect);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	virtual BOOL OnInitDialog();
+
+private:
+	CRect m_clientRect;
+	CRect m_oldRect;
+	CRect m_newRect;
 };

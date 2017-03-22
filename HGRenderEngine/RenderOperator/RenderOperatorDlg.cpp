@@ -102,9 +102,9 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 
 
 	// 绘图对话框
-// 	displayResultDlg.Create(IDD_DISPLAY_DLG,GetDlgItem(IDC_DISPLAYRESULT_WIN));
-// 	displayResultDlg.ShowWindow(SW_SHOW);
-// 	displayResultDlg.GetWindowRect(m_toolBarDlgRect);
+	displayResultDlg.Create(IDD_DISPLAY_DLG,GetDlgItem(IDC_DISPLAYRESULT_WIN));
+	displayResultDlg.ShowWindow(SW_SHOW);
+	displayResultDlg.GetWindowRect(m_toolBarDlgRect);
 	GetDlgItem(IDC_DISPLAYRESULT_WIN)->GetWindowRect(m_displayResultDlgContainerRect);
 	ScreenToClient(m_displayResultDlgContainerRect);
 
@@ -272,7 +272,7 @@ void CRenderOperatorDlg::OnSize(UINT nType, int cx, int cy)
 	m_displayResultDlgContainerRect.top += offset.top;
 	m_displayResultDlgContainerRect.bottom += offset.bottom;
 	GetDlgItem(IDC_DISPLAYRESULT_WIN)->MoveWindow(m_displayResultDlgContainerRect);
-	//displayResultDlg.MoveWindow(0,0,m_displayResultDlgContainerRect.Width(),m_displayResultDlgContainerRect.Height());
+	displayResultDlg.MoveWindow(0,0,m_displayResultDlgContainerRect.Width(),m_displayResultDlgContainerRect.Height());
 	 	  
 	//工具栏窗口
 	m_toolBarDlgContainerRect.left += offset.left;

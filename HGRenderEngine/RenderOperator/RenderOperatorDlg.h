@@ -5,7 +5,7 @@
 #pragma once
 
 #include "DialogPlus.h"
-// #include "DialogDisplayResult.h"
+#include "DialogDisplayResult.h"
 #include "DialogImageSettings.h"
 #include "DialogRenderToolBar.h"
 #include "DialogRenderSettings.h"
@@ -28,7 +28,7 @@ private:
 	CRect m_oldRect;						// 旧窗口区域
 	CRect m_newRect;						// 新窗口区域
 
-	//DialogDisplayResult displayResultDlg;			// 绘图对话框
+	DialogDisplayResult displayResultDlg;			// 绘图对话框
 	CRect m_displayResultDlgRect;			// 绘图对话框区域
 	CRect m_displayResultDlgContainerRect;	// 绘图包围区域
 
