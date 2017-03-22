@@ -57,12 +57,11 @@ protected:
 
 	// 生成的消息映射函数
 	virtual BOOL OnInitDialog();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
-public:
-	afx_msg void OnBnClickedButton1();
 
 public:
 	void OnCancel()	{	CDialogEx::OnCancel();	};
@@ -105,5 +104,4 @@ public:
 	afx_msg virtual LRESULT OnStop(WPARAM w,LPARAM l){return 0;};
 	// 渲染停止
 	afx_msg virtual LRESULT OnDone(WPARAM w,LPARAM l){return 0;};
-	afx_msg void OnSize(UINT nType, int cx, int cy);
 };

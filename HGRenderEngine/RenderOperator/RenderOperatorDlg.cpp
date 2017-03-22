@@ -9,6 +9,7 @@
 #include "JsonCpp/json.h"
 #include <fstream>
 #include "HgLog/HgLog.h"
+#include "HG_SceneCenter.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -77,6 +78,7 @@ END_MESSAGE_MAP()
 BOOL CRenderOperatorDlg::OnInitDialog()
 {
 	DialogPlus::OnInitDialog();
+	HgLog::HgLog::initDebugLogCategory();
 
 	// 将“关于...”菜单项添加到系统菜单中。
 
@@ -158,14 +160,65 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 		reader.parse(result,output);
 
 		HGLOG_DEBUG(output.toStyledString());
-
-		//HG_SceneCenter::inst().save(output);
+		HG_SceneCenter::inst().load(output);
 	}
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
+void CRenderOperatorDlg::OnSize(UINT nType, int cx, int cy)
+{
+	DialogPlus::OnSize(nType, cx, cy);
+	GetClientRect(m_newRect);
+	CRect offset = CRect(
+		m_newRect.left - m_oldRect.left,
+		m_newRect.top - m_oldRect.top,
+		m_newRect.right - m_oldRect.right,
+		m_newRect.bottom - m_oldRect.bottom
+		);
+	m_oldRect = m_newRect;
 
+
+	//移动图片窗口
+	m_displayResultDlgContainerRect.left += offset.left;
+	m_displayResultDlgContainerRect.right += offset.right;
+	m_displayResultDlgContainerRect.top += offset.top;
+	m_displayResultDlgContainerRect.bottom += offset.bottom;
+	GetDlgItem(IDC_DISPLAYRESULT_WIN)->MoveWindow(m_displayResultDlgContainerRect);
+	displayResultDlg.MoveWindow(0,0,m_displayResultDlgContainerRect.Width(),m_displayResultDlgContainerRect.Height());
+
+	//工具栏窗口
+	m_toolBarDlgContainerRect.left += offset.left;
+	m_toolBarDlgContainerRect.right += offset.right;
+	m_toolBarDlgContainerRect.top += offset.top;
+	m_toolBarDlgContainerRect.bottom += offset.top;
+	GetDlgItem(IDC_TOOLBAR_WIN)->MoveWindow(m_toolBarDlgContainerRect);
+
+	//移动图片窗口
+	m_imageSettingDlgContainerRect.left += offset.right;
+	m_imageSettingDlgContainerRect.right += offset.right;
+	m_imageSettingDlgContainerRect.top += offset.top;
+	m_imageSettingDlgContainerRect.bottom += offset.top;
+	GetDlgItem(IDC_IMAGE_WIN)->MoveWindow(m_imageSettingDlgContainerRect);
+
+	//移动属性窗口
+	m_paramSettingDlgContainerRect.left += offset.right;
+	m_paramSettingDlgContainerRect.right += offset.right;
+	m_paramSettingDlgContainerRect.top += offset.top;
+	m_paramSettingDlgContainerRect.bottom += offset.bottom;
+	GetDlgItem(IDC_SETTING_WIN)->MoveWindow(m_paramSettingDlgContainerRect);
+
+	//移动状态栏
+	CRect statusRect;
+	GetClientRect(statusRect);
+	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
+	//HACK: 下面两行设置的时候会有VS异常，执行不会中断，但要注意
+	//HACK- RenderOperator.exe 中的 0x78b945e5 处最可能的异常: 0xC0000005: 读取位置 0x0000006c 时发生访问冲突
+	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());	
+	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());	
+
+	Invalidate(TRUE);
+}
 
 void CRenderOperatorDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
@@ -216,115 +269,6 @@ HCURSOR CRenderOperatorDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-#include "XmlHandlePlus.h"
-#include "HgLog/HgLog.h"
-#include "JsonCpp/json.h"
-#include "Elara/ElaraHomeAPI.h"
-#include "Elara/esslib.h"
-void CRenderOperatorDlg::OnBnClickedButton1()
-{
- 	HgLog::HgLog::initDebugLogCategory();
-	Json::Value root;
-	Json::Reader reader;
-	reader.parse("{\"hello\":\"宏光\"}",root);
-	HGLOG_DEBUG(root.toStyledString());
-
-	EH_Context* context =  EH_create();
-	
-	EH_Sky sky;
-	sky.enabled= true;
-	sky.hdri_name = "asdadad";
-	sky.hdri_rotation = 0.0;
-	sky.intensity = 50.0;
-
-	EssExporter* ess = reinterpret_cast<EssExporter*>(context);
-
-	EH_set_sky(context,&sky);
-	EH_delete(context);
-
-// 	TiXmlDocument doc;
-// 	doc.LoadFile("E:\\HGRENDER\\trunk\\HGRenderEngine\\RenderOperator\\ImageParam.xml");
-//  	XmlHandlePlus docHandler(&doc);
-//  
-//  	std::vector<TiXmlNode*> nodes = docHandler.findAll("/Root/Param/");
-//  	for (auto it = nodes.begin(); it != nodes.end() ; it++)
-//  	{
-// 		HGLOG_DEBUG("0");
-// 		XmlHandlePlus node(*it);
-// 		if (node.getAttr("en_name").compare("RenderQuality") == 0)
-// 		{
-// 			std::vector<TiXmlNode*> options = node.findAll("Option");
-// 			for (auto optItem = options.begin(); optItem != options.end() ; optItem++)
-// 			{
-// 				XmlHandlePlus optItemPlus(*optItem);
-// 				m_RenderQuality.AddString(optItemPlus.getAttr("cn_name").c_str());
-// 			}
-// 			m_RenderQuality.SetCurSel(atoi(node.getAttr("default").c_str()));
-// 		}
-// 		else if (node.getAttr("en_name").compare("ImageSize") == 0)
-// 		{
-// 			std::vector<TiXmlNode*> options = node.findAll("Option");
-// 			for (auto optItem = options.begin(); optItem != options.end() ; optItem++)
-// 			{
-// 				XmlHandlePlus optItemPlus(*optItem);
-// 				m_ImageSize.AddString(optItemPlus.getAttr("cn_name").c_str());
-// 			}
-// 			m_ImageSize.SetCurSel(atoi(node.getAttr("default").c_str()));
-// 		}
-//	}
-}
 
 
-void CRenderOperatorDlg::OnSize(UINT nType, int cx, int cy)
-{
-	DialogPlus::OnSize(nType, cx, cy);
-	GetClientRect(m_newRect);
-	CRect offset = CRect(
-		m_newRect.left - m_oldRect.left,
-		m_newRect.top - m_oldRect.top,
-		m_newRect.right - m_oldRect.right,
-		m_newRect.bottom - m_oldRect.bottom
-		);
-	m_oldRect = m_newRect;
-	
 
-	//移动图片窗口
-	m_displayResultDlgContainerRect.left += offset.left;
-	m_displayResultDlgContainerRect.right += offset.right;
-	m_displayResultDlgContainerRect.top += offset.top;
-	m_displayResultDlgContainerRect.bottom += offset.bottom;
-	GetDlgItem(IDC_DISPLAYRESULT_WIN)->MoveWindow(m_displayResultDlgContainerRect);
-	displayResultDlg.MoveWindow(0,0,m_displayResultDlgContainerRect.Width(),m_displayResultDlgContainerRect.Height());
-	 	  
-	//工具栏窗口
-	m_toolBarDlgContainerRect.left += offset.left;
-	m_toolBarDlgContainerRect.right += offset.right;
-	m_toolBarDlgContainerRect.top += offset.top;
-	m_toolBarDlgContainerRect.bottom += offset.top;
-	GetDlgItem(IDC_TOOLBAR_WIN)->MoveWindow(m_toolBarDlgContainerRect);
-	 	  
-	//移动图片窗口
-	m_imageSettingDlgContainerRect.left += offset.right;
-	m_imageSettingDlgContainerRect.right += offset.right;
-	m_imageSettingDlgContainerRect.top += offset.top;
-	m_imageSettingDlgContainerRect.bottom += offset.top;
-	GetDlgItem(IDC_IMAGE_WIN)->MoveWindow(m_imageSettingDlgContainerRect);
-	 	  
-	//移动属性窗口
-	m_paramSettingDlgContainerRect.left += offset.right;
-	m_paramSettingDlgContainerRect.right += offset.right;
-	m_paramSettingDlgContainerRect.top += offset.top;
-	m_paramSettingDlgContainerRect.bottom += offset.bottom;
-	GetDlgItem(IDC_SETTING_WIN)->MoveWindow(m_paramSettingDlgContainerRect);
-
-	//移动状态栏
-	CRect statusRect;
-	GetClientRect(statusRect);
-	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
-	//HACK: 下面两行设置的时候会有VS异常，执行不会中断，但要注意
-	//HACK- RenderOperator.exe 中的 0x78b945e5 处最可能的异常: 0xC0000005: 读取位置 0x0000006c 时发生访问冲突
-	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());	
-	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());	
-
-	Invalidate(TRUE);
-}
