@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenderDataExporter", "Rende
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenderUI", "RenderUI\RenderUI.vcxproj", "{403C7BD9-1884-4515-98CA-112FD2187BB4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenderOperator", "RenderOperator\RenderOperator.vcxproj", "{4F932117-8C1F-4193-886F-31A939CDE57D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -29,6 +31,13 @@ Global
 		{403C7BD9-1884-4515-98CA-112FD2187BB4}.Release|Win32.Build.0 = Release|Win32
 		{403C7BD9-1884-4515-98CA-112FD2187BB4}.Release|x64.ActiveCfg = Release|x64
 		{403C7BD9-1884-4515-98CA-112FD2187BB4}.Release|x64.Build.0 = Release|x64
+		{4F932117-8C1F-4193-886F-31A939CDE57D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4F932117-8C1F-4193-886F-31A939CDE57D}.Debug|Win32.Build.0 = Debug|Win32
+		{4F932117-8C1F-4193-886F-31A939CDE57D}.Debug|x64.ActiveCfg = Debug|Win32
+		{4F932117-8C1F-4193-886F-31A939CDE57D}.Release|Win32.ActiveCfg = Release|Win32
+		{4F932117-8C1F-4193-886F-31A939CDE57D}.Release|Win32.Build.0 = Release|Win32
+		{4F932117-8C1F-4193-886F-31A939CDE57D}.Release|x64.ActiveCfg = Release|Win32
+		{4F932117-8C1F-4193-886F-31A939CDE57D}.Release|x64.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

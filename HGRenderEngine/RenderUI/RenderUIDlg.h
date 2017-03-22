@@ -5,14 +5,14 @@
 #pragma once
 
 #include "DialogPlus.h"
-#include "RenderSettings.h"
-#include "ImageSettings.h"
-#include "RenderToolBar.h"
-#include "DisplayResult.h"
+// #include "RenderSettings.h"
+// #include "ImageSettings.h"
+// #include "RenderToolBar.h"
+// #include "DisplayResult.h"
 
 
 // CRenderUIDlg 对话框
-class CRenderUIDlg : public DialogPlus
+class CRenderUIDlg : public CDialogEx
 {
 // 构造
 public:
@@ -38,37 +38,37 @@ protected:
 	
 
 private:	
-	CScrollBar m_settingScroll;				// 子窗口滚动条
-	CRect m_oldRect;						// 窗口区域
-	CRect m_newRect;						// 窗口区域
+// 	CScrollBar m_settingScroll;				// 子窗口滚动条
+// 	CRect m_oldRect;						// 窗口区域
+// 	CRect m_newRect;						// 窗口区域
+// 
+// 	DisplayResult displayResultDlg;			// 绘图对话框
+// 	CRect m_displayResultDlgRect;			// 绘图对话框区域
+// 	CRect m_displayResultDlgContainerRect;	// 绘图包围区域
+// 
+// 	RenderToolBar toolBarDlg;				// 工具栏对话框
+// 	CRect m_toolBarDlgRect;					// 工具栏对话框区域
+// 	CRect m_toolBarDlgContainerRect;		// 工具栏包围区域
+// 
+// 
+// 	ImageSettings imageSettingDlg;			// 图片配置对话框
+// 	CRect m_imageSettingDlgRect;			// 图片配置对话框区域
+// 	CRect m_imageSettingDlgContainerRect;	// 图片配置包围区域
+// 
+// 
+// 	RenderSettings paramSettingDlg;			// 属性配置对话框
+// 	CRect m_paramSettingDlgRect;			// 属性配置对话框区域
+// 	CRect m_paramSettingDlgContainerRect;	// 属性配置包围区域
 
-	DisplayResult displayResultDlg;			// 绘图对话框
-	CRect m_displayResultDlgRect;			// 绘图对话框区域
-	CRect m_displayResultDlgContainerRect;	// 绘图包围区域
-
-	RenderToolBar toolBarDlg;				// 工具栏对话框
-	CRect m_toolBarDlgRect;					// 工具栏对话框区域
-	CRect m_toolBarDlgContainerRect;		// 工具栏包围区域
 
 
-	ImageSettings imageSettingDlg;			// 图片配置对话框
-	CRect m_imageSettingDlgRect;			// 图片配置对话框区域
-	CRect m_imageSettingDlgContainerRect;	// 图片配置包围区域
-
-
-	RenderSettings paramSettingDlg;			// 属性配置对话框
-	CRect m_paramSettingDlgRect;			// 属性配置对话框区域
-	CRect m_paramSettingDlgContainerRect;	// 属性配置包围区域
-
-
-
-	static UINT indicators[];				//状态栏文字
-	CStatusBar   m_wndStatusBar;			//状态栏
+	//static UINT indicators[];				//状态栏文字
+	//CStatusBar   m_wndStatusBar;			//状态栏
 
 // 
 public:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
- 	virtual void OnCancel()	{	CDialogEx::OnCancel();	};
+ 	//virtual void OnCancel()	{	CDialogEx::OnCancel();	};
 // 
 // 	// 打开图像
 // 	afx_msg virtual LRESULT OnSaveImage(WPARAM w,LPARAM l);;
@@ -109,5 +109,5 @@ public:
 // 	// 渲染停止
 // 	afx_msg virtual LRESULT OnDone(WPARAM w,LPARAM l){return 0;};
 public:
-	afx_msg void OnBnClickedButton1();
+	//afx_msg void OnBnClickedButton1();
 };
