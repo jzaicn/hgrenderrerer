@@ -104,4 +104,5 @@ public:
 	afx_msg virtual LRESULT OnStop(WPARAM w,LPARAM l){return 0;};
 	// ‰÷»æÕ£÷π
 	afx_msg virtual LRESULT OnDone(WPARAM w,LPARAM l){return 0;};
+	afx_msg void OnBnClickedButton1();
 };

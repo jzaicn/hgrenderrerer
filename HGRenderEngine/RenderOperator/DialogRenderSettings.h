@@ -50,16 +50,19 @@ public:
 	HG_SunLight get_SunLight();
 	void set_SunLight(HG_SunLight sun_light);
 
-	HG_SkyLight getSkyLight();
-	void setSkyLight(HG_SkyLight sky_light);
+	HG_SkyLight get_SkyLight();
+	void set_SkyLight(HG_SkyLight sky_light);
 	
 	HG_Expouse get_Expouse();
+	void set_Expouse(HG_Expouse expouse);
+
 
 	void set_color_uint(UINT macro,UINT color);
-
 	UINT get_color_uint(UINT macro);
 
-	void set_Expouse(HG_Expouse expouse);
+
+	void set_button_text(UINT macro,std::string text);
+	std::string get_button_text(UINT macro);
 
 private:
 	//ΩÁ√Ê±Ì

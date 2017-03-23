@@ -390,58 +390,49 @@ void DialogRenderSettings::set_SunLight(HG_SunLight sun_light)
 	set_edit_float(	IDC_SUN_HIGHT_SLIDER,			sun_light.get_sun_height());
 }
 
-HG_SkyLight DialogRenderSettings::getSkyLight()
+HG_SkyLight DialogRenderSettings::get_SkyLight()
 {
 	HG_SkyLight sky_light;
 
-	sky_light.set_sky_light_enable(true);
-	sky_light.set_sky_light_intensity(0.0);
-	sky_light.set_hdr("");
-	sky_light.set_hdr_rotate(0.0);
+	sky_light.set_sky_light_enable(		get_check_bool(IDC_SKY_LIGHT_CONTROL));
+	sky_light.set_sky_light_intensity(	get_edit_float(IDC_SKY_LIGHT_INTENSITY_EDIT));
+	sky_light.set_hdr(					get_button_text(IDC_HDR_COMBO));
+	sky_light.set_hdr_rotate(			get_edit_float(IDC_HDR_ROTATE_EDIT));
 
 	return sky_light;
 }
 
-void DialogRenderSettings::setSkyLight(HG_SkyLight sky_light)
+void DialogRenderSettings::set_SkyLight(HG_SkyLight sky_light)
 {
-	sky_light.get_sky_light_enable();
-	sky_light.get_sky_light_intensity();
-	sky_light.get_hdr();
-	sky_light.get_hdr_rotate();
+	set_check_bool(		IDC_SKY_LIGHT_CONTROL,			sky_light.get_sky_light_enable());
+	set_edit_float(		IDC_SKY_LIGHT_INTENSITY_EDIT,	sky_light.get_sky_light_intensity());
+	set_button_text(	IDC_HDR_COMBO,					sky_light.get_hdr());
+	set_edit_float(		IDC_HDR_ROTATE_EDIT,			sky_light.get_hdr_rotate());
 }
 
 HG_Expouse DialogRenderSettings::get_Expouse()
 {
 	HG_Expouse expouse;
 	
-	expouse.set_exposure_enable(true);
-	expouse.set_exposure(0.0);
-	expouse.set_high_light(0.0);
-	expouse.set_half_tone(0.0);
-	expouse.set_shadow(0.0);
-	expouse.set_saturation(0.0);
-	expouse.set_white_balance(0.0);
-
-
-	get_color_uint();
-
-	
-	set_color_uint();
-
-
-	
+	expouse.set_exposure_enable(	get_check_bool(IDC_SUN_CONTROL));
+	expouse.set_exposure(			get_edit_float(IDC_EXPOSURE_EDIT));
+	expouse.set_high_light(			get_edit_float(IDC_HIGH_LIGHT_EDIT));
+	expouse.set_half_tone(			get_edit_float(IDC_HALF_TONE_EDIT));
+	expouse.set_shadow(				get_edit_float(IDC_SHADOW_EDIT));
+	expouse.set_saturation(			get_edit_float(IDC_SATURATION_EDIT));
+	expouse.set_white_balance(		get_edit_float(IDC_WHITE_BALANCE_EDIT));
 	return expouse;
 }
 
 void DialogRenderSettings::set_Expouse(HG_Expouse expouse)
 {
-	expouse.get_exposure_enable();
-	expouse.get_exposure();
-	expouse.get_high_light();
-	expouse.get_half_tone();
-	expouse.get_shadow();
-	expouse.get_saturation();
-	expouse.get_white_balance();
+	set_check_bool(IDC_EXPOUSE_CONTROL,		expouse.get_exposure_enable());
+	set_edit_float(IDC_EXPOSURE_EDIT,		expouse.get_exposure());
+	set_edit_float(IDC_HIGH_LIGHT_EDIT,		expouse.get_high_light());
+	set_edit_float(IDC_HALF_TONE_EDIT,		expouse.get_half_tone());
+	set_edit_float(IDC_SHADOW_EDIT,			expouse.get_shadow());
+	set_edit_float(IDC_SATURATION_EDIT,		expouse.get_saturation());
+	set_edit_float(IDC_WHITE_BALANCE_EDIT,	expouse.get_white_balance());
 }
 
 
@@ -459,4 +450,25 @@ UINT DialogRenderSettings::get_color_uint(UINT macro)
 	return ucolor1;
 }
 
+void DialogRenderSettings::set_button_text(UINT macro,std::string text)
+{
+	if (checkMacro(macro))
+	{
+		CString csText = text.c_str();
+		(GetDlgItem(macro))->SetWindowText(csText);
+	}
+}
+
+std::string DialogRenderSettings::get_button_text(UINT macro)
+{
+	if (checkMacro(macro))
+	{
+		std::string value;
+		CString csText;
+		(GetDlgItem(macro))->GetWindowText(csText);
+		value = csText.GetBuffer();
+		return value;
+	}
+	return "";
+}
 

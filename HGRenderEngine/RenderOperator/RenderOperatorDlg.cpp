@@ -70,6 +70,7 @@ BEGIN_MESSAGE_MAP(CRenderOperatorDlg, DialogPlus)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_SIZE()
+	ON_BN_CLICKED(IDC_BUTTON1, &CRenderOperatorDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -274,3 +275,17 @@ HCURSOR CRenderOperatorDlg::OnQueryDragIcon()
 
 
 
+
+
+void CRenderOperatorDlg::OnBnClickedButton1()
+{
+	HG_Expouse exp  = paramSettingDlg.get_Expouse();
+	HG_SunLight sun = paramSettingDlg.get_SunLight();
+	HG_SkyLight sky = paramSettingDlg.get_SkyLight();
+
+	paramSettingDlg.set_Expouse(exp);
+	paramSettingDlg.set_SunLight(sun);
+	paramSettingDlg.set_SkyLight(sky);
+
+	Invalidate();
+}
