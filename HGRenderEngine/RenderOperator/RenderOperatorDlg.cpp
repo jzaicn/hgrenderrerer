@@ -374,16 +374,12 @@ afx_msg void CRenderOperatorDlg::menu_help()
 }
 #endif
 
-const char* valuename = NULL;
 //////////////////////////////////////////////////////////////////////////
 // 自定义消息事件路由
 #if 1
 LRESULT CRenderOperatorDlg::OnSaveImage(WPARAM w,LPARAM l)
 {
 	HGLOG_DEBUG("OnSaveImage");
-
-	HGLOG_DEBUG(valuename);
-
 	return 0;
 }
 
@@ -498,13 +494,10 @@ LRESULT CRenderOperatorDlg::OnBegin(WPARAM w,LPARAM l)
 	HG_SceneCenter::inst().set_sun(paramSettingDlg.get_SunLight());
 	HG_SceneCenter::inst().set_param(imageSettingDlg.get_RenderParam());
 
-
-	//RenderManager::inst().Begin();
-
-	RenderManager::inst().SaveESS("D:\\my_scene.ess");
+	//RenderManager::inst().SaveESS("D:\\my_scene.ess");
 	
-	//RenderManager::inst().Begin();
-	
+	RenderManager::inst().Begin();
+
 	return 0;
 }
 
@@ -528,13 +521,8 @@ LRESULT CRenderOperatorDlg::OnSettingUpdate(WPARAM w,LPARAM l)
 
 #endif
 
-
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
-	std::string a = "haha";
-	valuename = a.c_str();
-	HGLOG_DEBUG(valuename);
-	
 //	HG_RenderParam param = imageSettingDlg.get_RenderParam();
 // 	HG_Exposure exp  = paramSettingDlg.get_Exposure();
 // 	HG_SunLight sun = paramSettingDlg.get_SunLight();

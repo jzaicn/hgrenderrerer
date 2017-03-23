@@ -108,7 +108,11 @@ public:
 	{
 		checkAndPushBack(m_meshInstanceList,instance);
 	}
-
+	
+	void addCamera(HG_Camera camera)
+	{
+		ref_cameraList().push_back(camera);
+	}
 
 
 private:

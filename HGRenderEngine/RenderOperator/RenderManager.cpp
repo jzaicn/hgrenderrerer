@@ -2,7 +2,7 @@
 #include "RenderManager.h"
 #include "HG_SceneCenter.h"
 #include "Elara/ElaraHomeAPI.h"
-
+#include "HgLog/HgLog.h"
 
 
 class RenderManager::DataStorageCore
@@ -119,6 +119,16 @@ public:
 		outval.intensity = inval.get_sky_light_intensity();
 		outval.hdri_name = createConstChar(inval.get_hdr());
 		outval.hdri_rotation = inval.get_hdr_rotate();
+	}
+	void fill(EH_Camera& outval,HG_Camera inval)
+	{
+		outval.fov = inval.get_fov();
+		outval.near_clip = inval.get_near_clip();
+		outval.far_clip = inval.get_far_clip();
+		outval.image_width = inval.get_image_width();
+		outval.image_height = inval.get_image_height();
+		fill(outval.view_to_world,inval.get_view_to_world());
+		outval.cubemap_render = inval.get_cubemap_render();
 	}
 	void fill(EH_Texture& outval,std::string inval)
 	{
@@ -294,6 +304,19 @@ void RenderManager::SaveESS(std::string path)
 		EH_add_assembly_instance(storage.get_context(),hg_model.get_unique_code().c_str(),&model);
 	}
 	
+	//ÉãÏñ»ú
+	if (HG_SceneCenter::inst().get_cameraList().size() > 0)
+	{
+		EH_Camera camera;
+		storage.fill(camera,HG_SceneCenter::inst().get_cameraList().at(0));
+		EH_set_camera(storage.get_context(), &camera);
+	}
+	else
+	{
+		HGLOG_WARN("camera empty");
+	}
+	
+
 	//Ñô¹â
 	EH_Sun sun;
 	storage.fill(sun,HG_SceneCenter::inst().get_sun());
@@ -318,8 +341,11 @@ void RenderManager::Begin()
 	CString showParam;
 	showParam.Format("%s %s -display ",get_render_exe_path().c_str(),get_scene_path().c_str());
 
+	CString endParam;
+	endParam.Format("> D:\\debug.log");
+
 	CString cmdRunRender;
-	cmdRunRender = showParam + runParam ;
+	cmdRunRender = showParam + runParam + endParam ;
 	system(cmdRunRender.GetBuffer());
 }
 
