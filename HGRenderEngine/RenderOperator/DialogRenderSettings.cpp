@@ -43,7 +43,7 @@ BEGIN_MESSAGE_MAP(DialogRenderSettings, CDialogEx)
 	ON_EN_KILLFOCUS( IDC_SUN_ANGLE_EDIT, &DialogRenderSettings::OnEditOK)
 	ON_EN_KILLFOCUS( IDC_SUN_HEIGHT_EDIT, &DialogRenderSettings::OnEditOK)
 
-	ON_BN_CLICKED(IDC_EXPOUSE_CONTROL, &DialogRenderSettings::OnCheckBtn)
+	ON_BN_CLICKED(IDC_EXPOSURE_CONTROL, &DialogRenderSettings::OnCheckBtn)
 	ON_BN_CLICKED(IDC_SKY_LIGHT_CONTROL, &DialogRenderSettings::OnCheckBtn)
 	ON_BN_CLICKED(IDC_SUN_CONTROL, &DialogRenderSettings::OnCheckBtn)
 	ON_BN_CLICKED(IDC_SUN_COLOR_BTN, &DialogRenderSettings::OnBnClickedSunColorBtn)
@@ -175,12 +175,12 @@ void DialogRenderSettings::initFromSetting()
 //从代码表格初始化
 void DialogRenderSettings::initFromTable()
 {
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"STATIC",	IDC_EXPOSURE_STATIC,	"曝光值",	"Exposure",	NULL);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"STATIC",	IDC_HIGH_LIGHT_STATIC,	"高光",	"HighLight",	NULL);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"STATIC",	IDC_HALF_TONE_STATIC,	"中间调",	"HalfTone",	NULL);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"STATIC",	IDC_SHADOW_STATIC,	"阴影",	"Shadow",	NULL);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"STATIC",	IDC_SATURATION_STATIC,	"饱和度",	"Saturation",	NULL);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"STATIC",	IDC_WHITE_BALANCE_STATIC,	"白平衡",	"WhiteBalance",	NULL);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"STATIC",	IDC_EXPOSURE_STATIC,	"曝光值",	"Exposure",	NULL);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"STATIC",	IDC_HIGH_LIGHT_STATIC,	"高光",	"HighLight",	NULL);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"STATIC",	IDC_HALF_TONE_STATIC,	"中间调",	"HalfTone",	NULL);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"STATIC",	IDC_SHADOW_STATIC,	"阴影",	"Shadow",	NULL);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"STATIC",	IDC_SATURATION_STATIC,	"饱和度",	"Saturation",	NULL);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"STATIC",	IDC_WHITE_BALANCE_STATIC,	"白平衡",	"WhiteBalance",	NULL);
 	setDialogTable(	IDC_SKY_LIGHT_CONTROL,	"STATIC",	IDC_SKY_LIGHT_INTENSITY_STATIC,	"强度",	"SkyIntensity",	NULL);
 	setDialogTable(	IDC_SKY_LIGHT_CONTROL,	"STATIC",	IDC_HDR_STATIC,	"环境HDR",	"SkyHDR",	NULL);
 	setDialogTable(	IDC_SKY_LIGHT_CONTROL,	"STATIC",	IDC_HDR_ROTATE_STATIC,	"环境旋转",	"HDRRotate",	NULL);
@@ -189,31 +189,31 @@ void DialogRenderSettings::initFromTable()
 	setDialogTable(	IDC_SUN_CONTROL,	"STATIC",	IDC_SOFT_SHADOW_STATIC,	"软阴影",	"SoftShadow",	NULL);
 	setDialogTable(	IDC_SUN_CONTROL,	"STATIC",	IDC_SUN_ANGLE_STATIC,	"太阳角度",	"Angle",	NULL);
 	setDialogTable(	IDC_SUN_CONTROL,	"STATIC",	IDC_SUN_HEIGHT_STATIC,	"太阳高度",	"Height",	NULL);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"SILDER",	IDC_EXPOSURE_SLIDER,	"曝光值",	"Exposure",	IDC_EXPOSURE_EDIT);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"SILDER",	IDC_HIGH_LIGHT_SLIDER,	"高光",	"HighLight",	IDC_HIGH_LIGHT_EDIT);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"SILDER",	IDC_HALF_TONE_SLIDER,	"中间调",	"HalfTone",	IDC_HALF_TONE_EDIT);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"SILDER",	IDC_SHADOW_SLIDER,	"阴影",	"Shadow",	IDC_SHADOW_EDIT);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"SILDER",	IDC_SATURATION_SLIDER,	"饱和度",	"Saturation",	IDC_SATURATION_EDIT);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"SILDER",	IDC_WHITE_BALANCE_SLIDER,	"白平衡",	"WhiteBalance",	IDC_WHITE_BALANCE_EDIT);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"SILDER",	IDC_EXPOSURE_SLIDER,	"曝光值",	"Exposure",	IDC_EXPOSURE_EDIT);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"SILDER",	IDC_HIGH_LIGHT_SLIDER,	"高光",	"HighLight",	IDC_HIGH_LIGHT_EDIT);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"SILDER",	IDC_HALF_TONE_SLIDER,	"中间调",	"HalfTone",	IDC_HALF_TONE_EDIT);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"SILDER",	IDC_SHADOW_SLIDER,	"阴影",	"Shadow",	IDC_SHADOW_EDIT);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"SILDER",	IDC_SATURATION_SLIDER,	"饱和度",	"Saturation",	IDC_SATURATION_EDIT);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"SILDER",	IDC_WHITE_BALANCE_SLIDER,	"白平衡",	"WhiteBalance",	IDC_WHITE_BALANCE_EDIT);
 	setDialogTable(	IDC_SKY_LIGHT_CONTROL,	"SILDER",	IDC_SKY_LIGHT_INTENSITY_SLIDER,	"天光强度",	"SkyIntensity",	IDC_SKY_LIGHT_INTENSITY_EDIT);
 	setDialogTable(	IDC_SKY_LIGHT_CONTROL,	"SILDER",	IDC_HDR_ROTATE_SLIDER,	"环境旋转",	"HdrRotate",	IDC_HDR_ROTATE_EDIT);
 	setDialogTable(	IDC_SUN_CONTROL,	"SILDER",	IDC_SUN_LIGHT_INTENSITY_SLIDER,	"阳光强度",	"SunIntensity",	IDC_SUN_LIGHT_INTENSITY_EDIT);
 	setDialogTable(	IDC_SUN_CONTROL,	"SILDER",	IDC_SOFT_SHADOW_SLIDER,	"软阴影",	"SoftShadow",	IDC_SOFT_SHADOW_EDIT);
 	setDialogTable(	IDC_SUN_CONTROL,	"SILDER",	IDC_SUN_ANGLE_SLIDER,	"太阳角度",	"Angle",	IDC_SUN_ANGLE_EDIT);
 	setDialogTable(	IDC_SUN_CONTROL,	"SILDER",	IDC_SUN_HIGHT_SLIDER,	"太阳高度",	"Height",	IDC_SUN_HEIGHT_EDIT);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"EDIT",	IDC_EXPOSURE_EDIT,	"曝光值",	"Exposure",	IDC_EXPOSURE_SLIDER);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"EDIT",	IDC_HIGH_LIGHT_EDIT,	"高光",	"HighLight",	IDC_HIGH_LIGHT_SLIDER);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"EDIT",	IDC_HALF_TONE_EDIT,	"中间调",	"HalfTone",	IDC_HALF_TONE_SLIDER);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"EDIT",	IDC_SHADOW_EDIT,	"阴影",	"Shadow",	IDC_SHADOW_SLIDER);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"EDIT",	IDC_SATURATION_EDIT,	"饱和度",	"Saturation",	IDC_SATURATION_SLIDER);
-	setDialogTable(	IDC_EXPOUSE_CONTROL,	"EDIT",	IDC_WHITE_BALANCE_EDIT,	"白平衡",	"WhiteBalance",	IDC_WHITE_BALANCE_SLIDER);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"EDIT",	IDC_EXPOSURE_EDIT,	"曝光值",	"Exposure",	IDC_EXPOSURE_SLIDER);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"EDIT",	IDC_HIGH_LIGHT_EDIT,	"高光",	"HighLight",	IDC_HIGH_LIGHT_SLIDER);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"EDIT",	IDC_HALF_TONE_EDIT,	"中间调",	"HalfTone",	IDC_HALF_TONE_SLIDER);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"EDIT",	IDC_SHADOW_EDIT,	"阴影",	"Shadow",	IDC_SHADOW_SLIDER);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"EDIT",	IDC_SATURATION_EDIT,	"饱和度",	"Saturation",	IDC_SATURATION_SLIDER);
+	setDialogTable(	IDC_EXPOSURE_CONTROL,	"EDIT",	IDC_WHITE_BALANCE_EDIT,	"白平衡",	"WhiteBalance",	IDC_WHITE_BALANCE_SLIDER);
 	setDialogTable(	IDC_SKY_LIGHT_CONTROL,	"EDIT",	IDC_SKY_LIGHT_INTENSITY_EDIT,	"天光强度",	"SkyIntensity",	IDC_SKY_LIGHT_INTENSITY_SLIDER);
 	setDialogTable(	IDC_SKY_LIGHT_CONTROL,	"EDIT",	IDC_HDR_ROTATE_EDIT,	"环境旋转",	"HdrRotate",	IDC_HDR_ROTATE_SLIDER);
 	setDialogTable(	IDC_SUN_CONTROL,	"EDIT",	IDC_SUN_LIGHT_INTENSITY_EDIT,	"阳光强度",	"SunIntensity",	IDC_SUN_LIGHT_INTENSITY_SLIDER);
 	setDialogTable(	IDC_SUN_CONTROL,	"EDIT",	IDC_SOFT_SHADOW_EDIT,	"软阴影",	"SoftShadow",	IDC_SOFT_SHADOW_SLIDER);
 	setDialogTable(	IDC_SUN_CONTROL,	"EDIT",	IDC_SUN_ANGLE_EDIT,	"太阳角度",	"Angle",	IDC_SUN_ANGLE_SLIDER);
 	setDialogTable(	IDC_SUN_CONTROL,	"EDIT",	IDC_SUN_HEIGHT_EDIT,	"太阳高度",	"Height",	IDC_SUN_HIGHT_SLIDER);
-	setDialogTable(	NULL,	"CHECK",	IDC_EXPOUSE_CONTROL,	"曝光控制",	"ExpouseControl",	NULL);
+	setDialogTable(	NULL,	"CHECK",	IDC_EXPOSURE_CONTROL,	"曝光控制",	"EXPOSUREControl",	NULL);
 	setDialogTable(	NULL,	"CHECK",	IDC_SKY_LIGHT_CONTROL,	"天光",	"SkyLightControl",	NULL);
 	setDialogTable(	NULL,	"CHECK",	IDC_SUN_CONTROL,	"阳光",	"SunControl",	NULL);
 	setDialogTable(	IDC_SUN_CONTROL,	"BUTTON",	IDC_SUN_COLOR_BTN,	"颜色",	"SunColor",	NULL);
@@ -409,29 +409,29 @@ void DialogRenderSettings::set_SkyLight(HG_SkyLight sky_light)
 	set_edit_float(		IDC_HDR_ROTATE_EDIT,			sky_light.get_hdr_rotate());
 }
 
-HG_Expouse DialogRenderSettings::get_Expouse()
+HG_Exposure DialogRenderSettings::get_Exposure()
 {
-	HG_Expouse expouse;
+	HG_Exposure exposure;
 	
-	expouse.set_exposure_enable(	get_check_bool(IDC_SUN_CONTROL));
-	expouse.set_exposure(			get_edit_float(IDC_EXPOSURE_EDIT));
-	expouse.set_high_light(			get_edit_float(IDC_HIGH_LIGHT_EDIT));
-	expouse.set_half_tone(			get_edit_float(IDC_HALF_TONE_EDIT));
-	expouse.set_shadow(				get_edit_float(IDC_SHADOW_EDIT));
-	expouse.set_saturation(			get_edit_float(IDC_SATURATION_EDIT));
-	expouse.set_white_balance(		get_edit_float(IDC_WHITE_BALANCE_EDIT));
-	return expouse;
+	exposure.set_exposure_enable(	get_check_bool(IDC_SUN_CONTROL));
+	exposure.set_exposure(			get_edit_float(IDC_EXPOSURE_EDIT));
+	exposure.set_high_light(			get_edit_float(IDC_HIGH_LIGHT_EDIT));
+	exposure.set_half_tone(			get_edit_float(IDC_HALF_TONE_EDIT));
+	exposure.set_shadow(				get_edit_float(IDC_SHADOW_EDIT));
+	exposure.set_saturation(			get_edit_float(IDC_SATURATION_EDIT));
+	exposure.set_white_balance(		get_edit_float(IDC_WHITE_BALANCE_EDIT));
+	return exposure;
 }
 
-void DialogRenderSettings::set_Expouse(HG_Expouse expouse)
+void DialogRenderSettings::set_Exposure(HG_Exposure exposure)
 {
-	set_check_bool(IDC_EXPOUSE_CONTROL,		expouse.get_exposure_enable());
-	set_edit_float(IDC_EXPOSURE_EDIT,		expouse.get_exposure());
-	set_edit_float(IDC_HIGH_LIGHT_EDIT,		expouse.get_high_light());
-	set_edit_float(IDC_HALF_TONE_EDIT,		expouse.get_half_tone());
-	set_edit_float(IDC_SHADOW_EDIT,			expouse.get_shadow());
-	set_edit_float(IDC_SATURATION_EDIT,		expouse.get_saturation());
-	set_edit_float(IDC_WHITE_BALANCE_EDIT,	expouse.get_white_balance());
+	set_check_bool(IDC_EXPOSURE_CONTROL,	exposure.get_exposure_enable());
+	set_edit_float(IDC_EXPOSURE_EDIT,		exposure.get_exposure());
+	set_edit_float(IDC_HIGH_LIGHT_EDIT,		exposure.get_high_light());
+	set_edit_float(IDC_HALF_TONE_EDIT,		exposure.get_half_tone());
+	set_edit_float(IDC_SHADOW_EDIT,			exposure.get_shadow());
+	set_edit_float(IDC_SATURATION_EDIT,		exposure.get_saturation());
+	set_edit_float(IDC_WHITE_BALANCE_EDIT,	exposure.get_white_balance());
 }
 
 void DialogRenderSettings::set_color_uint(UINT macro,UINT color)

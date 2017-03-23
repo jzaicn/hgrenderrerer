@@ -488,7 +488,7 @@ LRESULT CRenderOperatorDlg::OnBegin(WPARAM w,LPARAM l)
 {
 	HGLOG_DEBUG("OnBegin");
 
-	HG_SceneCenter::inst().set_expouse(paramSettingDlg.get_Expouse());
+	HG_SceneCenter::inst().set_exposure(paramSettingDlg.get_Exposure());
 	HG_SceneCenter::inst().set_sky(paramSettingDlg.get_SkyLight());
 	HG_SceneCenter::inst().set_sun(paramSettingDlg.get_SunLight());
 	HG_SceneCenter::inst().set_param(imageSettingDlg.get_RenderParam());
@@ -521,12 +521,12 @@ LRESULT CRenderOperatorDlg::OnSettingUpdate(WPARAM w,LPARAM l)
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
 //	HG_RenderParam param = imageSettingDlg.get_RenderParam();
-// 	HG_Expouse exp  = paramSettingDlg.get_Expouse();
+// 	HG_Exposure exp  = paramSettingDlg.get_Exposure();
 // 	HG_SunLight sun = paramSettingDlg.get_SunLight();
 // 	HG_SkyLight sky = paramSettingDlg.get_SkyLight();
 // 
 // 	exp.set_exposure_enable(!exp.get_exposure_enable());
-// 	paramSettingDlg.set_Expouse(exp);
+// 	paramSettingDlg.set_Exposure(exp);
 // 	paramSettingDlg.set_SunLight(sun);
 // 	paramSettingDlg.set_SkyLight(sky);
 //	imageSettingDlg.set_RenderParam(param);

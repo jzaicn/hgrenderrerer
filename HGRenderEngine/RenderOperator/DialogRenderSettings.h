@@ -9,7 +9,7 @@
 #include "DialogPlus.h"
 #include "resource.h"
 
-#include "HG_Expouse.h"
+#include "HG_Exposure.h"
 #include "HG_SkyLight.h"
 #include "HG_SunLight.h"
 
@@ -53,8 +53,8 @@ public:
 	HG_SkyLight get_SkyLight();
 	void set_SkyLight(HG_SkyLight sky_light);
 	
-	HG_Expouse get_Expouse();
-	void set_Expouse(HG_Expouse expouse);
+	HG_Exposure get_Exposure();
+	void set_Exposure(HG_Exposure exposure);
 
 
 	void set_color_uint(UINT macro,UINT color);

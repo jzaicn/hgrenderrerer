@@ -129,9 +129,6 @@
     <ClInclude Include="HG_SceneCenter.h">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="HG_Expouse.h">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="HG_SkyLight.h">
       <Filter>Model</Filter>
     </ClInclude>
@@ -143,6 +140,9 @@
     </ClInclude>
     <ClInclude Include="RenderManager.h">
       <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Exposure.h">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -209,9 +209,6 @@
     <ClCompile Include="HG_SceneCenter.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="HG_Expouse.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
     <ClCompile Include="HG_SkyLight.cpp">
       <Filter>Model</Filter>
     </ClCompile>
@@ -223,6 +220,9 @@
     </ClCompile>
     <ClCompile Include="RenderManager.cpp">
       <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Exposure.cpp">
+      <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

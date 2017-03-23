@@ -119,7 +119,7 @@
     <ClInclude Include="Elara\esswriter.h" />
     <ClInclude Include="HG_BaseModel.h" />
     <ClInclude Include="HG_Camera.h" />
-    <ClInclude Include="HG_Expouse.h" />
+    <ClInclude Include="HG_Exposure.h" />
     <ClInclude Include="HG_Light.h" />
     <ClInclude Include="HG_Material.h" />
     <ClInclude Include="HG_Mesh.h" />
@@ -149,7 +149,7 @@
     <ClCompile Include="Elara\esswriter.cpp" />
     <ClCompile Include="HG_BaseModel.cpp" />
     <ClCompile Include="HG_Camera.cpp" />
-    <ClCompile Include="HG_Expouse.cpp" />
+    <ClCompile Include="HG_Exposure.cpp" />
     <ClCompile Include="HG_Light.cpp" />
     <ClCompile Include="HG_Material.cpp" />
     <ClCompile Include="HG_Mesh.cpp" />

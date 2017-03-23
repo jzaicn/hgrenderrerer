@@ -8,7 +8,7 @@
 #include "HG_MeshInstance.h"
 #include "HG_BaseModel.h"
 #include "HG_ModelInstance.h"
-#include "HG_Expouse.h"
+#include "HG_Exposure.h"
 #include "HG_SunLight.h"
 #include "HG_SkyLight.h"
 #include "HG_RenderParam.h"
@@ -69,7 +69,7 @@ public:
 		ref_modelList().clear();
 		ref_materialList().clear();
 		ref_meshInstanceList().clear();
-		set_expouse(HG_Expouse());
+		set_exposure(HG_Exposure());
 		set_sky(HG_SkyLight());
 		set_sun(HG_SunLight());
 		set_param(HG_RenderParam());
@@ -131,7 +131,7 @@ private:
 	GETSET(std::vector<HG_MeshInstance>,meshInstanceList);
 	
 	//曝光参数
-	GETSET(HG_Expouse,expouse);
+	GETSET(HG_Exposure,exposure);
 
 	//天空参数
 	GETSET(HG_SkyLight,sky);
