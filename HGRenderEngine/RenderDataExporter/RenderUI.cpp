@@ -32,7 +32,7 @@ void RenderUI::showRenderDlg()
 	
 	//遍历整个场景
 	HGSceneNodeVisitor vistor;
-	root->accept(vistor);
+	//root->accept(vistor);
 	HGLOG_DEBUG("scene ok");
 
 	//osg::Node *node00 = osgDB::readNodeFile( "E:\\XIANGMUSOFT\\TYBSOFT2016-back\\Ironware\\连接类\\层板托(衣柜)\\板拖.IVE" );
@@ -43,13 +43,17 @@ void RenderUI::showRenderDlg()
 		HGLOG_DEBUG("load ok");
 	}
 	
+	//定义输出json格式
 	Json::Value output;
+
+	HG_SceneCenter::inst().addModelInstance(HG_ModelInstance("E:\\HGRENDER\\Elara_SDK_1_0_76\\bin\\default.ess",HG_Mat()));
+	HG_SceneCenter::inst().addCamera(HG_Camera());
 	HG_SceneCenter::inst().save(output);
 	
+
+
 	Json::FastWriter fastwriter;
-	
 	std::string result = fastwriter.write(output);
-	
 	std::ofstream  writestream("d:\\room.json");
 	if (writestream.is_open())
 	{
