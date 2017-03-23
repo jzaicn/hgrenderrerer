@@ -10,6 +10,7 @@
 #include <fstream>
 #include "HgLog/HgLog.h"
 #include "HG_SceneCenter.h"
+#include "RenderManager.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -493,7 +494,9 @@ LRESULT CRenderOperatorDlg::OnBegin(WPARAM w,LPARAM l)
 	HG_SceneCenter::inst().set_sun(paramSettingDlg.get_SunLight());
 	HG_SceneCenter::inst().set_param(imageSettingDlg.get_RenderParam());
 
+	RenderManager::inst().SaveESS("D:\\my_scene.ess");
 	
+	RenderManager::inst().Begin();
 
 	return 0;
 }

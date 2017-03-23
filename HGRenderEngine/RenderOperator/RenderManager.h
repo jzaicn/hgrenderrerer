@@ -1,4 +1,8 @@
 #pragma once
+
+#include <string>
+#include "HG_BaseModel.h"
+
 class RenderManager
 {
 private:
@@ -8,29 +12,29 @@ private:
 	static RenderManager manager;
 	
 public:
-	RenderManager& inst();
+	static RenderManager& inst();
 
 public:
 	// 保存图像
-	void SaveImage(CString path);
+	void SaveImage(std::string path);
 	// 打开图像
-	void LoadImage(CString path);
+	void LoadImage(std::string path);
 	// 退出
 	void Clear();
 	// 缩放图像到原始尺寸
 	void GetImageData();
 	// 保存配置
-	void OnSaveESS(CString path);
+	void SaveESS(std::string path);
 	// 读取配置
-	void OnLoadESS(CString path);
+	void LoadESS(std::string path);
 	// 渲染开始
-	void OnBegin();
+	void Begin();
 	// 渲染停止
-	void OnStop();
+	void Stop();
 	// 渲染停止
-	void OnDone();
+	void Done();
 	// 渲染设置更新
-	void OnSettingUpdate();
+	void SettingUpdate();
 
 	//TODO: 准备数据
 	//TODO: 更新曝光
@@ -42,5 +46,9 @@ public:
 	//TODO: model
 	//TODO: material
 	//TODO: mesh实例
+
+public:
+	GETSET(std::string,render_exe_path);
+	GETSET(std::string,scene_path);
 };
 
