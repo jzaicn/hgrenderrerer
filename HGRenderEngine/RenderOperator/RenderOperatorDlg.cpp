@@ -319,6 +319,7 @@ HCURSOR CRenderOperatorDlg::OnQueryDragIcon()
 
 //////////////////////////////////////////////////////////////////////////
 // 菜单消息
+#if 1
 //"保存图像"
 afx_msg void CRenderOperatorDlg::menu_save_image()
 {
@@ -369,6 +370,7 @@ afx_msg void CRenderOperatorDlg::menu_help()
 {
 	::PostMessage(ShareHwnd(),DialogPlus::RENDER_HELP,NULL,NULL);
 }
+#endif
 
 //////////////////////////////////////////////////////////////////////////
 // 自定义消息事件路由
