@@ -20,6 +20,7 @@ public:
 		set_image(other.get_image());
 		set_unique_code(other.get_unique_code());
 		set_color(other.get_color());
+		set_cull_back(other.get_cull_back());
 	}
 
 	HG_Material& operator=(const HG_Material &other)	
@@ -28,6 +29,7 @@ public:
 		set_image(other.get_image());
 		set_unique_code(other.get_unique_code());
 		set_color(other.get_color());
+		set_cull_back(other.get_cull_back());
 		return *this;
 	}
 
@@ -45,5 +47,6 @@ private:
 	GETSET(std::string,image);
 	GETSET(std::string,unique_code);
 	GETSET(HG_Vec4,color);
+	GETSET(bool,cull_back);
 };
 
