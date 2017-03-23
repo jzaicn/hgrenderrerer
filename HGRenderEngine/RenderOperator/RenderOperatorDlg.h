@@ -67,42 +67,42 @@ public:
 	void OnCancel()	{	CDialogEx::OnCancel();	};
 
 	// 打开图像
-	afx_msg virtual LRESULT OnSaveImage(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnSaveImage(WPARAM w,LPARAM l);
 	// 保存图像
-	afx_msg virtual LRESULT OnLoadImage(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnLoadImage(WPARAM w,LPARAM l);
 	// 退出
-	afx_msg virtual LRESULT OnExit(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnExit(WPARAM w,LPARAM l);
 	// 缩放图像到原始尺寸
-	afx_msg virtual LRESULT OnZoomOriginImage(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnZoomOriginImage(WPARAM w,LPARAM l);
 	// 缩放图像到适应窗口
-	afx_msg virtual LRESULT OnZoomFitImage(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnZoomFitImage(WPARAM w,LPARAM l);
 	// 放大图像
-	afx_msg virtual LRESULT OnZoomInImage(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnZoomInImage(WPARAM w,LPARAM l);
 	// 缩小图像
-	afx_msg virtual LRESULT OnZoomOutImage(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnZoomOutImage(WPARAM w,LPARAM l);
 	// 工具栏 隐藏/显示
-	afx_msg virtual LRESULT OnToolbarShowHide(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnToolbarShowHide(WPARAM w,LPARAM l);
 	// 渲染效果配置  隐藏/显示
-	afx_msg virtual LRESULT OnDisplayShowHide(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnDisplayShowHide(WPARAM w,LPARAM l);
 	// 状态栏  隐藏/显示
-	afx_msg virtual LRESULT OnStatusShowHide(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnStatusShowHide(WPARAM w,LPARAM l);
 	// 恢复默认布局 
-	afx_msg virtual LRESULT OnDefaultLayout(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnDefaultLayout(WPARAM w,LPARAM l);
 	// 保存布局 
-	afx_msg virtual LRESULT OnSaveLayout(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnSaveLayout(WPARAM w,LPARAM l);
 	// 恢复布局 
-	afx_msg virtual LRESULT OnLoadLayout(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnLoadLayout(WPARAM w,LPARAM l);
 	// 帮助
-	afx_msg virtual LRESULT OnHelp(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnHelp(WPARAM w,LPARAM l);
 	// 保存配置
-	afx_msg virtual LRESULT OnSaveSettings(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnSaveSettings(WPARAM w,LPARAM l);
 	// 读取配置
-	afx_msg virtual LRESULT OnLoadSettings(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnLoadSettings(WPARAM w,LPARAM l);
 	// 渲染开始
-	afx_msg virtual LRESULT OnBegin(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnBegin(WPARAM w,LPARAM l);
 	// 渲染停止
-	afx_msg virtual LRESULT OnStop(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnStop(WPARAM w,LPARAM l);
 	// 渲染停止
-	afx_msg virtual LRESULT OnDone(WPARAM w,LPARAM l){return 0;};
+	afx_msg virtual LRESULT OnDone(WPARAM w,LPARAM l);
 	afx_msg void OnBnClickedButton1();
 };

@@ -50,7 +50,7 @@ END_MESSAGE_MAP()
 
 //////////////////////////////////////////////////////////////////////////
 // CRenderOperatorDlg 对话框
-
+#if 1
 UINT CRenderOperatorDlg::indicators[] = {IDS_STATESTRING1, IDS_STATESTRING2};
 
 
@@ -71,15 +71,39 @@ BEGIN_MESSAGE_MAP(CRenderOperatorDlg, DialogPlus)
 	ON_WM_QUERYDRAGICON()
 	ON_WM_SIZE()
 	ON_BN_CLICKED(IDC_BUTTON1, &CRenderOperatorDlg::OnBnClickedButton1)
+
+	//////////////////////////////////////////////////////////////////////////
+	// 自定义消息
+	ON_MESSAGE(RENDER_SAVE_IMAGE,&CRenderOperatorDlg::OnSaveImage)	// 打开图像
+	ON_MESSAGE(RENDER_LOAD_IMAGE,&CRenderOperatorDlg::OnLoadImage)	// 保存图像
+	ON_MESSAGE(RENDER_EXIT,&CRenderOperatorDlg::OnExit)	// 退出
+	ON_MESSAGE(RENDER_ZOOM_ORIGIN_IMAGE,&CRenderOperatorDlg::OnZoomOriginImage)	// 缩放图像到原始尺寸
+	ON_MESSAGE(RENDER_ZOOM_FIT_IMAGE,&CRenderOperatorDlg::OnZoomFitImage)	// 缩放图像到适应窗口
+	ON_MESSAGE(RENDER_ZOOM_IN_IMAGE,&CRenderOperatorDlg::OnZoomInImage)	// 放大图像
+	ON_MESSAGE(RENDER_ZOOM_OUT_IMAGE,&CRenderOperatorDlg::OnZoomOutImage)	// 缩小图像
+	ON_MESSAGE(RENDER_TOOLBAR_SHOW_HIDE,&CRenderOperatorDlg::OnToolbarShowHide)	// 工具栏 隐藏/显示
+	ON_MESSAGE(RENDER_DISPLAY_SHOW_HIDE,&CRenderOperatorDlg::OnDisplayShowHide)	// 渲染效果配置  隐藏/显示
+	ON_MESSAGE(RENDER_STATUS_SHOW_HIDE,&CRenderOperatorDlg::OnStatusShowHide)	// 状态栏  隐藏/显示
+	ON_MESSAGE(RENDER_DEFAULT_LAYOUT,&CRenderOperatorDlg::OnDefaultLayout)	// 恢复默认布局 
+	ON_MESSAGE(RENDER_SAVE_LAYOUT,&CRenderOperatorDlg::OnSaveLayout)	// 保存布局 
+	ON_MESSAGE(RENDER_LOAD_LAYOUT,&CRenderOperatorDlg::OnLoadLayout)	// 恢复布局 
+	ON_MESSAGE(RENDER_HELP,&CRenderOperatorDlg::OnHelp)	// 帮助
+	ON_MESSAGE(RENDER_SAVE_SETTINGS,&CRenderOperatorDlg::OnSaveSettings)	// 保存配置
+	ON_MESSAGE(RENDER_LOAD_SETTINGS,&CRenderOperatorDlg::OnLoadSettings)	// 读取配置
+	ON_MESSAGE(RENDER_BEGIN,&CRenderOperatorDlg::OnBegin)	// 渲染开始
+	ON_MESSAGE(RENDER_STOP,&CRenderOperatorDlg::OnStop)	// 渲染停止
+	ON_MESSAGE(RENDER_DONE,&CRenderOperatorDlg::OnDone)	// 渲染停止
 END_MESSAGE_MAP()
 
-
+#endif
+//////////////////////////////////////////////////////////////////////////
 // CRenderOperatorDlg 消息处理程序
-
+#if 1
 BOOL CRenderOperatorDlg::OnInitDialog()
 {
 	DialogPlus::OnInitDialog();
 	HgLog::HgLog::initDebugLogCategory();
+	ShareHwnd(GetSafeHwnd());
 
 	// 将“关于...”菜单项添加到系统菜单中。
 
@@ -272,16 +296,131 @@ HCURSOR CRenderOperatorDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+#endif
 
 
 
+//////////////////////////////////////////////////////////////////////////
+// 自定义消息事件路由
+#if 1
+LRESULT CRenderOperatorDlg::OnSaveImage(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnSaveImage");
+	return 0;
+}
 
+LRESULT CRenderOperatorDlg::OnLoadImage(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnLoadImage");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnExit(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnExit");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnZoomOriginImage(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnZoomOriginImage");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnZoomFitImage(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnZoomFitImage");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnZoomInImage(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnZoomInImage");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnZoomOutImage(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnZoomOutImage");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnToolbarShowHide(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnToolbarShowHide");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnDisplayShowHide(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnDisplayShowHide");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnStatusShowHide(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnStatusShowHide");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnDefaultLayout(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnDefaultLayout");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnSaveLayout(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnSaveLayout");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnLoadLayout(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnLoadLayout");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnHelp(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnHelp");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnSaveSettings(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnSaveSettings");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnLoadSettings(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnLoadSettings");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnBegin(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnBegin");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnStop(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnStop");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnDone(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnDone");
+	return 0;
+}
+#endif
 
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
-	//imageSettingDlg.set_RenderParam(HG_RenderParam());
-	imageSettingDlg.get_RenderParam();
-
+//	HG_RenderParam param = imageSettingDlg.get_RenderParam();
 // 	HG_Expouse exp  = paramSettingDlg.get_Expouse();
 // 	HG_SunLight sun = paramSettingDlg.get_SunLight();
 // 	HG_SkyLight sky = paramSettingDlg.get_SkyLight();
@@ -290,6 +429,7 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 // 	paramSettingDlg.set_Expouse(exp);
 // 	paramSettingDlg.set_SunLight(sun);
 // 	paramSettingDlg.set_SkyLight(sky);
+//	imageSettingDlg.set_RenderParam(param);
 // 
 // 	//TODO: 修改重绘部分，使其更新譬如选中状态等
 // 	Invalidate();

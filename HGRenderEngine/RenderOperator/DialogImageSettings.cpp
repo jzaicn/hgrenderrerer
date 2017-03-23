@@ -91,7 +91,7 @@ void DialogImageSettings::OnBnClickedBeginBtn()
 
 void DialogImageSettings::OnBnClickedSettingBtn()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_SETTINGS_SHOW_HIDE,NULL,NULL);
+	::PostMessage(ShareHwnd(),DialogPlus::RENDER_TOOLBAR_SHOW_HIDE,NULL,NULL);
 }
 
 HG_RenderParam DialogImageSettings::get_RenderParam()
