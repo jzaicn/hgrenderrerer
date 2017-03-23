@@ -1,10 +1,10 @@
 #pragma once
 #include "HG_BaseModel.h"
 
-class HG_Expouse :public HG_BaseModel
+class HG_Exposure :public HG_BaseModel
 {
 public:
-	HG_Expouse(void)
+	HG_Exposure(void)
 	{
 		set_exposure_enable(true);
 		set_exposure(0.0);
@@ -15,12 +15,12 @@ public:
 		set_white_balance(0.0);
 	}
 
-	~HG_Expouse(void)
+	~HG_Exposure(void)
 	{
 
 	}
 
-	HG_Expouse(const HG_Expouse& other)	
+	HG_Exposure(const HG_Exposure& other)	
 	{
 		set_exposure_enable(other.get_exposure_enable());
 		set_exposure(other.get_exposure());
@@ -31,7 +31,7 @@ public:
 		set_white_balance(other.get_white_balance());
 	}
 
-	HG_Expouse& operator=(const HG_Expouse &other)	
+	HG_Exposure& operator=(const HG_Exposure &other)	
 	{
 		set_exposure_enable(other.get_exposure_enable());
 		set_exposure(other.get_exposure());
@@ -47,7 +47,7 @@ public:
 
 	virtual std::string get_classname() override
 	{
-		return "HG_Expouse";
+		return "HG_Exposure";
 	}
 
 	virtual void save(Json::Value& out) override

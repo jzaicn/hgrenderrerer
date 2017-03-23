@@ -14,8 +14,8 @@ mklink /H HG_ModelInstance.cpp ..\RenderDataExporter\HG_ModelInstance.cpp
 mklink /H HG_ModelInstance.h ..\RenderDataExporter\HG_ModelInstance.h
 mklink /H HG_SceneCenter.cpp ..\RenderDataExporter\HG_SceneCenter.cpp
 mklink /H HG_SceneCenter.h ..\RenderDataExporter\HG_SceneCenter.h
-mklink /H HG_Expouse.cpp ..\RenderDataExporter\HG_Expouse.cpp
-mklink /H HG_Expouse.h ..\RenderDataExporter\HG_Expouse.h
+mklink /H HG_Exposure.cpp ..\RenderDataExporter\HG_Exposure.cpp
+mklink /H HG_Exposure.h ..\RenderDataExporter\HG_Exposure.h
 mklink /H HG_RenderParam.cpp ..\RenderDataExporter\HG_RenderParam.cpp
 mklink /H HG_RenderParam.h ..\RenderDataExporter\HG_RenderParam.h
 mklink /H HG_SkyLight.cpp ..\RenderDataExporter\HG_SkyLight.cpp
