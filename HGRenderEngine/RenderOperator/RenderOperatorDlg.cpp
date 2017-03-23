@@ -112,6 +112,7 @@ BEGIN_MESSAGE_MAP(CRenderOperatorDlg, DialogPlus)
 	ON_MESSAGE(RENDER_BEGIN,&CRenderOperatorDlg::OnBegin)	// ‰÷»æø™ º
 	ON_MESSAGE(RENDER_STOP,&CRenderOperatorDlg::OnStop)	// ‰÷»æÕ£÷π
 	ON_MESSAGE(RENDER_DONE,&CRenderOperatorDlg::OnDone)	// ‰÷»æÕ£÷π
+	ON_MESSAGE(RENDER_SETTING_UPDATE,&CRenderOperatorDlg::OnSettingUpdate)	// ‰÷»æ…Ë÷√∏¸–¬
 END_MESSAGE_MAP()
 
 #endif
@@ -486,6 +487,14 @@ LRESULT CRenderOperatorDlg::OnLoadSettings(WPARAM w,LPARAM l)
 LRESULT CRenderOperatorDlg::OnBegin(WPARAM w,LPARAM l)
 {
 	HGLOG_DEBUG("OnBegin");
+
+	HG_SceneCenter::inst().set_expouse(paramSettingDlg.get_Expouse());
+	HG_SceneCenter::inst().set_sky(paramSettingDlg.get_SkyLight());
+	HG_SceneCenter::inst().set_sun(paramSettingDlg.get_SunLight());
+	HG_SceneCenter::inst().set_param(imageSettingDlg.get_RenderParam());
+
+	
+
 	return 0;
 }
 
@@ -500,6 +509,13 @@ LRESULT CRenderOperatorDlg::OnDone(WPARAM w,LPARAM l)
 	HGLOG_DEBUG("OnDone");
 	return 0;
 }
+
+LRESULT CRenderOperatorDlg::OnSettingUpdate(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnSettingUpdate");
+	return 0;
+}
+
 #endif
 
 void CRenderOperatorDlg::OnBnClickedButton1()

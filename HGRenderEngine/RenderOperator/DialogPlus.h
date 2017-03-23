@@ -9,8 +9,8 @@ public:
 	{
 		RENDER_COMMAND_BEGIN = WM_USER,	//渲染相关命令——开始
 
-		RENDER_SAVE_IMAGE,	// 打开图像
-		RENDER_LOAD_IMAGE,	// 保存图像
+		RENDER_SAVE_IMAGE,	// 保存图像
+		RENDER_LOAD_IMAGE,	// 打开图像
 		RENDER_EXIT,	// 退出
 		RENDER_ZOOM_ORIGIN_IMAGE,	// 缩放图像到原始尺寸
 		RENDER_ZOOM_FIT_IMAGE,	// 缩放图像到适应窗口
@@ -31,6 +31,7 @@ public:
 		RENDER_BEGIN,	// 渲染开始
 		RENDER_STOP,	// 渲染停止
 		RENDER_DONE,	// 渲染停止
+		RENDER_SETTING_UPDATE,	// 渲染参数更新
 
 		RENDER_COMMAND_END,	//渲染相关命令——结束
 	}CMD;

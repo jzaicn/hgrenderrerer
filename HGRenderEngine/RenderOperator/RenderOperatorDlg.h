@@ -23,6 +23,9 @@ public:
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
 
+	//////////////////////////////////////////////////////////////////////////
+	// 功能区域
+#if 1
 private:	
 	CScrollBar m_settingScroll;				// 子窗口滚动条
 	CRect m_oldRect;						// 旧窗口区域
@@ -51,7 +54,12 @@ private:
 	static UINT indicators[];				//状态栏文字
 	CStatusBar   m_wndStatusBar;			//状态栏
 
-// 实现
+#endif
+
+
+	//////////////////////////////////////////////////////////////////////////
+	// 对话框响应
+#if 1
 protected:
 	HICON m_hIcon;
 
@@ -67,8 +75,10 @@ public:
 	void OnCancel()	{	CDialogEx::OnCancel();	};
 	afx_msg void OnBnClickedButton1();
 
+#endif
 	//////////////////////////////////////////////////////////////////////////
 	// 菜单消息
+#if 1
 public:
 	//"保存图像"
 	afx_msg void menu_save_image();
@@ -91,12 +101,14 @@ public:
 	//"帮助信息"
 	afx_msg void menu_help();
 
+#endif
 	//////////////////////////////////////////////////////////////////////////
 	// 自定义消息路由
+#if 1
 public:
-	// 打开图像
-	afx_msg virtual LRESULT OnSaveImage(WPARAM w,LPARAM l);
 	// 保存图像
+	afx_msg virtual LRESULT OnSaveImage(WPARAM w,LPARAM l);
+	// 打开图像
 	afx_msg virtual LRESULT OnLoadImage(WPARAM w,LPARAM l);
 	// 退出
 	afx_msg virtual LRESULT OnExit(WPARAM w,LPARAM l);
@@ -136,4 +148,7 @@ public:
 	afx_msg virtual LRESULT OnStop(WPARAM w,LPARAM l);
 	// 渲染停止
 	afx_msg virtual LRESULT OnDone(WPARAM w,LPARAM l);
+	// 渲染设置更新
+	afx_msg virtual LRESULT OnSettingUpdate(WPARAM w,LPARAM l);
+#endif
 };
