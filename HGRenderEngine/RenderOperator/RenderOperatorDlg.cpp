@@ -73,6 +73,23 @@ BEGIN_MESSAGE_MAP(CRenderOperatorDlg, DialogPlus)
 	ON_BN_CLICKED(IDC_BUTTON1, &CRenderOperatorDlg::OnBnClickedButton1)
 
 	//////////////////////////////////////////////////////////////////////////
+	// 菜单命令
+	//"文件"
+	ON_COMMAND(MENU_SAVE_IMAGE,&CRenderOperatorDlg::menu_save_image)			//"保存图像"
+	ON_COMMAND(MENU_EXIT,&CRenderOperatorDlg::menu_exit)						//"退出"
+	//"编辑"
+	ON_COMMAND(MENU_ZOOM_ORIGIN,&CRenderOperatorDlg::menu_zoom_origin)				//"缩放到原始尺寸"
+	ON_COMMAND(MENU_ZOOM_FIT,&CRenderOperatorDlg::menu_zoom_fit)				//"缩放到适应窗口"
+	//"窗口"
+	ON_COMMAND(MENU_TOOLBAR,&CRenderOperatorDlg::menu_toolbar)					//"工具栏"
+	ON_COMMAND(MENU_PARAM_PANEL,&CRenderOperatorDlg::menu_param_panel)		//"渲染效果面板"
+	ON_COMMAND(MENU_SETTING_PANEL,&CRenderOperatorDlg::menu_settings_panel)		//"渲染效果面板"
+	ON_COMMAND(MENU_STATUS,&CRenderOperatorDlg::menu_status)					//"状态栏"
+	ON_COMMAND(MENU_DEFAULT_DISPLAY,&CRenderOperatorDlg::menu_default_display)	//"恢复默认布局"
+	//"帮助"
+	ON_COMMAND(MENU_HELP,&CRenderOperatorDlg::menu_help)						//"帮助信息"
+
+	//////////////////////////////////////////////////////////////////////////
 	// 自定义消息
 	ON_MESSAGE(RENDER_SAVE_IMAGE,&CRenderOperatorDlg::OnSaveImage)	// 打开图像
 	ON_MESSAGE(RENDER_LOAD_IMAGE,&CRenderOperatorDlg::OnLoadImage)	// 保存图像
@@ -82,7 +99,9 @@ BEGIN_MESSAGE_MAP(CRenderOperatorDlg, DialogPlus)
 	ON_MESSAGE(RENDER_ZOOM_IN_IMAGE,&CRenderOperatorDlg::OnZoomInImage)	// 放大图像
 	ON_MESSAGE(RENDER_ZOOM_OUT_IMAGE,&CRenderOperatorDlg::OnZoomOutImage)	// 缩小图像
 	ON_MESSAGE(RENDER_TOOLBAR_SHOW_HIDE,&CRenderOperatorDlg::OnToolbarShowHide)	// 工具栏 隐藏/显示
-	ON_MESSAGE(RENDER_DISPLAY_SHOW_HIDE,&CRenderOperatorDlg::OnDisplayShowHide)	// 渲染效果配置  隐藏/显示
+	ON_MESSAGE(RENDER_PARAM_SHOW_HIDE,&CRenderOperatorDlg::OnParamShowHide)		// 图片尺寸配置  隐藏/显示
+	ON_MESSAGE(RENDER_SETTINGS_SHOW_HIDE,&CRenderOperatorDlg::OnSettingShowHide)// 渲染效果配置  隐藏/显示
+	ON_MESSAGE(RENDER_DISPLAY_SHOW_HIDE,&CRenderOperatorDlg::OnDisplayShowHide)	// 渲染效果显示  隐藏/显示
 	ON_MESSAGE(RENDER_STATUS_SHOW_HIDE,&CRenderOperatorDlg::OnStatusShowHide)	// 状态栏  隐藏/显示
 	ON_MESSAGE(RENDER_DEFAULT_LAYOUT,&CRenderOperatorDlg::OnDefaultLayout)	// 恢复默认布局 
 	ON_MESSAGE(RENDER_SAVE_LAYOUT,&CRenderOperatorDlg::OnSaveLayout)	// 保存布局 
@@ -298,7 +317,68 @@ HCURSOR CRenderOperatorDlg::OnQueryDragIcon()
 
 #endif
 
-
+//////////////////////////////////////////////////////////////////////////
+// 菜单消息
+//"保存图像"
+afx_msg void CRenderOperatorDlg::menu_save_image()
+{
+	HGLOG_DEBUG("menu_save_image");
+	::PostMessage(ShareHwnd(),DialogPlus::RENDER_SAVE_IMAGE,NULL,NULL);
+}
+//"退出"
+afx_msg void CRenderOperatorDlg::menu_exit()
+{
+	HGLOG_DEBUG("menu_exit");
+	::PostMessage(ShareHwnd(),DialogPlus::RENDER_EXIT,NULL,NULL);
+}
+//"缩放到原始尺寸"
+afx_msg void CRenderOperatorDlg::menu_zoom_origin()
+{
+	HGLOG_DEBUG("menu_zoom_origin");
+	::PostMessage(ShareHwnd(),DialogPlus::RENDER_ZOOM_ORIGIN_IMAGE,NULL,NULL);
+}
+//"缩放到适应窗口"
+afx_msg void CRenderOperatorDlg::menu_zoom_fit()
+{
+	HGLOG_DEBUG("menu_zoom_fit");
+	::PostMessage(ShareHwnd(),DialogPlus::RENDER_ZOOM_FIT_IMAGE,NULL,NULL);
+}
+//"工具栏"
+afx_msg void CRenderOperatorDlg::menu_toolbar()
+{
+	HGLOG_DEBUG("menu_toolbar");
+	::PostMessage(ShareHwnd(),DialogPlus::RENDER_TOOLBAR_SHOW_HIDE,NULL,NULL);
+}
+//"图片参数面板"
+afx_msg void CRenderOperatorDlg::menu_param_panel()
+{
+	HGLOG_DEBUG("menu_param_panel");
+	::PostMessage(ShareHwnd(),DialogPlus::RENDER_PARAM_SHOW_HIDE,NULL,NULL);
+}
+//"渲染效果面板"
+afx_msg void CRenderOperatorDlg::menu_settings_panel()
+{
+	HGLOG_DEBUG("menu_settings_panel");
+	::PostMessage(ShareHwnd(),DialogPlus::RENDER_SETTINGS_SHOW_HIDE,NULL,NULL);
+}
+//"状态栏"
+afx_msg void CRenderOperatorDlg::menu_status()
+{
+	HGLOG_DEBUG("menu_status");
+	::PostMessage(ShareHwnd(),DialogPlus::RENDER_STATUS_SHOW_HIDE,NULL,NULL);
+}
+//"恢复默认布局"
+afx_msg void CRenderOperatorDlg::menu_default_display()
+{
+	HGLOG_DEBUG("menu_default_display");
+	::PostMessage(ShareHwnd(),DialogPlus::RENDER_DEFAULT_LAYOUT,NULL,NULL);
+}
+//"帮助信息"
+afx_msg void CRenderOperatorDlg::menu_help()
+{
+	HGLOG_DEBUG("menu_help");
+	::PostMessage(ShareHwnd(),DialogPlus::RENDER_HELP,NULL,NULL);
+}
 
 //////////////////////////////////////////////////////////////////////////
 // 自定义消息事件路由
@@ -348,6 +428,18 @@ LRESULT CRenderOperatorDlg::OnZoomOutImage(WPARAM w,LPARAM l)
 LRESULT CRenderOperatorDlg::OnToolbarShowHide(WPARAM w,LPARAM l)
 {
 	HGLOG_DEBUG("OnToolbarShowHide");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnParamShowHide(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnParamShowHide");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnSettingShowHide(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnSettingShowHide");
 	return 0;
 }
 

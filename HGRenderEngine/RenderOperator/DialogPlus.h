@@ -17,7 +17,8 @@ public:
 		RENDER_ZOOM_IN_IMAGE,	// 放大图像
 		RENDER_ZOOM_OUT_IMAGE,	// 缩小图像
 		RENDER_TOOLBAR_SHOW_HIDE,	// 工具栏 隐藏/显示
-		RENDER_DISPLAY_SHOW_HIDE,	// 渲染效果配置  隐藏/显示
+		RENDER_PARAM_SHOW_HIDE,		// 渲染效果配置  隐藏/显示
+		RENDER_DISPLAY_SHOW_HIDE,	// 渲染效果  隐藏/显示
 		RENDER_SETTINGS_SHOW_HIDE,	// 渲染配置  隐藏/显示
 		RENDER_STATUS_SHOW_HIDE,	// 状态栏  隐藏/显示
 		RENDER_DEFAULT_LAYOUT,	// 恢复默认布局 

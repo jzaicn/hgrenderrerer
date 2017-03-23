@@ -65,7 +65,35 @@ protected:
 
 public:
 	void OnCancel()	{	CDialogEx::OnCancel();	};
+	afx_msg void OnBnClickedButton1();
 
+	//////////////////////////////////////////////////////////////////////////
+	// 菜单消息
+public:
+	//"保存图像"
+	afx_msg void menu_save_image();
+	//"退出"
+	afx_msg void menu_exit();
+	//"缩放到原始尺寸"
+	afx_msg void menu_zoom_origin();
+	//"缩放到适应窗口"
+	afx_msg void menu_zoom_fit();
+	//"工具栏"
+	afx_msg void menu_toolbar();
+	//"渲染效果面板"
+	afx_msg void menu_param_panel();
+	//"渲染效果面板"
+	afx_msg void menu_settings_panel();
+	//"状态栏"
+	afx_msg void menu_status();
+	//"恢复默认布局"
+	afx_msg void menu_default_display();
+	//"帮助信息"
+	afx_msg void menu_help();
+
+	//////////////////////////////////////////////////////////////////////////
+	// 自定义消息路由
+public:
 	// 打开图像
 	afx_msg virtual LRESULT OnSaveImage(WPARAM w,LPARAM l);
 	// 保存图像
@@ -82,7 +110,11 @@ public:
 	afx_msg virtual LRESULT OnZoomOutImage(WPARAM w,LPARAM l);
 	// 工具栏 隐藏/显示
 	afx_msg virtual LRESULT OnToolbarShowHide(WPARAM w,LPARAM l);
+	// 图片尺寸配置  隐藏/显示
+	afx_msg virtual LRESULT OnParamShowHide(WPARAM w,LPARAM l);
 	// 渲染效果配置  隐藏/显示
+	afx_msg virtual LRESULT OnSettingShowHide(WPARAM w,LPARAM l);
+	// 渲染效果显示  隐藏/显示
 	afx_msg virtual LRESULT OnDisplayShowHide(WPARAM w,LPARAM l);
 	// 状态栏  隐藏/显示
 	afx_msg virtual LRESULT OnStatusShowHide(WPARAM w,LPARAM l);
@@ -104,5 +136,4 @@ public:
 	afx_msg virtual LRESULT OnStop(WPARAM w,LPARAM l);
 	// 渲染停止
 	afx_msg virtual LRESULT OnDone(WPARAM w,LPARAM l);
-	afx_msg void OnBnClickedButton1();
 };

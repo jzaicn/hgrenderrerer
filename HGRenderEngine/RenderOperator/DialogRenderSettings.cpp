@@ -48,7 +48,6 @@ BEGIN_MESSAGE_MAP(DialogRenderSettings, CDialogEx)
 	ON_BN_CLICKED(IDC_SUN_CONTROL, &DialogRenderSettings::OnCheckBtn)
 	ON_BN_CLICKED(IDC_SUN_COLOR_BTN, &DialogRenderSettings::OnBnClickedSunColorBtn)
 	ON_BN_CLICKED(IDC_HDR_FILE_BTN, &DialogRenderSettings::OnBnClickedHdrFileBtn)
-//	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SUN_COLOR_BTN, &DialogRenderSettings::OnNMCustomdrawSunColorBtn)
 	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
@@ -434,7 +433,6 @@ void DialogRenderSettings::set_Expouse(HG_Expouse expouse)
 	set_edit_float(IDC_SATURATION_EDIT,		expouse.get_saturation());
 	set_edit_float(IDC_WHITE_BALANCE_EDIT,	expouse.get_white_balance());
 }
-
 
 void DialogRenderSettings::set_color_uint(UINT macro,UINT color)
 {
