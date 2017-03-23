@@ -54,7 +54,7 @@ END_MESSAGE_MAP()
 
 
 // DialogRenderSettings 消息处理程序
-
+//TODO: 修改重绘部分，使其更新譬如选中状态等
 BOOL DialogRenderSettings::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();

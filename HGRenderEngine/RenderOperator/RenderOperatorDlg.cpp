@@ -279,13 +279,18 @@ HCURSOR CRenderOperatorDlg::OnQueryDragIcon()
 
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
-	HG_Expouse exp  = paramSettingDlg.get_Expouse();
-	HG_SunLight sun = paramSettingDlg.get_SunLight();
-	HG_SkyLight sky = paramSettingDlg.get_SkyLight();
+	//imageSettingDlg.set_RenderParam(HG_RenderParam());
+	imageSettingDlg.get_RenderParam();
 
-	paramSettingDlg.set_Expouse(exp);
-	paramSettingDlg.set_SunLight(sun);
-	paramSettingDlg.set_SkyLight(sky);
-
-	Invalidate();
+// 	HG_Expouse exp  = paramSettingDlg.get_Expouse();
+// 	HG_SunLight sun = paramSettingDlg.get_SunLight();
+// 	HG_SkyLight sky = paramSettingDlg.get_SkyLight();
+// 
+// 	exp.set_exposure_enable(!exp.get_exposure_enable());
+// 	paramSettingDlg.set_Expouse(exp);
+// 	paramSettingDlg.set_SunLight(sun);
+// 	paramSettingDlg.set_SkyLight(sky);
+// 
+// 	//TODO: 修改重绘部分，使其更新譬如选中状态等
+// 	Invalidate();
 }

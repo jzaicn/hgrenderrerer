@@ -93,3 +93,39 @@ void DialogImageSettings::OnBnClickedSettingBtn()
 {
 	::PostMessage(ShareHwnd(),DialogPlus::RENDER_SETTINGS_SHOW_HIDE,NULL,NULL);
 }
+
+HG_RenderParam DialogImageSettings::get_RenderParam()
+{
+	HG_RenderParam param;
+
+	int quality = ((CComboBox*)GetDlgItem(IDC_IMAGE_SIZE_COMBO))->GetCurSel();
+	param.set_render_quality(quality);
+
+	CString width_heigh;
+	((CComboBox*)GetDlgItem(IDC_IMAGE_SIZE_COMBO))->GetWindowText(width_heigh);
+	int splitx = width_heigh.Find("x");
+	if (splitx == -1 || splitx == 0 || splitx == width_heigh.GetLength() )
+	{
+		return param;
+	}
+	CString width = width_heigh.Left(splitx);
+	CString height = width_heigh.Right(width_heigh.GetLength() - splitx -1);
+	param.set_render_width(atoi(width.GetBuffer()));
+	param.set_render_height(atoi(height.GetBuffer()));
+
+
+	return param;
+}
+
+void DialogImageSettings::set_RenderParam(HG_RenderParam param)
+{
+	int quality = param.get_render_quality();
+	((CComboBox*)GetDlgItem(IDC_IMAGE_SIZE_COMBO))->SetCurSel(quality);
+
+	
+	int width = param.get_render_width();
+	int height = param.get_render_height();
+	CString width_heigh;
+	width_heigh.Format("%dx%d",width,height);
+	((CComboBox*)GetDlgItem(IDC_IMAGE_SIZE_COMBO))->SetWindowText(width_heigh);
+}

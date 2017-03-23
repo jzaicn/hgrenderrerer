@@ -4,6 +4,8 @@
 #include "resource.h"
 // ImageSetting ¶Ô»°¿ò
 
+#include "HG_RenderParam.h"
+
 class DialogImageSettings : public DialogPlus
 {
 	DECLARE_DYNAMIC(DialogImageSettings)
@@ -28,4 +30,7 @@ public:
 
 	afx_msg void OnBnClickedBeginBtn();
 	afx_msg void OnBnClickedSettingBtn();
+
+	HG_RenderParam get_RenderParam();
+	void set_RenderParam(HG_RenderParam param);
 };
