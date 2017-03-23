@@ -129,6 +129,7 @@
     <ClInclude Include="HG_SceneCenter.h" />
     <ClInclude Include="HG_SkyLight.h" />
     <ClInclude Include="HG_SunLight.h" />
+    <ClInclude Include="RenderManager.h" />
     <ClInclude Include="RenderOperator.h" />
     <ClInclude Include="RenderOperatorDlg.h" />
     <ClInclude Include="Resource.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="HG_SceneCenter.cpp" />
     <ClCompile Include="HG_SkyLight.cpp" />
     <ClCompile Include="HG_SunLight.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="RenderOperator.cpp" />
     <ClCompile Include="RenderOperatorDlg.cpp" />
     <ClCompile Include="stdafx.cpp">

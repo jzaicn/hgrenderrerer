@@ -141,6 +141,9 @@
     <ClInclude Include="HG_RenderParam.h">
       <Filter>Model</Filter>
     </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="XmlHandlePlus.cpp">
@@ -217,6 +220,9 @@
     </ClCompile>
     <ClCompile Include="HG_RenderParam.cpp">
       <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
