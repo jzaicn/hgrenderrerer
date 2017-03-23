@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "DialogRenderToolBar.h"
 #include "afxdialogex.h"
-
+#include "HgLog/HgLog.h"
 
 // DialogRenderToolBar ¶Ô»°¿ò
 
