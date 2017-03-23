@@ -8,6 +8,10 @@
 #include "HG_MeshInstance.h"
 #include "HG_BaseModel.h"
 #include "HG_ModelInstance.h"
+#include "HG_Exposure.h"
+#include "HG_SunLight.h"
+#include "HG_SkyLight.h"
+#include "HG_RenderParam.h"
 
 class HG_SceneCenter : HG_BaseModel
 {
@@ -65,6 +69,10 @@ public:
 		ref_modelList().clear();
 		ref_materialList().clear();
 		ref_meshInstanceList().clear();
+		set_exposure(HG_Exposure());
+		set_sky(HG_SkyLight());
+		set_sun(HG_SunLight());
+		set_param(HG_RenderParam());
 	}
 	
 	template <typename T> 
@@ -102,6 +110,7 @@ public:
 	}
 
 
+
 private:
 	//camera
 	GETSET(std::vector<HG_Camera>,cameraList);
@@ -121,5 +130,16 @@ private:
 	//mesh实例 多大，在哪，方向，和什么材质关联，用的是哪个实例
 	GETSET(std::vector<HG_MeshInstance>,meshInstanceList);
 	
+	//曝光参数
+	GETSET(HG_Exposure,exposure);
+
+	//天空参数
+	GETSET(HG_SkyLight,sky);
+
+	//太阳参数
+	GETSET(HG_SunLight,sun);
+
+	//图片参数
+	GETSET(HG_RenderParam,param);
 };
 
