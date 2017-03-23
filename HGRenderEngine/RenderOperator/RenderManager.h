@@ -3,6 +3,8 @@
 #include <string>
 #include "HG_BaseModel.h"
 
+
+
 class RenderManager
 {
 private:
@@ -46,6 +48,12 @@ public:
 	//TODO: model
 	//TODO: material
 	//TODO: meshÊµÀý
+
+private:
+	class DataStorageCore;
+	static DataStorageCore storage;
+
+
 
 public:
 	GETSET(std::string,render_exe_path);

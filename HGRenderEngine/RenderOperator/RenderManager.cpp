@@ -1,13 +1,195 @@
 #include "StdAfx.h"
 #include "RenderManager.h"
+#include "HG_SceneCenter.h"
+#include "Elara/ElaraHomeAPI.h"
+
+
+
+class RenderManager::DataStorageCore
+{
+//////////////////////////////////////////////////////////////////////////
+// 易渲数据存储核心
+public:
+	DataStorageCore(){set_context(NULL);}
+	~DataStorageCore(){	clear();}
+	void clear(){if (get_context())	{EH_delete(get_context());set_context(NULL);}}
+	void init(){clear();initWhenNot();}
+	void initWhenNot(){if (!get_context()){set_context(EH_create());}}
+
+private:
+	GETSET(EH_Context*,context);
+
+public:
+	void fill(uint_t& outval,UINT inval)
+	{
+		outval = inval;
+	}
+	void fill(EH_RGB& outval,HG_Vec4 inval)
+	{
+		outval[0] = inval.get_x();
+		outval[1] = inval.get_y();
+		outval[2] = inval.get_z();
+	}
+	void fill(EH_RGBA& outval,HG_Vec4 inval)
+	{
+		outval[0] = inval.get_x();
+		outval[1] = inval.get_y();
+		outval[2] = inval.get_z();
+		outval[3] = inval.get_w();
+	}
+	void fill(EH_RGB& outval,UINT inval)
+	{
+		outval[0] = GetRValue(inval) / 255.0;
+		outval[1] = GetGValue(inval) / 255.0;
+		outval[2] = GetBValue(inval) / 255.0;
+	}
+	void fill(EH_RGBA& outval,UINT inval)
+	{
+		outval[0] = GetRValue(inval) / 255.0;
+		outval[1] = GetGValue(inval) / 255.0;
+		outval[2] = GetBValue(inval) / 255.0;
+	}
+	void fill(EH_Vec& outval,HG_Vec3 inval)
+	{
+		outval[0] = inval.get_x();
+		outval[1] = inval.get_y();
+		outval[2] = inval.get_z();
+	}
+	void fill(EH_Vec2& outval,HG_Vec2 inval)
+	{
+		outval[0] = inval.get_x();
+		outval[1] = inval.get_y();
+	}
+	void fill(EH_Mat& outval,HG_Mat inval)
+	{
+		outval[ 0] = inval.get_mat()[0].get_x();
+		outval[ 1] = inval.get_mat()[0].get_y();
+		outval[ 2] = inval.get_mat()[0].get_z();
+		outval[ 3] = inval.get_mat()[0].get_w();
+		outval[ 4] = inval.get_mat()[1].get_x();
+		outval[ 5] = inval.get_mat()[1].get_y();
+		outval[ 6] = inval.get_mat()[1].get_z();
+		outval[ 7] = inval.get_mat()[1].get_w();
+		outval[ 8] = inval.get_mat()[2].get_x();
+		outval[ 9] = inval.get_mat()[2].get_y();
+		outval[10] = inval.get_mat()[2].get_z();
+		outval[11] = inval.get_mat()[2].get_w();
+		outval[12] = inval.get_mat()[3].get_x();
+		outval[13] = inval.get_mat()[3].get_y();
+		outval[14] = inval.get_mat()[3].get_z();
+		outval[15] = inval.get_mat()[3].get_w();
+	}
+	void fill(EH_Sun& outval,HG_SunLight inval)
+	{
+		outval.enabled = inval.get_sun_enable();
+		outval.intensity = inval.get_sun_light_intensity();
+		fill(outval.color,inval.get_sun_color());
+		outval.soft_shadow = inval.get_soft_shadow();
+		outval.dir[0] = inval.get_sun_angle();
+		outval.dir[1] = inval.get_sun_height();
+	}
+	void fill(EH_Sky& outval,HG_SkyLight inval)
+	{
+		outval.enabled = inval.get_sky_light_enable();
+		outval.intensity = inval.get_sky_light_intensity();
+		outval.hdri_name = inval.get_hdr().c_str();
+		outval.hdri_rotation = inval.get_hdr_rotate();
+	}
+	void fill(EH_Texture& outval,std::string inval)
+	{
+		outval.filename = inval.c_str();
+		outval.repeat = 1;
+	}
+	void fill(EH_AssemblyInstance& outval,HG_ModelInstance inval)
+	{
+		outval.filename = inval.get_model_file().c_str();
+		fill(outval.mesh_to_world,inval.get_mesh_to_world());
+	}
+	void fill(EH_MeshInstance& outval,HG_MeshInstance inval)
+	{
+		outval.mesh_name = inval.get_material_code().c_str();
+		fill(outval.mesh_to_world,inval.get_mesh_to_world());
+		outval.mtl_name = inval.get_material_code().c_str();
+	}
+	void fill(EH_Mesh& outval,HG_Mesh inval)
+	{
+		outval.num_verts = inval.get_verts().size();
+		outval.num_faces = inval.get_faces().size();
+
+		for (int i = 0; i < inval.get_verts().size() ; i++)
+		{
+			fill((EH_Vec)(outval.verts[i]),inval.get_verts().at(i));
+		}
+		
+		int indexFace = 0;
+		for (int i = 0; i < inval.get_faces().size() ; i++)
+		{
+			fill((EH_Vec)(outval.normals[i]),inval.get_normals().at(i));
+			fill((EH_Vec2)(outval.uvs[i]),inval.get_uvs().at(i));
+			fill((uint_t)(outval.face_indices[indexFace++]),inval.get_faces().at(i).get_t1());
+			fill((uint_t)(outval.face_indices[indexFace++]),inval.get_faces().at(i).get_t2());
+			fill((uint_t)(outval.face_indices[indexFace++]),inval.get_faces().at(i).get_t3());
+		}
+	}
+
+	void fill(EH_Material& outval,HG_Material inval)
+	{
+		outval.backface_cull = inval.get_cull_back();
+		outval.diffuse_weight = 1.0;
+
+		if (inval.get_type() == HG_Material::color)
+		{
+			fill((EH_RGB)outval.diffuse_color,inval.get_color());
+		}
+		if (inval.get_type() == HG_Material::image)
+		{
+			fill(outval.diffuse_tex,inval.get_image());
+		}
+// 		
+// 		outval.roughness;
+// 		outval.backlight;
+// 
+// 		outval.specular_weight;
+// 		outval.specular_color ;
+// 		outval.specular_tex;
+// 		outval.glossiness;
+// 		outval.specular_fresnel;
+// 		outval.anisotropy;
+// 		outval.rotation;
+// 
+// 		outval.transp_weight;
+// 		outval.transp_invert_weight;
+// 		outval.transp_tex;
+// 
+// 		outval.bump_weight;
+// 		outval.bump_tex;
+// 		outval.normal_bump;
+// 
+// 		outval.mirror_weight;
+// 		outval.mirror_color;
+// 		outval.mirror_fresnel;
+// 
+// 		outval.refract_weight;
+// 		outval.refract_invert_weight;
+// 		outval.refract_color;
+// 		outval.ior;
+// 		outval.refract_glossiness;
+	}
+
+
+};
+
+
 
 
 RenderManager RenderManager::manager;
+RenderManager::DataStorageCore RenderManager::storage;
+
 
 RenderManager::RenderManager(void)
 {
 	set_render_exe_path("E:\\HGRENDER\\Elara_SDK_1_0_76\\bin\\er.exe");
-	set_scene_path("D:\\scene.ess");
+	set_scene_path("D:\\my_scene.ess");
 }
 
 
@@ -24,13 +206,78 @@ RenderManager& RenderManager::inst()
 void RenderManager::SaveESS(std::string path)
 {
 	set_scene_path(path);
+	
+	storage.initWhenNot();
+
+	// mesh 列表
+	for (int i = 0; i < HG_SceneCenter::inst().ref_meshList().size() ; i++)
+	{
+		HG_Mesh hg_mesh = HG_SceneCenter::inst().ref_meshList().at(i);
+		EH_Mesh mesh;
+		mesh.verts = (EH_Vec*)malloc(sizeof(EH_Vec) * hg_mesh.get_verts().size());
+		mesh.normals = (EH_Vec*)malloc(sizeof(EH_Vec) * hg_mesh.get_verts().size());
+		mesh.uvs = (EH_Vec2*)malloc(sizeof(EH_Vec2) * hg_mesh.get_verts().size());
+		mesh.face_indices = (uint_t *)malloc(sizeof(uint_t) * hg_mesh.get_faces().size() * 3);
+
+		storage.fill(mesh,hg_mesh);
+		EH_add_mesh(storage.get_context(),hg_mesh.get_unique_code().c_str(),&mesh);
+
+		free(mesh.verts);
+		free(mesh.normals);
+		free(mesh.uvs);
+		free(mesh.face_indices);
+	}
+
+	// 材质 列表
+	for (int i = 0; i < HG_SceneCenter::inst().ref_materialList().size() ; i++)
+	{
+		HG_Material hg_material = HG_SceneCenter::inst().ref_materialList().at(i);
+		EH_Material material;
+		storage.fill(material,hg_material);
+		EH_add_material(storage.get_context(),hg_material.get_unique_code().c_str(),&material);
+	}
+
+	// mesh 实例 列表
+	for (int i = 0; i < HG_SceneCenter::inst().ref_meshInstanceList().size() ; i++)
+	{
+		HG_MeshInstance hg_meshInst = HG_SceneCenter::inst().ref_meshInstanceList().at(i);
+		EH_MeshInstance meshInst;
+		storage.fill(meshInst,hg_meshInst);
+		EH_add_mesh_instance(storage.get_context(),hg_meshInst.get_unique_code().c_str(),&meshInst);
+	}
 
 	
+	//外部对象列表
+	for (int i = 0; i < HG_SceneCenter::inst().ref_modelList().size() ; i++)
+	{
+		HG_ModelInstance hg_model = HG_SceneCenter::inst().ref_modelList().at(i);
+		EH_AssemblyInstance model;
+		storage.fill(model,hg_model);
+		EH_add_assembly_instance(storage.get_context(),hg_model.get_unique_code().c_str(),&model);
+	}
+	
+	//阳光
+	EH_Sun sun;
+	storage.fill(sun,HG_SceneCenter::inst().get_sun());
+	EH_set_sun(storage.get_context(),&sun);
+	
+	//天空
+	EH_Sky sky;
+	storage.fill(sky,HG_SceneCenter::inst().get_sky());
+	EH_set_sky(storage.get_context(),&sky);
+
 }
 
 void RenderManager::Begin()
 {
+	CString runParam;
+	runParam.Format("-resolution %d %d ",HG_SceneCenter::inst().get_param().get_render_width(),HG_SceneCenter::inst().get_param().get_render_height());
+
+	CString showParam;
+	showParam.Format("%s %s -display ",get_render_exe_path().c_str(),get_scene_path().c_str());
+
 	CString cmdRunRender;
-	cmdRunRender.Format("%s -display %s",get_render_exe_path().c_str(),get_scene_path().c_str());
+	cmdRunRender = showParam + runParam ;
 	system(cmdRunRender.GetBuffer());
 }
+

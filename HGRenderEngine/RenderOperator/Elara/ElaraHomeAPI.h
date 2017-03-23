@@ -193,10 +193,10 @@ struct EH_Mesh
 {
 	uint_t num_verts;
 	uint_t num_faces;
-	const EH_Vec *verts;
-	const EH_Vec *normals;
-	const EH_Vec2 *uvs;
-	const uint_t *face_indices;		/** Should have (num_faces * 3) indices */
+	EH_Vec *verts;
+	EH_Vec *normals;
+	EH_Vec2 *uvs;
+	uint_t *face_indices;		/** Should have (num_faces * 3) indices */
 };
 
 /** Add a triangle mesh to the scene.
