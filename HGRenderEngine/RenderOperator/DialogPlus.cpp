@@ -92,7 +92,7 @@ void DialogPlus::set_edit_float(UINT macro,float val)
 	if (checkMacro(macro))
 	{
 		CString text;
-		text.Format("%0.2f",val);
+		text.Format(_T("%0.2f"),val);
 		GetDlgItem(macro)->SetWindowText(text);
 	}
 }

@@ -126,6 +126,12 @@
     <ClInclude Include="HG_SunLight.h">
       <Filter>Model</Filter>
     </ClInclude>
+    <ClInclude Include="ButtonPickColor.h">
+      <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogPlus.h">
+      <Filter>View</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Elara\ElaraHomeAPI.cpp">
@@ -187,6 +193,12 @@
     </ClCompile>
     <ClCompile Include="HG_SunLight.cpp">
       <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonPickColor.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogPlus.cpp">
+      <Filter>View</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

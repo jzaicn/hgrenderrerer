@@ -56,17 +56,17 @@ END_MESSAGE_MAP()
 
 
 CRenderOperatorDlg::CRenderOperatorDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(CRenderOperatorDlg::IDD, pParent)
+	: DialogPlus(CRenderOperatorDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
 void CRenderOperatorDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
+	DialogPlus::DoDataExchange(pDX);
 }
 
-BEGIN_MESSAGE_MAP(CRenderOperatorDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CRenderOperatorDlg, DialogPlus)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
@@ -125,7 +125,7 @@ END_MESSAGE_MAP()
 #if 1
 BOOL CRenderOperatorDlg::OnInitDialog()
 {
-	CDialogEx::OnInitDialog();
+	DialogPlus::OnInitDialog();
 // 	//TODO: 以后配置配置文件，不用这个代码init logger
 // 	HgLog::HgLog::initDebugLogCategory();
 // 	
@@ -222,7 +222,7 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 
 void CRenderOperatorDlg::OnSize(UINT nType, int cx, int cy)
 {
-	CDialogEx::OnSize(nType, cx, cy);
+	DialogPlus::OnSize(nType, cx, cy);
 // 	GetClientRect(m_newRect);
 // 	CRect offset = CRect(
 // 		m_newRect.left - m_oldRect.left,
@@ -283,7 +283,7 @@ void CRenderOperatorDlg::OnSysCommand(UINT nID, LPARAM lParam)
 	}
 	else
 	{
-		CDialogEx::OnSysCommand(nID, lParam);
+		DialogPlus::OnSysCommand(nID, lParam);
 	}
 }
 
@@ -312,7 +312,7 @@ void CRenderOperatorDlg::OnPaint()
 	}
 	else
 	{
-		CDialogEx::OnPaint();
+		DialogPlus::OnPaint();
 	}
 }
 

@@ -142,6 +142,8 @@
     <None Include="res\RenderOperator.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ButtonPickColor.h" />
+    <ClInclude Include="DialogPlus.h" />
     <ClInclude Include="Elara\ElaraHomeAPI.h" />
     <ClInclude Include="Elara\esslib.h" />
     <ClInclude Include="Elara\esswriter.h" />
@@ -166,6 +168,8 @@
     <ClInclude Include="XmlHandlePlus\XmlHandlePlus.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ButtonPickColor.cpp" />
+    <ClCompile Include="DialogPlus.cpp" />
     <ClCompile Include="Elara\ElaraHomeAPI.cpp" />
     <ClCompile Include="Elara\esslib.cpp" />
     <ClCompile Include="Elara\esswriter.cpp" />
