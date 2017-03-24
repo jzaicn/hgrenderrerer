@@ -6,9 +6,9 @@
 #include "RenderOperator.h"
 #include "RenderOperatorDlg.h"
 #include "afxdialogex.h"
-// #include "JsonCpp/json.h"
-// #include <fstream>
-// #include "HgLog/HgLog.h"
+#include "JsonCpp/json.h"
+#include <fstream>
+#include "HgLog/HgLog.h"
 // #include "HG_SceneCenter.h"
 // #include "RenderManager.h"
 
@@ -527,20 +527,25 @@ LRESULT CRenderOperatorDlg::OnSettingUpdate(WPARAM w,LPARAM l)
 
 #endif
 
-
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
-	HG_RenderParam contex=imageSettingDlg.get_RenderParam();
-	HG_Exposure exp  = paramSettingDlg.get_Exposure();
-	HG_SunLight sun = paramSettingDlg.get_SunLight();
-	HG_SkyLight sky = paramSettingDlg.get_SkyLight();
+		
+ 	Json::Value root;
+// 
+// 	root["123"] = 123;
 
-	exp.set_exposure_enable(!exp.get_exposure_enable());
-	paramSettingDlg.set_Exposure(exp);
-	paramSettingDlg.set_SunLight(sun);
-	paramSettingDlg.set_SkyLight(sky);
-	imageSettingDlg.set_RenderParam(param);
 
-	//TODO: 修改重绘部分，使其更新譬如选中状态等
-	Invalidate();
+// 	HG_RenderParam contex=imageSettingDlg.get_RenderParam();
+// 	HG_Exposure exp  = paramSettingDlg.get_Exposure();
+// 	HG_SunLight sun = paramSettingDlg.get_SunLight();
+// 	HG_SkyLight sky = paramSettingDlg.get_SkyLight();
+// 
+// 	exp.set_exposure_enable(!exp.get_exposure_enable());
+// 	paramSettingDlg.set_Exposure(exp);
+// 	paramSettingDlg.set_SunLight(sun);
+// 	paramSettingDlg.set_SkyLight(sky);
+// 	imageSettingDlg.set_RenderParam(param);
+// 
+// 	//TODO: 修改重绘部分，使其更新譬如选中状态等
+// 	Invalidate();
 }

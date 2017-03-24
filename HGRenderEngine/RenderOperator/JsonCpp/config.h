@@ -37,22 +37,28 @@
 #endif
 #endif
 
-#ifdef JSON_IN_CPPTL
-#define JSON_API CPPTL_API
-#elif defined(JSON_DLL_BUILD)
-#if defined(_MSC_VER) || defined(__MINGW32__)
-#define JSON_API __declspec(dllexport)
-#define JSONCPP_DISABLE_DLL_INTERFACE_WARNING
-#endif // if defined(_MSC_VER)
-#elif defined(JSON_DLL)
-#if defined(_MSC_VER) || defined(__MINGW32__)
-#define JSON_API __declspec(dllimport)
-#define JSONCPP_DISABLE_DLL_INTERFACE_WARNING
-#endif // if defined(_MSC_VER)
-#endif // ifdef JSON_IN_CPPTL
-#if !defined(JSON_API)
+// #ifdef JSON_IN_CPPTL
+// #define JSON_API CPPTL_API
+// #elif defined(JSON_DLL_BUILD)
+// #if defined(_MSC_VER) || defined(__MINGW32__)
+// #define JSON_API __declspec(dllexport)
+// #define JSONCPP_DISABLE_DLL_INTERFACE_WARNING
+// #endif // if defined(_MSC_VER)
+// #elif defined(JSON_DLL)
+// #if defined(_MSC_VER) || defined(__MINGW32__)
+// #define JSON_API __declspec(dllimport)
+// #define JSONCPP_DISABLE_DLL_INTERFACE_WARNING
+// #endif // if defined(_MSC_VER)
+// #endif // ifdef JSON_IN_CPPTL
+// #if !defined(JSON_API)
+// #define JSON_API
+// #endif
+
+#ifdef JSON_API
+#undef JSON_API 
+#endif // JSON_API
+
 #define JSON_API
-#endif
 
 // If JSON_NO_INT64 is defined, then Json only support C++ "int" type for
 // integer

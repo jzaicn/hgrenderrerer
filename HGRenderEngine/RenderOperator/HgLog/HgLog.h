@@ -49,7 +49,7 @@ namespace HgLog {
 #ifdef WIN32
 		static void setVsConsole();
 #endif
-		static void setRollingFile(log4cpp::Priority::PriorityLevel level = log4cpp::Priority::PriorityLevel::ERROR);
+		static void setRollingFile(log4cpp::Priority::PriorityLevel level = log4cpp::Priority::ERROR);
 		static void setUdpLog();
 #ifdef WIN32
 		static void setNTEventLogAppender();
