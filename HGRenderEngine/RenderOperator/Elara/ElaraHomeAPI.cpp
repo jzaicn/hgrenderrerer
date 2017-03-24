@@ -13,7 +13,6 @@
  * You should have received a copy of the End User License Agreement along 
  * with this program.  If not, see <http://www.rendease.com/licensing/>
  *************************************************************************/
-#include "StdAfx.h"
 
 #include "ElaraHomeAPI.h"
 #include <ei.h>
@@ -140,5 +139,5 @@ void EH_set_sky(EH_Context *ctx, const EH_Sky *sky)
 
 void EH_set_sun(EH_Context *ctx, const EH_Sun *sun)
 {
-
+	reinterpret_cast<EssExporter*>(ctx)->AddSun(*sun);
 }
