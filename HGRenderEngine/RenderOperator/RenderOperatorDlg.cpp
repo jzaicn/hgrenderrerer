@@ -123,7 +123,9 @@ END_MESSAGE_MAP()
 BOOL CRenderOperatorDlg::OnInitDialog()
 {
 	DialogPlus::OnInitDialog();
+	//TODO: 以后配置配置文件，不用这个代码init logger
 	HgLog::HgLog::initDebugLogCategory();
+	
 	ShareHwnd(GetSafeHwnd());
 
 	// 将“关于...”菜单项添加到系统菜单中。
@@ -153,6 +155,7 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 
 
 	// 绘图对话框
+	//HACK: 创建子窗口抛出异常
 	displayResultDlg.Create(IDD_DISPLAY_DLG,GetDlgItem(IDC_DISPLAYRESULT_WIN));
 	displayResultDlg.ShowWindow(SW_SHOW);
 	displayResultDlg.GetWindowRect(m_toolBarDlgRect);

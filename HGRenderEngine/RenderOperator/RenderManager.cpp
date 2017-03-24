@@ -349,3 +349,8 @@ void RenderManager::Begin()
 	system(cmdRunRender.GetBuffer());
 }
 
+void RenderManager::SettingUpdate()
+{
+	HG_SceneCenter::inst().get_exposure();
+}
+

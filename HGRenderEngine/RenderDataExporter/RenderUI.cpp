@@ -46,8 +46,20 @@ void RenderUI::showRenderDlg()
 	//定义输出json格式
 	Json::Value output;
 
-	HG_SceneCenter::inst().addModelInstance(HG_ModelInstance("E:\\HGRENDER\\Elara_SDK_1_0_76\\bin\\default.ess",HG_Mat()));
-	HG_SceneCenter::inst().addCamera(HG_Camera());
+	HG_SceneCenter::inst().addModelInstance(HG_ModelInstance("D:\\picture.ess",HG_Mat()));
+	HG_Camera camera;
+	camera.set_view_to_world(
+		HG_Mat(
+			HG_Vec4( -0.957354    , 0.288917      ,-0.0            ,0.0 ), 
+			HG_Vec4( -0.103087    ,-0.341588      , 0.934179       ,0.0 ), 
+			HG_Vec4(  0.2699      , 0.89434       , 0.356804       ,0.0 ), 
+			HG_Vec4( -53.738983   , 1015.807617   , 780.762573     ,1.0 )
+		)
+	);
+	camera.set_cubemap_render(false);
+	camera.set_far_clip(1000.0);
+	camera.set_near_clip(0.0);
+	HG_SceneCenter::inst().addCamera(camera);
 	HG_SceneCenter::inst().save(output);
 	
 
