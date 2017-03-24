@@ -10,8 +10,8 @@
 #ifndef _LOG4CPP_FIXEDCONTEXTCATEGORY_HH
 #define _LOG4CPP_FIXEDCONTEXTCATEGORY_HH
 
-#include "HgLog/Portability.hh"
-#include "HgLog/Category.hh"
+#include <log4cpp/Portability.hh>
+#include <log4cpp/Category.hh>
 
 namespace log4cpp {
 

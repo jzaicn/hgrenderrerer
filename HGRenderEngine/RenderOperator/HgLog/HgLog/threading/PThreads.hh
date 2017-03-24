@@ -9,7 +9,7 @@
 #ifndef _LOG4CPP_THREADING_PTHREADS_HH
 #define _LOG4CPP_THREADING_PTHREADS_HH
 
-#include "HgLog/Portability.hh"
+#include <log4cpp/Portability.hh>
 #include <stdio.h>
 #include <pthread.h>
 #include <string>

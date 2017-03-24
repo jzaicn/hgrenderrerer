@@ -10,7 +10,7 @@
 #define _LOG4CPP_MANIPULATOR_HH
 
 #include <iostream>
-#include "HgLog/Portability.hh"
+#include "Portability.hh"
 namespace log4cpp {
 	class LOG4CPP_EXPORT width {
 	private:

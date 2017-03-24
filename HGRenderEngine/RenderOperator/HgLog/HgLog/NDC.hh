@@ -10,7 +10,7 @@
 #ifndef _LOG4CPP_NDC_HH
 #define _LOG4CPP_NDC_HH
 
-#include "HgLog/Portability.hh"
+#include "Portability.hh"
 #include <string>
 #include <vector>
 

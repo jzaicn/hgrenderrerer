@@ -10,7 +10,7 @@
 #ifndef _LOG4CPP_THREADING_BOOSTTHREADS_HH
 #define _LOG4CPP_THREADING_BOOSTTHREADS_HH
 
-#include "HgLog/Portability.hh"
+#include <log4cpp/Portability.hh>
 #include <boost/thread/thread.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/tss.hpp>

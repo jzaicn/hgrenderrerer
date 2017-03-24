@@ -10,8 +10,8 @@
 #ifndef _LOG4CPP_ABORTAPPENDER_HH
 #define _LOG4CPP_ABORTAPPENDER_HH
 
-#include "HgLog/Portability.hh"
-#include "HgLog/AppenderSkeleton.hh"
+#include <log4cpp/Portability.hh>
+#include <log4cpp/AppenderSkeleton.hh>
 
 namespace log4cpp {
 

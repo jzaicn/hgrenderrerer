@@ -35,8 +35,8 @@
 
 #endif // done dealing with ERROR #define
 
-#include "HgLog/Portability.hh"
-#include "HgLog/AppenderSkeleton.hh"
+#include "Portability.hh"
+#include "AppenderSkeleton.hh"
 
 namespace log4cpp {
 

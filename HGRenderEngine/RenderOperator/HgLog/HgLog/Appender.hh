@@ -10,18 +10,19 @@
 #ifndef _LOG4CPP_APPENDER_HH
 #define _LOG4CPP_APPENDER_HH
 
-#include "HgLog/Portability.hh"
+#include "Portability.hh"
 #include <string>
 #include <map>
 #include <set>
+#include <vector>
 #include <stdarg.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "HgLog/Priority.hh"
-#include "HgLog/Layout.hh"
-#include "HgLog/LoggingEvent.hh"
-#include "HgLog/threading/Threading.hh"
+#include "Priority.hh"
+#include "Layout.hh"
+#include "LoggingEvent.hh"
+#include "threading/Threading.hh"
 
 namespace log4cpp {
     class LOG4CPP_EXPORT Filter;
@@ -31,6 +32,7 @@ namespace log4cpp {
      *  statements.
      **/
     class LOG4CPP_EXPORT Appender {
+		friend class Category;
         public:
         
         /**
@@ -130,21 +132,38 @@ namespace log4cpp {
          **/
         virtual Filter* getFilter() = 0;
         
-        private:
+		private:
         typedef std::map<std::string, Appender*> AppenderMap;
-        
-        static AppenderMap* _allAppenders;
-        static threading::Mutex _appenderMapMutex;
 
         static AppenderMap& _getAllAppenders();
         static void _deleteAllAppenders();
+		static void _deleteAllAppendersWOLock(std::vector<Appender*> &appenders);
         static void _addAppender(Appender* appender);
         static void _removeAppender(Appender* appender);
 
         const std::string _name;
+
+		public:
+		class AppenderMapStorage {
+		public:
+			Appender::AppenderMap* _allAppenders;	// single shared instance, nifty-counter defensed
+	        threading::Mutex _appenderMapMutex;	// mutex protecting map from multiple thread access 
+
+			AppenderMapStorage();
+			~AppenderMapStorage();
+		};
+		class LOG4CPP_EXPORT AppenderMapStorageInitializer {
+		public:
+			AppenderMapStorageInitializer();
+			~AppenderMapStorageInitializer();
+		};
+		private:
+        static AppenderMapStorage &_appenderMapStorageInstance;
     };
 
+	static Appender::AppenderMapStorageInitializer appenderMapStorageInitializer; // static initializer for every translation unit
     typedef std::set<Appender *> AppenderSet;
+
 }
 
 #endif // _LOG4CPP_APPENDER_HH

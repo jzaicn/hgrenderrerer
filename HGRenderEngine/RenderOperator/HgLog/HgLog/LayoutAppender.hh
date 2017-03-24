@@ -11,9 +11,9 @@
 #define _LOG4CPP_LAYOUTAPPENDER_HH
 
 #include <string>
-#include "HgLog/Portability.hh"
-#include "HgLog/AppenderSkeleton.hh"
-#include "HgLog/BasicLayout.hh"
+#include "Portability.hh"
+#include "AppenderSkeleton.hh"
+#include "BasicLayout.hh"
 
 namespace log4cpp {
 

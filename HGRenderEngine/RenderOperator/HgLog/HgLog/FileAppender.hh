@@ -10,8 +10,8 @@
 #ifndef _LOG4CPP_FILEAPPENDER_HH
 #define _LOG4CPP_FILEAPPENDER_HH
 
-#include "HgLog/Portability.hh"
-#include "HgLog/LayoutAppender.hh"
+#include "Portability.hh"
+#include "LayoutAppender.hh"
 #include <string>
 #include <stdarg.h>
 

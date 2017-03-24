@@ -10,11 +10,11 @@
 #ifndef _LOG4CPP_REMOTESYSLOGAPPENDER_HH
 #define _LOG4CPP_REMOTESYSLOGAPPENDER_HH
 
-#include "HgLog/Portability.hh"
+#include "Portability.hh"
 #include <string>
 #include <stdarg.h>
-#include "HgLog/LayoutAppender.hh"
-#include "HgLog/Priority.hh"
+#include "LayoutAppender.hh"
+#include "Priority.hh"
 #ifdef WIN32
 #include <winsock2.h>
 #else

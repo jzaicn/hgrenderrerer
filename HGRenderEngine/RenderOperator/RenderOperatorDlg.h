@@ -4,14 +4,14 @@
 
 #pragma once
 
-#include "DialogPlus.h"
-#include "DialogDisplayResult.h"
-#include "DialogImageSettings.h"
-#include "DialogRenderToolBar.h"
-#include "DialogRenderSettings.h"
+// #include "DialogPlus.h"
+// #include "DialogDisplayResult.h"
+// #include "DialogImageSettings.h"
+// #include "DialogRenderToolBar.h"
+// #include "DialogRenderSettings.h"
 
 // CRenderOperatorDlg 对话框
-class CRenderOperatorDlg : public DialogPlus
+class CRenderOperatorDlg : public CDialogEx
 {
 // 构造
 public:
@@ -25,7 +25,7 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////
 	// 功能区域
-#if 1
+#if 0
 private:	
 	CScrollBar m_settingScroll;				// 子窗口滚动条
 	CRect m_oldRect;						// 旧窗口区域
@@ -78,7 +78,7 @@ public:
 #endif
 	//////////////////////////////////////////////////////////////////////////
 	// 菜单消息
-#if 1
+#if 0
 public:
 	//"保存图像"
 	afx_msg void menu_save_image();
@@ -104,7 +104,7 @@ public:
 #endif
 	//////////////////////////////////////////////////////////////////////////
 	// 自定义消息路由
-#if 1
+#if 0
 public:
 	// 保存图像
 	afx_msg virtual LRESULT OnSaveImage(WPARAM w,LPARAM l);

@@ -10,8 +10,8 @@
 #ifndef _LOG4CPP_SIMPLELAYOUT_HH
 #define _LOG4CPP_SIMPLELAYOUT_HH
 
-#include "HgLog/Portability.hh"
-#include "HgLog/Layout.hh"
+#include "Portability.hh"
+#include "Layout.hh"
 
 namespace log4cpp {
     

@@ -10,12 +10,12 @@
 #ifndef _LOG4CPP_HIERARCHYMAINTAINER_HH
 #define _LOG4CPP_HIERARCHYMAINTAINER_HH
 
-#include "HgLog/Portability.hh"
+#include <log4cpp/Portability.hh>
 #include <string>
 #include <map>
 #include <vector>
-#include "HgLog/Category.hh"
-#include "HgLog/threading/Threading.hh"
+#include <log4cpp/Category.hh>
+#include <log4cpp/threading/Threading.hh>
 
 namespace log4cpp {
 

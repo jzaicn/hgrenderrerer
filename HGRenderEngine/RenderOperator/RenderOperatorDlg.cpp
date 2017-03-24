@@ -6,11 +6,11 @@
 #include "RenderOperator.h"
 #include "RenderOperatorDlg.h"
 #include "afxdialogex.h"
-#include "JsonCpp/json.h"
-#include <fstream>
-#include "HgLog/HgLog.h"
-#include "HG_SceneCenter.h"
-#include "RenderManager.h"
+// #include "JsonCpp/json.h"
+// #include <fstream>
+// #include "HgLog/HgLog.h"
+// #include "HG_SceneCenter.h"
+// #include "RenderManager.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -52,165 +52,168 @@ END_MESSAGE_MAP()
 //////////////////////////////////////////////////////////////////////////
 // CRenderOperatorDlg 对话框
 #if 1
-UINT CRenderOperatorDlg::indicators[] = {IDS_STATESTRING1, IDS_STATESTRING2};
+
 
 
 CRenderOperatorDlg::CRenderOperatorDlg(CWnd* pParent /*=NULL*/)
-	: DialogPlus(CRenderOperatorDlg::IDD, pParent)
+	: CDialogEx(CRenderOperatorDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
 void CRenderOperatorDlg::DoDataExchange(CDataExchange* pDX)
 {
-	DialogPlus::DoDataExchange(pDX);
+	CDialogEx::DoDataExchange(pDX);
 }
 
-BEGIN_MESSAGE_MAP(CRenderOperatorDlg, DialogPlus)
+BEGIN_MESSAGE_MAP(CRenderOperatorDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_SIZE()
 	ON_BN_CLICKED(IDC_BUTTON1, &CRenderOperatorDlg::OnBnClickedButton1)
 
-	//////////////////////////////////////////////////////////////////////////
-	// 菜单命令
-	//"文件"
-	ON_COMMAND(MENU_SAVE_IMAGE,&CRenderOperatorDlg::menu_save_image)			//"保存图像"
-	ON_COMMAND(MENU_EXIT,&CRenderOperatorDlg::menu_exit)						//"退出"
-	//"编辑"
-	ON_COMMAND(MENU_ZOOM_ORIGIN,&CRenderOperatorDlg::menu_zoom_origin)				//"缩放到原始尺寸"
-	ON_COMMAND(MENU_ZOOM_FIT,&CRenderOperatorDlg::menu_zoom_fit)				//"缩放到适应窗口"
-	//"窗口"
-	ON_COMMAND(MENU_TOOLBAR,&CRenderOperatorDlg::menu_toolbar)					//"工具栏"
-	ON_COMMAND(MENU_PARAM_PANEL,&CRenderOperatorDlg::menu_param_panel)		//"渲染效果面板"
-	ON_COMMAND(MENU_SETTING_PANEL,&CRenderOperatorDlg::menu_settings_panel)		//"渲染效果面板"
-	ON_COMMAND(MENU_STATUS,&CRenderOperatorDlg::menu_status)					//"状态栏"
-	ON_COMMAND(MENU_DEFAULT_DISPLAY,&CRenderOperatorDlg::menu_default_display)	//"恢复默认布局"
-	//"帮助"
-	ON_COMMAND(MENU_HELP,&CRenderOperatorDlg::menu_help)						//"帮助信息"
-
-	//////////////////////////////////////////////////////////////////////////
-	// 自定义消息
-	ON_MESSAGE(RENDER_SAVE_IMAGE,&CRenderOperatorDlg::OnSaveImage)	// 打开图像
-	ON_MESSAGE(RENDER_LOAD_IMAGE,&CRenderOperatorDlg::OnLoadImage)	// 保存图像
-	ON_MESSAGE(RENDER_EXIT,&CRenderOperatorDlg::OnExit)	// 退出
-	ON_MESSAGE(RENDER_ZOOM_ORIGIN_IMAGE,&CRenderOperatorDlg::OnZoomOriginImage)	// 缩放图像到原始尺寸
-	ON_MESSAGE(RENDER_ZOOM_FIT_IMAGE,&CRenderOperatorDlg::OnZoomFitImage)	// 缩放图像到适应窗口
-	ON_MESSAGE(RENDER_ZOOM_IN_IMAGE,&CRenderOperatorDlg::OnZoomInImage)	// 放大图像
-	ON_MESSAGE(RENDER_ZOOM_OUT_IMAGE,&CRenderOperatorDlg::OnZoomOutImage)	// 缩小图像
-	ON_MESSAGE(RENDER_TOOLBAR_SHOW_HIDE,&CRenderOperatorDlg::OnToolbarShowHide)	// 工具栏 隐藏/显示
-	ON_MESSAGE(RENDER_PARAM_SHOW_HIDE,&CRenderOperatorDlg::OnParamShowHide)		// 图片尺寸配置  隐藏/显示
-	ON_MESSAGE(RENDER_SETTINGS_SHOW_HIDE,&CRenderOperatorDlg::OnSettingShowHide)// 渲染效果配置  隐藏/显示
-	ON_MESSAGE(RENDER_DISPLAY_SHOW_HIDE,&CRenderOperatorDlg::OnDisplayShowHide)	// 渲染效果显示  隐藏/显示
-	ON_MESSAGE(RENDER_STATUS_SHOW_HIDE,&CRenderOperatorDlg::OnStatusShowHide)	// 状态栏  隐藏/显示
-	ON_MESSAGE(RENDER_DEFAULT_LAYOUT,&CRenderOperatorDlg::OnDefaultLayout)	// 恢复默认布局 
-	ON_MESSAGE(RENDER_SAVE_LAYOUT,&CRenderOperatorDlg::OnSaveLayout)	// 保存布局 
-	ON_MESSAGE(RENDER_LOAD_LAYOUT,&CRenderOperatorDlg::OnLoadLayout)	// 恢复布局 
-	ON_MESSAGE(RENDER_HELP,&CRenderOperatorDlg::OnHelp)	// 帮助
-	ON_MESSAGE(RENDER_SAVE_SETTINGS,&CRenderOperatorDlg::OnSaveSettings)	// 保存配置
-	ON_MESSAGE(RENDER_LOAD_SETTINGS,&CRenderOperatorDlg::OnLoadSettings)	// 读取配置
-	ON_MESSAGE(RENDER_BEGIN,&CRenderOperatorDlg::OnBegin)	// 渲染开始
-	ON_MESSAGE(RENDER_STOP,&CRenderOperatorDlg::OnStop)	// 渲染停止
-	ON_MESSAGE(RENDER_DONE,&CRenderOperatorDlg::OnDone)	// 渲染停止
-	ON_MESSAGE(RENDER_SETTING_UPDATE,&CRenderOperatorDlg::OnSettingUpdate)	// 渲染设置更新
+// 	//////////////////////////////////////////////////////////////////////////
+// 	// 菜单命令
+// 	//"文件"
+// 	ON_COMMAND(MENU_SAVE_IMAGE,&CRenderOperatorDlg::menu_save_image)			//"保存图像"
+// 	ON_COMMAND(MENU_EXIT,&CRenderOperatorDlg::menu_exit)						//"退出"
+// 	//"编辑"
+// 	ON_COMMAND(MENU_ZOOM_ORIGIN,&CRenderOperatorDlg::menu_zoom_origin)				//"缩放到原始尺寸"
+// 	ON_COMMAND(MENU_ZOOM_FIT,&CRenderOperatorDlg::menu_zoom_fit)				//"缩放到适应窗口"
+// 	//"窗口"
+// 	ON_COMMAND(MENU_TOOLBAR,&CRenderOperatorDlg::menu_toolbar)					//"工具栏"
+// 	ON_COMMAND(MENU_PARAM_PANEL,&CRenderOperatorDlg::menu_param_panel)		//"渲染效果面板"
+// 	ON_COMMAND(MENU_SETTING_PANEL,&CRenderOperatorDlg::menu_settings_panel)		//"渲染效果面板"
+// 	ON_COMMAND(MENU_STATUS,&CRenderOperatorDlg::menu_status)					//"状态栏"
+// 	ON_COMMAND(MENU_DEFAULT_DISPLAY,&CRenderOperatorDlg::menu_default_display)	//"恢复默认布局"
+// 	//"帮助"
+// 	ON_COMMAND(MENU_HELP,&CRenderOperatorDlg::menu_help)						//"帮助信息"
+// 
+// 	//////////////////////////////////////////////////////////////////////////
+// 	// 自定义消息
+// 	ON_MESSAGE(RENDER_SAVE_IMAGE,&CRenderOperatorDlg::OnSaveImage)	// 打开图像
+// 	ON_MESSAGE(RENDER_LOAD_IMAGE,&CRenderOperatorDlg::OnLoadImage)	// 保存图像
+// 	ON_MESSAGE(RENDER_EXIT,&CRenderOperatorDlg::OnExit)	// 退出
+// 	ON_MESSAGE(RENDER_ZOOM_ORIGIN_IMAGE,&CRenderOperatorDlg::OnZoomOriginImage)	// 缩放图像到原始尺寸
+// 	ON_MESSAGE(RENDER_ZOOM_FIT_IMAGE,&CRenderOperatorDlg::OnZoomFitImage)	// 缩放图像到适应窗口
+// 	ON_MESSAGE(RENDER_ZOOM_IN_IMAGE,&CRenderOperatorDlg::OnZoomInImage)	// 放大图像
+// 	ON_MESSAGE(RENDER_ZOOM_OUT_IMAGE,&CRenderOperatorDlg::OnZoomOutImage)	// 缩小图像
+// 	ON_MESSAGE(RENDER_TOOLBAR_SHOW_HIDE,&CRenderOperatorDlg::OnToolbarShowHide)	// 工具栏 隐藏/显示
+// 	ON_MESSAGE(RENDER_PARAM_SHOW_HIDE,&CRenderOperatorDlg::OnParamShowHide)		// 图片尺寸配置  隐藏/显示
+// 	ON_MESSAGE(RENDER_SETTINGS_SHOW_HIDE,&CRenderOperatorDlg::OnSettingShowHide)// 渲染效果配置  隐藏/显示
+// 	ON_MESSAGE(RENDER_DISPLAY_SHOW_HIDE,&CRenderOperatorDlg::OnDisplayShowHide)	// 渲染效果显示  隐藏/显示
+// 	ON_MESSAGE(RENDER_STATUS_SHOW_HIDE,&CRenderOperatorDlg::OnStatusShowHide)	// 状态栏  隐藏/显示
+// 	ON_MESSAGE(RENDER_DEFAULT_LAYOUT,&CRenderOperatorDlg::OnDefaultLayout)	// 恢复默认布局 
+// 	ON_MESSAGE(RENDER_SAVE_LAYOUT,&CRenderOperatorDlg::OnSaveLayout)	// 保存布局 
+// 	ON_MESSAGE(RENDER_LOAD_LAYOUT,&CRenderOperatorDlg::OnLoadLayout)	// 恢复布局 
+// 	ON_MESSAGE(RENDER_HELP,&CRenderOperatorDlg::OnHelp)	// 帮助
+// 	ON_MESSAGE(RENDER_SAVE_SETTINGS,&CRenderOperatorDlg::OnSaveSettings)	// 保存配置
+// 	ON_MESSAGE(RENDER_LOAD_SETTINGS,&CRenderOperatorDlg::OnLoadSettings)	// 读取配置
+// 	ON_MESSAGE(RENDER_BEGIN,&CRenderOperatorDlg::OnBegin)	// 渲染开始
+// 	ON_MESSAGE(RENDER_STOP,&CRenderOperatorDlg::OnStop)	// 渲染停止
+// 	ON_MESSAGE(RENDER_DONE,&CRenderOperatorDlg::OnDone)	// 渲染停止
+// 	ON_MESSAGE(RENDER_SETTING_UPDATE,&CRenderOperatorDlg::OnSettingUpdate)	// 渲染设置更新
 END_MESSAGE_MAP()
 
 #endif
+
+//UINT CRenderOperatorDlg::indicators[] = {IDS_STATESTRING1, IDS_STATESTRING2};
+
 //////////////////////////////////////////////////////////////////////////
 // CRenderOperatorDlg 消息处理程序
 #if 1
 BOOL CRenderOperatorDlg::OnInitDialog()
 {
-	DialogPlus::OnInitDialog();
-	//TODO: 以后配置配置文件，不用这个代码init logger
-	HgLog::HgLog::initDebugLogCategory();
-	
-	ShareHwnd(GetSafeHwnd());
-
-	// 将“关于...”菜单项添加到系统菜单中。
-
-	// IDM_ABOUTBOX 必须在系统命令范围内。
-	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
-	ASSERT(IDM_ABOUTBOX < 0xF000);
-
-	CMenu* pSysMenu = GetSystemMenu(FALSE);
-	if (pSysMenu != NULL)
-	{
-		BOOL bNameValid;
-		CString strAboutMenu;
-		bNameValid = strAboutMenu.LoadString(IDS_ABOUTBOX);
-		ASSERT(bNameValid);
-		if (!strAboutMenu.IsEmpty())
-		{
-			pSysMenu->AppendMenu(MF_SEPARATOR);
-			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
-		}
-	}
-
-	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
-	//  执行此操作
-	SetIcon(m_hIcon, TRUE);			// 设置大图标
-	SetIcon(m_hIcon, FALSE);		// 设置小图标
-
-
-	// 绘图对话框
-	//HACK: 创建子窗口抛出异常
-	displayResultDlg.Create(IDD_DISPLAY_DLG,GetDlgItem(IDC_DISPLAYRESULT_WIN));
-	displayResultDlg.ShowWindow(SW_SHOW);
-	displayResultDlg.GetWindowRect(m_toolBarDlgRect);
-	GetDlgItem(IDC_DISPLAYRESULT_WIN)->GetWindowRect(m_displayResultDlgContainerRect);
-	ScreenToClient(m_displayResultDlgContainerRect);
-
-	// 工具栏对话框
- 	toolBarDlg.Create(IDD_TOOLBAR_DLG,GetDlgItem(IDC_TOOLBAR_WIN));
- 	toolBarDlg.ShowWindow(SW_SHOW);
- 	toolBarDlg.GetWindowRect(m_toolBarDlgRect);
-	GetDlgItem(IDC_TOOLBAR_WIN)->GetWindowRect(m_toolBarDlgContainerRect);
-	ScreenToClient(m_toolBarDlgContainerRect);
-
-	// 图片对话框
- 	imageSettingDlg.Create(IDD_IMAGE_DLG,GetDlgItem(IDC_IMAGE_WIN));
- 	imageSettingDlg.ShowWindow(SW_SHOW);
- 	imageSettingDlg.GetWindowRect(m_imageSettingDlgRect);
-	GetDlgItem(IDC_IMAGE_WIN)->GetWindowRect(m_imageSettingDlgContainerRect);
-	ScreenToClient(m_imageSettingDlgContainerRect);
-
-	// 设置参数对话框
- 	paramSettingDlg.Create(IDD_SETTING_DLG,GetDlgItem(IDC_SETTING_WIN));
- 	paramSettingDlg.ShowWindow(SW_SHOW);
- 	paramSettingDlg.GetWindowRect(m_paramSettingDlgRect);
-	GetDlgItem(IDC_SETTING_WIN)->GetWindowRect(m_paramSettingDlgContainerRect);
-	ScreenToClient(m_paramSettingDlgContainerRect);
-
-	//创建状态栏
-	CRect statusRect;
-	GetClientRect(statusRect);
-	if(!m_wndStatusBar.Create(this)|| !m_wndStatusBar.SetIndicators(indicators,sizeof(indicators)/sizeof(UINT))) return false;
-	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);// 调整状态栏的位置和大小
-	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
-	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
-	m_wndStatusBar.SetPaneText(0,"准备就绪");
-	m_wndStatusBar.SetPaneText(1,"当前缩放比：100%");
-
-	GetClientRect(m_newRect);
-	GetClientRect(m_oldRect);
-
-
-	// 加载文件
-	std::ifstream readStream("d:\\room.json");
-	if (readStream.is_open())
-	{
-		std::string result;
-		readStream >> result;
-
-		Json::Value output;
-		Json::Reader reader;
-		reader.parse(result,output);
-
-		HGLOG_DEBUG(output.toStyledString());
-		HG_SceneCenter::inst().load(output);
-	}
+	CDialogEx::OnInitDialog();
+// 	//TODO: 以后配置配置文件，不用这个代码init logger
+// 	HgLog::HgLog::initDebugLogCategory();
+// 	
+// 	ShareHwnd(GetSafeHwnd());
+// 
+// 	// 将“关于...”菜单项添加到系统菜单中。
+// 
+// 	// IDM_ABOUTBOX 必须在系统命令范围内。
+// 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
+// 	ASSERT(IDM_ABOUTBOX < 0xF000);
+// 
+// 	CMenu* pSysMenu = GetSystemMenu(FALSE);
+// 	if (pSysMenu != NULL)
+// 	{
+// 		BOOL bNameValid;
+// 		CString strAboutMenu;
+// 		bNameValid = strAboutMenu.LoadString(IDS_ABOUTBOX);
+// 		ASSERT(bNameValid);
+// 		if (!strAboutMenu.IsEmpty())
+// 		{
+// 			pSysMenu->AppendMenu(MF_SEPARATOR);
+// 			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
+// 		}
+// 	}
+// 
+// 	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
+// 	//  执行此操作
+// 	SetIcon(m_hIcon, TRUE);			// 设置大图标
+// 	SetIcon(m_hIcon, FALSE);		// 设置小图标
+// 
+// 
+// 	// 绘图对话框
+// 	//HACK: 创建子窗口抛出异常
+// 	displayResultDlg.Create(IDD_DISPLAY_DLG,GetDlgItem(IDC_DISPLAYRESULT_WIN));
+// 	displayResultDlg.ShowWindow(SW_SHOW);
+// 	displayResultDlg.GetWindowRect(m_toolBarDlgRect);
+// 	GetDlgItem(IDC_DISPLAYRESULT_WIN)->GetWindowRect(m_displayResultDlgContainerRect);
+// 	ScreenToClient(m_displayResultDlgContainerRect);
+// 
+// 	// 工具栏对话框
+//  	toolBarDlg.Create(IDD_TOOLBAR_DLG,GetDlgItem(IDC_TOOLBAR_WIN));
+//  	toolBarDlg.ShowWindow(SW_SHOW);
+//  	toolBarDlg.GetWindowRect(m_toolBarDlgRect);
+// 	GetDlgItem(IDC_TOOLBAR_WIN)->GetWindowRect(m_toolBarDlgContainerRect);
+// 	ScreenToClient(m_toolBarDlgContainerRect);
+// 
+// 	// 图片对话框
+//  	imageSettingDlg.Create(IDD_IMAGE_DLG,GetDlgItem(IDC_IMAGE_WIN));
+//  	imageSettingDlg.ShowWindow(SW_SHOW);
+//  	imageSettingDlg.GetWindowRect(m_imageSettingDlgRect);
+// 	GetDlgItem(IDC_IMAGE_WIN)->GetWindowRect(m_imageSettingDlgContainerRect);
+// 	ScreenToClient(m_imageSettingDlgContainerRect);
+// 
+// 	// 设置参数对话框
+//  	paramSettingDlg.Create(IDD_SETTING_DLG,GetDlgItem(IDC_SETTING_WIN));
+//  	paramSettingDlg.ShowWindow(SW_SHOW);
+//  	paramSettingDlg.GetWindowRect(m_paramSettingDlgRect);
+// 	GetDlgItem(IDC_SETTING_WIN)->GetWindowRect(m_paramSettingDlgContainerRect);
+// 	ScreenToClient(m_paramSettingDlgContainerRect);
+// 
+// 	//创建状态栏
+// 	CRect statusRect;
+// 	GetClientRect(statusRect);
+// 	if(!m_wndStatusBar.Create(this)|| !m_wndStatusBar.SetIndicators(indicators,sizeof(indicators)/sizeof(UINT))) return false;
+// 	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);// 调整状态栏的位置和大小
+// 	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
+// 	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
+// 	m_wndStatusBar.SetPaneText(0,"准备就绪");
+// 	m_wndStatusBar.SetPaneText(1,"当前缩放比：100%");
+// 
+// 	GetClientRect(m_newRect);
+// 	GetClientRect(m_oldRect);
+// 
+// 
+// 	// 加载文件
+// 	std::ifstream readStream("d:\\room.json");
+// 	if (readStream.is_open())
+// 	{
+// 		std::string result;
+// 		readStream >> result;
+// 
+// 		Json::Value output;
+// 		Json::Reader reader;
+// 		reader.parse(result,output);
+// 
+// 		HGLOG_DEBUG(output.toStyledString());
+// 		HG_SceneCenter::inst().load(output);
+// 	}
 	
 	ShowWindow(SW_MAXIMIZE);
 
@@ -219,56 +222,56 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 
 void CRenderOperatorDlg::OnSize(UINT nType, int cx, int cy)
 {
-	DialogPlus::OnSize(nType, cx, cy);
-	GetClientRect(m_newRect);
-	CRect offset = CRect(
-		m_newRect.left - m_oldRect.left,
-		m_newRect.top - m_oldRect.top,
-		m_newRect.right - m_oldRect.right,
-		m_newRect.bottom - m_oldRect.bottom
-		);
-	m_oldRect = m_newRect;
-
-
-	//移动图片窗口
-	m_displayResultDlgContainerRect.left += offset.left;
-	m_displayResultDlgContainerRect.right += offset.right;
-	m_displayResultDlgContainerRect.top += offset.top;
-	m_displayResultDlgContainerRect.bottom += offset.bottom;
-	GetDlgItem(IDC_DISPLAYRESULT_WIN)->MoveWindow(m_displayResultDlgContainerRect);
-	displayResultDlg.MoveWindow(0,0,m_displayResultDlgContainerRect.Width(),m_displayResultDlgContainerRect.Height());
-
-	//工具栏窗口
-	m_toolBarDlgContainerRect.left += offset.left;
-	m_toolBarDlgContainerRect.right += offset.right;
-	m_toolBarDlgContainerRect.top += offset.top;
-	m_toolBarDlgContainerRect.bottom += offset.top;
-	GetDlgItem(IDC_TOOLBAR_WIN)->MoveWindow(m_toolBarDlgContainerRect);
-
-	//移动图片窗口
-	m_imageSettingDlgContainerRect.left += offset.right;
-	m_imageSettingDlgContainerRect.right += offset.right;
-	m_imageSettingDlgContainerRect.top += offset.top;
-	m_imageSettingDlgContainerRect.bottom += offset.top;
-	GetDlgItem(IDC_IMAGE_WIN)->MoveWindow(m_imageSettingDlgContainerRect);
-
-	//移动属性窗口
-	m_paramSettingDlgContainerRect.left += offset.right;
-	m_paramSettingDlgContainerRect.right += offset.right;
-	m_paramSettingDlgContainerRect.top += offset.top;
-	m_paramSettingDlgContainerRect.bottom += offset.bottom;
-	GetDlgItem(IDC_SETTING_WIN)->MoveWindow(m_paramSettingDlgContainerRect);
-
-	//移动状态栏
-	CRect statusRect;
-	GetClientRect(statusRect);
-	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
-	//HACK: 下面两行设置的时候会有VS异常，执行不会中断，但要注意
-	//HACK- RenderOperator.exe 中的 0x78b945e5 处最可能的异常: 0xC0000005: 读取位置 0x0000006c 时发生访问冲突
-	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());	
-	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());	
-
-	Invalidate(TRUE);
+	CDialogEx::OnSize(nType, cx, cy);
+// 	GetClientRect(m_newRect);
+// 	CRect offset = CRect(
+// 		m_newRect.left - m_oldRect.left,
+// 		m_newRect.top - m_oldRect.top,
+// 		m_newRect.right - m_oldRect.right,
+// 		m_newRect.bottom - m_oldRect.bottom
+// 		);
+// 	m_oldRect = m_newRect;
+// 
+// 
+// 	//移动图片窗口
+// 	m_displayResultDlgContainerRect.left += offset.left;
+// 	m_displayResultDlgContainerRect.right += offset.right;
+// 	m_displayResultDlgContainerRect.top += offset.top;
+// 	m_displayResultDlgContainerRect.bottom += offset.bottom;
+// 	GetDlgItem(IDC_DISPLAYRESULT_WIN)->MoveWindow(m_displayResultDlgContainerRect);
+// 	displayResultDlg.MoveWindow(0,0,m_displayResultDlgContainerRect.Width(),m_displayResultDlgContainerRect.Height());
+// 
+// 	//工具栏窗口
+// 	m_toolBarDlgContainerRect.left += offset.left;
+// 	m_toolBarDlgContainerRect.right += offset.right;
+// 	m_toolBarDlgContainerRect.top += offset.top;
+// 	m_toolBarDlgContainerRect.bottom += offset.top;
+// 	GetDlgItem(IDC_TOOLBAR_WIN)->MoveWindow(m_toolBarDlgContainerRect);
+// 
+// 	//移动图片窗口
+// 	m_imageSettingDlgContainerRect.left += offset.right;
+// 	m_imageSettingDlgContainerRect.right += offset.right;
+// 	m_imageSettingDlgContainerRect.top += offset.top;
+// 	m_imageSettingDlgContainerRect.bottom += offset.top;
+// 	GetDlgItem(IDC_IMAGE_WIN)->MoveWindow(m_imageSettingDlgContainerRect);
+// 
+// 	//移动属性窗口
+// 	m_paramSettingDlgContainerRect.left += offset.right;
+// 	m_paramSettingDlgContainerRect.right += offset.right;
+// 	m_paramSettingDlgContainerRect.top += offset.top;
+// 	m_paramSettingDlgContainerRect.bottom += offset.bottom;
+// 	GetDlgItem(IDC_SETTING_WIN)->MoveWindow(m_paramSettingDlgContainerRect);
+// 
+// 	//移动状态栏
+// 	CRect statusRect;
+// 	GetClientRect(statusRect);
+// 	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
+// 	//HACK: 下面两行设置的时候会有VS异常，执行不会中断，但要注意
+// 	//HACK- RenderOperator.exe 中的 0x78b945e5 处最可能的异常: 0xC0000005: 读取位置 0x0000006c 时发生访问冲突
+// 	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());	
+// 	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());	
+// 
+// 	Invalidate(TRUE);
 }
 
 void CRenderOperatorDlg::OnSysCommand(UINT nID, LPARAM lParam)
@@ -324,7 +327,7 @@ HCURSOR CRenderOperatorDlg::OnQueryDragIcon()
 
 //////////////////////////////////////////////////////////////////////////
 // 菜单消息
-#if 1
+#if 0
 //"保存图像"
 afx_msg void CRenderOperatorDlg::menu_save_image()
 {
@@ -379,7 +382,7 @@ afx_msg void CRenderOperatorDlg::menu_help()
 
 //////////////////////////////////////////////////////////////////////////
 // 自定义消息事件路由
-#if 1
+#if 0
 LRESULT CRenderOperatorDlg::OnSaveImage(WPARAM w,LPARAM l)
 {
 	HGLOG_DEBUG("OnSaveImage");
@@ -524,9 +527,20 @@ LRESULT CRenderOperatorDlg::OnSettingUpdate(WPARAM w,LPARAM l)
 
 #endif
 
+#include "Elara/ElaraHomeAPI.h"
+#include "JsonCpp/json.h"
+#include "HgLog/HgLog.h"
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
-//	HG_RenderParam param = imageSettingDlg.get_RenderParam();
+	EH_Context* contex = EH_create();
+	EH_delete(contex);
+	
+	Json::Value root; 
+	root["123"] = 123123;
+
+	HGLOG_DEBUG(root.toStyledString());
+
+//	HG_RenderParam contex=imageSettingDlg.get_RenderParam();
 // 	HG_Exposure exp  = paramSettingDlg.get_Exposure();
 // 	HG_SunLight sun = paramSettingDlg.get_SunLight();
 // 	HG_SkyLight sky = paramSettingDlg.get_SkyLight();

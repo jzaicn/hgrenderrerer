@@ -11,8 +11,8 @@
 #ifdef WIN32	// only use this on Win32
 
 #include <string>
-#include "HgLog/Export.hh"
-#include "HgLog/LayoutAppender.hh"
+#include "Export.hh"
+#include "LayoutAppender.hh"
 
 namespace log4cpp {
 

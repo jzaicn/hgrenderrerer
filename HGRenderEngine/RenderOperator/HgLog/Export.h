@@ -4,11 +4,6 @@
 
 #pragma warning( disable : 4251 )
 
-
-#if defined( HGLOG_LIB )
-	#define HGLOG_EXPORT   __declspec(dllexport)
-#else
-	#define HGLOG_EXPORT   __declspec(dllimport)
-#endif
+#define HGLOG_EXPORT 
 
 #endif

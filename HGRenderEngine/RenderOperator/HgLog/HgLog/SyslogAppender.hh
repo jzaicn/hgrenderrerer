@@ -10,12 +10,12 @@
 #ifndef _LOG4CPP_SYSLOGAPPENDER_HH
 #define _LOG4CPP_SYSLOGAPPENDER_HH
 
-#include "HgLog/Portability.hh"
+#include <log4cpp/Portability.hh>
 #include <string>
 #include <stdarg.h>
 #include <syslog.h>
-#include "HgLog/LayoutAppender.hh"
-#include "HgLog/Priority.hh"
+#include <log4cpp/LayoutAppender.hh>
+#include <log4cpp/Priority.hh>
 
 namespace log4cpp {
 

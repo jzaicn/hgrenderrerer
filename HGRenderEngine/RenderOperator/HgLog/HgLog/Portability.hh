@@ -12,23 +12,38 @@
 
 #if defined (_MSC_VER) || defined(__BORLANDC__)
 #    if defined (LOG4CPP_STLPORT_AND_BOOST_BUILD)
-#        include "HgLog/config-win32-stlport-boost.h"
+#        include "config-win32-stlport-boost.h"
 #    else
-#        include "HgLog/config-win32.h"
+#        include "config-win32.h"
 #    endif
+
+#ifdef MSVC_MEMORY_LEAK_CHECK
+#define _CRTDBG_MAP_ALLOC
+
+#include <stdlib.h>
+#include <crtdbg.h>
+
+#ifdef _DEBUG
+   #ifndef DBG_NEW
+      #define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+      #define new DBG_NEW
+   #endif
+#endif  // _DEBUG
+#endif // MSVC_MEMORY_LEAK_CHECK
+
 #else
 #if defined(__OPENVMS__)
-#    include "HgLog/config-openvms.h"
+#    include "config-openvms.h"
 #else
 #   if defined(__MINGW32__)
-#       include "HgLog/config-MinGW32.h"
+#       include "config-MinGW32.h"
 #   else
-#       include "HgLog/config.h"
+#       include "config.h"
 #   endif
 #endif
 #endif
 
-#include "HgLog/Export.hh"
+#include "Export.hh"
 
 #if defined(_MSC_VER)
 #    pragma warning( disable : 4786 ) // 255 char debug symbol limit
@@ -49,5 +64,6 @@
      };
 #  endif // LOG4CPP_HAVE_SSTREAM
 #endif // _APPLE_
+
 
 #endif

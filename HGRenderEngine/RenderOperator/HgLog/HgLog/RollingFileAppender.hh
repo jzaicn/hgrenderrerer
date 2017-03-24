@@ -7,8 +7,8 @@
 #ifndef _LOG4CPP_ROLLINGFILEAPPENDER_HH
 #define _LOG4CPP_ROLLINGFILEAPPENDER_HH
 
-#include "HgLog/Portability.hh"
-#include "HgLog/FileAppender.hh"
+#include "Portability.hh"
+#include "FileAppender.hh"
 #include <string>
 #include <stdarg.h>
 

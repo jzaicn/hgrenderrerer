@@ -10,13 +10,13 @@
 #ifndef _LOG4CPP_CATEGORY_HH
 #define _LOG4CPP_CATEGORY_HH
 
-#include "HgLog/Portability.hh"
-#include "HgLog/Appender.hh"
-#include "HgLog/LoggingEvent.hh"
-#include "HgLog/Priority.hh"
-#include "HgLog/CategoryStream.hh"
-#include "HgLog/threading/Threading.hh"
-#include "HgLog/convenience.h"
+#include "Portability.hh"
+#include "Appender.hh"
+#include "LoggingEvent.hh"
+#include "Priority.hh"
+#include "CategoryStream.hh"
+#include "threading/Threading.hh"
+#include "convenience.h"
 
 #include <map>
 #include <vector>
@@ -95,6 +95,12 @@ namespace log4cpp {
         static void shutdown();
 
         /**
+         * This method will remove all Appenders from Categories.XXX and delete all appenders.
+		 * Releases more memory than shutdown() by deleting appenders.
+         **/
+        static void shutdownForced();
+
+		/**
          * Destructor for Category.
          **/
         virtual ~Category();

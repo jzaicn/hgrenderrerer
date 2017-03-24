@@ -8,11 +8,11 @@
 #ifndef _LOG4CPP_PROPERTYCONFIGURATOR_HH
 #define _LOG4CPP_PROPERTYCONFIGURATOR_HH
 
-#include "HgLog/Portability.hh"
-#include "HgLog/Export.hh"
+#include "Portability.hh"
+#include "Export.hh"
 
 #include <string>
-#include "HgLog/Configurator.hh"	// configure exceptions
+#include "Configurator.hh"	// configure exceptions
 
 namespace log4cpp {
 

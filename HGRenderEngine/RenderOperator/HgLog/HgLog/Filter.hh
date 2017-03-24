@@ -10,8 +10,8 @@
 #ifndef _LOG4CPP_FILTER_HH
 #define _LOG4CPP_FILTER_HH
 
-#include "HgLog/Portability.hh"
-#include "HgLog/LoggingEvent.hh"
+#include "Portability.hh"
+#include "LoggingEvent.hh"
 
 namespace log4cpp {
 

@@ -10,9 +10,9 @@
 #ifndef _LOG4CPP_APPENDERSKELETON_HH
 #define _LOG4CPP_APPENDERSKELETON_HH
 
-#include "HgLog/Portability.hh"
-#include "HgLog/Appender.hh"
-#include "HgLog/Filter.hh"
+#include "Portability.hh"
+#include "Appender.hh"
+#include "Filter.hh"
 
 namespace log4cpp {
 

@@ -41,7 +41,8 @@
 #	define EH_XAPI		__attribute__((visibility("default")))
 #endif
 
-#define EH_API EH_EXTERN EH_XAPI
+//#define EH_API EH_EXTERN EH_XAPI
+#define EH_API 
 
 #include <string.h>
 

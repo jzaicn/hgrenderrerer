@@ -10,13 +10,13 @@
 #ifndef _LOG4CPP_CATEGORYSTREAM_HH
 #define _LOG4CPP_CATEGORYSTREAM_HH
 
-#include "HgLog/Portability.hh"
-#include "HgLog/Priority.hh"
+#include "Portability.hh"
+#include "Priority.hh"
 #include <ios>
 #ifdef LOG4CPP_HAVE_SSTREAM
 #include <sstream>
 #endif
-#include "HgLog/Manipulator.hh"
+#include "Manipulator.hh"
 
 namespace log4cpp {
 
