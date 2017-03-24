@@ -10,7 +10,7 @@
 #include "tinyxml.h"
 namespace TinyXml{
 #else
-#include "XmlHandlePlus/tinyxml.h"
+#include "tinyxml.h"
 #endif
 
 class IXmlHandlePlusCompare

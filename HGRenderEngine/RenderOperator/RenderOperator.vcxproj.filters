@@ -87,6 +87,9 @@
     <ClInclude Include="HgLog\HgLog.h">
       <Filter>Tools</Filter>
     </ClInclude>
+    <ClInclude Include="XmlHandlePlus\XmlHandlePlus.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Elara\ElaraHomeAPI.cpp">
@@ -108,6 +111,9 @@
       <Filter>Frame</Filter>
     </ClCompile>
     <ClCompile Include="HgLog\HgLog.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlHandlePlus\XmlHandlePlus.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
   </ItemGroup>

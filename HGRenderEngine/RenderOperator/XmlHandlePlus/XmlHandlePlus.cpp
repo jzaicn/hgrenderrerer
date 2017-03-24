@@ -1,17 +1,16 @@
-#include "stdafx.h"
 #include "XmlHandlePlus.h"
 
 #include <vector>
 #include <string>
 #include <algorithm>
-
-#ifndef XmlHandlePlus_TestProject
-#define TINY_HEADING TinyXml::
-namespace TinyXml{
-#else
-#define TINY_HEADING 
-#pragma comment(lib,"tinyxmlSTL.lib")
-#endif
+// 
+// #ifndef XmlHandlePlus_TestProject
+// #define TINY_HEADING TinyXml::
+// namespace TinyXml{
+// #else
+// #define TINY_HEADING 
+// #pragma comment(lib,"tinyxmlSTL.lib")
+// #endif
 
 	//	ԭHandle
 #if 1

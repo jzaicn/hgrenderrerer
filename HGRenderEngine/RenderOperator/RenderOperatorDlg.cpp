@@ -527,30 +527,20 @@ LRESULT CRenderOperatorDlg::OnSettingUpdate(WPARAM w,LPARAM l)
 
 #endif
 
-#include "Elara/ElaraHomeAPI.h"
-#include "JsonCpp/json.h"
-#include "HgLog/HgLog.h"
+
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
-	EH_Context* contex = EH_create();
-	EH_delete(contex);
-	
-	Json::Value root; 
-	root["123"] = 123123;
+	HG_RenderParam contex=imageSettingDlg.get_RenderParam();
+	HG_Exposure exp  = paramSettingDlg.get_Exposure();
+	HG_SunLight sun = paramSettingDlg.get_SunLight();
+	HG_SkyLight sky = paramSettingDlg.get_SkyLight();
 
-	HGLOG_DEBUG(root.toStyledString());
+	exp.set_exposure_enable(!exp.get_exposure_enable());
+	paramSettingDlg.set_Exposure(exp);
+	paramSettingDlg.set_SunLight(sun);
+	paramSettingDlg.set_SkyLight(sky);
+	imageSettingDlg.set_RenderParam(param);
 
-//	HG_RenderParam contex=imageSettingDlg.get_RenderParam();
-// 	HG_Exposure exp  = paramSettingDlg.get_Exposure();
-// 	HG_SunLight sun = paramSettingDlg.get_SunLight();
-// 	HG_SkyLight sky = paramSettingDlg.get_SkyLight();
-// 
-// 	exp.set_exposure_enable(!exp.get_exposure_enable());
-// 	paramSettingDlg.set_Exposure(exp);
-// 	paramSettingDlg.set_SunLight(sun);
-// 	paramSettingDlg.set_SkyLight(sky);
-//	imageSettingDlg.set_RenderParam(param);
-// 
-// 	//TODO: 修改重绘部分，使其更新譬如选中状态等
-// 	Invalidate();
+	//TODO: 修改重绘部分，使其更新譬如选中状态等
+	Invalidate();
 }
