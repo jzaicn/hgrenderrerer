@@ -90,6 +90,42 @@
     <ClInclude Include="XmlHandlePlus\XmlHandlePlus.h">
       <Filter>Tools</Filter>
     </ClInclude>
+    <ClInclude Include="HG_BaseModel.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Camera.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Exposure.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Light.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Material.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Mesh.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_MeshInstance.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_ModelInstance.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_RenderParam.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_SceneCenter.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_SkyLight.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_SunLight.h">
+      <Filter>Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Elara\ElaraHomeAPI.cpp">
@@ -115,6 +151,42 @@
     </ClCompile>
     <ClCompile Include="XmlHandlePlus\XmlHandlePlus.cpp">
       <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_BaseModel.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Camera.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Exposure.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Light.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Material.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Mesh.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_MeshInstance.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_ModelInstance.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_RenderParam.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_SceneCenter.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_SkyLight.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_SunLight.cpp">
+      <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

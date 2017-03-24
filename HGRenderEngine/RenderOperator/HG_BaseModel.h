@@ -284,8 +284,8 @@ public:
 			m_mat[row].save(strMatRow);
 
 			CString strIndex;
-			strIndex.Format("%d",row);
-			out[strIndex.GetBuffer()] = strMatRow;
+			strIndex.Format(_T("%d"),row);
+			out[(char*)strIndex.GetBuffer()] = strMatRow;
 		}
 	}
 
@@ -295,8 +295,8 @@ public:
 		for (int row = 0; row < 4 ; row++)
 		{
 			CString strIndex;
-			strIndex.Format("%d",row);
-			m_mat[row].load(in[strIndex.GetBuffer()]);
+			strIndex.Format(_T("%d"),row);
+			m_mat[row].load(in[(char*)strIndex.GetBuffer()]);
 		}
 	}
 private:
