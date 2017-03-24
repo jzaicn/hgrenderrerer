@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "DialogImageSettings.h"
 #include "afxdialogex.h"
-#include "XmlHandlePlus.h"
+#include "XmlHandlePlus/XmlHandlePlus.h"
 #include "XmlHandlePlus/tinyxml.h"
 
 // ImageSetting 对话框
@@ -37,7 +37,7 @@ END_MESSAGE_MAP()
 
 // ImageSetting 消息处理程序
 
-#include "XmlHandlePlus.h"
+#include "XmlHandlePlus/XmlHandlePlus.h"
 
 BOOL DialogImageSettings::OnInitDialog()
 {
@@ -57,7 +57,7 @@ BOOL DialogImageSettings::OnInitDialog()
 			for (auto optItem = options.begin(); optItem != options.end() ; optItem++)
 			{
 				XmlHandlePlus optItemPlus(*optItem);
-				m_RenderQuality.AddString(optItemPlus.getAttr("cn_name").c_str());
+				m_RenderQuality.AddString((WCHAR*)optItemPlus.getAttr("cn_name").c_str());
 			}
 			m_RenderQuality.SetCurSel(atoi(node.getAttr("default").c_str()));
 		}
@@ -67,7 +67,7 @@ BOOL DialogImageSettings::OnInitDialog()
 			for (auto optItem = options.begin(); optItem != options.end() ; optItem++)
 			{
 				XmlHandlePlus optItemPlus(*optItem);
-				m_ImageSize.AddString(optItemPlus.getAttr("cn_name").c_str());
+				m_ImageSize.AddString((WCHAR*)optItemPlus.getAttr("cn_name").c_str());
 			}
 			m_ImageSize.SetCurSel(atoi(node.getAttr("default").c_str()));
 		}
@@ -103,15 +103,15 @@ HG_RenderParam DialogImageSettings::get_RenderParam()
 
 	CString width_heigh;
 	((CComboBox*)GetDlgItem(IDC_IMAGE_SIZE_COMBO))->GetWindowText(width_heigh);
-	int splitx = width_heigh.Find("x");
+	int splitx = width_heigh.Find(_T("x"));
 	if (splitx == -1 || splitx == 0 || splitx == width_heigh.GetLength() )
 	{
 		return param;
 	}
 	CString width = width_heigh.Left(splitx);
 	CString height = width_heigh.Right(width_heigh.GetLength() - splitx -1);
-	param.set_render_width(atoi(width.GetBuffer()));
-	param.set_render_height(atoi(height.GetBuffer()));
+	param.set_render_width(atoi((char*)width.GetBuffer()));
+	param.set_render_height(atoi((char*)height.GetBuffer()));
 
 
 	return param;
@@ -126,6 +126,6 @@ void DialogImageSettings::set_RenderParam(HG_RenderParam param)
 	int width = param.get_render_width();
 	int height = param.get_render_height();
 	CString width_heigh;
-	width_heigh.Format("%dx%d",width,height);
+	width_heigh.Format(_T("%dx%d"),width,height);
 	((CComboBox*)GetDlgItem(IDC_IMAGE_SIZE_COMBO))->SetWindowText(width_heigh);
 }

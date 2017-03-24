@@ -5,10 +5,10 @@
 #pragma once
 
 #include "DialogPlus.h"
-// #include "DialogDisplayResult.h"
-// #include "DialogImageSettings.h"
-// #include "DialogRenderToolBar.h"
-// #include "DialogRenderSettings.h"
+#include "DialogDisplayResult.h"
+#include "DialogImageSettings.h"
+#include "DialogRenderToolBar.h"
+#include "DialogRenderSettings.h"
 
 // CRenderOperatorDlg 对话框
 class CRenderOperatorDlg : public DialogPlus
@@ -25,7 +25,7 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////
 	// 功能区域
-#if 0
+#if 1
 private:	
 	CScrollBar m_settingScroll;				// 子窗口滚动条
 	CRect m_oldRect;						// 旧窗口区域
@@ -45,9 +45,9 @@ private:
 	CRect m_imageSettingDlgContainerRect;	// 图片配置包围区域
 
 
-	DialogRenderSettings paramSettingDlg;			// 属性配置对话框
-	CRect m_paramSettingDlgRect;			// 属性配置对话框区域
-	CRect m_paramSettingDlgContainerRect;	// 属性配置包围区域
+// 	DialogRenderSettings paramSettingDlg;			// 属性配置对话框
+// 	CRect m_paramSettingDlgRect;			// 属性配置对话框区域
+// 	CRect m_paramSettingDlgContainerRect;	// 属性配置包围区域
 
 
 

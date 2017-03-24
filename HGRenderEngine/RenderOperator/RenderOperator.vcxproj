@@ -143,7 +143,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButtonPickColor.h" />
+    <ClInclude Include="DialogDisplayResult.h" />
+    <ClInclude Include="DialogImageSettings.h" />
     <ClInclude Include="DialogPlus.h" />
+    <ClInclude Include="DialogRenderToolBar.h" />
     <ClInclude Include="Elara\ElaraHomeAPI.h" />
     <ClInclude Include="Elara\esslib.h" />
     <ClInclude Include="Elara\esswriter.h" />
@@ -169,7 +172,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ButtonPickColor.cpp" />
+    <ClCompile Include="DialogDisplayResult.cpp" />
+    <ClCompile Include="DialogImageSettings.cpp" />
     <ClCompile Include="DialogPlus.cpp" />
+    <ClCompile Include="DialogRenderToolBar.cpp" />
     <ClCompile Include="Elara\ElaraHomeAPI.cpp" />
     <ClCompile Include="Elara\esslib.cpp" />
     <ClCompile Include="Elara\esswriter.cpp" />

@@ -126,67 +126,67 @@ END_MESSAGE_MAP()
 BOOL CRenderOperatorDlg::OnInitDialog()
 {
 	DialogPlus::OnInitDialog();
-// 	//TODO: 以后配置配置文件，不用这个代码init logger
-// 	HgLog::HgLog::initDebugLogCategory();
-// 	
-// 	ShareHwnd(GetSafeHwnd());
-// 
-// 	// 将“关于...”菜单项添加到系统菜单中。
-// 
-// 	// IDM_ABOUTBOX 必须在系统命令范围内。
-// 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
-// 	ASSERT(IDM_ABOUTBOX < 0xF000);
-// 
-// 	CMenu* pSysMenu = GetSystemMenu(FALSE);
-// 	if (pSysMenu != NULL)
-// 	{
-// 		BOOL bNameValid;
-// 		CString strAboutMenu;
-// 		bNameValid = strAboutMenu.LoadString(IDS_ABOUTBOX);
-// 		ASSERT(bNameValid);
-// 		if (!strAboutMenu.IsEmpty())
-// 		{
-// 			pSysMenu->AppendMenu(MF_SEPARATOR);
-// 			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
-// 		}
-// 	}
-// 
-// 	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
-// 	//  执行此操作
-// 	SetIcon(m_hIcon, TRUE);			// 设置大图标
-// 	SetIcon(m_hIcon, FALSE);		// 设置小图标
-// 
-// 
-// 	// 绘图对话框
-// 	//HACK: 创建子窗口抛出异常
+	//TODO: 以后配置配置文件，不用这个代码init logger
+	HgLog::HgLog::initDebugLogCategory();
+	
+	ShareHwnd(GetSafeHwnd());
+
+	// 将“关于...”菜单项添加到系统菜单中。
+
+	// IDM_ABOUTBOX 必须在系统命令范围内。
+	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
+	ASSERT(IDM_ABOUTBOX < 0xF000);
+
+	CMenu* pSysMenu = GetSystemMenu(FALSE);
+	if (pSysMenu != NULL)
+	{
+		BOOL bNameValid;
+		CString strAboutMenu;
+		bNameValid = strAboutMenu.LoadString(IDS_ABOUTBOX);
+		ASSERT(bNameValid);
+		if (!strAboutMenu.IsEmpty())
+		{
+			pSysMenu->AppendMenu(MF_SEPARATOR);
+			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
+		}
+	}
+
+	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
+	//  执行此操作
+	SetIcon(m_hIcon, TRUE);			// 设置大图标
+	SetIcon(m_hIcon, FALSE);		// 设置小图标
+
+
+	// 绘图对话框
+	//HACK: 创建子窗口抛出异常
 // 	displayResultDlg.Create(IDD_DISPLAY_DLG,GetDlgItem(IDC_DISPLAYRESULT_WIN));
 // 	displayResultDlg.ShowWindow(SW_SHOW);
 // 	displayResultDlg.GetWindowRect(m_toolBarDlgRect);
 // 	GetDlgItem(IDC_DISPLAYRESULT_WIN)->GetWindowRect(m_displayResultDlgContainerRect);
 // 	ScreenToClient(m_displayResultDlgContainerRect);
-// 
-// 	// 工具栏对话框
-//  	toolBarDlg.Create(IDD_TOOLBAR_DLG,GetDlgItem(IDC_TOOLBAR_WIN));
-//  	toolBarDlg.ShowWindow(SW_SHOW);
-//  	toolBarDlg.GetWindowRect(m_toolBarDlgRect);
-// 	GetDlgItem(IDC_TOOLBAR_WIN)->GetWindowRect(m_toolBarDlgContainerRect);
-// 	ScreenToClient(m_toolBarDlgContainerRect);
-// 
-// 	// 图片对话框
-//  	imageSettingDlg.Create(IDD_IMAGE_DLG,GetDlgItem(IDC_IMAGE_WIN));
-//  	imageSettingDlg.ShowWindow(SW_SHOW);
-//  	imageSettingDlg.GetWindowRect(m_imageSettingDlgRect);
-// 	GetDlgItem(IDC_IMAGE_WIN)->GetWindowRect(m_imageSettingDlgContainerRect);
-// 	ScreenToClient(m_imageSettingDlgContainerRect);
-// 
+
+	// 工具栏对话框
+ 	toolBarDlg.Create(IDD_TOOLBAR_DLG,GetDlgItem(IDC_TOOLBAR_WIN));
+ 	toolBarDlg.ShowWindow(SW_SHOW);
+ 	toolBarDlg.GetWindowRect(m_toolBarDlgRect);
+	GetDlgItem(IDC_TOOLBAR_WIN)->GetWindowRect(m_toolBarDlgContainerRect);
+	ScreenToClient(m_toolBarDlgContainerRect);
+
+	// 图片对话框
+ 	imageSettingDlg.Create(IDD_IMAGE_DLG,GetDlgItem(IDC_IMAGE_WIN));
+ 	imageSettingDlg.ShowWindow(SW_SHOW);
+ 	imageSettingDlg.GetWindowRect(m_imageSettingDlgRect);
+	GetDlgItem(IDC_IMAGE_WIN)->GetWindowRect(m_imageSettingDlgContainerRect);
+	ScreenToClient(m_imageSettingDlgContainerRect);
+
 // 	// 设置参数对话框
 //  	paramSettingDlg.Create(IDD_SETTING_DLG,GetDlgItem(IDC_SETTING_WIN));
 //  	paramSettingDlg.ShowWindow(SW_SHOW);
 //  	paramSettingDlg.GetWindowRect(m_paramSettingDlgRect);
 // 	GetDlgItem(IDC_SETTING_WIN)->GetWindowRect(m_paramSettingDlgContainerRect);
 // 	ScreenToClient(m_paramSettingDlgContainerRect);
-// 
-// 	//创建状态栏
+
+	//创建状态栏
 // 	CRect statusRect;
 // 	GetClientRect(statusRect);
 // 	if(!m_wndStatusBar.Create(this)|| !m_wndStatusBar.SetIndicators(indicators,sizeof(indicators)/sizeof(UINT))) return false;
@@ -195,11 +195,11 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 // 	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
 // 	m_wndStatusBar.SetPaneText(0,"准备就绪");
 // 	m_wndStatusBar.SetPaneText(1,"当前缩放比：100%");
-// 
-// 	GetClientRect(m_newRect);
-// 	GetClientRect(m_oldRect);
-// 
-// 
+
+	GetClientRect(m_newRect);
+	GetClientRect(m_oldRect);
+
+
 // 	// 加载文件
 // 	std::ifstream readStream("d:\\room.json");
 // 	if (readStream.is_open())
