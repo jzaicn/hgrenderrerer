@@ -32,6 +32,7 @@ public:
 		RENDER_STOP,	// 渲染停止
 		RENDER_DONE,	// 渲染停止
 		RENDER_SETTING_UPDATE,	// 渲染参数更新
+		RENDER_STATUS_UPDATE,	// 渲染状态更新
 
 		RENDER_COMMAND_END,	//渲染相关命令——结束
 	}CMD;

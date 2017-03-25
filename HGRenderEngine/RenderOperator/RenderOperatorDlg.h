@@ -52,6 +52,7 @@ private:
 
 
 	static UINT indicators[];				//状态栏文字
+	static int indiceWidth[];				//状态栏宽度
 	CStatusBar   m_wndStatusBar;			//状态栏
 
 #endif
@@ -150,5 +151,7 @@ public:
 	afx_msg virtual LRESULT OnDone(WPARAM w,LPARAM l);
 	// 渲染设置更新
 	afx_msg virtual LRESULT OnSettingUpdate(WPARAM w,LPARAM l);
+	// 渲染状态更新
+	afx_msg virtual LRESULT OnRenderStatusUpdate(WPARAM w,LPARAM l);
 #endif
 };

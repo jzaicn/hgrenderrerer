@@ -114,11 +114,13 @@ BEGIN_MESSAGE_MAP(CRenderOperatorDlg, DialogPlus)
 	ON_MESSAGE(RENDER_STOP,&CRenderOperatorDlg::OnStop)	// 渲染停止
 	ON_MESSAGE(RENDER_DONE,&CRenderOperatorDlg::OnDone)	// 渲染停止
 	ON_MESSAGE(RENDER_SETTING_UPDATE,&CRenderOperatorDlg::OnSettingUpdate)	// 渲染设置更新
+	ON_MESSAGE(RENDER_STATUS_UPDATE,&CRenderOperatorDlg::OnRenderStatusUpdate)	// 渲染状态更新
 END_MESSAGE_MAP()
 
 #endif
 
 UINT CRenderOperatorDlg::indicators[] = {IDS_STATESTRING1, IDS_STATESTRING2};
+int CRenderOperatorDlg::indiceWidth[] = {0,0};
 
 //////////////////////////////////////////////////////////////////////////
 // CRenderOperatorDlg 消息处理程序
@@ -191,8 +193,10 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 	GetClientRect(statusRect);
 	if(!m_wndStatusBar.Create(this)|| !m_wndStatusBar.SetIndicators(indicators,sizeof(indicators)/sizeof(UINT))) return false;
 	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);// 调整状态栏的位置和大小
-	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
-	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
+	indiceWidth[0] = statusRect.Width() - m_paramSettingDlgContainerRect.Width();
+	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, indiceWidth[0]);
+	indiceWidth[1] = m_paramSettingDlgContainerRect.Width();
+	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, indiceWidth[1]);
 	m_wndStatusBar.SetPaneText(0,HGCode::convert("准备就绪"));
 	m_wndStatusBar.SetPaneText(1,HGCode::convert("当前缩放比：100%"));
 	
@@ -266,10 +270,11 @@ void CRenderOperatorDlg::OnSize(UINT nType, int cx, int cy)
 	CRect statusRect;
 	GetClientRect(statusRect);
 	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
+	indiceWidth[0] = statusRect.Width() - m_paramSettingDlgContainerRect.Width();
 	//HACK: 下面两行设置的时候会有VS异常，执行不会中断，但要注意
 	//HACK- RenderOperator.exe 中的 0x78b945e5 处最可能的异常: 0xC0000005: 读取位置 0x0000006c 时发生访问冲突
-	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());	
-	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());	
+	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, indiceWidth[0]);	
+	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, indiceWidth[1]);	
 
 	Invalidate(TRUE);
 }
@@ -522,6 +527,11 @@ LRESULT CRenderOperatorDlg::OnDone(WPARAM w,LPARAM l)
 LRESULT CRenderOperatorDlg::OnSettingUpdate(WPARAM w,LPARAM l)
 {
 	HGLOG_DEBUG("OnSettingUpdate");
+	return 0;
+}
+
+LRESULT CRenderOperatorDlg::OnRenderStatusUpdate(WPARAM w,LPARAM l)
+{
 	return 0;
 }
 
