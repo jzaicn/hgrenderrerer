@@ -312,6 +312,7 @@ void CRenderOperatorDlg::OnSize(UINT nType, int cx, int cy)
 	m_wndStatusBar.SetPaneInfo(statusbar::scale,indicators[statusbar::scale],SBPS_NORMAL, indiceWidth[statusbar::scale]);
 	//m_wndStatusBar.SetPaneText(statusbar::scale,HGCode::convert("准备就绪"));//init 打开
 
+	//HACK: 这里statusbar长度不准
 	//渲染进度
 	m_render_process_rect = statusRect;
 	m_render_process_rect.top = statusRect.bottom - 19;
