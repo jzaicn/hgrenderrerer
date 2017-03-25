@@ -118,7 +118,7 @@ END_MESSAGE_MAP()
 
 #endif
 
-//UINT CRenderOperatorDlg::indicators[] = {IDS_STATESTRING1, IDS_STATESTRING2};
+UINT CRenderOperatorDlg::indicators[] = {IDS_STATESTRING1, IDS_STATESTRING2};
 
 //////////////////////////////////////////////////////////////////////////
 // CRenderOperatorDlg 消息处理程序
@@ -187,15 +187,15 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 	ScreenToClient(m_paramSettingDlgContainerRect);
 
 	//创建状态栏
-// 	CRect statusRect;
-// 	GetClientRect(statusRect);
-// 	if(!m_wndStatusBar.Create(this)|| !m_wndStatusBar.SetIndicators(indicators,sizeof(indicators)/sizeof(UINT))) return false;
-// 	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);// 调整状态栏的位置和大小
-// 	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
-// 	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
-// 	m_wndStatusBar.SetPaneText(0,"准备就绪");
-// 	m_wndStatusBar.SetPaneText(1,"当前缩放比：100%");
-
+	CRect statusRect;
+	GetClientRect(statusRect);
+	if(!m_wndStatusBar.Create(this)|| !m_wndStatusBar.SetIndicators(indicators,sizeof(indicators)/sizeof(UINT))) return false;
+	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);// 调整状态栏的位置和大小
+	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());
+	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());
+	m_wndStatusBar.SetPaneText(0,HGCode::convert("准备就绪"));
+	m_wndStatusBar.SetPaneText(1,HGCode::convert("当前缩放比：100%"));
+	
 	GetClientRect(m_newRect);
 	GetClientRect(m_oldRect);
 
@@ -223,55 +223,55 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 void CRenderOperatorDlg::OnSize(UINT nType, int cx, int cy)
 {
 	DialogPlus::OnSize(nType, cx, cy);
-// 	GetClientRect(m_newRect);
-// 	CRect offset = CRect(
-// 		m_newRect.left - m_oldRect.left,
-// 		m_newRect.top - m_oldRect.top,
-// 		m_newRect.right - m_oldRect.right,
-// 		m_newRect.bottom - m_oldRect.bottom
-// 		);
-// 	m_oldRect = m_newRect;
-// 
-// 
-// 	//移动图片窗口
-// 	m_displayResultDlgContainerRect.left += offset.left;
-// 	m_displayResultDlgContainerRect.right += offset.right;
-// 	m_displayResultDlgContainerRect.top += offset.top;
-// 	m_displayResultDlgContainerRect.bottom += offset.bottom;
-// 	GetDlgItem(IDC_DISPLAYRESULT_WIN)->MoveWindow(m_displayResultDlgContainerRect);
-// 	displayResultDlg.MoveWindow(0,0,m_displayResultDlgContainerRect.Width(),m_displayResultDlgContainerRect.Height());
-// 
-// 	//工具栏窗口
-// 	m_toolBarDlgContainerRect.left += offset.left;
-// 	m_toolBarDlgContainerRect.right += offset.right;
-// 	m_toolBarDlgContainerRect.top += offset.top;
-// 	m_toolBarDlgContainerRect.bottom += offset.top;
-// 	GetDlgItem(IDC_TOOLBAR_WIN)->MoveWindow(m_toolBarDlgContainerRect);
-// 
-// 	//移动图片窗口
-// 	m_imageSettingDlgContainerRect.left += offset.right;
-// 	m_imageSettingDlgContainerRect.right += offset.right;
-// 	m_imageSettingDlgContainerRect.top += offset.top;
-// 	m_imageSettingDlgContainerRect.bottom += offset.top;
-// 	GetDlgItem(IDC_IMAGE_WIN)->MoveWindow(m_imageSettingDlgContainerRect);
-// 
-// 	//移动属性窗口
-// 	m_paramSettingDlgContainerRect.left += offset.right;
-// 	m_paramSettingDlgContainerRect.right += offset.right;
-// 	m_paramSettingDlgContainerRect.top += offset.top;
-// 	m_paramSettingDlgContainerRect.bottom += offset.bottom;
-// 	GetDlgItem(IDC_SETTING_WIN)->MoveWindow(m_paramSettingDlgContainerRect);
-// 
-// 	//移动状态栏
-// 	CRect statusRect;
-// 	GetClientRect(statusRect);
-// 	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
-// 	//HACK: 下面两行设置的时候会有VS异常，执行不会中断，但要注意
-// 	//HACK- RenderOperator.exe 中的 0x78b945e5 处最可能的异常: 0xC0000005: 读取位置 0x0000006c 时发生访问冲突
-// 	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());	
-// 	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());	
-// 
-// 	Invalidate(TRUE);
+	GetClientRect(m_newRect);
+	CRect offset = CRect(
+		m_newRect.left - m_oldRect.left,
+		m_newRect.top - m_oldRect.top,
+		m_newRect.right - m_oldRect.right,
+		m_newRect.bottom - m_oldRect.bottom
+		);
+	m_oldRect = m_newRect;
+
+
+	//移动图片窗口
+	m_displayResultDlgContainerRect.left += offset.left;
+	m_displayResultDlgContainerRect.right += offset.right;
+	m_displayResultDlgContainerRect.top += offset.top;
+	m_displayResultDlgContainerRect.bottom += offset.bottom;
+	GetDlgItem(IDC_DISPLAYRESULT_WIN)->MoveWindow(m_displayResultDlgContainerRect);
+	displayResultDlg.MoveWindow(0,0,m_displayResultDlgContainerRect.Width(),m_displayResultDlgContainerRect.Height());
+
+	//工具栏窗口
+	m_toolBarDlgContainerRect.left += offset.left;
+	m_toolBarDlgContainerRect.right += offset.right;
+	m_toolBarDlgContainerRect.top += offset.top;
+	m_toolBarDlgContainerRect.bottom += offset.top;
+	GetDlgItem(IDC_TOOLBAR_WIN)->MoveWindow(m_toolBarDlgContainerRect);
+
+	//移动图片窗口
+	m_imageSettingDlgContainerRect.left += offset.right;
+	m_imageSettingDlgContainerRect.right += offset.right;
+	m_imageSettingDlgContainerRect.top += offset.top;
+	m_imageSettingDlgContainerRect.bottom += offset.top;
+	GetDlgItem(IDC_IMAGE_WIN)->MoveWindow(m_imageSettingDlgContainerRect);
+
+	//移动属性窗口
+	m_paramSettingDlgContainerRect.left += offset.right;
+	m_paramSettingDlgContainerRect.right += offset.right;
+	m_paramSettingDlgContainerRect.top += offset.top;
+	m_paramSettingDlgContainerRect.bottom += offset.bottom;
+	GetDlgItem(IDC_SETTING_WIN)->MoveWindow(m_paramSettingDlgContainerRect);
+
+	//移动状态栏
+	CRect statusRect;
+	GetClientRect(statusRect);
+	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);
+	//HACK: 下面两行设置的时候会有VS异常，执行不会中断，但要注意
+	//HACK- RenderOperator.exe 中的 0x78b945e5 处最可能的异常: 0xC0000005: 读取位置 0x0000006c 时发生访问冲突
+	m_wndStatusBar.SetPaneInfo(0,indicators[0],SBPS_NORMAL, statusRect.Width() - m_paramSettingDlgContainerRect.Width());	
+	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, m_paramSettingDlgContainerRect.Width());	
+
+	Invalidate(TRUE);
 }
 
 void CRenderOperatorDlg::OnSysCommand(UINT nID, LPARAM lParam)
@@ -530,7 +530,7 @@ LRESULT CRenderOperatorDlg::OnSettingUpdate(WPARAM w,LPARAM l)
 #include "HGCode.h"
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
-	CString cstr = _T("宏光软件");
+	CString cstr = HGCode::convert("宏光软件");
 
 	const char* p = nullptr;
 	p = HGCode::convert(cstr);

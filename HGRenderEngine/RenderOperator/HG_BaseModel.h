@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "JsonCpp/json.h"
+#include "HGCode.h"
 
 #define GETSET(type,name)\
 private: type m_##name;\
@@ -284,7 +285,7 @@ public:
 			m_mat[row].save(strMatRow);
 
 			CString strIndex;
-			strIndex.Format(_T("%d"),row);
+			strIndex.Format(HGCode::convert("%d"),row);
 			out[(char*)strIndex.GetBuffer()] = strMatRow;
 		}
 	}
@@ -295,7 +296,7 @@ public:
 		for (int row = 0; row < 4 ; row++)
 		{
 			CString strIndex;
-			strIndex.Format(_T("%d"),row);
+			strIndex.Format(HGCode::convert("%d"),row);
 			m_mat[row].load(in[(char*)strIndex.GetBuffer()]);
 		}
 	}
