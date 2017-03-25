@@ -9,6 +9,7 @@
 #include "DialogImageSettings.h"
 #include "DialogRenderToolBar.h"
 #include "DialogRenderSettings.h"
+#include "afxcmn.h"
 
 // CRenderOperatorDlg 对话框
 class CRenderOperatorDlg : public DialogPlus
@@ -49,8 +50,15 @@ private:
 	CRect m_paramSettingDlgRect;			// 属性配置对话框区域
 	CRect m_paramSettingDlgContainerRect;	// 属性配置包围区域
 
+	CProgressCtrl m_render_process;			// 渲染进度
+	CRect m_render_process_rect;			// 渲染进度区域
 
-
+	typedef enum
+	{
+		info = 0,
+		process,
+		scale,
+	}statusbar;
 	static UINT indicators[];				//状态栏文字
 	static int indiceWidth[];				//状态栏宽度
 	CStatusBar   m_wndStatusBar;			//状态栏

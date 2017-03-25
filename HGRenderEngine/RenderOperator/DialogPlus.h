@@ -37,6 +37,13 @@ public:
 		RENDER_COMMAND_END,	//渲染相关命令——结束
 	}CMD;
 
+	typedef enum
+	{
+		update_process,		//更新渲染进度
+		update_status_text,	//更新渲染状态
+		update_image_scale,	//更新图片缩放比例
+	}RenderStatus;
+
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
