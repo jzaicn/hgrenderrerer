@@ -4,7 +4,8 @@
 
 IMPLEMENT_DYNAMIC(DialogPlus, CDialogEx)
 
-HWND DialogPlus::m_shareHwnd;
+
+std::vector<HWND> DialogPlus::m_shareArr;
 
 CString DialogPlus::m_saveImagePath;
 

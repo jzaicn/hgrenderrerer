@@ -19,6 +19,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
+	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	virtual BOOL OnInitDialog();
 
@@ -26,4 +27,10 @@ private:
 	CRect m_clientRect;
 	CRect m_oldRect;
 	CRect m_newRect;
+	
+	//////////////////////////////////////////////////////////////////////////
+	// 自定义消息路由
+public:
+	// 渲染图片更新
+	afx_msg virtual LRESULT OnRenderImageUpdate(WPARAM w,LPARAM l);
 };

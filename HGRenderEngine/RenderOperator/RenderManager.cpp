@@ -264,7 +264,7 @@ public:
 			index += height;
 		}
 		
-		//DialogPlus::Send();
+		DialogPlus::Send(DialogPlus::RENDER_IMAGE_UPDATE,NULL,(LPARAM)m_pImg);
 	}
 	static void log_callback(EH_Severity severity, const char *msg)
 	{

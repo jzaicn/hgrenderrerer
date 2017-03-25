@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include <vector>
 class DialogPlus :public CDialogEx
 {
 	DECLARE_DYNAMIC(DialogPlus)
@@ -33,6 +33,7 @@ public:
 		RENDER_DONE,	// 渲染停止
 		RENDER_SETTING_UPDATE,	// 渲染参数更新
 		RENDER_STATUS_UPDATE,	// 渲染状态更新
+		RENDER_IMAGE_UPDATE,	// 渲染状态更新
 
 		RENDER_COMMAND_END,	//渲染相关命令——结束
 	}CMD;
@@ -72,8 +73,18 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// 公共数据
 public:
-	static HWND ShareHwnd() { return m_shareHwnd; }
-	static void ShareHwnd(HWND val) { m_shareHwnd = val; }
+	//static HWND registerShareHwnd() { return m_shareHwnd; }
+	static void registerShareHwnd(HWND val) 
+	{
+		for (int i = 0; i < m_shareArr.size() ; i++)
+		{
+			if(m_shareArr.at(i) == val)
+			{
+				return;
+			}
+		}
+		m_shareArr.push_back(val);
+	}
 
 	CString SaveImagePath() const { return m_saveImagePath; }
 	void SaveImagePath(CString val) { m_saveImagePath = val; }
@@ -84,11 +95,18 @@ public:
 	
 	static void Post(DialogPlus::CMD cmd,WPARAM wParam = NULL ,LPARAM lParam = NULL)
 	{
-		::PostMessage(ShareHwnd(),cmd,wParam,lParam);
+		for (int i = 0; i < m_shareArr.size() ; i++)
+		{
+			::PostMessage(m_shareArr.at(i),cmd,wParam,lParam);
+		}
 	}
 	static void Send(DialogPlus::CMD cmd,WPARAM wParam = NULL ,LPARAM lParam = NULL)
 	{
-		::SendMessage(ShareHwnd(),cmd,wParam,lParam);
+		for (int i = 0; i < m_shareArr.size() ; i++)
+		{
+			::SendMessage(m_shareArr.at(i),cmd,wParam,lParam);
+		}
+		
 	}
 	static void setStatusText(CString text)
 	{
@@ -96,7 +114,8 @@ public:
 	}
 
 private:
-	static HWND m_shareHwnd;
+
+	static std::vector<HWND> m_shareArr;
 	
 	static CString m_saveImagePath;
 

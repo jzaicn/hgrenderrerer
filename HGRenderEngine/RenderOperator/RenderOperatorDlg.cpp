@@ -132,7 +132,7 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 	//TODO: 以后配置配置文件，不用这个代码init logger
 	HgLog::HgLog::initDebugLogCategory();
 	
-	ShareHwnd(GetSafeHwnd());
+	registerShareHwnd(GetSafeHwnd());
 
 	// 将“关于...”菜单项添加到系统菜单中。
 
@@ -603,21 +603,23 @@ LRESULT CRenderOperatorDlg::OnRenderStatusUpdate(WPARAM w,LPARAM l)
 	return 0;
 }
 
+
 #endif
 
 #include "HGCode.h"
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
-	CString cstr = HGCode::convert("宏光软件");
+// 	CString cstr = HGCode::convert("宏光软件");
+// 
+// 	const char* p = nullptr;
+// 	p = HGCode::convert(cstr);
+// 	HGLOG_DEBUG(p);
+// 
+// 	std::string sstr = "首席工程师";
+// 	CString cstr2 = HGCode::convert(sstr);
+// 	MessageBox(cstr2);
 
-	const char* p = nullptr;
-	p = HGCode::convert(cstr);
-	HGLOG_DEBUG(p);
-
-	std::string sstr = "首席工程师";
-	CString cstr2 = HGCode::convert(sstr);
-	MessageBox(cstr2);
-
+	DialogPlus::Send(DialogPlus::RENDER_IMAGE_UPDATE,NULL,NULL);
 
 // 	Json::Value root;
 // 
