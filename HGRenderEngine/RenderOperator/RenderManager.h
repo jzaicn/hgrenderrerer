@@ -4,7 +4,6 @@
 #include "HG_BaseModel.h"
 
 
-
 class RenderManager
 {
 private:
@@ -49,9 +48,14 @@ public:
 	//TODO: material
 	//TODO: meshÊµÀý
 
+	void initial();
+	
+
 private:
 	class DataStorageCore;
 	static DataStorageCore storage;
+	class CallBackCore;
+	static CallBackCore callback;
 
 
 

@@ -31,17 +31,18 @@
 
 /* Exporting and importing */
 /* EI_HOME_EXPORTS must NOT be defined by users */
-#ifdef _MSC_VER
-#	if defined ELARA_HOME_EXPORTS
-#		define EH_XAPI	__declspec(dllexport)
-#	else
-#		define EH_XAPI	__declspec(dllimport)
-#	endif
-#else
-#	define EH_XAPI		__attribute__((visibility("default")))
-#endif
+// #ifdef _MSC_VER
+// #	if defined ELARA_HOME_EXPORTS
+// #		define EH_XAPI	__declspec(dllexport)
+// #	else
+// #		define EH_XAPI	__declspec(dllimport)
+// #	endif
+// #else
+// #	define EH_XAPI		__attribute__((visibility("default")))
+// #endif
 
-#define EH_API EH_EXTERN EH_XAPI
+//#define EH_API EH_EXTERN EH_XAPI
+#define EH_API EH_EXTERN 
 
 #include <string.h>
 

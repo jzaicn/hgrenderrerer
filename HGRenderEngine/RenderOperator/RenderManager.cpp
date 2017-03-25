@@ -14,13 +14,14 @@ public:
 	~DataStorageCore(){	clear();}
 	void clear(){if (get_context())	{EH_delete(get_context());set_context(NULL);}}
 	void init(){clear();initWhenNot();}
-	void initWhenNot(){if (!get_context()){set_context(EH_create());}}
+	bool initWhenNot(){if (!get_context()){set_context(EH_create());return true;}return false;}
 
 private:
 	GETSET(EH_Context*,context);
 
 //////////////////////////////////////////////////////////////////////////
 // 字符管理工具
+#if 1
 public:
 	const char* createConstChar(const std::string& val)
 	{
@@ -41,10 +42,13 @@ public:
 	}
 private:
 	std::vector<char*> m_charManager;
+#endif
 
 //////////////////////////////////////////////////////////////////////////
 // 填充器
+#if 1
 public:
+
 	void fill(uint_t& outval,UINT inval)
 	{
 		outval = inval;
@@ -218,20 +222,50 @@ public:
 		outval.refract_glossiness = 1.0;
 	}
 
+#endif
 
 };
 
+class RenderManager::CallBackCore
+{
+//////////////////////////////////////////////////////////////////////////
+// 易渲回调函数响应中心
+public:
+	CallBackCore(){}
+	~CallBackCore(){}
 
+//////////////////////////////////////////////////////////////////////////
+// 回调函数
+#if 1
+public:
+	static void dispaly_callback(uint_t width, uint_t height,const EH_RGBA *color_data)
+	{
+		HGLOG_DEBUG("dispaly_callback");
+	}
+	static void log_callback(EH_Severity severity, const char *msg)
+	{
+		HGLOG_DEBUG("log_callback level:%d , msg: %s ",(int)severity , msg);
+	}
+	static bool progress_callback(float progress)
+	{
+		HGLOG_DEBUG("progress_callback : %f ",progress);
+		return true;
+	}
+#endif
+};
 
 
 RenderManager RenderManager::manager;
 RenderManager::DataStorageCore RenderManager::storage;
+RenderManager::CallBackCore RenderManager::callback;
 
 
 RenderManager::RenderManager(void)
 {
 	set_render_exe_path("E:\\HGRENDER\\Elara_SDK_1_0_76\\bin\\er.exe");
 	set_scene_path("D:\\my_scene.ess");
+
+	
 }
 
 
@@ -247,114 +281,128 @@ RenderManager& RenderManager::inst()
 
 void RenderManager::SaveESS(std::string path)
 {
-	set_scene_path(path);
-	
-	storage.initWhenNot();
-
-	EH_ExportOptions opt;
-	opt.base85_encoding = true;
-	opt.left_handed = false;
-
-	EH_begin_export(storage.get_context(),get_scene_path().c_str(),&opt);
-
-	// mesh 列表
-	for (int i = 0; i < HG_SceneCenter::inst().ref_meshList().size() ; i++)
-	{
-		HG_Mesh hg_mesh = HG_SceneCenter::inst().ref_meshList().at(i);
-		EH_Mesh mesh;
-		mesh.verts = (EH_Vec*)malloc(sizeof(EH_Vec) * hg_mesh.get_verts().size());
-		mesh.normals = (EH_Vec*)malloc(sizeof(EH_Vec) * hg_mesh.get_verts().size());
-		mesh.uvs = (EH_Vec2*)malloc(sizeof(EH_Vec2) * hg_mesh.get_verts().size());
-		mesh.face_indices = (uint_t *)malloc(sizeof(uint_t) * hg_mesh.get_faces().size() * 3);
-
-		storage.fill(mesh,hg_mesh);
-		EH_add_mesh(storage.get_context(),hg_mesh.get_unique_code().c_str(),&mesh);
-
-		free(mesh.verts);
-		free(mesh.normals);
-		free(mesh.uvs);
-		free(mesh.face_indices);
-	}
-
-	// 材质 列表
-// 	for (int i = 0; i < HG_SceneCenter::inst().ref_materialList().size() ; i++)
+// 	set_scene_path(path);
+// 	
+// 	storage.initWhenNot();
+// 
+// 	EH_ExportOptions opt;
+// 	opt.base85_encoding = true;
+// 	opt.left_handed = false;
+// 
+// 	EH_begin_export(storage.get_context(),get_scene_path().c_str(),&opt);
+// 
+// 	// mesh 列表
+// 	for (int i = 0; i < HG_SceneCenter::inst().ref_meshList().size() ; i++)
 // 	{
-// 		HG_Material hg_material = HG_SceneCenter::inst().ref_materialList().at(i);
-// 		EH_Material material;
-// 		storage.fill(material,hg_material);
-// 		EH_add_material(storage.get_context(),hg_material.get_unique_code().c_str(),&material);
+// 		HG_Mesh hg_mesh = HG_SceneCenter::inst().ref_meshList().at(i);
+// 		EH_Mesh mesh;
+// 		mesh.verts = (EH_Vec*)malloc(sizeof(EH_Vec) * hg_mesh.get_verts().size());
+// 		mesh.normals = (EH_Vec*)malloc(sizeof(EH_Vec) * hg_mesh.get_verts().size());
+// 		mesh.uvs = (EH_Vec2*)malloc(sizeof(EH_Vec2) * hg_mesh.get_verts().size());
+// 		mesh.face_indices = (uint_t *)malloc(sizeof(uint_t) * hg_mesh.get_faces().size() * 3);
+// 
+// 		storage.fill(mesh,hg_mesh);
+// 		EH_add_mesh(storage.get_context(),hg_mesh.get_unique_code().c_str(),&mesh);
+// 
+// 		free(mesh.verts);
+// 		free(mesh.normals);
+// 		free(mesh.uvs);
+// 		free(mesh.face_indices);
 // 	}
-
-	// mesh 实例 列表
-	for (int i = 0; i < HG_SceneCenter::inst().ref_meshInstanceList().size() ; i++)
-	{
-		HG_MeshInstance hg_meshInst = HG_SceneCenter::inst().ref_meshInstanceList().at(i);
-		EH_MeshInstance meshInst;
-		storage.fill(meshInst,hg_meshInst);
-		EH_add_mesh_instance(storage.get_context(),hg_meshInst.get_unique_code().c_str(),&meshInst);
-	}
-
-	
-	//外部对象列表
-	for (int i = 0; i < HG_SceneCenter::inst().ref_modelList().size() ; i++)
-	{
-		HG_ModelInstance hg_model = HG_SceneCenter::inst().ref_modelList().at(i);
-		EH_AssemblyInstance model;
-		storage.fill(model,hg_model);
-		EH_add_assembly_instance(storage.get_context(),hg_model.get_unique_code().c_str(),&model);
-	}
-	
-	//摄像机
-	if (HG_SceneCenter::inst().get_cameraList().size() > 0)
-	{
-		EH_Camera camera;
-		storage.fill(camera,HG_SceneCenter::inst().get_cameraList().at(0));
-		EH_set_camera(storage.get_context(), &camera);
-	}
-	else
-	{
-		HGLOG_WARN("camera empty");
-	}
-	
-
-	//阳光
-	EH_Sun sun;
-	storage.fill(sun,HG_SceneCenter::inst().get_sun());
-	EH_set_sun(storage.get_context(),&sun);
-	
-	//天空
-	EH_Sky sky;
-	storage.fill(sky,HG_SceneCenter::inst().get_sky());
-	EH_set_sky(storage.get_context(),&sky);
-
-
-	EH_end_export(storage.get_context());
-
-	storage.clearCharBuffer();
+// 
+// 	// 材质 列表
+// // 	for (int i = 0; i < HG_SceneCenter::inst().ref_materialList().size() ; i++)
+// // 	{
+// // 		HG_Material hg_material = HG_SceneCenter::inst().ref_materialList().at(i);
+// // 		EH_Material material;
+// // 		storage.fill(material,hg_material);
+// // 		EH_add_material(storage.get_context(),hg_material.get_unique_code().c_str(),&material);
+// // 	}
+// 
+// 	// mesh 实例 列表
+// 	for (int i = 0; i < HG_SceneCenter::inst().ref_meshInstanceList().size() ; i++)
+// 	{
+// 		HG_MeshInstance hg_meshInst = HG_SceneCenter::inst().ref_meshInstanceList().at(i);
+// 		EH_MeshInstance meshInst;
+// 		storage.fill(meshInst,hg_meshInst);
+// 		EH_add_mesh_instance(storage.get_context(),hg_meshInst.get_unique_code().c_str(),&meshInst);
+// 	}
+// 
+// 	
+// 	//外部对象列表
+// 	for (int i = 0; i < HG_SceneCenter::inst().ref_modelList().size() ; i++)
+// 	{
+// 		HG_ModelInstance hg_model = HG_SceneCenter::inst().ref_modelList().at(i);
+// 		EH_AssemblyInstance model;
+// 		storage.fill(model,hg_model);
+// 		EH_add_assembly_instance(storage.get_context(),hg_model.get_unique_code().c_str(),&model);
+// 	}
+// 	
+// 	//摄像机
+// 	if (HG_SceneCenter::inst().get_cameraList().size() > 0)
+// 	{
+// 		EH_Camera camera;
+// 		storage.fill(camera,HG_SceneCenter::inst().get_cameraList().at(0));
+// 		EH_set_camera(storage.get_context(), &camera);
+// 	}
+// 	else
+// 	{
+// 		HGLOG_WARN("camera empty");
+// 	}
+// 	
+// 
+// 	//阳光
+// 	EH_Sun sun;
+// 	storage.fill(sun,HG_SceneCenter::inst().get_sun());
+// 	EH_set_sun(storage.get_context(),&sun);
+// 	
+// 	//天空
+// 	EH_Sky sky;
+// 	storage.fill(sky,HG_SceneCenter::inst().get_sky());
+// 	EH_set_sky(storage.get_context(),&sky);
+// 
+// 
+// 	EH_end_export(storage.get_context());
+// 
+// 	storage.clearCharBuffer();
 }
 
 void RenderManager::Begin()
 {
-	CString runParam;
-	runParam.Format(_T("-resolution %d %d "),HG_SceneCenter::inst().get_param().get_render_width(),HG_SceneCenter::inst().get_param().get_render_height());
+// 	CString runParam;
+// 	runParam.Format(_T("-resolution %d %d "),HG_SceneCenter::inst().get_param().get_render_width(),HG_SceneCenter::inst().get_param().get_render_height());
+// 
+// 	CString showParam;
+// 	showParam += HGCode::convert(get_render_exe_path());
+// 	showParam += " ";
+// 	showParam += HGCode::convert(get_scene_path());
+// 	showParam += " -display ";
+// 	//showParam.Format(_T("%s %s -display "),HGCode::convert(get_render_exe_path().c_str()),HGCode::convert(get_scene_path()));
+// 
+// 	CString endParam;
+// 	endParam.Format(_T("> D:\\debug.log"));
+// 
+// 	CString cmdRunRender;
+// 	cmdRunRender = showParam + runParam + endParam ;
+// 	system(HGCode::convert(cmdRunRender.GetBuffer()));
+	
 
-	CString showParam;
-	showParam += HGCode::convert(get_render_exe_path());
-	showParam += " ";
-	showParam += HGCode::convert(get_scene_path());
-	showParam += " -display ";
-	//showParam.Format(_T("%s %s -display "),HGCode::convert(get_render_exe_path().c_str()),HGCode::convert(get_scene_path()));
-
-	CString endParam;
-	endParam.Format(_T("> D:\\debug.log"));
-
-	CString cmdRunRender;
-	cmdRunRender = showParam + runParam + endParam ;
-	system(HGCode::convert(cmdRunRender.GetBuffer()));
+	if (storage.initWhenNot())
+	{
+		initial();
+	}
+	EH_start_render(storage.get_context(),get_scene_path().c_str(),false);
 }
 
 void RenderManager::SettingUpdate()
 {
 	HG_SceneCenter::inst().get_exposure();
+}
+
+void RenderManager::initial()
+{
+	EH_set_log_callback(storage.get_context(),callback.log_callback);
+	EH_set_progress_callback(storage.get_context(),callback.progress_callback);
+	EH_set_display_callback(storage.get_context(),callback.dispaly_callback);
 }
 
