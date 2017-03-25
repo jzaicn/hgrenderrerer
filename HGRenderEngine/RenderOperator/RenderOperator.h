@@ -11,6 +11,7 @@
 #include "resource.h"		// 主符号
 
 
+
 // CRenderOperatorApp:
 // 有关此类的实现，请参阅 RenderOperator.cpp
 //
@@ -20,10 +21,13 @@ class CRenderOperatorApp : public CWinApp
 public:
 	CRenderOperatorApp();
 
-// 重写
+
+	virtual int ExitInstance();
+
+	// 重写
 public:
 	virtual BOOL InitInstance();
-
+	ULONG_PTR gdiplusToken;
 // 实现
 
 	DECLARE_MESSAGE_MAP()

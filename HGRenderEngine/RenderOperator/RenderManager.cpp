@@ -6,6 +6,8 @@
 #include "HGCode.h"
 #include "DialogPlus.h"
 
+using namespace Gdiplus;
+
 class RenderManager::DataStorageCore
 {
 //////////////////////////////////////////////////////////////////////////
@@ -242,6 +244,27 @@ public:
 	static void dispaly_callback(uint_t width, uint_t height,const EH_RGBA *color_data)
 	{
 		HGLOG_DEBUG("dispaly_callback");
+
+		CRect rcDrawArea(0,0,width,height);
+		Bitmap* m_pImg = ::new Bitmap(rcDrawArea.Width(), rcDrawArea.Height());
+
+		int index = 0;
+		for (int wi = 0; wi < width ; wi++)
+		{
+			for (int hi = 0; hi < height ; hi++)
+			{
+				int r = (int)color_data[hi + index][0];				
+				int g = (int)color_data[hi + index][1];
+				int b = (int)color_data[hi + index][2];
+				int a = (int)color_data[hi + index][3];
+
+				Color color(a,b,g,r);
+				m_pImg->SetPixel(wi,hi,color);
+			}
+			index += height;
+		}
+		
+		//DialogPlus::Send();
 	}
 	static void log_callback(EH_Severity severity, const char *msg)
 	{
@@ -370,33 +393,13 @@ void RenderManager::SaveESS(std::string path)
 }
 
 void RenderManager::Begin()
-{
-// 	CString runParam;
-// 	runParam.Format(_T("-resolution %d %d "),HG_SceneCenter::inst().get_param().get_render_width(),HG_SceneCenter::inst().get_param().get_render_height());
-// 
-// 	CString showParam;
-// 	showParam += HGCode::convert(get_render_exe_path());
-// 	showParam += " ";
-// 	showParam += HGCode::convert(get_scene_path());
-// 	showParam += " -display ";
-// 	//showParam.Format(_T("%s %s -display "),HGCode::convert(get_render_exe_path().c_str()),HGCode::convert(get_scene_path()));
-// 
-// 	CString endParam;
-// 	endParam.Format(_T("> D:\\debug.log"));
-// 
-// 	CString cmdRunRender;
-// 	cmdRunRender = showParam + runParam + endParam ;
-// 	system(HGCode::convert(cmdRunRender.GetBuffer()));
-	
-	
+{	
 	DialogPlus::setStatusText(_T("¿ªÊ¼äÖÈ¾"));
 	if (storage.initWhenNot())
 	{
 		initial();
 	}
-	//EH_start_render(storage.get_context(),get_scene_path().c_str(),false);
-
-	
+	EH_start_render(storage.get_context(),get_scene_path().c_str(),false);
 }
 
 void RenderManager::SettingUpdate()
