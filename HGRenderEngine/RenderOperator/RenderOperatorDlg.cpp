@@ -619,13 +619,13 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 // 	CString cstr2 = HGCode::convert(sstr);
 // 	MessageBox(cstr2);
 
-	CRect rcDrawArea(0,0,500,600);
+	CRect rcDrawArea(0,0,104,1000);
 	Bitmap* m_pImg = ::new Bitmap(rcDrawArea.Width(), rcDrawArea.Height());
 
 	int index = 0;
-	for (int wi = 0; wi < 500 ; wi++)
+	for (int wi = 0; wi < 104 ; wi++)
 	{
-		for (int hi = 0; hi < 600 ; hi++)
+		for (int hi = 0; hi < 1000 ; hi++)
 		{
 			// 				int r = (int)color_data[hi + index][0];				
 			// 				int g = (int)color_data[hi + index][1];
@@ -639,7 +639,7 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 			Color color(a,b,g,r);
 			m_pImg->SetPixel(wi,hi,color);
 		}
-		index += 600;
+		index += 1000;
 	}
 
 	DialogPlus::Send(DialogPlus::RENDER_IMAGE_UPDATE,NULL,(LPARAM)m_pImg);

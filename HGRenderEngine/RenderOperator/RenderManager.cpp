@@ -234,9 +234,10 @@ class RenderManager::CallBackCore
 //////////////////////////////////////////////////////////////////////////
 // 易渲回调函数响应中心
 public:
-	CallBackCore(){}
+	CallBackCore(){m_bool = false; }
 	~CallBackCore(){}
-
+	
+	static bool m_bool;
 //////////////////////////////////////////////////////////////////////////
 // 回调函数
 #if 1
@@ -247,23 +248,27 @@ public:
 
 		CRect rcDrawArea(0,0,width,height);
 		Bitmap* m_pImg = ::new Bitmap(rcDrawArea.Width(), rcDrawArea.Height());
-
-		int index = 0;
-		for (int wi = 0; wi < width ; wi++)
+		if (m_bool)
 		{
-			for (int hi = 0; hi < height ; hi++)
+			HGLOG_DEBUG("-------------------------------------------");
+			int index = 0;
+			for (int wi = 0; wi < width ; wi++)
 			{
-				int r = (int)color_data[hi + index][0];				
-				int g = (int)color_data[hi + index][1];
-				int b = (int)color_data[hi + index][2];
-				int a = (int)color_data[hi + index][3];
-
-				Color color(a,b,g,r);
-				m_pImg->SetPixel(wi,hi,color);
+				for (int hi = 0; hi < height ; hi++)
+				{
+					int r = (int)color_data[hi + index][0];				
+					int g = (int)color_data[hi + index][1];
+					int b = (int)color_data[hi + index][2];
+					int a = (int)color_data[hi + index][3];
+					//HGLOG_DEBUG("color : ( %d , %d , %d, %d )",r,g,b,a);
+					Color color(a,b,g,r);
+					m_pImg->SetPixel(wi,hi,color);
+				}
+				index += height;
 			}
-			index += height;
+			HGLOG_DEBUG("==========================================");
+
 		}
-		
 		DialogPlus::Send(DialogPlus::RENDER_IMAGE_UPDATE,NULL,(LPARAM)m_pImg);
 	}
 	static void log_callback(EH_Severity severity, const char *msg)
@@ -278,7 +283,7 @@ public:
 	}
 #endif
 };
-
+bool RenderManager::CallBackCore::m_bool = false;
 
 RenderManager RenderManager::manager;
 RenderManager::DataStorageCore RenderManager::storage;
