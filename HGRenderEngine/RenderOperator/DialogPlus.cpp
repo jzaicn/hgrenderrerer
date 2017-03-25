@@ -114,3 +114,24 @@ void DialogPlus::set_check_bool(UINT macro,bool val)
 	}
 }	
 
+float DialogPlus::getAccuracy(float input,unsigned int accuracy /*= 3*/)
+{
+#define buf_size 100
+	//通过输入生成精度字符串 （%0.*f）
+	char accuracyBuf[buf_size];
+	sprintf_s(accuracyBuf,buf_size,"%%0.%df",accuracy);
+
+	//通过输入生成对应精度的float形打印输出
+	char outputBuf[buf_size];
+	sprintf_s(outputBuf,buf_size,accuracyBuf,input);
+
+	//回转回float行数据
+	float output = atof(outputBuf);
+	return output;
+}
+
+int DialogPlus::getAccuracyInt(float input)
+{
+	return (int)getAccuracy(input,0);
+}
+

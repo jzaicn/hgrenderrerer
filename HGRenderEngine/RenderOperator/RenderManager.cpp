@@ -4,6 +4,7 @@
 #include "Elara/ElaraHomeAPI.h"
 #include "HgLog/HgLog.h"
 #include "HGCode.h"
+#include "DialogPlus.h"
 
 class RenderManager::DataStorageCore
 {
@@ -249,6 +250,7 @@ public:
 	static bool progress_callback(float progress)
 	{
 		HGLOG_DEBUG("progress_callback : %f ",progress);
+		::PostMessage(DialogPlus::ShareHwnd(),DialogPlus::RENDER_STATUS_UPDATE,DialogPlus::update_process,DialogPlus::getAccuracyInt(progress));
 		return true;
 	}
 #endif

@@ -210,7 +210,7 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 	//图片缩放比例
 	indiceWidth[statusbar::scale] = m_paramSettingDlgContainerRect.Width();//init 打开，固定
 	m_wndStatusBar.SetPaneInfo(statusbar::scale,indicators[statusbar::scale],SBPS_NORMAL, indiceWidth[statusbar::scale]);
-	m_wndStatusBar.SetPaneText(statusbar::scale,HGCode::convert("准备就绪"));//init 打开
+	m_wndStatusBar.SetPaneText(statusbar::scale,HGCode::convert("缩放100%"));//init 打开
 
 	//渲染进度
 	m_render_process_rect = statusRect;
@@ -219,6 +219,9 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 	m_render_process_rect.right = m_render_process_rect.left + indiceWidth[statusbar::process];
 	m_render_process.MoveWindow(m_render_process_rect);
 
+	m_render_process.SetRange(0,100);
+	m_render_process.SetStep(1);
+	m_render_process.SetPos(0);
 
 	GetClientRect(m_newRect);
 	GetClientRect(m_oldRect);
@@ -310,7 +313,7 @@ void CRenderOperatorDlg::OnSize(UINT nType, int cx, int cy)
 	//图片缩放比例
 	//indiceWidth[statusbar::scale] = m_paramSettingDlgContainerRect.Width();//init 打开，固定
 	m_wndStatusBar.SetPaneInfo(statusbar::scale,indicators[statusbar::scale],SBPS_NORMAL, indiceWidth[statusbar::scale]);
-	//m_wndStatusBar.SetPaneText(statusbar::scale,HGCode::convert("准备就绪"));//init 打开
+	//m_wndStatusBar.SetPaneText(statusbar::scale,HGCode::convert("缩放100%"));//init 打开
 
 	//HACK: 这里statusbar长度不准
 	//渲染进度
@@ -583,6 +586,10 @@ LRESULT CRenderOperatorDlg::OnRenderStatusUpdate(WPARAM w,LPARAM l)
 	case DialogPlus::update_image_scale:
 		break;
 	case DialogPlus::update_process:
+		{
+			int curpos = (int)l;
+			m_render_process.SetPos(curpos);
+		}
 		break;
 	case DialogPlus::update_status_text:
 		break;

@@ -72,11 +72,17 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// 公共数据
 public:
-	HWND ShareHwnd() const { return m_shareHwnd; }
-	void ShareHwnd(HWND val) { m_shareHwnd = val; }
+	static HWND ShareHwnd() { return m_shareHwnd; }
+	static void ShareHwnd(HWND val) { m_shareHwnd = val; }
 
 	CString SaveImagePath() const { return m_saveImagePath; }
 	void SaveImagePath(CString val) { m_saveImagePath = val; }
+
+	/** 计算浮点型四舍五入。*/
+	static float getAccuracy(float input,unsigned int accuracy = 3);
+	static int getAccuracyInt(float input);
+	
+
 private:
 	static HWND m_shareHwnd;
 	
