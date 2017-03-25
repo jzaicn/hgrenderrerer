@@ -14,7 +14,7 @@
 
 IMPLEMENT_DYNAMIC(DialogRenderSettings, CDialogEx)
 
-DialogRenderSettings::DialogRenderSettings(CWnd* pParent /*=NULL*/)
+	DialogRenderSettings::DialogRenderSettings(CWnd* pParent /*=NULL*/)
 	: DialogPlus(DialogRenderSettings::IDD, pParent)
 {
 
@@ -123,7 +123,7 @@ void DialogRenderSettings::initFromSetting()
 						m_bind_marco.insert(std::map<int,int>::value_type(m_control_macro.at(i),(int)(m_step_val.size())-1));
 					}
 				}
-				
+
 			}
 		}
 		else if (node.getAttr("type").compare("bool") == 0)
@@ -158,7 +158,7 @@ void DialogRenderSettings::initFromSetting()
 					if (m_en_name.at(i) == node.getAttr("en_name").c_str())
 					{
 						CComboBox* combobtn = (CComboBox*)(GetDlgItem(m_control_macro.at(i)));
-						
+
 						std::vector<TiXmlNode*> options = node.findAll("Option");
 						for (auto optItem = options.begin(); optItem != options.end() ; optItem++)
 						{
@@ -242,7 +242,7 @@ void DialogRenderSettings::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrol
 			}
 		}
 	}
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_CHANGE_SETTINGS,NULL,NULL);
+	Post(RENDER_CHANGE_SETTINGS);
 	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
 }
 
@@ -288,14 +288,14 @@ void DialogRenderSettings::OnEditOK()
 						newValue.Format(_T("%0.2f"),cur_val);
 						edit->SetWindowText(newValue);
 					}
-					
+
 					int pos = (int)(cur_val/m_step_val.at(settingIndex));
 					silder->SetPos(pos);
 				}
 			}
 		}
 	}
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_CHANGE_SETTINGS,NULL,NULL);
+	Post(RENDER_CHANGE_SETTINGS);
 }
 
 
@@ -317,7 +317,7 @@ void DialogRenderSettings::OnCheckBtn()
 			}
 		}
 	}
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_CHANGE_SETTINGS,NULL,NULL);
+	Post(RENDER_CHANGE_SETTINGS);
 }
 
 
@@ -331,7 +331,7 @@ void DialogRenderSettings::OnBnClickedSunColorBtn()
 	{
 		COLORREF color = m_setClrDlg.m_cc.rgbResult;            // 保存用户选择的颜色
 		m_pickColor.Color(color);
-		::PostMessage(ShareHwnd(),DialogPlus::RENDER_CHANGE_SETTINGS,NULL,NULL);
+		Post(RENDER_CHANGE_SETTINGS);
 		Invalidate();
 	}
 }
@@ -357,8 +357,8 @@ void DialogRenderSettings::OnBnClickedHdrFileBtn()
 	if (fileDlg.DoModal() == IDOK)
 	{
 		CString path = fileDlg.GetPathName();
-		
-		::PostMessage(ShareHwnd(),DialogPlus::RENDER_CHANGE_SETTINGS,NULL,NULL);
+
+		Post(RENDER_CHANGE_SETTINGS);
 	}
 	else
 	{
@@ -414,7 +414,7 @@ void DialogRenderSettings::set_SkyLight(HG_SkyLight sky_light)
 HG_Exposure DialogRenderSettings::get_Exposure()
 {
 	HG_Exposure exposure;
-	
+
 	exposure.set_exposure_enable(	get_check_bool(IDC_SUN_CONTROL));
 	exposure.set_exposure(			get_edit_float(IDC_EXPOSURE_EDIT));
 	exposure.set_high_light(			get_edit_float(IDC_HIGH_LIGHT_EDIT));

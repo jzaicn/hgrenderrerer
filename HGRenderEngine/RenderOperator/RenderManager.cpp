@@ -250,7 +250,7 @@ public:
 	static bool progress_callback(float progress)
 	{
 		HGLOG_DEBUG("progress_callback : %f ",progress);
-		::PostMessage(DialogPlus::ShareHwnd(),DialogPlus::RENDER_STATUS_UPDATE,DialogPlus::update_process,DialogPlus::getAccuracyInt(progress));
+		DialogPlus::Post(DialogPlus::RENDER_STATUS_UPDATE,DialogPlus::update_process,DialogPlus::getAccuracyInt(progress));
 		return true;
 	}
 #endif
@@ -388,12 +388,15 @@ void RenderManager::Begin()
 // 	cmdRunRender = showParam + runParam + endParam ;
 // 	system(HGCode::convert(cmdRunRender.GetBuffer()));
 	
-
+	
+	DialogPlus::setStatusText(_T("¿ªÊ¼äÖÈ¾"));
 	if (storage.initWhenNot())
 	{
 		initial();
 	}
-	EH_start_render(storage.get_context(),get_scene_path().c_str(),false);
+	//EH_start_render(storage.get_context(),get_scene_path().c_str(),false);
+
+	
 }
 
 void RenderManager::SettingUpdate()

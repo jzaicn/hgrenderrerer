@@ -86,13 +86,13 @@ BOOL DialogImageSettings::OnInitDialog()
 
 void DialogImageSettings::OnBnClickedBeginBtn()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_BEGIN,NULL,NULL);
+	DialogPlus::Post(RENDER_BEGIN);
 }
 
 
 void DialogImageSettings::OnBnClickedSettingBtn()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_TOOLBAR_SHOW_HIDE,NULL,NULL);
+	DialogPlus::Post(RENDER_TOOLBAR_SHOW_HIDE);
 }
 
 HG_RenderParam DialogImageSettings::get_RenderParam()

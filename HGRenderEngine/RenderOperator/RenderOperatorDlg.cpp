@@ -383,52 +383,52 @@ HCURSOR CRenderOperatorDlg::OnQueryDragIcon()
 //"保存图像"
 afx_msg void CRenderOperatorDlg::menu_save_image()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_SAVE_IMAGE,NULL,NULL);
+	Post(RENDER_SAVE_IMAGE);
 }
 //"退出"
 afx_msg void CRenderOperatorDlg::menu_exit()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_EXIT,NULL,NULL);
+	Post(RENDER_EXIT);
 }
 //"缩放到原始尺寸"
 afx_msg void CRenderOperatorDlg::menu_zoom_origin()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_ZOOM_ORIGIN_IMAGE,NULL,NULL);
+	Post(RENDER_ZOOM_ORIGIN_IMAGE);
 }
 //"缩放到适应窗口"
 afx_msg void CRenderOperatorDlg::menu_zoom_fit()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_ZOOM_FIT_IMAGE,NULL,NULL);
+	Post(RENDER_ZOOM_FIT_IMAGE);
 }
 //"工具栏"
 afx_msg void CRenderOperatorDlg::menu_toolbar()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_TOOLBAR_SHOW_HIDE,NULL,NULL);
+	Post(RENDER_TOOLBAR_SHOW_HIDE);
 }
 //"图片参数面板"
 afx_msg void CRenderOperatorDlg::menu_param_panel()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_PARAM_SHOW_HIDE,NULL,NULL);
+	Post(RENDER_PARAM_SHOW_HIDE);
 }
 //"渲染效果面板"
 afx_msg void CRenderOperatorDlg::menu_settings_panel()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_SETTINGS_SHOW_HIDE,NULL,NULL);
+	Post(RENDER_SETTINGS_SHOW_HIDE);
 }
 //"状态栏"
 afx_msg void CRenderOperatorDlg::menu_status()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_STATUS_SHOW_HIDE,NULL,NULL);
+	Post(RENDER_STATUS_SHOW_HIDE);
 }
 //"恢复默认布局"
 afx_msg void CRenderOperatorDlg::menu_default_display()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_DEFAULT_LAYOUT,NULL,NULL);
+	Post(RENDER_DEFAULT_LAYOUT);
 }
 //"帮助信息"
 afx_msg void CRenderOperatorDlg::menu_help()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_HELP,NULL,NULL);
+	Post(RENDER_HELP);
 }
 #endif
 
@@ -592,6 +592,10 @@ LRESULT CRenderOperatorDlg::OnRenderStatusUpdate(WPARAM w,LPARAM l)
 		}
 		break;
 	case DialogPlus::update_status_text:
+		{
+			CString str = (TCHAR*)l;
+			m_wndStatusBar.SetPaneText(statusbar::info,str);
+		}
 		break;
 	default:
 		break;

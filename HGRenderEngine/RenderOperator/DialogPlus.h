@@ -82,6 +82,18 @@ public:
 	static float getAccuracy(float input,unsigned int accuracy = 3);
 	static int getAccuracyInt(float input);
 	
+	static void Post(DialogPlus::CMD cmd,WPARAM wParam = NULL ,LPARAM lParam = NULL)
+	{
+		::PostMessage(ShareHwnd(),cmd,wParam,lParam);
+	}
+	static void Send(DialogPlus::CMD cmd,WPARAM wParam = NULL ,LPARAM lParam = NULL)
+	{
+		::SendMessage(ShareHwnd(),cmd,wParam,lParam);
+	}
+	static void setStatusText(CString text)
+	{
+		DialogPlus::Send(DialogPlus::RENDER_STATUS_UPDATE,DialogPlus::update_status_text,(LPARAM)(LPCTSTR)text);
+	}
 
 private:
 	static HWND m_shareHwnd;

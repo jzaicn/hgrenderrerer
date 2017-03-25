@@ -52,17 +52,17 @@ BOOL DialogRenderToolBar::OnInitDialog()
 
 void DialogRenderToolBar::OnBnClickedSaveBtn()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_SAVE_IMAGE,NULL,NULL);
+	Post(RENDER_SAVE_IMAGE);
 }
 
 
 void DialogRenderToolBar::OnBnClickedZoomOriginBtn()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_ZOOM_ORIGIN_IMAGE,NULL,NULL);
+	Post(RENDER_ZOOM_ORIGIN_IMAGE);
 }
 
 
 void DialogRenderToolBar::OnBnClickedZoomFitBtn()
 {
-	::PostMessage(ShareHwnd(),DialogPlus::RENDER_ZOOM_FIT_IMAGE,NULL,NULL);
+	Post(RENDER_ZOOM_FIT_IMAGE);
 }
