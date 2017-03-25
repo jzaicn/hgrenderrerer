@@ -6,6 +6,7 @@
 #include "afxdialogex.h"
 #include "XmlHandlePlus/XmlHandlePlus.h"
 #include "XmlHandlePlus/tinyxml.h"
+#include "HGCode.h"
 
 // ImageSetting ¶Ô»°¿ò
 
@@ -57,7 +58,7 @@ BOOL DialogImageSettings::OnInitDialog()
 			for (auto optItem = options.begin(); optItem != options.end() ; optItem++)
 			{
 				XmlHandlePlus optItemPlus(*optItem);
-				m_RenderQuality.AddString((WCHAR*)optItemPlus.getAttr("cn_name").c_str());
+				m_RenderQuality.AddString(HGCode::convert(optItemPlus.getAttr("cn_name").c_str()));
 			}
 			m_RenderQuality.SetCurSel(atoi(node.getAttr("default").c_str()));
 		}
@@ -67,7 +68,7 @@ BOOL DialogImageSettings::OnInitDialog()
 			for (auto optItem = options.begin(); optItem != options.end() ; optItem++)
 			{
 				XmlHandlePlus optItemPlus(*optItem);
-				m_ImageSize.AddString((WCHAR*)optItemPlus.getAttr("cn_name").c_str());
+				m_ImageSize.AddString(HGCode::convert(optItemPlus.getAttr("cn_name").c_str()));
 			}
 			m_ImageSize.SetCurSel(atoi(node.getAttr("default").c_str()));
 		}
