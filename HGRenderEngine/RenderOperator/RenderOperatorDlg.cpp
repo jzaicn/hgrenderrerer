@@ -605,7 +605,7 @@ LRESULT CRenderOperatorDlg::OnRenderStatusUpdate(WPARAM w,LPARAM l)
 
 
 #endif
-
+using namespace Gdiplus;
 #include "HGCode.h"
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
@@ -619,7 +619,30 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 // 	CString cstr2 = HGCode::convert(sstr);
 // 	MessageBox(cstr2);
 
-	DialogPlus::Send(DialogPlus::RENDER_IMAGE_UPDATE,NULL,NULL);
+	CRect rcDrawArea(0,0,500,600);
+	Bitmap* m_pImg = ::new Bitmap(rcDrawArea.Width(), rcDrawArea.Height());
+
+	int index = 0;
+	for (int wi = 0; wi < 500 ; wi++)
+	{
+		for (int hi = 0; hi < 600 ; hi++)
+		{
+			// 				int r = (int)color_data[hi + index][0];				
+			// 				int g = (int)color_data[hi + index][1];
+			// 				int b = (int)color_data[hi + index][2];
+			// 				int a = (int)color_data[hi + index][3];
+			int r = rand()%255;				
+			int g = rand()%255;
+			int b = rand()%255;
+			int a = 0xFF;
+
+			Color color(a,b,g,r);
+			m_pImg->SetPixel(wi,hi,color);
+		}
+		index += 600;
+	}
+
+	DialogPlus::Send(DialogPlus::RENDER_IMAGE_UPDATE,NULL,(LPARAM)m_pImg);
 
 // 	Json::Value root;
 // 

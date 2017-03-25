@@ -14,7 +14,9 @@ IMPLEMENT_DYNAMIC(DialogDisplayResult, CDialogEx)
 DialogDisplayResult::DialogDisplayResult(CWnd* pParent /*=NULL*/)
 	: DialogPlus(DialogDisplayResult::IDD, pParent)
 {
-
+	m_isDrawingImage = false;
+	m_cur_image = NULL;
+	m_back_image = NULL;
 }
 
 DialogDisplayResult::~DialogDisplayResult()
@@ -81,65 +83,84 @@ void DialogDisplayResult::OnPaint()
 	//GetClientRect(rcClient);
 	//
 
-	CDC dcMem;
-	dcMem.CreateCompatibleDC(&dc);
-	CBitmap bmpMem;
-	bmpMem.CreateCompatibleBitmap(&dc, rcDrawArea.Width(), rcDrawArea.Height());
-	dcMem.SelectObject(&bmpMem);
+	if (!m_isDrawingImage)
+	{
+		m_isDrawingImage = true;
+
+		CDC dcMem;
+		dcMem.CreateCompatibleDC(&dc);
+		CBitmap bmpMem;
+		bmpMem.CreateCompatibleBitmap(&dc, rcDrawArea.Width(), rcDrawArea.Height());
+		dcMem.SelectObject(&bmpMem);
 
 
-	Graphics g(dcMem.m_hDC);
-	COLORREF colBK = GetSysColor(CTLCOLOR_DLG);//GetBkColor(dc.m_hDC);
+		Graphics g(dcMem.m_hDC);
+		COLORREF colBK = GetSysColor(CTLCOLOR_DLG);//GetBkColor(dc.m_hDC);
 
-	g.FillRectangle(&SolidBrush(Color(GetRValue(colBK), GetGValue(colBK), GetBValue(colBK))), rcClient.left, rcClient.top, rcClient.Width(), rcClient.Height());
+		g.FillRectangle(&SolidBrush(Color(GetRValue(colBK), GetGValue(colBK), GetBValue(colBK))), rcClient.left, rcClient.top, rcClient.Width(), rcClient.Height());
+		g.FillRectangle(&SolidBrush(Color::Black), rcDrawArea.left, rcDrawArea.top, rcDrawArea.Width(), rcDrawArea.Height());
 
-	g.FillRectangle(&SolidBrush(Color::Black), rcDrawArea.left, rcDrawArea.top, rcDrawArea.Width(), rcDrawArea.Height());
 
+		Image* pPanelImg = m_cur_image;
+		if(pPanelImg)
+		{
+		 	CRect rcImg(rcDrawArea.left - ((int)pPanelImg->GetWidth() - (int)rcDrawArea.Width()) / 2, rcDrawArea.top - ((int)pPanelImg->GetHeight() - (int)rcDrawArea.Height()) / 2, \
+		 		rcDrawArea.left - ((int)pPanelImg->GetWidth() - (int)rcDrawArea.Width()) / 2 + pPanelImg->GetWidth(), rcDrawArea.top - ((int)pPanelImg->GetHeight() - (int)rcDrawArea.Height()) / 2 + pPanelImg->GetHeight());
+		 	//rcImg.OffsetRect(m_ptDistanceBetweenViewingAndDiagramCenter.x, m_ptDistanceBetweenViewingAndDiagramCenter.y);
+		 	rcImg.OffsetRect(0, 0);
+		 	CRect rcDrawAreaAndImageInterset;
+		 	if(rcDrawAreaAndImageInterset.IntersectRect(rcImg, rcDrawArea))
+		 	{
+		 		RectF rfDes((REAL)rcDrawAreaAndImageInterset.left, (REAL)rcDrawAreaAndImageInterset.top, (REAL)rcDrawAreaAndImageInterset.Width(), (REAL)rcDrawAreaAndImageInterset.Height());
+		 
+		 		//CString strTmp;
+		 		//strTmp.Format(L"L:%d T:%d", (pPanelImg->GetWidth() - rcDrawArea.Width())/* / 2*/, (pPanelImg->GetHeight() - rcDrawArea.Height()) /*/ 2*/);
+		 		//OutputDebugString(strTmp);
+		 		//strTmp.Format(L"L:%d T:%d W:%d H:%d\n", rcDrawAreaAndImageInterset.left - rcImg.left, rcDrawAreaAndImageInterset.top - rcImg.top, rcDrawAreaAndImageInterset.Width(), rcDrawAreaAndImageInterset.Height());
+		 		//OutputDebugString(strTmp);
+		 		//strTmp.Format(L"Scale:%f\n", m_fViewingScale);
+		 		//OutputDebugString(strTmp);
+		 		//strTmp.Format(L"Img W:%d H:%d\n", pPanelImg->GetWidth(), pPanelImg->GetHeight());
+		 		//OutputDebugString(strTmp);
+		 		g.DrawImage(pPanelImg, rfDes, rcDrawAreaAndImageInterset.left - rcImg.left, rcDrawAreaAndImageInterset.top - rcImg.top, rcDrawAreaAndImageInterset.Width(), rcDrawAreaAndImageInterset.Height(), UnitPixel);
+		 	}
+		 
+		}
 
-	// 		//Image* pPanelImg = m_panelDrawer.GetImg();
-	// 		Image* pPanelImg = (Bitmap*)m_image;
-	// 		if(pPanelImg)
-	// 		{
-	// 			CRect rcImg(rcDrawArea.left - ((int)pPanelImg->GetWidth() - (int)rcDrawArea.Width()) / 2, rcDrawArea.top - ((int)pPanelImg->GetHeight() - (int)rcDrawArea.Height()) / 2, \
-	// 				rcDrawArea.left - ((int)pPanelImg->GetWidth() - (int)rcDrawArea.Width()) / 2 + pPanelImg->GetWidth(), rcDrawArea.top - ((int)pPanelImg->GetHeight() - (int)rcDrawArea.Height()) / 2 + pPanelImg->GetHeight());
-	// 			//rcImg.OffsetRect(m_ptDistanceBetweenViewingAndDiagramCenter.x, m_ptDistanceBetweenViewingAndDiagramCenter.y);
-	// 			rcImg.OffsetRect(0, 0);
-	// 			CRect rcDrawAreaAndImageInterset;
-	// 			if(rcDrawAreaAndImageInterset.IntersectRect(rcImg, rcDrawArea))
-	// 			{
-	// 				RectF rfDes((REAL)rcDrawAreaAndImageInterset.left, (REAL)rcDrawAreaAndImageInterset.top, (REAL)rcDrawAreaAndImageInterset.Width(), (REAL)rcDrawAreaAndImageInterset.Height());
-	// 
-	// 				//CString strTmp;
-	// 				//strTmp.Format(L"L:%d T:%d", (pPanelImg->GetWidth() - rcDrawArea.Width())/* / 2*/, (pPanelImg->GetHeight() - rcDrawArea.Height()) /*/ 2*/);
-	// 				//OutputDebugString(strTmp);
-	// 				//strTmp.Format(L"L:%d T:%d W:%d H:%d\n", rcDrawAreaAndImageInterset.left - rcImg.left, rcDrawAreaAndImageInterset.top - rcImg.top, rcDrawAreaAndImageInterset.Width(), rcDrawAreaAndImageInterset.Height());
-	// 				//OutputDebugString(strTmp);
-	// 				//strTmp.Format(L"Scale:%f\n", m_fViewingScale);
-	// 				//OutputDebugString(strTmp);
-	// 				//strTmp.Format(L"Img W:%d H:%d\n", pPanelImg->GetWidth(), pPanelImg->GetHeight());
-	// 				//OutputDebugString(strTmp);
-	// 				g.DrawImage(pPanelImg, rfDes, rcDrawAreaAndImageInterset.left - rcImg.left, rcDrawAreaAndImageInterset.top - rcImg.top, rcDrawAreaAndImageInterset.Width(), rcDrawAreaAndImageInterset.Height(), UnitPixel);
-	// 			}
-	// 
-	// 		}
+		//g.DrawLine(&Pen(Color::Gray), PointF(rcClient.left, rcClient.bottom-STATUS_BAR_HEIGHT), PointF(rcClient.right, rcClient.bottom-STATUS_BAR_HEIGHT));
+		//g.DrawLine(&Pen(Color::White), PointF(rcClient.left, rcClient.bottom-STATUS_BAR_HEIGHT+1), PointF(rcClient.right, rcClient.bottom-STATUS_BAR_HEIGHT+1));
+		dc.BitBlt(0, 0, rcClient.Width(), rcClient.Height(), &dcMem, 0, 0, SRCCOPY);
 
-	//g.DrawLine(&Pen(Color::Gray), PointF(rcClient.left, rcClient.bottom-STATUS_BAR_HEIGHT), PointF(rcClient.right, rcClient.bottom-STATUS_BAR_HEIGHT));
-	//g.DrawLine(&Pen(Color::White), PointF(rcClient.left, rcClient.bottom-STATUS_BAR_HEIGHT+1), PointF(rcClient.right, rcClient.bottom-STATUS_BAR_HEIGHT+1));
-	dc.BitBlt(0, 0, rcClient.Width(), rcClient.Height(), &dcMem, 0, 0, SRCCOPY);
+		bmpMem.DeleteObject();
+		dcMem.DeleteDC();
 
-	bmpMem.DeleteObject();
-	dcMem.DeleteDC();
+		m_isDrawingImage = false;
+	}
 }
 
 
 LRESULT DialogDisplayResult::OnRenderImageUpdate(WPARAM w,LPARAM l)
 {
-// 	m_displayResultDlgContainerRect;
-// 	m_displayResultDlgRect;
+	//马上保存传递过来的图片
+	if (m_back_image)
+	{
+		::delete m_back_image;
+	}
+	Image* image = (Bitmap*)l;
+	//m_back_image = image->Clone();
+	m_back_image = image;//传递过来的时候已经new过了，暂时不创建新的
+	
+	//如果不是在绘制，那么可以替换掉当前cur的图片
+	if (!m_isDrawingImage)
+	{
+		m_isDrawingImage = true;
 
-	//Image* pPanelImg = (Bitmap*)l;
-	//m_image = pPanelImg->Clone();
-
+		::delete m_cur_image;
+		m_cur_image = m_back_image;
+		m_back_image = NULL;
+		
+		m_isDrawingImage = false;
+	}
 	Invalidate();
 	return 0;
 }

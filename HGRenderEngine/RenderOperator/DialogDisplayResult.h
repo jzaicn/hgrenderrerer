@@ -27,6 +27,9 @@ private:
 	CRect m_clientRect;
 	CRect m_oldRect;
 	CRect m_newRect;
+	bool m_isDrawingImage;
+	Gdiplus::Image* m_cur_image;
+	Gdiplus::Image* m_back_image;
 	
 	//////////////////////////////////////////////////////////////////////////
 	// 自定义消息路由
