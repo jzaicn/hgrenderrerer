@@ -147,6 +147,9 @@
     <ClInclude Include="DialogRenderSettings.h">
       <Filter>View</Filter>
     </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Elara\ElaraHomeAPI.cpp">
@@ -229,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="DialogRenderSettings.cpp">
       <Filter>View</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,8 +9,8 @@
 #include "JsonCpp/json.h"
 #include <fstream>
 #include "HgLog/HgLog.h"
-// #include "HG_SceneCenter.h"
-// #include "RenderManager.h"
+#include "HG_SceneCenter.h"
+#include "RenderManager.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -500,14 +500,14 @@ LRESULT CRenderOperatorDlg::OnBegin(WPARAM w,LPARAM l)
 {
 	HGLOG_DEBUG("OnBegin");
 
-// 	HG_SceneCenter::inst().set_exposure(paramSettingDlg.get_Exposure());
-// 	HG_SceneCenter::inst().set_sky(paramSettingDlg.get_SkyLight());
-// 	HG_SceneCenter::inst().set_sun(paramSettingDlg.get_SunLight());
-// 	HG_SceneCenter::inst().set_param(imageSettingDlg.get_RenderParam());
-// 
-// 	//RenderManager::inst().SaveESS("D:\\my_scene.ess");
-// 	
-// 	RenderManager::inst().Begin();
+	HG_SceneCenter::inst().set_exposure(paramSettingDlg.get_Exposure());
+	HG_SceneCenter::inst().set_sky(paramSettingDlg.get_SkyLight());
+	HG_SceneCenter::inst().set_sun(paramSettingDlg.get_SunLight());
+	HG_SceneCenter::inst().set_param(imageSettingDlg.get_RenderParam());
+
+	//RenderManager::inst().SaveESS("D:\\my_scene.ess");
+	
+	RenderManager::inst().Begin();
 
 	return 0;
 }

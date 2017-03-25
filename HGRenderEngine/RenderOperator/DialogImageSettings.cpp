@@ -111,8 +111,8 @@ HG_RenderParam DialogImageSettings::get_RenderParam()
 	}
 	CString width = width_heigh.Left(splitx);
 	CString height = width_heigh.Right(width_heigh.GetLength() - splitx -1);
-	param.set_render_width(atoi((char*)width.GetBuffer()));
-	param.set_render_height(atoi((char*)height.GetBuffer()));
+	param.set_render_width(atoi(HGCode::convert(width.GetBuffer())));
+	param.set_render_height(atoi(HGCode::convert(height.GetBuffer())));
 
 
 	return param;

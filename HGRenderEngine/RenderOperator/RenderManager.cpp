@@ -3,7 +3,7 @@
 #include "HG_SceneCenter.h"
 #include "Elara/ElaraHomeAPI.h"
 #include "HgLog/HgLog.h"
-
+#include "HGCode.h"
 
 class RenderManager::DataStorageCore
 {
@@ -336,17 +336,21 @@ void RenderManager::SaveESS(std::string path)
 void RenderManager::Begin()
 {
 	CString runParam;
-	runParam.Format("-resolution %d %d ",HG_SceneCenter::inst().get_param().get_render_width(),HG_SceneCenter::inst().get_param().get_render_height());
+	runParam.Format(_T("-resolution %d %d "),HG_SceneCenter::inst().get_param().get_render_width(),HG_SceneCenter::inst().get_param().get_render_height());
 
 	CString showParam;
-	showParam.Format("%s %s -display ",get_render_exe_path().c_str(),get_scene_path().c_str());
+	showParam += HGCode::convert(get_render_exe_path());
+	showParam += " ";
+	showParam += HGCode::convert(get_scene_path());
+	showParam += " -display ";
+	//showParam.Format(_T("%s %s -display "),HGCode::convert(get_render_exe_path().c_str()),HGCode::convert(get_scene_path()));
 
 	CString endParam;
-	endParam.Format("> D:\\debug.log");
+	endParam.Format(_T("> D:\\debug.log"));
 
 	CString cmdRunRender;
 	cmdRunRender = showParam + runParam + endParam ;
-	system(cmdRunRender.GetBuffer());
+	system(HGCode::convert(cmdRunRender.GetBuffer()));
 }
 
 void RenderManager::SettingUpdate()
