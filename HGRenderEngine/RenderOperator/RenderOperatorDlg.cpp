@@ -73,47 +73,47 @@ BEGIN_MESSAGE_MAP(CRenderOperatorDlg, DialogPlus)
 	ON_WM_SIZE()
 	ON_BN_CLICKED(IDC_BUTTON1, &CRenderOperatorDlg::OnBnClickedButton1)
 
-// 	//////////////////////////////////////////////////////////////////////////
-// 	// 菜单命令
-// 	//"文件"
-// 	ON_COMMAND(MENU_SAVE_IMAGE,&CRenderOperatorDlg::menu_save_image)			//"保存图像"
-// 	ON_COMMAND(MENU_EXIT,&CRenderOperatorDlg::menu_exit)						//"退出"
-// 	//"编辑"
-// 	ON_COMMAND(MENU_ZOOM_ORIGIN,&CRenderOperatorDlg::menu_zoom_origin)				//"缩放到原始尺寸"
-// 	ON_COMMAND(MENU_ZOOM_FIT,&CRenderOperatorDlg::menu_zoom_fit)				//"缩放到适应窗口"
-// 	//"窗口"
-// 	ON_COMMAND(MENU_TOOLBAR,&CRenderOperatorDlg::menu_toolbar)					//"工具栏"
-// 	ON_COMMAND(MENU_PARAM_PANEL,&CRenderOperatorDlg::menu_param_panel)		//"渲染效果面板"
-// 	ON_COMMAND(MENU_SETTING_PANEL,&CRenderOperatorDlg::menu_settings_panel)		//"渲染效果面板"
-// 	ON_COMMAND(MENU_STATUS,&CRenderOperatorDlg::menu_status)					//"状态栏"
-// 	ON_COMMAND(MENU_DEFAULT_DISPLAY,&CRenderOperatorDlg::menu_default_display)	//"恢复默认布局"
-// 	//"帮助"
-// 	ON_COMMAND(MENU_HELP,&CRenderOperatorDlg::menu_help)						//"帮助信息"
-// 
-// 	//////////////////////////////////////////////////////////////////////////
-// 	// 自定义消息
-// 	ON_MESSAGE(RENDER_SAVE_IMAGE,&CRenderOperatorDlg::OnSaveImage)	// 打开图像
-// 	ON_MESSAGE(RENDER_LOAD_IMAGE,&CRenderOperatorDlg::OnLoadImage)	// 保存图像
-// 	ON_MESSAGE(RENDER_EXIT,&CRenderOperatorDlg::OnExit)	// 退出
-// 	ON_MESSAGE(RENDER_ZOOM_ORIGIN_IMAGE,&CRenderOperatorDlg::OnZoomOriginImage)	// 缩放图像到原始尺寸
-// 	ON_MESSAGE(RENDER_ZOOM_FIT_IMAGE,&CRenderOperatorDlg::OnZoomFitImage)	// 缩放图像到适应窗口
-// 	ON_MESSAGE(RENDER_ZOOM_IN_IMAGE,&CRenderOperatorDlg::OnZoomInImage)	// 放大图像
-// 	ON_MESSAGE(RENDER_ZOOM_OUT_IMAGE,&CRenderOperatorDlg::OnZoomOutImage)	// 缩小图像
-// 	ON_MESSAGE(RENDER_TOOLBAR_SHOW_HIDE,&CRenderOperatorDlg::OnToolbarShowHide)	// 工具栏 隐藏/显示
-// 	ON_MESSAGE(RENDER_PARAM_SHOW_HIDE,&CRenderOperatorDlg::OnParamShowHide)		// 图片尺寸配置  隐藏/显示
-// 	ON_MESSAGE(RENDER_SETTINGS_SHOW_HIDE,&CRenderOperatorDlg::OnSettingShowHide)// 渲染效果配置  隐藏/显示
-// 	ON_MESSAGE(RENDER_DISPLAY_SHOW_HIDE,&CRenderOperatorDlg::OnDisplayShowHide)	// 渲染效果显示  隐藏/显示
-// 	ON_MESSAGE(RENDER_STATUS_SHOW_HIDE,&CRenderOperatorDlg::OnStatusShowHide)	// 状态栏  隐藏/显示
-// 	ON_MESSAGE(RENDER_DEFAULT_LAYOUT,&CRenderOperatorDlg::OnDefaultLayout)	// 恢复默认布局 
-// 	ON_MESSAGE(RENDER_SAVE_LAYOUT,&CRenderOperatorDlg::OnSaveLayout)	// 保存布局 
-// 	ON_MESSAGE(RENDER_LOAD_LAYOUT,&CRenderOperatorDlg::OnLoadLayout)	// 恢复布局 
-// 	ON_MESSAGE(RENDER_HELP,&CRenderOperatorDlg::OnHelp)	// 帮助
-// 	ON_MESSAGE(RENDER_SAVE_SETTINGS,&CRenderOperatorDlg::OnSaveSettings)	// 保存配置
-// 	ON_MESSAGE(RENDER_LOAD_SETTINGS,&CRenderOperatorDlg::OnLoadSettings)	// 读取配置
-// 	ON_MESSAGE(RENDER_BEGIN,&CRenderOperatorDlg::OnBegin)	// 渲染开始
-// 	ON_MESSAGE(RENDER_STOP,&CRenderOperatorDlg::OnStop)	// 渲染停止
-// 	ON_MESSAGE(RENDER_DONE,&CRenderOperatorDlg::OnDone)	// 渲染停止
-// 	ON_MESSAGE(RENDER_SETTING_UPDATE,&CRenderOperatorDlg::OnSettingUpdate)	// 渲染设置更新
+	//////////////////////////////////////////////////////////////////////////
+	// 菜单命令
+	//"文件"
+	ON_COMMAND(MENU_SAVE_IMAGE,&CRenderOperatorDlg::menu_save_image)			//"保存图像"
+	ON_COMMAND(MENU_EXIT,&CRenderOperatorDlg::menu_exit)						//"退出"
+	//"编辑"
+	ON_COMMAND(MENU_ZOOM_ORIGIN,&CRenderOperatorDlg::menu_zoom_origin)				//"缩放到原始尺寸"
+	ON_COMMAND(MENU_ZOOM_FIT,&CRenderOperatorDlg::menu_zoom_fit)				//"缩放到适应窗口"
+	//"窗口"
+	ON_COMMAND(MENU_TOOLBAR,&CRenderOperatorDlg::menu_toolbar)					//"工具栏"
+	ON_COMMAND(MENU_PARAM_PANEL,&CRenderOperatorDlg::menu_param_panel)		//"渲染效果面板"
+	ON_COMMAND(MENU_SETTING_PANEL,&CRenderOperatorDlg::menu_settings_panel)		//"渲染效果面板"
+	ON_COMMAND(MENU_STATUS,&CRenderOperatorDlg::menu_status)					//"状态栏"
+	ON_COMMAND(MENU_DEFAULT_DISPLAY,&CRenderOperatorDlg::menu_default_display)	//"恢复默认布局"
+	//"帮助"
+	ON_COMMAND(MENU_HELP,&CRenderOperatorDlg::menu_help)						//"帮助信息"
+
+	//////////////////////////////////////////////////////////////////////////
+	// 自定义消息
+	ON_MESSAGE(RENDER_SAVE_IMAGE,&CRenderOperatorDlg::OnSaveImage)	// 打开图像
+	ON_MESSAGE(RENDER_LOAD_IMAGE,&CRenderOperatorDlg::OnLoadImage)	// 保存图像
+	ON_MESSAGE(RENDER_EXIT,&CRenderOperatorDlg::OnExit)	// 退出
+	ON_MESSAGE(RENDER_ZOOM_ORIGIN_IMAGE,&CRenderOperatorDlg::OnZoomOriginImage)	// 缩放图像到原始尺寸
+	ON_MESSAGE(RENDER_ZOOM_FIT_IMAGE,&CRenderOperatorDlg::OnZoomFitImage)	// 缩放图像到适应窗口
+	ON_MESSAGE(RENDER_ZOOM_IN_IMAGE,&CRenderOperatorDlg::OnZoomInImage)	// 放大图像
+	ON_MESSAGE(RENDER_ZOOM_OUT_IMAGE,&CRenderOperatorDlg::OnZoomOutImage)	// 缩小图像
+	ON_MESSAGE(RENDER_TOOLBAR_SHOW_HIDE,&CRenderOperatorDlg::OnToolbarShowHide)	// 工具栏 隐藏/显示
+	ON_MESSAGE(RENDER_PARAM_SHOW_HIDE,&CRenderOperatorDlg::OnParamShowHide)		// 图片尺寸配置  隐藏/显示
+	ON_MESSAGE(RENDER_SETTINGS_SHOW_HIDE,&CRenderOperatorDlg::OnSettingShowHide)// 渲染效果配置  隐藏/显示
+	ON_MESSAGE(RENDER_DISPLAY_SHOW_HIDE,&CRenderOperatorDlg::OnDisplayShowHide)	// 渲染效果显示  隐藏/显示
+	ON_MESSAGE(RENDER_STATUS_SHOW_HIDE,&CRenderOperatorDlg::OnStatusShowHide)	// 状态栏  隐藏/显示
+	ON_MESSAGE(RENDER_DEFAULT_LAYOUT,&CRenderOperatorDlg::OnDefaultLayout)	// 恢复默认布局 
+	ON_MESSAGE(RENDER_SAVE_LAYOUT,&CRenderOperatorDlg::OnSaveLayout)	// 保存布局 
+	ON_MESSAGE(RENDER_LOAD_LAYOUT,&CRenderOperatorDlg::OnLoadLayout)	// 恢复布局 
+	ON_MESSAGE(RENDER_HELP,&CRenderOperatorDlg::OnHelp)	// 帮助
+	ON_MESSAGE(RENDER_SAVE_SETTINGS,&CRenderOperatorDlg::OnSaveSettings)	// 保存配置
+	ON_MESSAGE(RENDER_LOAD_SETTINGS,&CRenderOperatorDlg::OnLoadSettings)	// 读取配置
+	ON_MESSAGE(RENDER_BEGIN,&CRenderOperatorDlg::OnBegin)	// 渲染开始
+	ON_MESSAGE(RENDER_STOP,&CRenderOperatorDlg::OnStop)	// 渲染停止
+	ON_MESSAGE(RENDER_DONE,&CRenderOperatorDlg::OnDone)	// 渲染停止
+	ON_MESSAGE(RENDER_SETTING_UPDATE,&CRenderOperatorDlg::OnSettingUpdate)	// 渲染设置更新
 END_MESSAGE_MAP()
 
 #endif
@@ -327,7 +327,7 @@ HCURSOR CRenderOperatorDlg::OnQueryDragIcon()
 
 //////////////////////////////////////////////////////////////////////////
 // 菜单消息
-#if 0
+#if 1
 //"保存图像"
 afx_msg void CRenderOperatorDlg::menu_save_image()
 {
@@ -382,7 +382,7 @@ afx_msg void CRenderOperatorDlg::menu_help()
 
 //////////////////////////////////////////////////////////////////////////
 // 自定义消息事件路由
-#if 0
+#if 1
 LRESULT CRenderOperatorDlg::OnSaveImage(WPARAM w,LPARAM l)
 {
 	HGLOG_DEBUG("OnSaveImage");
@@ -495,14 +495,14 @@ LRESULT CRenderOperatorDlg::OnBegin(WPARAM w,LPARAM l)
 {
 	HGLOG_DEBUG("OnBegin");
 
-	HG_SceneCenter::inst().set_exposure(paramSettingDlg.get_Exposure());
-	HG_SceneCenter::inst().set_sky(paramSettingDlg.get_SkyLight());
-	HG_SceneCenter::inst().set_sun(paramSettingDlg.get_SunLight());
-	HG_SceneCenter::inst().set_param(imageSettingDlg.get_RenderParam());
-
-	//RenderManager::inst().SaveESS("D:\\my_scene.ess");
-	
-	RenderManager::inst().Begin();
+// 	HG_SceneCenter::inst().set_exposure(paramSettingDlg.get_Exposure());
+// 	HG_SceneCenter::inst().set_sky(paramSettingDlg.get_SkyLight());
+// 	HG_SceneCenter::inst().set_sun(paramSettingDlg.get_SunLight());
+// 	HG_SceneCenter::inst().set_param(imageSettingDlg.get_RenderParam());
+// 
+// 	//RenderManager::inst().SaveESS("D:\\my_scene.ess");
+// 	
+// 	RenderManager::inst().Begin();
 
 	return 0;
 }

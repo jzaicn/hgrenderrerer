@@ -78,7 +78,7 @@ public:
 #endif
 	//////////////////////////////////////////////////////////////////////////
 	// 菜单消息
-#if 0
+#if 1
 public:
 	//"保存图像"
 	afx_msg void menu_save_image();
@@ -104,7 +104,7 @@ public:
 #endif
 	//////////////////////////////////////////////////////////////////////////
 	// 自定义消息路由
-#if 0
+#if 1
 public:
 	// 保存图像
 	afx_msg virtual LRESULT OnSaveImage(WPARAM w,LPARAM l);
