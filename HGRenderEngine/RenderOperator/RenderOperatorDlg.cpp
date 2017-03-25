@@ -159,11 +159,11 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 
 	// 绘图对话框
 	//HACK: 创建子窗口抛出异常
-// 	displayResultDlg.Create(IDD_DISPLAY_DLG,GetDlgItem(IDC_DISPLAYRESULT_WIN));
-// 	displayResultDlg.ShowWindow(SW_SHOW);
-// 	displayResultDlg.GetWindowRect(m_toolBarDlgRect);
-// 	GetDlgItem(IDC_DISPLAYRESULT_WIN)->GetWindowRect(m_displayResultDlgContainerRect);
-// 	ScreenToClient(m_displayResultDlgContainerRect);
+	displayResultDlg.Create(IDD_DISPLAY_DLG,GetDlgItem(IDC_DISPLAYRESULT_WIN));
+	displayResultDlg.ShowWindow(SW_SHOW);
+	displayResultDlg.GetWindowRect(m_toolBarDlgRect);
+	GetDlgItem(IDC_DISPLAYRESULT_WIN)->GetWindowRect(m_displayResultDlgContainerRect);
+	ScreenToClient(m_displayResultDlgContainerRect);
 
 	// 工具栏对话框
  	toolBarDlg.Create(IDD_TOOLBAR_DLG,GetDlgItem(IDC_TOOLBAR_WIN));
@@ -179,12 +179,12 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 	GetDlgItem(IDC_IMAGE_WIN)->GetWindowRect(m_imageSettingDlgContainerRect);
 	ScreenToClient(m_imageSettingDlgContainerRect);
 
-// 	// 设置参数对话框
-//  	paramSettingDlg.Create(IDD_SETTING_DLG,GetDlgItem(IDC_SETTING_WIN));
-//  	paramSettingDlg.ShowWindow(SW_SHOW);
-//  	paramSettingDlg.GetWindowRect(m_paramSettingDlgRect);
-// 	GetDlgItem(IDC_SETTING_WIN)->GetWindowRect(m_paramSettingDlgContainerRect);
-// 	ScreenToClient(m_paramSettingDlgContainerRect);
+	// 设置参数对话框
+ 	paramSettingDlg.Create(IDD_SETTING_DLG,GetDlgItem(IDC_SETTING_WIN));
+ 	paramSettingDlg.ShowWindow(SW_SHOW);
+ 	paramSettingDlg.GetWindowRect(m_paramSettingDlgRect);
+	GetDlgItem(IDC_SETTING_WIN)->GetWindowRect(m_paramSettingDlgContainerRect);
+	ScreenToClient(m_paramSettingDlgContainerRect);
 
 	//创建状态栏
 // 	CRect statusRect;
@@ -527,10 +527,21 @@ LRESULT CRenderOperatorDlg::OnSettingUpdate(WPARAM w,LPARAM l)
 
 #endif
 
+#include "HGCode.h"
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
-		
- 	Json::Value root;
+	CString cstr = _T("宏光软件");
+
+	const char* p = nullptr;
+	p = HGCode::convert(cstr);
+	HGLOG_DEBUG(p);
+
+	std::string sstr = "首席工程师";
+	CString cstr2 = HGCode::convert(sstr);
+	MessageBox(cstr2);
+
+
+// 	Json::Value root;
 // 
 // 	root["123"] = 123;
 

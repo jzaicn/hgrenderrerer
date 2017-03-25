@@ -146,10 +146,12 @@
     <ClInclude Include="DialogDisplayResult.h" />
     <ClInclude Include="DialogImageSettings.h" />
     <ClInclude Include="DialogPlus.h" />
+    <ClInclude Include="DialogRenderSettings.h" />
     <ClInclude Include="DialogRenderToolBar.h" />
     <ClInclude Include="Elara\ElaraHomeAPI.h" />
     <ClInclude Include="Elara\esslib.h" />
     <ClInclude Include="Elara\esswriter.h" />
+    <ClInclude Include="HGCode.h" />
     <ClInclude Include="HgLog\HgLog.h" />
     <ClInclude Include="HG_BaseModel.h" />
     <ClInclude Include="HG_Camera.h" />
@@ -175,10 +177,12 @@
     <ClCompile Include="DialogDisplayResult.cpp" />
     <ClCompile Include="DialogImageSettings.cpp" />
     <ClCompile Include="DialogPlus.cpp" />
+    <ClCompile Include="DialogRenderSettings.cpp" />
     <ClCompile Include="DialogRenderToolBar.cpp" />
     <ClCompile Include="Elara\ElaraHomeAPI.cpp" />
     <ClCompile Include="Elara\esslib.cpp" />
     <ClCompile Include="Elara\esswriter.cpp" />
+    <ClCompile Include="HGCode.cpp" />
     <ClCompile Include="HgLog\HgLog.cpp" />
     <ClCompile Include="HG_BaseModel.cpp" />
     <ClCompile Include="HG_Camera.cpp" />

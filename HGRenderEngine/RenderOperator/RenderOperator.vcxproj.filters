@@ -141,6 +141,12 @@
     <ClInclude Include="DialogRenderToolBar.h">
       <Filter>View</Filter>
     </ClInclude>
+    <ClInclude Include="HGCode.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogRenderSettings.h">
+      <Filter>View</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Elara\ElaraHomeAPI.cpp">
@@ -216,6 +222,12 @@
       <Filter>View</Filter>
     </ClCompile>
     <ClCompile Include="DialogRenderToolBar.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
+    <ClCompile Include="HGCode.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogRenderSettings.cpp">
       <Filter>View</Filter>
     </ClCompile>
   </ItemGroup>

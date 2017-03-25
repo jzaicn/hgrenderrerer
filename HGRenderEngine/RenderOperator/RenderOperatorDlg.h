@@ -45,9 +45,9 @@ private:
 	CRect m_imageSettingDlgContainerRect;	// 图片配置包围区域
 
 
-// 	DialogRenderSettings paramSettingDlg;			// 属性配置对话框
-// 	CRect m_paramSettingDlgRect;			// 属性配置对话框区域
-// 	CRect m_paramSettingDlgContainerRect;	// 属性配置包围区域
+	DialogRenderSettings paramSettingDlg;			// 属性配置对话框
+	CRect m_paramSettingDlgRect;			// 属性配置对话框区域
+	CRect m_paramSettingDlgContainerRect;	// 属性配置包围区域
 
 
 
