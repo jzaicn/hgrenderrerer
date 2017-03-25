@@ -31,18 +31,17 @@
 
 /* Exporting and importing */
 /* EI_HOME_EXPORTS must NOT be defined by users */
-// #ifdef _MSC_VER
-// #	if defined ELARA_HOME_EXPORTS
-// #		define EH_XAPI	__declspec(dllexport)
-// #	else
-// #		define EH_XAPI	__declspec(dllimport)
-// #	endif
-// #else
-// #	define EH_XAPI		__attribute__((visibility("default")))
-// #endif
+#ifdef _MSC_VER
+#	if defined ELARA_HOME_EXPORTS
+#		define EH_XAPI	__declspec(dllexport)
+#	else
+#		define EH_XAPI	__declspec(dllimport)
+#	endif
+#else
+#	define EH_XAPI		__attribute__((visibility("default")))
+#endif
 
-//#define EH_API EH_EXTERN EH_XAPI
-#define EH_API 
+#define EH_API EH_EXTERN EH_XAPI
 
 #include <string.h>
 
@@ -309,10 +308,12 @@ struct EH_Material
 		ior(1.5f),
 		refract_glossiness(0.0f)
 	{
-		memset(&diffuse_color, 0, sizeof(diffuse_color));
+		memset(&diffuse_color, 0, sizeof(diffuse_color));		
 		memset(&specular_color, 0, sizeof(specular_color));
 		memset(&mirror_color, 0, sizeof(mirror_color));
 		memset(&refract_color, 0, sizeof(refract_color));
+
+		diffuse_color[0] = 1.0f; /* default diffuse color is red */
 	}
 };
 
@@ -419,3 +420,15 @@ struct EH_Sun
 /** Set the current sun parameters.
  */
 EH_API void EH_set_sun(EH_Context *ctx, const EH_Sun *sun);
+
+/** The callback to color buffer during rendering.
+ */
+typedef void (*EH_display_callback)(uint_t width, uint_t height, const EH_RGBA *color_data);
+
+/** Set display callback
+ */
+EH_API void EH_set_display_callback(EH_Context *ctx, EH_display_callback cb);
+
+/** Start rendering
+*/
+EH_API bool EH_start_render(EH_Context *ctx, const char *ess_name, bool is_interactive);
