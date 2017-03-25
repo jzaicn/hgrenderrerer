@@ -6,6 +6,8 @@
 #include "DialogDisplayResult.h"
 #include "afxdialogex.h"
 
+#include "HgLog/HgLog.h"
+
 using namespace Gdiplus;
 // DialogDisplayResult 对话框
 
@@ -14,9 +16,13 @@ IMPLEMENT_DYNAMIC(DialogDisplayResult, CDialogEx)
 DialogDisplayResult::DialogDisplayResult(CWnd* pParent /*=NULL*/)
 	: DialogPlus(DialogDisplayResult::IDD, pParent)
 {
+	m_bDragging = false;
 	m_isDrawingImage = false;
 	m_cur_image = NULL;
 	m_back_image = NULL;
+	m_ptDistanceBetweenViewingAndDiagramCenter.x = 300;
+	m_ptDistanceBetweenViewingAndDiagramCenter.y = 300;
+	m_fViewingScale = 1.0;
 }
 
 DialogDisplayResult::~DialogDisplayResult()
@@ -36,6 +42,13 @@ BEGIN_MESSAGE_MAP(DialogDisplayResult, CDialogEx)
 	//////////////////////////////////////////////////////////////////////////
 	// 自定义消息
 	ON_MESSAGE(RENDER_IMAGE_UPDATE,&DialogDisplayResult::OnRenderImageUpdate)	// 渲染图片更新
+	ON_WM_MOUSEMOVE()
+//	ON_WM_MOUSEWHEEL()
+//	ON_WM_MOUSEHWHEEL()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
+	ON_WM_ERASEBKGND()
+	ON_WM_MOUSEWHEEL()
 END_MESSAGE_MAP()
 
 
@@ -70,23 +83,21 @@ BOOL DialogDisplayResult::OnInitDialog()
 
 void DialogDisplayResult::OnPaint()
 {
-	CPaintDC dc(this); // device context for painting
-	// TODO: 在此处添加消息处理程序代码
-	// 不为绘图消息调用 DialogPlus::OnPaint()
+	CPaintDC dc(this); 
 
+	//TODO: bug：调整窗口大小后绘制区域有问题
+
+	//获得绘图区域
 	CRect rcClient,rcDrawArea;
 	GetClientRect(rcClient);
 	rcDrawArea = rcClient;
-	//GetDrawArea(rcDrawArea);
-	// = m_displayResultDlgContainerRect;
-	//CRect rcDrawArea = m_displayResultDlgContainerRect;
-	//GetClientRect(rcClient);
-	//
 
+	//如果资源可用的情况下再绘图
 	if (!m_isDrawingImage)
 	{
 		m_isDrawingImage = true;
 
+		//双缓冲
 		CDC dcMem;
 		dcMem.CreateCompatibleDC(&dc);
 		CBitmap bmpMem;
@@ -97,38 +108,31 @@ void DialogDisplayResult::OnPaint()
 		Graphics g(dcMem.m_hDC);
 		COLORREF colBK = GetSysColor(CTLCOLOR_DLG);//GetBkColor(dc.m_hDC);
 
+		//绘制背景色
 		g.FillRectangle(&SolidBrush(Color(GetRValue(colBK), GetGValue(colBK), GetBValue(colBK))), rcClient.left, rcClient.top, rcClient.Width(), rcClient.Height());
 		g.FillRectangle(&SolidBrush(Color::Black), rcDrawArea.left, rcDrawArea.top, rcDrawArea.Width(), rcDrawArea.Height());
 
-
+		//图像资源
 		Image* pPanelImg = m_cur_image;
 		if(pPanelImg)
 		{
+			//偏移值
 		 	CRect rcImg(rcDrawArea.left - ((int)pPanelImg->GetWidth() - (int)rcDrawArea.Width()) / 2, rcDrawArea.top - ((int)pPanelImg->GetHeight() - (int)rcDrawArea.Height()) / 2, \
 		 		rcDrawArea.left - ((int)pPanelImg->GetWidth() - (int)rcDrawArea.Width()) / 2 + pPanelImg->GetWidth(), rcDrawArea.top - ((int)pPanelImg->GetHeight() - (int)rcDrawArea.Height()) / 2 + pPanelImg->GetHeight());
-		 	//rcImg.OffsetRect(m_ptDistanceBetweenViewingAndDiagramCenter.x, m_ptDistanceBetweenViewingAndDiagramCenter.y);
-		 	rcImg.OffsetRect(0, 0);
+		 	rcImg.OffsetRect(m_ptDistanceBetweenViewingAndDiagramCenter.x, m_ptDistanceBetweenViewingAndDiagramCenter.y);
+		 	
+			//绘制指定区域数据
 		 	CRect rcDrawAreaAndImageInterset;
 		 	if(rcDrawAreaAndImageInterset.IntersectRect(rcImg, rcDrawArea))
 		 	{
-		 		RectF rfDes((REAL)rcDrawAreaAndImageInterset.left, (REAL)rcDrawAreaAndImageInterset.top, (REAL)rcDrawAreaAndImageInterset.Width(), (REAL)rcDrawAreaAndImageInterset.Height());
-		 
-		 		//CString strTmp;
-		 		//strTmp.Format(L"L:%d T:%d", (pPanelImg->GetWidth() - rcDrawArea.Width())/* / 2*/, (pPanelImg->GetHeight() - rcDrawArea.Height()) /*/ 2*/);
-		 		//OutputDebugString(strTmp);
-		 		//strTmp.Format(L"L:%d T:%d W:%d H:%d\n", rcDrawAreaAndImageInterset.left - rcImg.left, rcDrawAreaAndImageInterset.top - rcImg.top, rcDrawAreaAndImageInterset.Width(), rcDrawAreaAndImageInterset.Height());
-		 		//OutputDebugString(strTmp);
-		 		//strTmp.Format(L"Scale:%f\n", m_fViewingScale);
-		 		//OutputDebugString(strTmp);
-		 		//strTmp.Format(L"Img W:%d H:%d\n", pPanelImg->GetWidth(), pPanelImg->GetHeight());
-		 		//OutputDebugString(strTmp);
+				//缩放比例
+		 		RectF rfDes((REAL)rcDrawAreaAndImageInterset.left, (REAL)rcDrawAreaAndImageInterset.top, (REAL)rcDrawAreaAndImageInterset.Width() * m_fViewingScale, (REAL)rcDrawAreaAndImageInterset.Height() * m_fViewingScale);
 		 		g.DrawImage(pPanelImg, rfDes, rcDrawAreaAndImageInterset.left - rcImg.left, rcDrawAreaAndImageInterset.top - rcImg.top, rcDrawAreaAndImageInterset.Width(), rcDrawAreaAndImageInterset.Height(), UnitPixel);
+				
 		 	}
 		 
 		}
-
-		//g.DrawLine(&Pen(Color::Gray), PointF(rcClient.left, rcClient.bottom-STATUS_BAR_HEIGHT), PointF(rcClient.right, rcClient.bottom-STATUS_BAR_HEIGHT));
-		//g.DrawLine(&Pen(Color::White), PointF(rcClient.left, rcClient.bottom-STATUS_BAR_HEIGHT+1), PointF(rcClient.right, rcClient.bottom-STATUS_BAR_HEIGHT+1));
+		//绘制到显示区域
 		dc.BitBlt(0, 0, rcClient.Width(), rcClient.Height(), &dcMem, 0, 0, SRCCOPY);
 
 		bmpMem.DeleteObject();
@@ -137,6 +141,70 @@ void DialogDisplayResult::OnPaint()
 		m_isDrawingImage = false;
 	}
 }
+
+void DialogDisplayResult::OnMouseMove(UINT nFlags, CPoint point)
+{
+	HGLOG_DEBUG("OnMouseMove");
+
+	if(m_bDragging)
+	{
+		m_ptDistanceBetweenViewingAndDiagramCenter.x += point.x - m_ptDragStartPos.x;
+		m_ptDistanceBetweenViewingAndDiagramCenter.y += point.y - m_ptDragStartPos.y;
+
+		m_ptDragStartPos.x = point.x;
+		m_ptDragStartPos.y = point.y;
+
+		CRect clientRect;
+		GetClientRect(clientRect);
+		InvalidateRect(clientRect);
+	}
+	DialogPlus::OnMouseMove(nFlags, point);
+}
+
+
+void DialogDisplayResult::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	HGLOG_DEBUG("OnLButtonDown");
+	SetFocus();
+	m_bDragging = true;
+	m_ptDragStartPos.x = point.x;
+	m_ptDragStartPos.y = point.y;
+
+	DialogPlus::OnLButtonDown(nFlags, point);
+}
+
+
+void DialogDisplayResult::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	HGLOG_DEBUG("OnLButtonUp");
+	SetFocus();
+	m_bDragging = false;
+
+	DialogPlus::OnLButtonUp(nFlags, point);
+}
+
+
+BOOL DialogDisplayResult::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
+{
+	//TODO: 滚轮放大，应该在鼠标指着的区域为中心
+	float fDeltaScale = (((float)zDelta) / 120.0) * stepScale();
+	setScale(fDeltaScale);	
+
+	Invalidate();
+	return DialogPlus::OnMouseWheel(nFlags, zDelta, pt);
+}
+
+
+
+BOOL DialogDisplayResult::OnEraseBkgnd(CDC* pDC)
+{
+	
+
+	//return DialogPlus::OnEraseBkgnd(pDC);
+	return TRUE;
+}
+
+
 
 
 LRESULT DialogDisplayResult::OnRenderImageUpdate(WPARAM w,LPARAM l)
@@ -163,4 +231,32 @@ LRESULT DialogDisplayResult::OnRenderImageUpdate(WPARAM w,LPARAM l)
 	}
 	Invalidate();
 	return 0;
+}
+
+void DialogDisplayResult::setScale(float scale)
+{
+	if (m_fViewingScale < minScale())
+	{
+		m_fViewingScale = minScale();
+	}
+	if (m_fViewingScale > maxScale())
+	{
+		m_fViewingScale = maxScale();
+	}
+	m_fViewingScale += scale;
+}
+
+float DialogDisplayResult::minScale()
+{
+	return 0.01;
+}
+
+float DialogDisplayResult::maxScale()
+{
+	return 10.0;
+}
+
+float DialogDisplayResult::stepScale()
+{
+	return 0.1;
 }

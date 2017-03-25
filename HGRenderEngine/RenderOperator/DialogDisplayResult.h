@@ -22,18 +22,31 @@ public:
 	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	virtual BOOL OnInitDialog();
+	afx_msg virtual LRESULT OnRenderImageUpdate(WPARAM w,LPARAM l);
+	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 
 private:
-	CRect m_clientRect;
 	CRect m_oldRect;
 	CRect m_newRect;
-	bool m_isDrawingImage;
-	Gdiplus::Image* m_cur_image;
-	Gdiplus::Image* m_back_image;
+
+	bool m_bDragging;									//是否正在拖拽中
+	bool m_isDrawingImage;								//是否正在绘制，是的话不可更改cur_image
+	Gdiplus::Image* m_cur_image;						//当前绘制图片
+	Gdiplus::Image* m_back_image;						//缓冲图片
+	float m_fViewingScale;								//图片缩放比例
+	POINT m_ptDistanceBetweenViewingAndDiagramCenter;	//绘制起始坐标
+	POINT m_ptDragStartPos;								//拖动变化位置
 	
 	//////////////////////////////////////////////////////////////////////////
 	// 自定义消息路由
 public:
 	// 渲染图片更新
-	afx_msg virtual LRESULT OnRenderImageUpdate(WPARAM w,LPARAM l);
+	void setScale(float scale);
+	float minScale();
+	float maxScale();
+	float stepScale();
 };
