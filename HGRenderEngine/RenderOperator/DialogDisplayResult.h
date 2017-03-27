@@ -41,6 +41,8 @@ private:
 	POINT m_ptDistanceBetweenViewingAndDiagramCenter;	//绘制起始坐标
 	POINT m_ptDragStartPos;								//拖动变化位置
 	
+	//TODO: 图片恢复缩放比
+
 	//////////////////////////////////////////////////////////////////////////
 	// 自定义消息路由
 public:

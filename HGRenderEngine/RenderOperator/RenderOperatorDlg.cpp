@@ -619,6 +619,7 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 // 	CString cstr2 = HGCode::convert(sstr);
 // 	MessageBox(cstr2);
 
+#if 0	//»­Í¼
 	CRect rcDrawArea(0,0,104,1000);
 	Bitmap* m_pImg = ::new Bitmap(rcDrawArea.Width(), rcDrawArea.Height());
 
@@ -643,6 +644,10 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 	}
 
 	DialogPlus::Send(DialogPlus::RENDER_IMAGE_UPDATE,NULL,(LPARAM)m_pImg);
+#endif // 0
+
+	RenderManager::inst().SaveESS("");
+
 
 // 	Json::Value root;
 // 

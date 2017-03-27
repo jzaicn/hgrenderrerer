@@ -379,8 +379,120 @@ RenderManager& RenderManager::inst()
 	return manager;
 }
 
+
 void RenderManager::SaveESS(std::string path)
 {
+	if (storage.initWhenNot())
+	{
+		initial();
+	}
+
+	EH_ExportOptions option;
+	option.base85_encoding = false;
+	option.left_handed = true;
+	EH_begin_export(storage.get_context(), "D:\\my_scene.ess", &option);
+
+	EH_RenderOptions render_op;
+	render_op.quality = EH_MEDIUM;
+	EH_set_render_options(storage.get_context(), &render_op);
+
+	//create cam
+	EH_Camera cam;
+	cam.fov = 45;
+	cam.near_clip = 0.01f;
+	cam.far_clip = 1000.0f;
+	cam.image_width = 640;
+	cam.image_height = 480;
+	HG_Mat cam_tran = HG_Mat(
+		HG_Vec4(0.731353, -0.681999, -0.0, 0.0),
+		HG_Vec4(0.255481, 0.27397, 0.927184, 0.0),
+		HG_Vec4(-0.632338, -0.678099, 0.374607, 0.0),
+		HG_Vec4(-38.681263, -49.142731, 21.895681, 1.0)
+	);
+	storage.fill(cam.view_to_world,cam_tran);
+	EH_set_camera(storage.get_context(), &cam);
+
+	const char *mesh_name = "simple_mesh";
+	EH_Mesh simple_mesh;
+	float vertices[48] = {-8.5f, 0.0f, 8.5f,   8.5f, 0.0f, 8.5f,   8.5f, 8.0f, 8.5f,  -8.5f, 8.0f, 8.5f,
+		-8.5f, 8.0f, -8.5f,  8.5f, 8.0f, -8.5f,  8.5f, 0.0f, -8.5f, -8.5f, 0.0f, -8.5f,
+		8.5f, 0.0f, 8.5f,   8.5f, 0.0f, -8.5f,  8.5f, 8.0f, -8.5f,  8.5f, 8.0f, 8.5f,
+		-8.5f, 0.0f, -8.5f,  -8.5f, 0.0f, 8.5f,  -8.5f, 8.0f, 8.5f, -8.5f, 8.0f, -8.5f
+	};
+	float uvs[32] = {
+		0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0,
+		0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0,
+		0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0,
+		0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0
+	};
+	uint_t indice[36] = {
+		0,2,1,
+		0,3,2,
+
+		1,2,6,
+		6,5,1,
+
+		4,5,6,
+		6,7,4,
+
+		2,3,6,
+		6,3,7,
+
+		0,7,3,
+		0,4,7,
+
+		0,1,5,
+		0,5,4
+	};
+	simple_mesh.num_verts = 16;
+	simple_mesh.num_faces = 12;
+	simple_mesh.verts = (EH_Vec*)vertices;
+	simple_mesh.face_indices = (uint_t*)indice;
+	simple_mesh.uvs = (EH_Vec2*)uvs;
+	EH_add_mesh(storage.get_context(), mesh_name, &simple_mesh);
+
+	const char *simple_mtl = "simple_mtl";
+	EH_Material simple_mat;
+	float diff[3] = {1, 0, 0};
+	memcpy(simple_mat.diffuse_color, diff, sizeof(EH_RGB));
+	EH_add_material(storage.get_context(), simple_mtl, &simple_mat);		
+
+	EH_Sun sun;
+	sun.dir[0] = 0;
+	sun.dir[1] = 0;
+	float color[3] = {1, 1, 1};
+	memcpy(sun.color, color, sizeof(color));
+	sun.intensity = 200;
+	EH_set_sun(storage.get_context(), &sun);
+
+	const char *simple_inst_name = "simple_inst_name";
+	EH_MeshInstance inst;
+	inst.mesh_name = mesh_name;
+	inst.mtl_name = simple_mtl;
+	HG_Mat inst_tran = HG_Mat(
+		HG_Vec4(1, 0, 0, 0),
+		HG_Vec4(0, 1, 0, 0),
+		HG_Vec4(0, 0, 1, 0),
+		HG_Vec4(0, 0, 0, 1)
+	);
+	storage.fill(inst.mesh_to_world,inst_tran); 
+	EH_add_mesh_instance(storage.get_context(), simple_inst_name, &inst);
+
+	EH_AssemblyInstance include_inst;
+	include_inst.filename = "D:\\default.ess";
+	storage.fill(include_inst.mesh_to_world,inst_tran); 
+	EH_add_assembly_instance(storage.get_context(), "include_test_ess",&include_inst);
+	EH_end_export(storage.get_context());
+
+
+
+
+
+
+
+
+
+
 // 	set_scene_path(path);
 // 	
 // 	storage.initWhenNot();
@@ -485,6 +597,7 @@ void RenderManager::initial()
 void RenderManager::Begin()
 {	
 	DialogPlus::setStatusText(_T("开始渲染"));
+	HGLOG_DEBUG("开始渲染");
 	if (storage.initWhenNot())
 	{
 		initial();
