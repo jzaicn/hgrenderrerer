@@ -683,3 +683,5 @@ void RenderManager::Clear()
 }
 
 #endif
+
+//TODO: 开始渲染到有图片更新前，中间阶段最好有输出。现在等待时间太长，而且场景也不算大
