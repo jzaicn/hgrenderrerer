@@ -301,20 +301,70 @@ bool RenderManager::CallBackCore::m_bool = false;
 // 渲染工作线程
 class RenderWorkThread : public CWinThread
 {
+	DECLARE_DYNCREATE(RenderWorkThread)
 
+public:
+	RenderWorkThread(){};           // 动态创建所使用的受保护的构造函数
+	virtual ~RenderWorkThread(){};
+
+private:
+	GETSET(std::string,scenePath);
+	GETSET(EH_Context*,context);
+
+public:
+	virtual BOOL InitInstance()	
+	{
+		DialogPlus::Post(DialogPlus::RENDER_BEGIN);
+		return TRUE;
+	}
+	virtual int ExitInstance() 
+	{
+		DialogPlus::Post(DialogPlus::RENDER_DONE);
+		return CWinThread::ExitInstance();
+	};
+	bool checkRunable()
+	{
+		if (get_scenePath().empty())
+		{
+			HGLOG_DEBUG("场景路径空");
+			return false;
+		}
+		if (!get_context())
+		{
+			HGLOG_DEBUG("渲染核心不存在");
+			return false;
+		}
+		return true;
+		
+	}
+	virtual int Run() 
+	{	
+		if (checkRunable())
+		{
+			EH_start_render(m_context,m_scenePath.c_str(),false);
+		}
+		return true;
+	}
+protected:
+	DECLARE_MESSAGE_MAP()
 };
+IMPLEMENT_DYNCREATE(RenderWorkThread, CWinThread)
+BEGIN_MESSAGE_MAP(RenderWorkThread, CWinThread)
+END_MESSAGE_MAP()
 
-
+//////////////////////////////////////////////////////////////////////////
+// 数据实例
 RenderManager RenderManager::manager;
 RenderManager::DataStorageCore RenderManager::storage;
 RenderManager::CallBackCore RenderManager::callback;
+RenderWorkThread* RenderManager::renderThread = NULL;
 
 
 RenderManager::RenderManager(void)
 {
 	set_render_exe_path("E:\\HGRENDER\\Elara_SDK_1_0_76\\bin\\er.exe");
 	set_scene_path("D:\\my_scene.ess");
-
+	renderThread = nullptr;
 	
 }
 
@@ -417,15 +467,7 @@ void RenderManager::SaveESS(std::string path)
 // 	storage.clearCharBuffer();
 }
 
-void RenderManager::Begin()
-{	
-	DialogPlus::setStatusText(_T("开始渲染"));
-	if (storage.initWhenNot())
-	{
-		initial();
-	}
-	EH_start_render(storage.get_context(),get_scene_path().c_str(),false);
-}
+
 
 void RenderManager::SettingUpdate()
 {
@@ -439,3 +481,42 @@ void RenderManager::initial()
 	EH_set_display_callback(storage.get_context(),callback.dispaly_callback);
 }
 
+
+void RenderManager::Begin()
+{	
+	DialogPlus::setStatusText(_T("开始渲染"));
+	if (storage.initWhenNot())
+	{
+		initial();
+	}
+	if (!renderThread)
+	{
+		renderThread = new RenderWorkThread();
+		renderThread->CreateThread(CREATE_SUSPENDED);
+		renderThread->set_context(storage.get_context());
+		renderThread->set_scenePath(get_scene_path());
+		renderThread->ResumeThread();					//运行
+	}
+}
+
+void RenderManager::Stop()
+{
+	HGLOG_DEBUG("RenderManager::Stop");
+	Clear();
+}
+
+void RenderManager::Done()
+{
+	HGLOG_DEBUG("RenderManager::Done");
+	Clear();
+}
+
+void RenderManager::Clear()
+{
+	HGLOG_DEBUG("RenderManager::Clear");
+	if (renderThread)
+	{
+		renderThread->SuspendThread();
+		delete renderThread;
+	}
+}

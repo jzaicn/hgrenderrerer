@@ -4,6 +4,7 @@
 #include "HG_BaseModel.h"
 
 
+class RenderWorkThread;
 class RenderManager
 {
 private:
@@ -20,22 +21,25 @@ public:
 	void SaveImage(std::string path);
 	// 打开图像
 	void LoadImage(std::string path);
-	// 退出
-	void Clear();
+	
 	// 缩放图像到原始尺寸
 	void GetImageData();
 	// 保存配置
 	void SaveESS(std::string path);
 	// 读取配置
 	void LoadESS(std::string path);
+	// 渲染设置更新
+	void SettingUpdate();
+
+
 	// 渲染开始
 	void Begin();
 	// 渲染停止
 	void Stop();
 	// 渲染停止
 	void Done();
-	// 渲染设置更新
-	void SettingUpdate();
+	// 渲染清理
+	void Clear();
 
 	//TODO: 准备数据
 	//TODO: 更新曝光
@@ -56,7 +60,7 @@ private:
 	static DataStorageCore storage;
 	class CallBackCore;
 	static CallBackCore callback;
-
+	static RenderWorkThread* renderThread;
 
 
 public:
