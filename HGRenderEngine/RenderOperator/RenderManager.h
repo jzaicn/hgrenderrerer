@@ -52,7 +52,7 @@ public:
 	//TODO: material
 	//TODO: meshÊµÀý
 
-	void initial();
+	void initWhenNot();
 	
 
 private:

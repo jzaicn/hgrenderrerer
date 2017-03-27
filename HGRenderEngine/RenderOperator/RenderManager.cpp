@@ -174,7 +174,10 @@ public:
 			fill((uint_t)(outval.face_indices[i+2]),inval.get_faces().at(i).get_t3());
 		}
 	}
-
+	void fill(EH_RenderOptions& outval,HG_RenderParam inval)
+	{
+		outval.quality = inval.get_render_quality();
+	}
 	void fill(EH_Material& outval,HG_Material inval)
 	{
 		outval.backface_cull = inval.get_cull_back();
@@ -382,213 +385,229 @@ RenderManager& RenderManager::inst()
 
 void RenderManager::SaveESS(std::string path)
 {
-	if (storage.initWhenNot())
-	{
-		initial();
-	}
+	initWhenNot();
 
+	// 设置导出选项
 	EH_ExportOptions option;
 	option.base85_encoding = false;
 	option.left_handed = true;
-	EH_begin_export(storage.get_context(), "D:\\my_scene.ess", &option);
+	EH_begin_export(storage.get_context(), get_scene_path().c_str(), &option);
 
+	// 设置渲染质量
 	EH_RenderOptions render_op;
-	render_op.quality = EH_MEDIUM;
+	storage.fill(render_op,HG_SceneCenter::inst().get_param());
 	EH_set_render_options(storage.get_context(), &render_op);
 
-	//create cam
-	EH_Camera cam;
-	cam.fov = 45;
-	cam.near_clip = 0.01f;
-	cam.far_clip = 1000.0f;
-	cam.image_width = 640;
-	cam.image_height = 480;
+
+	HG_Camera camera;
+	camera.set_fov(45.0f);
+	camera.set_near_clip(0.01f);
+	camera.set_far_clip(1000.0f);
+	camera.set_image_width(640);
+	camera.set_image_height(480);
 	HG_Mat cam_tran = HG_Mat(
 		HG_Vec4(0.731353, -0.681999, -0.0, 0.0),
 		HG_Vec4(0.255481, 0.27397, 0.927184, 0.0),
 		HG_Vec4(-0.632338, -0.678099, 0.374607, 0.0),
 		HG_Vec4(-38.681263, -49.142731, 21.895681, 1.0)
-	);
-	storage.fill(cam.view_to_world,cam_tran);
-	EH_set_camera(storage.get_context(), &cam);
+		);
+	camera.set_view_to_world(cam_tran);
+	HG_SceneCenter::inst().addCamera(camera);
 
-	const char *mesh_name = "simple_mesh";
-	EH_Mesh simple_mesh;
-	float vertices[48] = {-8.5f, 0.0f, 8.5f,   8.5f, 0.0f, 8.5f,   8.5f, 8.0f, 8.5f,  -8.5f, 8.0f, 8.5f,
-		-8.5f, 8.0f, -8.5f,  8.5f, 8.0f, -8.5f,  8.5f, 0.0f, -8.5f, -8.5f, 0.0f, -8.5f,
-		8.5f, 0.0f, 8.5f,   8.5f, 0.0f, -8.5f,  8.5f, 8.0f, -8.5f,  8.5f, 8.0f, 8.5f,
-		-8.5f, 0.0f, -8.5f,  -8.5f, 0.0f, 8.5f,  -8.5f, 8.0f, 8.5f, -8.5f, 8.0f, -8.5f
-	};
-	float uvs[32] = {
-		0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0,
-		0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0,
-		0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0,
-		0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0
-	};
-	uint_t indice[36] = {
-		0,2,1,
-		0,3,2,
+	//设置摄像机
+	if (HG_SceneCenter::inst().get_cameraList().size() > 0)
+	{
+		EH_Camera camera;
+		storage.fill(camera,HG_SceneCenter::inst().get_cameraList().at(0));
+		EH_set_camera(storage.get_context(), &camera);
+	}
+	else
+	{
+		HGLOG_WARN("camera empty");
+	}
 
-		1,2,6,
-		6,5,1,
+	HG_Mesh mesh;
+	mesh.set_unique_code("simple_mesh");
+	
+	std::vector<HG_Vec3> verts;
+	verts.push_back(HG_Vec3(-8.5f, 0.0f, 8.5f));
+	verts.push_back(HG_Vec3(8.5f, 0.0f, 8.5f));
+	verts.push_back(HG_Vec3(8.5f, 8.0f, 8.5f));
+	verts.push_back(HG_Vec3(-8.5f, 8.0f, 8.5f));
+	verts.push_back(HG_Vec3(-8.5f, 8.0f, -8.5f));
+	verts.push_back(HG_Vec3(8.5f, 8.0f, -8.5f));
+	verts.push_back(HG_Vec3(8.5f, 0.0f, -8.5f));
+	verts.push_back(HG_Vec3(-8.5f, 0.0f, -8.5f));
+	verts.push_back(HG_Vec3(8.5f, 0.0f, 8.5f));
+	verts.push_back(HG_Vec3(8.5f, 0.0f, -8.5f));
+	verts.push_back(HG_Vec3(8.5f, 8.0f, -8.5f));
+	verts.push_back(HG_Vec3(8.5f, 8.0f, 8.5f));
+	verts.push_back(HG_Vec3(-8.5f, 0.0f, -8.5f));
+	verts.push_back(HG_Vec3(-8.5f, 0.0f, 8.5f));
+	verts.push_back(HG_Vec3(-8.5f, 8.0f, 8.5f));
+	verts.push_back(HG_Vec3(-8.5f, 8.0f, -8.5f));
+	mesh.set_verts(verts);
 
-		4,5,6,
-		6,7,4,
+	std::vector<HG_Vec2> uvs;
+	uvs.push_back(HG_Vec2(0.0,0.0));
+	uvs.push_back(HG_Vec2(1.0,0.0));
+	uvs.push_back(HG_Vec2(1.0,1.0));
+	uvs.push_back(HG_Vec2(0.0,1.0));
+	uvs.push_back(HG_Vec2(0.0,0.0));
+	uvs.push_back(HG_Vec2(1.0,0.0));
+	uvs.push_back(HG_Vec2(1.0,1.0));
+	uvs.push_back(HG_Vec2(0.0,1.0));
+	uvs.push_back(HG_Vec2(0.0,0.0));
+	uvs.push_back(HG_Vec2(1.0,0.0));
+	uvs.push_back(HG_Vec2(1.0,1.0));
+	uvs.push_back(HG_Vec2(0.0,1.0));
+	uvs.push_back(HG_Vec2(0.0,0.0));
+	uvs.push_back(HG_Vec2(1.0,0.0));
+	uvs.push_back(HG_Vec2(1.0,1.0));
+	uvs.push_back(HG_Vec2(0.0,1.0));
+	mesh.set_uvs(uvs);
 
-		2,3,6,
-		6,3,7,
+	std::vector<HG_MeshTriangle> faces;
+	faces.push_back(HG_MeshTriangle(0,2,1));
+	faces.push_back(HG_MeshTriangle(0,3,2));
+	faces.push_back(HG_MeshTriangle(1,2,6));
+	faces.push_back(HG_MeshTriangle(6,5,1));
+	faces.push_back(HG_MeshTriangle(4,5,6));
+	faces.push_back(HG_MeshTriangle(6,7,4));
+	faces.push_back(HG_MeshTriangle(2,3,6));
+	faces.push_back(HG_MeshTriangle(6,3,7));
+	faces.push_back(HG_MeshTriangle(0,7,3));
+	faces.push_back(HG_MeshTriangle(0,4,7));
+	faces.push_back(HG_MeshTriangle(0,1,5));
+	faces.push_back(HG_MeshTriangle(0,5,4));
+	mesh.set_faces(faces);
+	HG_SceneCenter::inst().addMesh(mesh);
 
-		0,7,3,
-		0,4,7,
+ 	// mesh 列表
+ 	for (int i = 0; i < HG_SceneCenter::inst().ref_meshList().size() ; i++)
+ 	{
+ 		HG_Mesh hg_mesh = HG_SceneCenter::inst().ref_meshList().at(i);
+ 		EH_Mesh mesh;
+ 		mesh.verts = (EH_Vec*)malloc(sizeof(EH_Vec) * hg_mesh.get_verts().size());
+ 		mesh.normals = (EH_Vec*)malloc(sizeof(EH_Vec) * hg_mesh.get_verts().size());
+ 		mesh.uvs = (EH_Vec2*)malloc(sizeof(EH_Vec2) * hg_mesh.get_verts().size());
+ 		mesh.face_indices = (uint_t *)malloc(sizeof(uint_t) * hg_mesh.get_faces().size() * 3);
+ 
+ 		storage.fill(mesh,hg_mesh);
+ 		EH_add_mesh(storage.get_context(),hg_mesh.get_unique_code().c_str(),&mesh);
+ 
+ 		free(mesh.verts);
+ 		free(mesh.normals);
+ 		free(mesh.uvs);
+ 		free(mesh.face_indices);
+ 	}
 
-		0,1,5,
-		0,5,4
-	};
-	simple_mesh.num_verts = 16;
-	simple_mesh.num_faces = 12;
-	simple_mesh.verts = (EH_Vec*)vertices;
-	simple_mesh.face_indices = (uint_t*)indice;
-	simple_mesh.uvs = (EH_Vec2*)uvs;
-	EH_add_mesh(storage.get_context(), mesh_name, &simple_mesh);
+	//TODO: 修改material 默认参数，empty，赋值方式
+	//TODO: 默认构造函数应该是defalut，可以带参构造，如果传颜色则为颜色类型，传图片则为图片类型
+	HG_Material material;
+	material.set_unique_code("simple_mtl");
+	material.set_color(HG_Vec4(1, 0, 0,1));
+	material.set_type(HG_Material.color);
+	HG_SceneCenter::inst().addMaterial(material);
 
-	const char *simple_mtl = "simple_mtl";
-	EH_Material simple_mat;
-	float diff[3] = {1, 0, 0};
-	memcpy(simple_mat.diffuse_color, diff, sizeof(EH_RGB));
-	EH_add_material(storage.get_context(), simple_mtl, &simple_mat);		
+	// 材质 列表
+ 	for (int i = 0; i < HG_SceneCenter::inst().ref_materialList().size() ; i++)
+ 	{
+ 		HG_Material hg_material = HG_SceneCenter::inst().ref_materialList().at(i);
+ 		EH_Material material;
+ 		storage.fill(material,hg_material);
+ 		EH_add_material(storage.get_context(),hg_material.get_unique_code().c_str(),&material);
+ 	}
 
-	EH_Sun sun;
-	sun.dir[0] = 0;
-	sun.dir[1] = 0;
-	float color[3] = {1, 1, 1};
-	memcpy(sun.color, color, sizeof(color));
-	sun.intensity = 200;
-	EH_set_sun(storage.get_context(), &sun);
 
-	const char *simple_inst_name = "simple_inst_name";
-	EH_MeshInstance inst;
-	inst.mesh_name = mesh_name;
-	inst.mtl_name = simple_mtl;
+	HG_MeshInstance inst;
+	inst.set_unique_code("simple_inst_name");
+	inst.set_mesh_code(mesh.get_unique_code());
+	inst.set_material_code(material.get_unique_code());
 	HG_Mat inst_tran = HG_Mat(
 		HG_Vec4(1, 0, 0, 0),
 		HG_Vec4(0, 1, 0, 0),
 		HG_Vec4(0, 0, 1, 0),
 		HG_Vec4(0, 0, 0, 1)
-	);
-	storage.fill(inst.mesh_to_world,inst_tran); 
-	EH_add_mesh_instance(storage.get_context(), simple_inst_name, &inst);
+		);
+	inst.set_mesh_to_world(inst_tran);
+	HG_SceneCenter::inst().addMeshUseMaterial(inst);
 
-	EH_AssemblyInstance include_inst;
-	include_inst.filename = "D:\\default.ess";
-	storage.fill(include_inst.mesh_to_world,inst_tran); 
-	EH_add_assembly_instance(storage.get_context(), "include_test_ess",&include_inst);
+
+	// mesh 实例 列表
+	for (int i = 0; i < HG_SceneCenter::inst().ref_meshInstanceList().size() ; i++)
+	{
+	 	HG_MeshInstance hg_meshInst = HG_SceneCenter::inst().ref_meshInstanceList().at(i);
+	 	EH_MeshInstance meshInst;
+	 	storage.fill(meshInst,hg_meshInst);
+	 	EH_add_mesh_instance(storage.get_context(),hg_meshInst.get_unique_code().c_str(),&meshInst);
+	}
+
+
+
+	HG_ModelInstance model;
+	model.set_unique_code("include_test_ess");
+	model.set_model_file("D:\\default.ess");
+	model.set_mesh_to_world(inst_tran);
+	HG_SceneCenter::inst().addModelInstance(model);
+
+
+	//外部对象列表
+	for (int i = 0; i < HG_SceneCenter::inst().ref_modelList().size() ; i++)
+	{
+		HG_ModelInstance hg_model = HG_SceneCenter::inst().ref_modelList().at(i);
+		EH_AssemblyInstance model;
+		storage.fill(model,hg_model);
+		EH_add_assembly_instance(storage.get_context(),hg_model.get_unique_code().c_str(),&model);
+	}
+
+
+
+	HG_SunLight sun;
+	sun.set_sun_height(0.0);
+	sun.set_sun_angle(0.0);
+	//TODO: 修改所有颜色UINT 和 HG_VEC4都可以设置
+	sun.set_sun_color(0xFFFFFFFF);
+	HG_SceneCenter::inst().set_sun(sun);
+
+
+
+
+
+	//阳光
+	EH_Sun sun;
+	storage.fill(sun,HG_SceneCenter::inst().get_sun());
+	EH_set_sun(storage.get_context(),&sun);
+
+
+	// 	//天空
+	// 	EH_Sky sky;
+	// 	storage.fill(sky,HG_SceneCenter::inst().get_sky());
+	// 	EH_set_sky(storage.get_context(),&sky);
+
+	//导出结束
 	EH_end_export(storage.get_context());
 
 
+	storage.clearCharBuffer();
 
 
-
-
-
-
-
-
-// 	set_scene_path(path);
-// 	
-// 	storage.initWhenNot();
-// 
-// 	EH_ExportOptions opt;
-// 	opt.base85_encoding = true;
-// 	opt.left_handed = false;
-// 
-// 	EH_begin_export(storage.get_context(),get_scene_path().c_str(),&opt);
-// 
-// 	// mesh 列表
-// 	for (int i = 0; i < HG_SceneCenter::inst().ref_meshList().size() ; i++)
-// 	{
-// 		HG_Mesh hg_mesh = HG_SceneCenter::inst().ref_meshList().at(i);
-// 		EH_Mesh mesh;
-// 		mesh.verts = (EH_Vec*)malloc(sizeof(EH_Vec) * hg_mesh.get_verts().size());
-// 		mesh.normals = (EH_Vec*)malloc(sizeof(EH_Vec) * hg_mesh.get_verts().size());
-// 		mesh.uvs = (EH_Vec2*)malloc(sizeof(EH_Vec2) * hg_mesh.get_verts().size());
-// 		mesh.face_indices = (uint_t *)malloc(sizeof(uint_t) * hg_mesh.get_faces().size() * 3);
-// 
-// 		storage.fill(mesh,hg_mesh);
-// 		EH_add_mesh(storage.get_context(),hg_mesh.get_unique_code().c_str(),&mesh);
-// 
-// 		free(mesh.verts);
-// 		free(mesh.normals);
-// 		free(mesh.uvs);
-// 		free(mesh.face_indices);
-// 	}
-// 
-// 	// 材质 列表
-// // 	for (int i = 0; i < HG_SceneCenter::inst().ref_materialList().size() ; i++)
-// // 	{
-// // 		HG_Material hg_material = HG_SceneCenter::inst().ref_materialList().at(i);
-// // 		EH_Material material;
-// // 		storage.fill(material,hg_material);
-// // 		EH_add_material(storage.get_context(),hg_material.get_unique_code().c_str(),&material);
-// // 	}
-// 
-// 	// mesh 实例 列表
-// 	for (int i = 0; i < HG_SceneCenter::inst().ref_meshInstanceList().size() ; i++)
-// 	{
-// 		HG_MeshInstance hg_meshInst = HG_SceneCenter::inst().ref_meshInstanceList().at(i);
-// 		EH_MeshInstance meshInst;
-// 		storage.fill(meshInst,hg_meshInst);
-// 		EH_add_mesh_instance(storage.get_context(),hg_meshInst.get_unique_code().c_str(),&meshInst);
-// 	}
-// 
-// 	
-// 	//外部对象列表
-// 	for (int i = 0; i < HG_SceneCenter::inst().ref_modelList().size() ; i++)
-// 	{
-// 		HG_ModelInstance hg_model = HG_SceneCenter::inst().ref_modelList().at(i);
-// 		EH_AssemblyInstance model;
-// 		storage.fill(model,hg_model);
-// 		EH_add_assembly_instance(storage.get_context(),hg_model.get_unique_code().c_str(),&model);
-// 	}
-// 	
-// 	//摄像机
-// 	if (HG_SceneCenter::inst().get_cameraList().size() > 0)
-// 	{
-// 		EH_Camera camera;
-// 		storage.fill(camera,HG_SceneCenter::inst().get_cameraList().at(0));
-// 		EH_set_camera(storage.get_context(), &camera);
-// 	}
-// 	else
-// 	{
-// 		HGLOG_WARN("camera empty");
-// 	}
-// 	
-// 
-// 	//阳光
-// 	EH_Sun sun;
-// 	storage.fill(sun,HG_SceneCenter::inst().get_sun());
-// 	EH_set_sun(storage.get_context(),&sun);
-// 	
-// 	//天空
-// 	EH_Sky sky;
-// 	storage.fill(sky,HG_SceneCenter::inst().get_sky());
-// 	EH_set_sky(storage.get_context(),&sky);
-// 
-// 
-// 	EH_end_export(storage.get_context());
-// 
-// 	storage.clearCharBuffer();
 }
 
 void RenderManager::SettingUpdate()
 {
+	//TODO: 更新设置项
 	HG_SceneCenter::inst().get_exposure();
 }
 
-void RenderManager::initial()
+void RenderManager::initWhenNot()
 {
-	EH_set_log_callback(storage.get_context(),callback.log_callback);
-	EH_set_progress_callback(storage.get_context(),callback.progress_callback);
-	EH_set_display_callback(storage.get_context(),callback.dispaly_callback);
+	if (storage.initWhenNot())
+	{
+		EH_set_log_callback(storage.get_context(),callback.log_callback);
+		EH_set_progress_callback(storage.get_context(),callback.progress_callback);
+		EH_set_display_callback(storage.get_context(),callback.dispaly_callback);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -601,10 +620,7 @@ void RenderManager::Begin()
 		HGLOG_DEBUG("启动渲染");
 		DialogPlus::setStatusText(_T("启动渲染"));
 
-		if (storage.initWhenNot())
-		{
-			initial();
-		}
+		initWhenNot();
 
 		renderThread = new RenderWorkThread();
 		renderThread->CreateThread(CREATE_SUSPENDED);
