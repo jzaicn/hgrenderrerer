@@ -8,10 +8,11 @@
 
 using namespace Gdiplus;
 
+
+//////////////////////////////////////////////////////////////////////////
+// 数据存储核心
 class RenderManager::DataStorageCore
 {
-//////////////////////////////////////////////////////////////////////////
-// 易渲数据存储核心
 public:
 	DataStorageCore(){set_context(NULL);}
 	~DataStorageCore(){	clear();}
@@ -228,11 +229,11 @@ public:
 #endif
 
 };
-
+//////////////////////////////////////////////////////////////////////////
+// 回调函数响应中心
 class RenderManager::CallBackCore
 {
-//////////////////////////////////////////////////////////////////////////
-// 易渲回调函数响应中心
+
 public:
 	CallBackCore(){m_bool = true; }
 	~CallBackCore(){}
@@ -296,6 +297,13 @@ public:
 #endif
 };
 bool RenderManager::CallBackCore::m_bool = false;
+//////////////////////////////////////////////////////////////////////////
+// 渲染工作线程
+class RenderWorkThread : public CWinThread
+{
+
+};
+
 
 RenderManager RenderManager::manager;
 RenderManager::DataStorageCore RenderManager::storage;

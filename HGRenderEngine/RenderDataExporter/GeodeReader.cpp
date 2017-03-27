@@ -300,10 +300,6 @@ void GeodeReader::processGeometery(osg::Geode* _geode)
 	if(m_geode->getStateSet()){
 		popStateSet(m_geode->getStateSet());
 	}
-// 	if (count > 0)
-// 	{
-// 		buildFaces(*m_geode, m_listTriangles, texcoords);
-// 	}
 }
 
 void GeodeReader::createListTriangle(const osg::Geometry* geo, ListTriangle& listTriangles, bool& texcoords,unsigned int& drawable_n)
@@ -735,16 +731,6 @@ void GeodeReader::buildFaces(const osg::Geode& geo,ListTriangle& listTriangles,b
 
 void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,	MapIndices& index_vert,bool              texcoords)
 {
-	if (texcoords)
-	{
-		//TODO: ÉèÖÃUVs
-		//HGLOG_DEBUG("uvs nums:%d",geo.getDrawable(0)->_useVertexBufferObjects);
-		// 		lUVDiffuseLayer->SetMappingMode(FbxLayerElement::eByControlPoint);
-		// 		lUVDiffuseLayer->SetReferenceMode(FbxLayerElement::eDirect);
-		// 		lUVDiffuseLayer->GetDirectArray().SetCount(index_vert.size());
-		// 		mesh->GetLayer(0)->SetUVs(lUVDiffuseLayer, FbxLayerElement::eTextureDiffuse);
-	}
-
 	m_points->resize(index_vert.size());
 	m_normals->resize(index_vert.size());
 	m_uvs->resize(index_vert.size());
@@ -754,77 +740,6 @@ void GeodeReader::setControlPointAndNormalsAndUV(const osg::Geode& geo,	MapIndic
 		const osg::Geometry* pGeometry = geo.getDrawable(it->first.drawableIndex)->asGeometry();
 		unsigned int vertexIndex = it->first.vertexIndex;
 		unsigned int normalIndex = it->first.normalIndex;
-
-// 		const osg::Array * basevecs = pGeometry->getVertexArray();
-// 		assert(basevecs);
-// 		if (!basevecs || basevecs->getNumElements()==0)
-// 		{
-// 			//OSG_NOTIFY()
-// 			continue;
-// 		}
-// 		//FbxVector4 vertex;
-// 		if (basevecs->getType() == osg::Array::Vec3ArrayType)
-// 		{
-// 			osg::Vec3  vec = (*static_cast<const osg::Vec3Array  *>(basevecs))[vertexIndex];
-// 			//osg::Matrix mtr = m_geode->getWorldMatrices().at(0);
-// 			//vec.set(vec * mtr);
-// 			(*m_points)[it->second].set(vec.x(), vec.y(), vec.z());
-// 			HGLOG_DEBUG("vertex( %f, %f, %f)",vec.x(), vec.y(), vec.z());
-// 		}
-// 		else if (basevecs->getType() == osg::Array::Vec3dArrayType)
-// 		{
-// 			osg::Vec3d vec = (*static_cast<const osg::Vec3dArray *>(basevecs))[vertexIndex];
-// 			//osg::Matrix mtr = m_geode->getWorldMatrices().at(0);
-// 			//vec.set(vec * mtr);
-// 			(*m_points)[it->second].set(vec.x(), vec.y(), vec.z());
-// 			HGLOG_DEBUG("vertex( %f, %f, %f)",vec.x(), vec.y(), vec.z());
-// 		}
-// 		else
-// 		{
-// 			OSG_NOTIFY(osg::FATAL) << "Vertex array is not Vec3 or Vec3d. Not implemented" << std::endl;
-// 			throw "Vertex array is not Vec3 or Vec3d. Not implemented";
-// 			//_succeeded = false;
-// 			//return;
-// 		}
-		//mesh->SetControlPointAt(vertex, it->second);
-		//HGLOG_DEBUG("vertex( point %d )",it->second);
-
-
-// 		const osg::Array * basenormals = pGeometry->getNormalArray();
-// 
-// 		if (basenormals && basenormals->getNumElements()>0)
-// 		{
-// 			//FbxVector4 normal;
-// 			if (basenormals->getType() == osg::Array::Vec3ArrayType)
-// 			{
-// 				const osg::Vec3  & vec = (*static_cast<const osg::Vec3Array  *>(basenormals))[normalIndex];
-// 				(*m_normals)[it->second].set(vec.x(), vec.y(), vec.z());
-// 				HGLOG_DEBUG("normal( %f, %f, %f)",vec.x(), vec.y(), vec.z());
-// 			}
-// 			else if (basenormals->getType() == osg::Array::Vec3dArrayType)
-// 			{
-// 				const osg::Vec3d & vec = (*static_cast<const osg::Vec3dArray *>(basenormals))[normalIndex];
-// 				(*m_normals)[it->second].set(vec.x(), vec.y(), vec.z());
-// 				HGLOG_DEBUG("normal( %f, %f, %f)",vec.x(), vec.y(), vec.z());
-// 			}
-// 			else
-// 			{
-// 				OSG_NOTIFY(osg::FATAL) << "Normal array is not Vec3 or Vec3d. Not implemented" << std::endl;
-// 				throw "Normal array is not Vec3 or Vec3d. Not implemented";
-// 				//_succeeded = false;
-// 				//return;
-// 			}
-// 			//HGLOG_DEBUG("normal( point %d )",it->second);
-// 
-// 			//switch (pGeometry->getNormalBinding())
-// 			//{
-// 			//case osg::Geometry::BIND_PER_PRIMITIVE_SET:
-// 			//case osg::Geometry::BIND_PER_PRIMITIVE:
-// 			//case osg::Geometry::BIND_PER_VERTEX:
-// 			//    break;
-// 			//}
-// 			//lLayerElementNormal->GetDirectArray().SetAt(it->second, normal);
-// 		}
 
 		if (texcoords)
 		{
