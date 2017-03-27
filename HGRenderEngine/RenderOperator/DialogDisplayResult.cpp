@@ -121,6 +121,9 @@ void DialogDisplayResult::OnPaint()
 		 		rcDrawArea.left - ((int)pPanelImg->GetWidth() - (int)rcDrawArea.Width()) / 2 + pPanelImg->GetWidth(), rcDrawArea.top - ((int)pPanelImg->GetHeight() - (int)rcDrawArea.Height()) / 2 + pPanelImg->GetHeight());
 		 	rcImg.OffsetRect(m_ptDistanceBetweenViewingAndDiagramCenter.x, m_ptDistanceBetweenViewingAndDiagramCenter.y);
 		 	
+
+			rcDrawArea.right = rcDrawArea.right + (rcDrawArea.right - rcDrawArea.left) / m_fViewingScale;
+			rcDrawArea.bottom = rcDrawArea.bottom + (rcDrawArea.bottom - rcDrawArea.top) / m_fViewingScale;
 			//绘制指定区域数据
 		 	CRect rcDrawAreaAndImageInterset;
 		 	if(rcDrawAreaAndImageInterset.IntersectRect(rcImg, rcDrawArea))
