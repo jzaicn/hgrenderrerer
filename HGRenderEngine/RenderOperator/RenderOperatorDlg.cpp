@@ -562,12 +562,14 @@ LRESULT CRenderOperatorDlg::OnBegin(WPARAM w,LPARAM l)
 LRESULT CRenderOperatorDlg::OnStop(WPARAM w,LPARAM l)
 {
 	HGLOG_DEBUG("OnStop");
+	RenderManager::inst().Stop();
 	return 0;
 }
 
 LRESULT CRenderOperatorDlg::OnDone(WPARAM w,LPARAM l)
 {
 	HGLOG_DEBUG("OnDone");
+	RenderManager::inst().Done();
 	return 0;
 }
 

@@ -820,10 +820,12 @@ void RenderManager::Done()
 void RenderManager::Clear()
 {
 	HGLOG_DEBUG("结束渲染任务");
+	//TODO: 线程内存这么使用有没有问题
 	if (renderThread)
 	{
 		renderThread->SuspendThread();
-		delete renderThread;
+		//delete renderThread;
+		renderThread = NULL;
 	}
 }
 
