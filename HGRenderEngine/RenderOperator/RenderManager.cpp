@@ -234,7 +234,7 @@ class RenderManager::CallBackCore
 //////////////////////////////////////////////////////////////////////////
 // 易渲回调函数响应中心
 public:
-	CallBackCore(){m_bool = false; }
+	CallBackCore(){m_bool = true; }
 	~CallBackCore(){}
 	
 	static bool m_bool;
@@ -250,23 +250,23 @@ public:
 		Bitmap* m_pImg = ::new Bitmap(rcDrawArea.Width(), rcDrawArea.Height());
 		if (m_bool)
 		{
-			HGLOG_DEBUG("-------------------------------------------");
+			//HGLOG_DEBUG("-------------------------------------------");
 			int index = 0;
 			for (int wi = 0; wi < width ; wi++)
 			{
 				for (int hi = 0; hi < height ; hi++)
 				{
-					int r = (int)color_data[hi + index][0];				
-					int g = (int)color_data[hi + index][1];
-					int b = (int)color_data[hi + index][2];
-					int a = (int)color_data[hi + index][3];
+					int r = (int)(color_data[hi + index][0] * 255.0);				
+					int g = (int)(color_data[hi + index][1] * 255.0);
+					int b = (int)(color_data[hi + index][2] * 255.0);
+					int a = (int)(color_data[hi + index][3] * 255.0);
 					//HGLOG_DEBUG("color : ( %d , %d , %d, %d )",r,g,b,a);
 					Color color(a,b,g,r);
 					m_pImg->SetPixel(wi,hi,color);
 				}
 				index += height;
 			}
-			HGLOG_DEBUG("==========================================");
+			//HGLOG_DEBUG("==========================================");
 
 		}
 		DialogPlus::Send(DialogPlus::RENDER_IMAGE_UPDATE,NULL,(LPARAM)m_pImg);

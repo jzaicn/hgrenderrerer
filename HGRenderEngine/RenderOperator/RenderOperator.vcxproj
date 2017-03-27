@@ -125,7 +125,7 @@
       <UndefinePreprocessorDefinitions>WIN32</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>uafxcw.lib;liber.lib;oslcomp.lib;oslexec.lib;oslquery.lib;jsoncpp.lib;log4cpp.lib;tinyxmlSTL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>uafxcw.lib;windowscodecs.lib;liber.lib;oslcomp.lib;oslexec.lib;oslquery.lib;jsoncpp.lib;log4cpp.lib;tinyxmlSTL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <IgnoreSpecificDefaultLibraries>uafxcw.lib</IgnoreSpecificDefaultLibraries>
