@@ -19,9 +19,6 @@
     <Filter Include="Tools">
       <UniqueIdentifier>{088567f0-620f-4d96-8b72-c7a2ecc20a81}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tools\JsonCpp">
-      <UniqueIdentifier>{c3379db0-de56-45d4-b55e-3eba2a695e37}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Model">
       <UniqueIdentifier>{63ceb3cf-32f7-4acc-900f-24d987770ffa}</UniqueIdentifier>
     </Filter>
@@ -133,39 +130,6 @@
     </ClInclude>
     <ClInclude Include="HG_ModelInstance.h">
       <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonCpp\allocator.h">
-      <Filter>Tools\JsonCpp</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonCpp\assertions.h">
-      <Filter>Tools\JsonCpp</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonCpp\autolink.h">
-      <Filter>Tools\JsonCpp</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonCpp\config.h">
-      <Filter>Tools\JsonCpp</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonCpp\features.h">
-      <Filter>Tools\JsonCpp</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonCpp\forwards.h">
-      <Filter>Tools\JsonCpp</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonCpp\json.h">
-      <Filter>Tools\JsonCpp</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonCpp\reader.h">
-      <Filter>Tools\JsonCpp</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonCpp\value.h">
-      <Filter>Tools\JsonCpp</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonCpp\version.h">
-      <Filter>Tools\JsonCpp</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonCpp\writer.h">
-      <Filter>Tools\JsonCpp</Filter>
     </ClInclude>
     <ClInclude Include="RenderDataExporter.h">
       <Filter>Frame</Filter>

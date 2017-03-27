@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="gb2312"?>
+<Root>
+	<Param cn_name="曝光控制" en_name="ExpouseControl" type="bool" min="0" max="1" default="1" step=""/>
+	<Param cn_name="曝光值" en_name="Exposure" type="float" min="-6" max="16" default="-1" step="0.01"/>
+	<Param cn_name="高光" en_name="HighLight" type="float" min="0" max="1" default="0.05" step="0.01"/>
+	<Param cn_name="中间调" en_name="HalfTone" type="float" min="0.1" max="4" default="1" step="0.01"/>
+	<Param cn_name="阴影" en_name="Shadow" type="float" min="0" max="1" default="0.1" step="0.01"/>
+	<Param cn_name="饱和度" en_name="Saturation" type="float" min="0" max="5" default="1.3" step="0.01"/>
+	<Param cn_name="白平衡" en_name="WhiteBalance" type="float" min="100" max="20000" default="6500" step="10"/>
+	<Param cn_name="天光控制" en_name="SkyLightControl" type="bool" min="0" max="1" default="1" step=""/>
+	<Param cn_name="天光强度" en_name="SkyIntensity" type="float" min="0" max="50" default="20" step="0.1"/>
+	<Param cn_name="环境HDR" en_name="HDRFileList" type="combo" min="" max="" default="2" step="">
+		<Option cn_name="晴天" en_name="Sunshine" value="C:\\0.BMP" />
+		<Option cn_name="阴天" en_name="Cloudy" value="C:\\1.BMP" />
+		<Option cn_name="夜晚" en_name="Night" value="C:\\2.BMP" />
+		<Option cn_name="自定义" en_name="SelfDefone" value="C:\\3.BMP" />
+	</Param>
+	<Param cn_name="环境旋转" en_name="HdrRotate" type="float" min="0" max="360" default="0" step="1"/>
+	<Param cn_name="阳光控制" en_name="SunControl" type="bool" min="0" max="1" default="1" step=""/>
+	<Param cn_name="阳光强度" en_name="SunIntensity" type="float" min="0" max="50" default="10" step="0.1"/>
+	<Param cn_name="阳光颜色" en_name="SunColor" type="color" min="" max="" default="458738" step=""/>
+	<Param cn_name="软阴影" en_name="SoftShadow" type="float" min="0" max="10" default="1" step="0.1"/>
+	<Param cn_name="太阳角度" en_name="Angle" type="float" min="0" max="360" default="0" step="1"/>
+	<Param cn_name="太阳高度" en_name="Height" type="float" min="-90" max="90" default="20" step="1"/>
+</Root>

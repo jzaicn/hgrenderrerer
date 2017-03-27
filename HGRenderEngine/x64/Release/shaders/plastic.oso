@@ -1,0 +1,35 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.7.2
+# options: 
+shader plastic
+param	color	diffuse_color	1 1 1		%read{0,0} %write{2147483647,-1}
+param	float	specular_weight	0.1		%read{3,8} %write{2147483647,-1}
+param	float	specular_roughness	0.2		%read{6,6} %write{2147483647,-1}
+global	normal	N	%read{2,7} %write{2147483647,-1}
+global	closure color	Ci	%read{2147483647,-1} %write{9,9}
+local	color	color_result	%read{4,4} %write{0,1}
+temp	int	$tmp1	%read{2147483647,-1} %write{1,1}
+const	string	$const1	"geom_color"		%read{1,1} %write{2147483647,-1}
+temp	closure color	$tmp2	%read{5,5} %write{2,2}
+const	string	$const2	"diffuse"		%read{2,2} %write{2147483647,-1}
+temp	float	$tmp3	%read{4,4} %write{3,3}
+const	float	$const4	1		%read{3,3} %write{2147483647,-1}
+temp	color	$tmp4	%read{5,5} %write{4,4}
+temp	closure color	$tmp5	%read{9,9} %write{5,5}
+temp	closure color	$tmp6	%read{8,8} %write{7,7}
+temp	float	$tmp7	%read{7,7} %write{6,6}
+const	float	$const6	100		%read{6,6} %write{2147483647,-1}
+const	string	$const7	"phong"		%read{7,7} %write{2147483647,-1}
+temp	closure color	$tmp8	%read{9,9} %write{8,8}
+code ___main___
+	assign		color_result diffuse_color 	%filename{"E:\\HGRENDER\\Elara_SDK_1_0_76\\shaders\\plastic.osl"} %line{23} %argrw{"wr"}
+	getattribute	$tmp1 $const1 color_result 	%line{28} %argrw{"wrw"}
+	closure		$tmp2 $const2 N 	%line{30} %argrw{"wrr"}
+	sub		$tmp3 $const4 specular_weight 	%argrw{"wrr"}
+	mul		$tmp4 $tmp3 color_result 	%argrw{"wrr"}
+	mul		$tmp5 $tmp2 $tmp4 	%argrw{"wrr"}
+	mul		$tmp7 specular_roughness $const6 	%line{31} %argrw{"wrr"}
+	closure		$tmp6 $const7 N $tmp7 	%argrw{"wrrr"}
+	mul		$tmp8 $tmp6 specular_weight 	%argrw{"wrr"}
+	add		Ci $tmp5 $tmp8 	%argrw{"wrr"}
+	end

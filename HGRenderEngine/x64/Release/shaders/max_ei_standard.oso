@@ -1,0 +1,789 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.7.2
+# options: 
+shader max_ei_standard
+param	color	diffuse_color	1 1 1		%read{369,369} %write{2147483647,-1}
+param	color	diffuse_color_base	1 1 1		%read{368,368} %write{2147483647,-1}
+param	float	diffuse_color_alpha	1		%read{367,367} %write{2147483647,-1}
+param	float	diffuse_weight	0.69999999		%read{175,175} %write{2147483647,-1}
+param	float	roughness	0		%read{197,197} %write{2147483647,-1}
+param	float	backlighting_weight	0		%read{169,169} %write{2147483647,-1}
+param	color	specular_color	1 1 1		%read{341,341} %write{2147483647,-1}
+param	color	specular_color_base	1 1 1		%read{340,340} %write{2147483647,-1}
+param	float	specular_color_alpha	1		%read{339,339} %write{2147483647,-1}
+param	float	specular_weight	0.2		%read{131,131} %write{2147483647,-1}
+param	int	specular_mode	0		%read{312,330} %write{2147483647,-1}
+param	float	glossiness	90		%read{308,334} %write{2147483647,-1}
+param	float	anisotropy	1		%read{319,319} %write{2147483647,-1}
+param	float	rotation	0		%read{235,239} %write{2147483647,-1}
+param	float	fresnel_ior_glossy	1.5		%read{49,66} %write{2147483647,-1}
+param	color	reflection_color	1 1 1		%read{355,355} %write{2147483647,-1}
+param	color	reflection_color_base	1 1 1		%read{354,354} %write{2147483647,-1}
+param	float	reflection_color_alpha	1		%read{353,353} %write{2147483647,-1}
+param	float	reflection_weight	0		%read{134,134} %write{2147483647,-1}
+param	float	fresnel_ior	1.5		%read{48,65} %write{2147483647,-1}
+param	color	refraction_color	1 1 1		%read{41,128} %write{2147483647,-1}
+param	color	refraction_color_base	1 1 1		%read{40,127} %write{2147483647,-1}
+param	float	refraction_color_alpha	1		%read{39,126} %write{2147483647,-1}
+param	float	refraction_weight	0		%read{17,17} %write{2147483647,-1}
+param	float	refraction_glossiness	100		%read{115,121} %write{2147483647,-1}
+param	float	ior	1.5		%read{47,99} %write{2147483647,-1}
+param	int	refraction_invert_weight	0		%read{18,18} %write{2147483647,-1}
+param	color	sss_color	1 1 1		%read{214,214} %write{2147483647,-1}
+param	color	sss_color_base	1 1 1		%read{213,213} %write{2147483647,-1}
+param	float	sss_color_alpha	1		%read{212,212} %write{2147483647,-1}
+param	float	sss_weight	0		%read{165,165} %write{2147483647,-1}
+param	float	sss_scale	1		%read{207,207} %write{2147483647,-1}
+param	color	sss_scale_color	1 1 1		%read{206,206} %write{2147483647,-1}
+param	color	sss_scale_color_base	1 1 1		%read{205,205} %write{2147483647,-1}
+param	float	sss_scale_color_alpha	1		%read{204,204} %write{2147483647,-1}
+param	color	emission_color	1 1 1		%read{365,365} %write{2147483647,-1}
+param	color	emission_color_base	1 1 1		%read{364,364} %write{2147483647,-1}
+param	float	emission_color_alpha	1		%read{363,363} %write{2147483647,-1}
+param	float	emission_weight	0		%read{357,357} %write{2147483647,-1}
+param	color	normal_map	0 0 0		%read{72,72} %write{2147483647,-1}
+param	float	normal_map_alpha	1		%read{72,72} %write{2147483647,-1}
+param	float	normal_weight	0		%read{70,87} %write{2147483647,-1}
+param	vector	bump_map_bump	0 0 0		%read{94,94} %write{2147483647,-1}
+param	float	bump_weight	0		%read{90,92} %write{2147483647,-1}
+param	color	displace_map	0 0 0		%read{6,9} %write{2147483647,-1}
+param	float	displace_map_alpha	1		%read{12,12} %write{2147483647,-1}
+param	float	displace_weight	0		%read{3,13} %write{2147483647,-1}
+param	color	transparency_color	1 1 1		%read{385,385} %write{2147483647,-1}
+param	color	transparency_color_base	1 1 1		%read{384,384} %write{2147483647,-1}
+param	float	transparency_color_alpha	1		%read{383,383} %write{2147483647,-1}
+param	float	transparency_weight	0		%read{377,377} %write{2147483647,-1}
+param	int	transparency_invert_weight	0		%read{378,378} %write{2147483647,-1}
+oparam	closure color	result			%read{387,387} %write{16,391}
+global	point	P	%read{15,15} %write{2147483647,-1}
+global	vector	I	%read{138,138} %write{2147483647,-1}
+global	normal	N	%read{14,232} %write{2147483647,-1}
+global	vector	dPdu	%read{75,75} %write{2147483647,-1}
+global	vector	dPdv	%read{78,78} %write{2147483647,-1}
+local	vector	___376_U	%read{231,233} %write{230,230}
+local	float	___377_c	%read{242,304} %write{241,241}
+local	float	___377_t	%read{245,301} %write{242,242}
+local	float	___377_s	%read{257,261} %write{243,243}
+local	float	___377_txy	%read{270,278} %write{247,247}
+local	float	___377_tyz	%read{289,296} %write{251,251}
+local	float	___377_txz	%read{274,293} %write{255,255}
+local	float	___377_sx	%read{289,296} %write{257,257}
+local	float	___377_sy	%read{274,293} %write{259,259}
+local	float	___377_sz	%read{270,278} %write{261,261}
+local	float	___378_Rn	%read{148,148} %write{147,147}
+local	float	___378_R0	%read{153,155} %write{148,148}
+local	float	___378_F1	%read{150,152} %write{149,149}
+local	float	___378_F2	%read{151,151} %write{150,150}
+local	float	___378_F5	%read{154,154} %write{152,152}
+local	float	___381_final_displace_map	%read{13,13} %write{12,12}
+local	float	___382_refr	%read{20,162} %write{17,23}
+local	float	___382_kt	%read{33,182} %write{24,24}
+local	int	___382_caustic	%read{30,102} %write{25,26}
+local	closure color	___382_refraction_result	%read{42,375} %write{27,129}
+local	color	___385_final_refraction_color	%read{42,42} %write{41,41}
+local	int	___386_no_specular	%read{68,344} %write{43,46}
+local	float	___386_eta	%read{53,124} %write{47,64}
+local	float	___386_refl_eta	%read{351,351} %write{48,65}
+local	float	___386_refl_eta_glossy	%read{141,337} %write{49,66}
+local	normal	___386_Nshading	%read{89,351} %write{67,96}
+local	color	___393_final_normal_map	%read{73,73} %write{72,72}
+local	color	___393_Nlocal	%read{76,82} %write{74,74}
+local	normal	___393_Nglob	%read{87,87} %write{84,84}
+local	color	___397_sigma_t	%read{117,124} %write{113,113}
+local	int	___397_maxRefractDepth	%read{117,124} %write{114,114}
+local	float	___399_refr_alpha	%read{124,124} %write{123,123}
+local	color	___395_final_refraction_color	%read{129,129} %write{128,128}
+local	float	___386_spec	%read{136,159} %write{132,132}
+local	float	___386_refl	%read{137,137} %write{135,135}
+local	float	___386_krs	%read{225,338} %write{136,192}
+local	float	___386_krr	%read{347,352} %write{137,193}
+local	float	___386_Fr	%read{159,328} %write{143,158}
+local	float	___386_kd	%read{167,178} %write{163,163}
+local	float	___386_sss	%read{167,177} %write{166,166}
+local	float	___386_kds	%read{200,211} %write{167,190}
+local	float	___386_backlight	%read{173,179} %write{170,170}
+local	float	___386_kdb	%read{217,220} %write{173,191}
+local	float	___386_diff	%read{181,181} %write{176,176}
+local	float	___386_kdd	%read{195,198} %write{181,189}
+local	closure color	___386_diffuse_result	%read{370,370} %write{194,198}
+local	closure color	___386_sss_result	%read{215,372} %write{199,215}
+local	color	___403_final_sss_scale_color	%read{207,207} %write{206,206}
+local	color	___402_final_sss_color	%read{215,215} %write{214,214}
+local	closure color	___386_backlighting_result	%read{370,370} %write{216,220}
+local	closure color	___386_specular_result	%read{342,373} %write{221,342}
+local	vector	___406_T	%read{262,327} %write{234,307}
+local	float	___409_asz	%read{318,319} %write{317,317}
+local	float	___409_ax	%read{321,327} %write{318,323}
+local	float	___409_ay	%read{324,327} %write{320,326}
+local	float	___410_power	%read{337,337} %write{336,336}
+local	color	___406_final_specular_color	%read{342,342} %write{341,341}
+local	closure color	___386_reflection_result	%read{356,374} %write{343,356}
+local	color	___411_final_reflection_color	%read{356,356} %write{355,355}
+local	float	___386_ke	%read{359,362} %write{357,357}
+local	closure color	___386_emission_result	%read{366,376} %write{358,366}
+local	color	___412_final_emission_color	%read{366,366} %write{365,365}
+local	color	___386_final_diffuse_color	%read{371,371} %write{369,369}
+local	float	___382_transp	%read{380,389} %write{377,380}
+local	color	___414_final_transparency_color	%read{389,389} %write{385,385}
+const	string	$const1	"ei_standard"		%read{0,0} %write{2147483647,-1}
+temp	int	$tmp1	%read{2,2} %write{1,1}
+const	string	$const2	"displace"		%read{1,1} %write{2147483647,-1}
+const	int	$const3	0		%read{3,381} %write{2147483647,-1}
+temp	int	$tmp2	%read{4,4} %write{3,3}
+temp	float	$tmp3	%read{12,12} %write{11,11}
+const	string	$const4	"intensity"		%read{5,5} %write{2147483647,-1}
+temp	float	$tmp4	%read{8,8} %write{6,6}
+const	int	$const5	1		%read{7,330} %write{2147483647,-1}
+temp	float	$tmp5	%read{8,8} %write{7,7}
+temp	float	$tmp6	%read{10,10} %write{8,8}
+const	int	$const6	2		%read{9,302} %write{2147483647,-1}
+temp	float	$tmp7	%read{10,10} %write{9,9}
+temp	float	$tmp8	%read{11,11} %write{10,10}
+const	float	$const7	0.33333001		%read{11,11} %write{2147483647,-1}
+temp	float	$tmp9	%read{14,14} %write{13,13}
+temp	normal	$tmp10	%read{15,15} %write{14,14}
+temp	point	$tmp11	%read{16,16} %write{15,15}
+const	string	$const8	"displacement"		%read{16,16} %write{2147483647,-1}
+temp	int	$tmp12	%read{19,19} %write{18,18}
+const	float	$const9	1		%read{20,386} %write{2147483647,-1}
+const	float	$const10	0		%read{23,357} %write{2147483647,-1}
+const	string	$const11	"clamp"		%read{21,174} %write{2147483647,-1}
+temp	float	$tmp13	%read{23,23} %write{22,22}
+temp	int	$tmp14	%read{2147483647,-1} %write{26,26}
+const	string	$const12	"options"		%read{26,26} %write{2147483647,-1}
+const	string	$const13	"caustic"		%read{26,26} %write{2147483647,-1}
+temp	int	$tmp15	%read{29,29} %write{28,28}
+const	string	$const14	"shadow"		%read{28,28} %write{2147483647,-1}
+temp	int	$tmp16	%read{31,31} %write{30,30}
+temp	int	$tmp17	%read{32,36} %write{31,35}
+temp	int	$tmp18	%read{34,34} %write{33,33}
+temp	int	$tmp19	%read{35,35} %write{34,34}
+temp	closure color	$tmp20	%read{38,38} %write{37,37}
+const	string	$const15	"transparent"		%read{37,388} %write{2147483647,-1}
+temp	float	$tmp21	%read{40,40} %write{39,39}
+temp	color	$tmp22	%read{41,41} %write{40,40}
+temp	int	$tmp23	%read{45,45} %write{44,44}
+const	string	$const16	"diffuse"		%read{46,210} %write{2147483647,-1}
+temp	int	$tmp24	%read{51,51} %write{50,50}
+temp	int	$tmp25	%read{52,56} %write{51,55}
+temp	int	$tmp26	%read{54,54} %write{53,53}
+temp	int	$tmp27	%read{55,55} %write{54,54}
+temp	int	$tmp28	%read{58,58} %write{57,57}
+temp	int	$tmp29	%read{63,63} %write{62,62}
+temp	int	$tmp30	%read{69,69} %write{68,68}
+temp	int	$tmp31	%read{71,71} %write{70,70}
+temp	color	$tmp32	%read{74,74} %write{73,73}
+const	float	$const17	2		%read{73,73} %write{2147483647,-1}
+temp	vector	$tmp33	%read{77,77} %write{75,75}
+temp	float	$tmp34	%read{77,77} %write{76,76}
+temp	vector	$tmp35	%read{81,81} %write{77,77}
+temp	vector	$tmp36	%read{80,80} %write{78,78}
+temp	float	$tmp37	%read{80,80} %write{79,79}
+temp	vector	$tmp38	%read{81,81} %write{80,80}
+temp	vector	$tmp39	%read{84,84} %write{81,81}
+temp	float	$tmp40	%read{83,83} %write{82,82}
+temp	normal	$tmp41	%read{84,84} %write{83,83}
+temp	float	$tmp42	%read{86,86} %write{85,85}
+temp	normal	$tmp43	%read{88,88} %write{86,86}
+temp	normal	$tmp44	%read{88,88} %write{87,87}
+temp	int	$tmp45	%read{91,91} %write{90,90}
+const	float	$const18	0.0099999998		%read{92,314} %write{2147483647,-1}
+temp	float	$tmp46	%read{94,94} %write{92,92}
+const	string	$const19	"max_calculatenormal"		%read{93,93} %write{2147483647,-1}
+temp	vector	$tmp47	%read{95,95} %write{94,94}
+temp	vector	$tmp48	%read{96,96} %write{95,95}
+temp	int	$tmp49	%read{98,98} %write{97,97}
+temp	int	$tmp50	%read{100,100} %write{99,99}
+temp	int	$tmp51	%read{101,110} %write{100,109}
+temp	int	$tmp52	%read{103,103} %write{102,102}
+temp	int	$tmp53	%read{104,108} %write{103,107}
+temp	int	$tmp54	%read{106,106} %write{105,105}
+temp	int	$tmp55	%read{107,107} %write{106,106}
+temp	int	$tmp56	%read{109,109} %write{108,108}
+temp	closure color	$tmp57	%read{112,112} %write{111,111}
+const	color	$const20	0 0 0		%read{113,113} %write{2147483647,-1}
+const	int	$const21	5		%read{114,114} %write{2147483647,-1}
+const	float	$const22	99.995003		%read{115,308} %write{2147483647,-1}
+temp	int	$tmp58	%read{116,116} %write{115,115}
+temp	closure color	$tmp59	%read{118,118} %write{117,117}
+const	string	$const23	"depth_refraction"		%read{117,117} %write{2147483647,-1}
+temp	float	$tmp60	%read{120,120} %write{119,119}
+temp	float	$tmp61	%read{123,123} %write{120,120}
+temp	float	$tmp62	%read{122,122} %write{121,121}
+temp	float	$tmp63	%read{123,123} %write{122,122}
+temp	closure color	$tmp64	%read{125,125} %write{124,124}
+const	string	$const24	"depth_microfacet_beckmann_refraction"		%read{124,124} %write{2147483647,-1}
+temp	float	$tmp65	%read{127,127} %write{126,126}
+temp	color	$tmp66	%read{128,128} %write{127,127}
+temp	float	$tmp67	%read{132,132} %write{131,131}
+temp	float	$tmp68	%read{135,135} %write{134,134}
+temp	float	$tmp69	%read{149,149} %write{139,139}
+temp	vector	$tmp70	%read{139,139} %write{138,138}
+const	string	$const25	"fresnel_schlick"		%read{140,140} %write{2147483647,-1}
+temp	int	$tmp71	%read{142,142} %write{141,141}
+temp	float	$tmp72	%read{147,147} %write{145,145}
+temp	float	$tmp73	%read{147,147} %write{146,146}
+temp	float	$tmp74	%read{152,152} %write{151,151}
+temp	float	$tmp75	%read{154,154} %write{153,153}
+temp	float	$tmp76	%read{155,155} %write{154,154}
+temp	float	$tmp77	%read{157,157} %write{155,155}
+temp	float	$tmp78	%read{158,158} %write{157,157}
+temp	float	$tmp79	%read{163,163} %write{161,161}
+const	float	$const26	0.44999999		%read{161,161} %write{2147483647,-1}
+temp	float	$tmp80	%read{160,160} %write{159,159}
+temp	float	$tmp81	%read{161,161} %write{160,160}
+temp	float	$tmp82	%read{163,163} %write{162,162}
+temp	float	$tmp83	%read{166,166} %write{165,165}
+temp	float	$tmp84	%read{170,170} %write{169,169}
+temp	float	$tmp85	%read{172,172} %write{171,171}
+temp	float	$tmp86	%read{173,173} %write{172,172}
+temp	float	$tmp87	%read{176,176} %write{175,175}
+temp	float	$tmp88	%read{178,178} %write{177,177}
+temp	float	$tmp89	%read{180,180} %write{178,178}
+temp	float	$tmp90	%read{180,180} %write{179,179}
+temp	float	$tmp91	%read{181,181} %write{180,180}
+temp	int	$tmp92	%read{183,183} %write{182,182}
+temp	int	$tmp93	%read{184,188} %write{183,187}
+temp	int	$tmp94	%read{186,186} %write{185,185}
+temp	int	$tmp95	%read{187,187} %write{186,186}
+temp	int	$tmp96	%read{196,196} %write{195,195}
+temp	closure color	$tmp97	%read{198,198} %write{197,197}
+const	string	$const27	"oren_nayar"		%read{197,197} %write{2147483647,-1}
+temp	int	$tmp98	%read{201,201} %write{200,200}
+temp	int	$tmp99	%read{203,203} %write{202,202}
+temp	float	$tmp100	%read{205,205} %write{204,204}
+temp	color	$tmp101	%read{206,206} %write{205,205}
+temp	closure color	$tmp102	%read{209,209} %write{208,208}
+temp	color	$tmp103	%read{208,208} %write{207,207}
+const	string	$const28	"bssrdf_gaussian"		%read{208,208} %write{2147483647,-1}
+temp	closure color	$tmp104	%read{211,211} %write{210,210}
+temp	float	$tmp105	%read{213,213} %write{212,212}
+temp	color	$tmp106	%read{214,214} %write{213,213}
+temp	int	$tmp107	%read{218,218} %write{217,217}
+temp	closure color	$tmp108	%read{220,220} %write{219,219}
+const	string	$const29	"translucent"		%read{219,219} %write{2147483647,-1}
+temp	int	$tmp109	%read{223,223} %write{222,222}
+temp	int	$tmp110	%read{224,228} %write{223,227}
+temp	int	$tmp111	%read{226,226} %write{225,225}
+temp	int	$tmp112	%read{227,227} %write{226,226}
+const	string	$const30	"compute_tangent"		%read{229,229} %write{2147483647,-1}
+temp	int	$tmp113	%read{2147483647,-1} %write{230,230}
+const	string	$const31	"sample"		%read{230,230} %write{2147483647,-1}
+const	string	$const32	"world_up"		%read{230,230} %write{2147483647,-1}
+temp	float	$tmp114	%read{232,232} %write{231,231}
+temp	normal	$tmp115	%read{233,233} %write{232,232}
+temp	vector	$tmp116	%read{234,234} %write{233,233}
+temp	int	$tmp117	%read{236,236} %write{235,235}
+temp	float	$tmp118	%read{241,243} %write{239,239}
+const	string	$const33	"radians"		%read{237,237} %write{2147483647,-1}
+const	float	$const34	3.1415927		%read{238,238} %write{2147483647,-1}
+const	float	$const35	180		%read{238,238} %write{2147483647,-1}
+temp	float	$tmp119	%read{239,239} %write{238,238}
+const	string	$const36	"rotate_vector"		%read{240,240} %write{2147483647,-1}
+temp	float	$tmp120	%read{245,245} %write{244,244}
+temp	float	$tmp121	%read{247,247} %write{245,245}
+temp	float	$tmp122	%read{247,247} %write{246,246}
+temp	float	$tmp123	%read{249,249} %write{248,248}
+temp	float	$tmp124	%read{251,251} %write{249,249}
+temp	float	$tmp125	%read{251,251} %write{250,250}
+temp	float	$tmp126	%read{253,253} %write{252,252}
+temp	float	$tmp127	%read{255,255} %write{253,253}
+temp	float	$tmp128	%read{255,255} %write{254,254}
+temp	float	$tmp129	%read{257,257} %write{256,256}
+temp	float	$tmp130	%read{259,259} %write{258,258}
+temp	float	$tmp131	%read{261,261} %write{260,260}
+temp	float	$tmp132	%read{268,268} %write{262,262}
+temp	float	$tmp133	%read{264,264} %write{263,263}
+temp	float	$tmp134	%read{266,266} %write{264,264}
+temp	float	$tmp135	%read{266,266} %write{265,265}
+temp	float	$tmp136	%read{267,267} %write{266,266}
+temp	float	$tmp137	%read{268,268} %write{267,267}
+temp	float	$tmp138	%read{272,272} %write{268,268}
+temp	float	$tmp139	%read{271,271} %write{269,269}
+temp	float	$tmp140	%read{271,271} %write{270,270}
+temp	float	$tmp141	%read{272,272} %write{271,271}
+temp	float	$tmp142	%read{276,276} %write{272,272}
+temp	float	$tmp143	%read{275,275} %write{273,273}
+temp	float	$tmp144	%read{275,275} %write{274,274}
+temp	float	$tmp145	%read{276,276} %write{275,275}
+temp	float	$tmp146	%read{307,307} %write{276,276}
+temp	float	$tmp147	%read{279,279} %write{277,277}
+temp	float	$tmp148	%read{279,279} %write{278,278}
+temp	float	$tmp149	%read{287,287} %write{279,279}
+temp	float	$tmp150	%read{286,286} %write{280,280}
+temp	float	$tmp151	%read{282,282} %write{281,281}
+temp	float	$tmp152	%read{284,284} %write{282,282}
+temp	float	$tmp153	%read{284,284} %write{283,283}
+temp	float	$tmp154	%read{285,285} %write{284,284}
+temp	float	$tmp155	%read{286,286} %write{285,285}
+temp	float	$tmp156	%read{287,287} %write{286,286}
+temp	float	$tmp157	%read{291,291} %write{287,287}
+temp	float	$tmp158	%read{290,290} %write{288,288}
+temp	float	$tmp159	%read{290,290} %write{289,289}
+temp	float	$tmp160	%read{291,291} %write{290,290}
+temp	float	$tmp161	%read{307,307} %write{291,291}
+temp	float	$tmp162	%read{294,294} %write{292,292}
+temp	float	$tmp163	%read{294,294} %write{293,293}
+temp	float	$tmp164	%read{298,298} %write{294,294}
+temp	float	$tmp165	%read{297,297} %write{295,295}
+temp	float	$tmp166	%read{297,297} %write{296,296}
+temp	float	$tmp167	%read{298,298} %write{297,297}
+temp	float	$tmp168	%read{306,306} %write{298,298}
+temp	float	$tmp169	%read{305,305} %write{299,299}
+temp	float	$tmp170	%read{301,301} %write{300,300}
+temp	float	$tmp171	%read{303,303} %write{301,301}
+temp	float	$tmp172	%read{303,303} %write{302,302}
+temp	float	$tmp173	%read{304,304} %write{303,303}
+temp	float	$tmp174	%read{305,305} %write{304,304}
+temp	float	$tmp175	%read{306,306} %write{305,305}
+temp	float	$tmp176	%read{307,307} %write{306,306}
+temp	int	$tmp177	%read{309,309} %write{308,308}
+temp	closure color	$tmp178	%read{311,311} %write{310,310}
+const	string	$const37	"reflection"		%read{310,351} %write{2147483647,-1}
+temp	int	$tmp179	%read{313,313} %write{312,312}
+temp	float	$tmp180	%read{315,315} %write{314,314}
+temp	float	$tmp181	%read{317,317} %write{315,315}
+const	float	$const38	0.5		%read{316,316} %write{2147483647,-1}
+const	float	$const39	0.015		%read{316,320} %write{2147483647,-1}
+temp	float	$tmp182	%read{317,317} %write{316,316}
+temp	float	$tmp183	%read{320,320} %write{319,319}
+temp	int	$tmp184	%read{322,322} %write{321,321}
+temp	int	$tmp185	%read{325,325} %write{324,324}
+temp	closure color	$tmp186	%read{329,329} %write{327,327}
+const	string	$const40	"ward"		%read{327,327} %write{2147483647,-1}
+temp	float	$tmp187	%read{329,329} %write{328,328}
+temp	int	$tmp188	%read{331,331} %write{330,330}
+const	float	$const41	6.02e-005		%read{332,332} %write{2147483647,-1}
+temp	float	$tmp189	%read{333,333} %write{332,332}
+temp	float	$tmp190	%read{335,335} %write{333,333}
+const	float	$const42	0.01501		%read{334,334} %write{2147483647,-1}
+temp	float	$tmp191	%read{335,335} %write{334,334}
+temp	float	$tmp192	%read{336,336} %write{335,335}
+const	float	$const43	0.89999998		%read{336,336} %write{2147483647,-1}
+temp	closure color	$tmp193	%read{338,338} %write{337,337}
+const	string	$const44	"microfacet_ggx"		%read{337,337} %write{2147483647,-1}
+temp	float	$tmp194	%read{340,340} %write{339,339}
+temp	color	$tmp195	%read{341,341} %write{340,340}
+temp	int	$tmp196	%read{345,345} %write{344,344}
+temp	int	$tmp197	%read{346,350} %write{345,349}
+temp	int	$tmp198	%read{348,348} %write{347,347}
+temp	int	$tmp199	%read{349,349} %write{348,348}
+temp	closure color	$tmp200	%read{352,352} %write{351,351}
+temp	float	$tmp201	%read{354,354} %write{353,353}
+temp	color	$tmp202	%read{355,355} %write{354,354}
+temp	int	$tmp203	%read{360,360} %write{359,359}
+temp	closure color	$tmp204	%read{362,362} %write{361,361}
+const	string	$const45	"emission"		%read{361,361} %write{2147483647,-1}
+temp	float	$tmp205	%read{364,364} %write{363,363}
+temp	color	$tmp206	%read{365,365} %write{364,364}
+temp	float	$tmp207	%read{368,368} %write{367,367}
+temp	color	$tmp208	%read{369,369} %write{368,368}
+temp	closure color	$tmp209	%read{371,371} %write{370,370}
+temp	closure color	$tmp210	%read{372,372} %write{371,371}
+temp	closure color	$tmp211	%read{373,373} %write{372,372}
+temp	closure color	$tmp212	%read{374,374} %write{373,373}
+temp	closure color	$tmp213	%read{375,375} %write{374,374}
+temp	closure color	$tmp214	%read{376,376} %write{375,375}
+temp	int	$tmp215	%read{379,379} %write{378,378}
+temp	int	$tmp216	%read{382,382} %write{381,381}
+temp	float	$tmp217	%read{384,384} %write{383,383}
+temp	color	$tmp218	%read{385,385} %write{384,384}
+temp	float	$tmp219	%read{387,387} %write{386,386}
+temp	closure color	$tmp220	%read{391,391} %write{387,387}
+temp	closure color	$tmp221	%read{390,390} %write{388,388}
+temp	color	$tmp222	%read{390,390} %write{389,389}
+temp	closure color	$tmp223	%read{391,391} %write{390,390}
+code ___main___
+	functioncall	$const1 392 	%filename{"E:/github/elaramax/Shaders/max_ei_standard.osl"} %line{161} %argrw{"r"}
+	raytype		$tmp1 $const2 	%filename{"E:/github\\elaramax\\Shaders\\ei_standard.h"} %line{179} %argrw{"wr"}
+	if		$tmp1 17 392 	%argrw{"r"}
+	gt		$tmp2 displace_weight $const3 	%line{181} %argrw{"wrr"}
+	if		$tmp2 17 17 	%argrw{"r"}
+	functioncall	$const4 12 	%line{183} %argrw{"r"}
+	compref		$tmp4 displace_map $const3 	%line{46} %argrw{"wrr"}
+	compref		$tmp5 displace_map $const5 	%argrw{"wrr"}
+	add		$tmp6 $tmp4 $tmp5 	%argrw{"wrr"}
+	compref		$tmp7 displace_map $const6 	%argrw{"wrr"}
+	add		$tmp8 $tmp6 $tmp7 	%argrw{"wrr"}
+	mul		$tmp3 $tmp8 $const7 	%argrw{"wrr"}
+	mul		___381_final_displace_map $tmp3 displace_map_alpha 	%line{183} %argrw{"wrr"}
+	mul		$tmp9 displace_weight ___381_final_displace_map 	%line{184} %argrw{"wrr"}
+	mul		$tmp10 $tmp9 N 	%argrw{"wrr"}
+	add		$tmp11 P $tmp10 	%argrw{"wrr"}
+	closure		result $const8 $tmp11 N 	%argrw{"wrrr"}
+	assign		___382_refr refraction_weight 	%line{189} %argrw{"wr"}
+	neq		$tmp12 refraction_invert_weight $const3 	%line{190} %argrw{"wrr"}
+	if		$tmp12 21 21 	%argrw{"r"}
+	sub		___382_refr $const9 ___382_refr 	%line{192} %argrw{"wrr"}
+	functioncall	$const11 24 	%line{194} %argrw{"r"}
+	min		$tmp13 ___382_refr $const9 	%filename{"E:/OSL_install\\shaders\\stdosl.h"} %line{144} %argrw{"wrr"}
+	max		___382_refr $tmp13 $const10 	%argrw{"wrr"}
+	assign		___382_kt ___382_refr 	%filename{"E:/github\\elaramax\\Shaders\\ei_standard.h"} %line{195} %argrw{"wr"}
+	assign		___382_caustic $const3 	%line{197} %argrw{"wr"}
+	getattribute	$tmp14 $const12 $const13 ___382_caustic 	%line{198} %argrw{"wrrw"}
+	assign		___382_refraction_result $const3 	%line{200} %argrw{"wr"}
+	raytype		$tmp15 $const14 	%line{202} %argrw{"wr"}
+	if		$tmp15 43 377 	%argrw{"r"}
+	eq		$tmp16 ___382_caustic $const3 	%line{204} %argrw{"wrr"}
+	neq		$tmp17 $tmp16 $const3 	%argrw{"wrr"}
+	if		$tmp17 36 36 	%argrw{"r"}
+	gt		$tmp18 ___382_kt $const3 	%argrw{"wrr"}
+	neq		$tmp19 $tmp18 $const3 	%argrw{"wrr"}
+	assign		$tmp17 $tmp19 	%argrw{"wr"}
+	if		$tmp17 43 43 	%argrw{"r"}
+	closure		$tmp20 $const15 	%line{207} %argrw{"wr"}
+	mul		___382_refraction_result $tmp20 ___382_kt 	%argrw{"wrr"}
+	sub		$tmp21 $const9 refraction_color_alpha 	%line{209} %argrw{"wrr"}
+	mul		$tmp22 $tmp21 refraction_color_base 	%argrw{"wrr"}
+	add		___385_final_refraction_color $tmp22 refraction_color 	%argrw{"wrr"}
+	mul		result ___382_refraction_result ___385_final_refraction_color 	%line{210} %argrw{"wrr"}
+	assign		___386_no_specular $const3 	%line{215} %argrw{"wr"}
+	eq		$tmp23 ___382_caustic $const3 	%line{216} %argrw{"wrr"}
+	if		$tmp23 47 47 	%argrw{"r"}
+	raytype		___386_no_specular $const16 	%line{218} %argrw{"wr"}
+	assign		___386_eta ior 	%line{221} %argrw{"wr"}
+	assign		___386_refl_eta fresnel_ior 	%line{222} %argrw{"wr"}
+	assign		___386_refl_eta_glossy fresnel_ior_glossy 	%line{223} %argrw{"wr"}
+	gt		$tmp24 ___382_kt $const3 	%line{225} %argrw{"wrr"}
+	neq		$tmp25 $tmp24 $const3 	%argrw{"wrr"}
+	if		$tmp25 56 56 	%argrw{"r"}
+	neq		$tmp26 ___386_eta $const5 	%argrw{"wrr"}
+	neq		$tmp27 $tmp26 $const3 	%argrw{"wrr"}
+	assign		$tmp25 $tmp27 	%argrw{"wr"}
+	if		$tmp25 62 67 	%argrw{"r"}
+	backfacing	$tmp28 	%line{227} %argrw{"w"}
+	if		$tmp28 60 60 	%argrw{"r"}
+	div		___386_eta $const9 ior 	%line{229} %argrw{"wrr"}
+	assign		___386_refl_eta ___386_eta 	%line{232} %argrw{"wr"}
+	assign		___386_refl_eta_glossy ___386_eta 	%line{233} %argrw{"wr"}
+	backfacing	$tmp29 	%line{237} %argrw{"w"}
+	if		$tmp29 67 67 	%argrw{"r"}
+	div		___386_eta $const9 ior 	%line{239} %argrw{"wrr"}
+	div		___386_refl_eta $const9 fresnel_ior 	%line{240} %argrw{"wrr"}
+	div		___386_refl_eta_glossy $const9 fresnel_ior_glossy 	%line{241} %argrw{"wrr"}
+	assign		___386_Nshading N 	%line{245} %argrw{"wr"}
+	eq		$tmp30 ___386_no_specular $const3 	%line{247} %argrw{"wrr"}
+	if		$tmp30 97 97 	%argrw{"r"}
+	gt		$tmp31 normal_weight $const3 	%line{249} %argrw{"wrr"}
+	if		$tmp31 90 90 	%argrw{"r"}
+	mul		___393_final_normal_map normal_map normal_map_alpha 	%line{251} %argrw{"wrr"}
+	mul		$tmp32 ___393_final_normal_map $const17 	%line{252} %argrw{"wrr"}
+	sub		___393_Nlocal $tmp32 $const9 	%argrw{"wrr"}
+	normalize	$tmp33 dPdu 	%line{254} %argrw{"wr"}
+	compref		$tmp34 ___393_Nlocal $const3 	%argrw{"wrr"}
+	mul		$tmp35 $tmp33 $tmp34 	%argrw{"wrr"}
+	normalize	$tmp36 dPdv 	%argrw{"wr"}
+	compref		$tmp37 ___393_Nlocal $const5 	%argrw{"wrr"}
+	mul		$tmp38 $tmp36 $tmp37 	%argrw{"wrr"}
+	add		$tmp39 $tmp35 $tmp38 	%argrw{"wrr"}
+	compref		$tmp40 ___393_Nlocal $const6 	%argrw{"wrr"}
+	mul		$tmp41 N $tmp40 	%argrw{"wrr"}
+	add		___393_Nglob $tmp39 $tmp41 	%argrw{"wrr"}
+	sub		$tmp42 $const9 normal_weight 	%line{256} %argrw{"wrr"}
+	mul		$tmp43 $tmp42 N 	%argrw{"wrr"}
+	mul		$tmp44 normal_weight ___393_Nglob 	%argrw{"wrr"}
+	add		___386_Nshading $tmp43 $tmp44 	%argrw{"wrr"}
+	normalize	___386_Nshading ___386_Nshading 	%line{257} %argrw{"wr"}
+	neq		$tmp45 bump_weight $const3 	%line{260} %argrw{"wrr"}
+	if		$tmp45 97 97 	%argrw{"r"}
+	mul		$tmp46 bump_weight $const18 	%line{262} %argrw{"wrr"}
+	functioncall	$const19 97 	%argrw{"r"}
+	mul		$tmp47 bump_map_bump $tmp46 	%filename{"E:/github\\elaramax\\Shaders\\ei_std.h"} %line{132} %argrw{"wrr"}
+	add		$tmp48 $tmp47 ___386_Nshading 	%argrw{"wrr"}
+	normalize	___386_Nshading $tmp48 	%argrw{"wr"}
+	gt		$tmp49 ___382_kt $const3 	%filename{"E:/github\\elaramax\\Shaders\\ei_standard.h"} %line{266} %argrw{"wrr"}
+	if		$tmp49 130 130 	%argrw{"r"}
+	eq		$tmp50 ior $const5 	%line{268} %argrw{"wrr"}
+	neq		$tmp51 $tmp50 $const3 	%argrw{"wrr"}
+	if		$tmp51 102 110 	%argrw{"r"}
+	eq		$tmp52 ___382_caustic $const3 	%argrw{"wrr"}
+	neq		$tmp53 $tmp52 $const3 	%argrw{"wrr"}
+	if		$tmp53 108 108 	%argrw{"r"}
+	raytype		$tmp54 $const16 	%argrw{"wr"}
+	neq		$tmp55 $tmp54 $const3 	%argrw{"wrr"}
+	assign		$tmp53 $tmp55 	%argrw{"wr"}
+	neq		$tmp56 $tmp53 $const3 	%argrw{"wrr"}
+	assign		$tmp51 $tmp56 	%argrw{"wr"}
+	if		$tmp51 113 126 	%argrw{"r"}
+	closure		$tmp57 $const15 	%line{270} %argrw{"wr"}
+	mul		___382_refraction_result $tmp57 ___382_kt 	%argrw{"wrr"}
+	assign		___397_sigma_t $const20 	%line{274} %argrw{"wr"}
+	assign		___397_maxRefractDepth $const21 	%line{275} %argrw{"wr"}
+	gt		$tmp58 refraction_glossiness $const22 	%line{277} %argrw{"wrr"}
+	if		$tmp58 119 126 	%argrw{"r"}
+	closure		$tmp59 $const23 ___386_Nshading ___386_eta ___397_maxRefractDepth ___397_sigma_t 	%line{279} %argrw{"wrrrrr"}
+	mul		___382_refraction_result $tmp59 ___382_kt 	%argrw{"wrr"}
+	mul		$tmp60 refraction_glossiness $const18 	%line{283} %argrw{"wrr"}
+	sub		$tmp61 $const9 $tmp60 	%argrw{"wrr"}
+	mul		$tmp62 refraction_glossiness $const18 	%argrw{"wrr"}
+	sub		$tmp63 $const9 $tmp62 	%argrw{"wrr"}
+	mul		___399_refr_alpha $tmp61 $tmp63 	%argrw{"wrr"}
+	closure		$tmp64 $const24 ___386_Nshading ___399_refr_alpha ___386_eta ___397_maxRefractDepth ___397_sigma_t 	%line{285} %argrw{"wrrrrrr"}
+	mul		___382_refraction_result $tmp64 ___382_kt 	%argrw{"wrr"}
+	sub		$tmp65 $const9 refraction_color_alpha 	%line{289} %argrw{"wrr"}
+	mul		$tmp66 $tmp65 refraction_color_base 	%argrw{"wrr"}
+	add		___395_final_refraction_color $tmp66 refraction_color 	%argrw{"wrr"}
+	mul		___382_refraction_result ___382_refraction_result ___395_final_refraction_color 	%line{290} %argrw{"wrr"}
+	functioncall	$const11 133 	%line{293} %argrw{"r"}
+	min		$tmp67 specular_weight $const9 	%filename{"E:/OSL_install\\shaders\\stdosl.h"} %line{144} %argrw{"wrr"}
+	max		___386_spec $tmp67 $const10 	%argrw{"wrr"}
+	functioncall	$const11 136 	%filename{"E:/github\\elaramax\\Shaders\\ei_standard.h"} %line{294} %argrw{"r"}
+	min		$tmp68 reflection_weight $const9 	%filename{"E:/OSL_install\\shaders\\stdosl.h"} %line{144} %argrw{"wrr"}
+	max		___386_refl $tmp68 $const10 	%argrw{"wrr"}
+	assign		___386_krs ___386_spec 	%filename{"E:/github\\elaramax\\Shaders\\ei_standard.h"} %line{295} %argrw{"wr"}
+	assign		___386_krr ___386_refl 	%line{296} %argrw{"wr"}
+	neg		$tmp70 I 	%line{298} %argrw{"wr"}
+	dot		$tmp69 N $tmp70 	%argrw{"wrr"}
+	functioncall	$const25 159 	%argrw{"r"}
+	le		$tmp71 ___386_refl_eta_glossy $const3 	%line{79} %argrw{"wrr"}
+	if		$tmp71 145 145 	%argrw{"r"}
+	assign		___386_Fr $const5 	%line{80} %argrw{"wr"}
+	return
+	sub		$tmp72 $const9 ___386_refl_eta_glossy 	%line{82} %argrw{"wrr"}
+	add		$tmp73 $const9 ___386_refl_eta_glossy 	%argrw{"wrr"}
+	div		___378_Rn $tmp72 $tmp73 	%argrw{"wrr"}
+	mul		___378_R0 ___378_Rn ___378_Rn 	%line{83} %argrw{"wrr"}
+	sub		___378_F1 $const9 $tmp69 	%line{85} %argrw{"wrr"}
+	mul		___378_F2 ___378_F1 ___378_F1 	%line{86} %argrw{"wrr"}
+	mul		$tmp74 ___378_F2 ___378_F2 	%line{87} %argrw{"wrr"}
+	mul		___378_F5 $tmp74 ___378_F1 	%argrw{"wrr"}
+	sub		$tmp75 $const9 ___378_R0 	%line{89} %argrw{"wrr"}
+	mul		$tmp76 $tmp75 ___378_F5 	%argrw{"wrr"}
+	add		$tmp77 ___378_R0 $tmp76 	%argrw{"wrr"}
+	functioncall	$const11 159 	%argrw{"r"}
+	min		$tmp78 $tmp77 $const9 	%filename{"E:/OSL_install\\shaders\\stdosl.h"} %line{144} %argrw{"wrr"}
+	max		___386_Fr $tmp78 $const10 	%argrw{"wrr"}
+	mul		$tmp80 ___386_Fr ___386_spec 	%filename{"E:/github\\elaramax\\Shaders\\ei_standard.h"} %line{299} %argrw{"wrr"}
+	sub		$tmp81 $const9 $tmp80 	%argrw{"wrr"}
+	max		$tmp79 $const26 $tmp81 	%argrw{"wrr"}
+	sub		$tmp82 $const9 ___382_refr 	%argrw{"wrr"}
+	mul		___386_kd $tmp79 $tmp82 	%argrw{"wrr"}
+	functioncall	$const11 167 	%line{301} %argrw{"r"}
+	min		$tmp83 sss_weight $const9 	%filename{"E:/OSL_install\\shaders\\stdosl.h"} %line{144} %argrw{"wrr"}
+	max		___386_sss $tmp83 $const10 	%argrw{"wrr"}
+	mul		___386_kds ___386_kd ___386_sss 	%filename{"E:/github\\elaramax\\Shaders\\ei_standard.h"} %line{302} %argrw{"wrr"}
+	functioncall	$const11 171 	%line{304} %argrw{"r"}
+	min		$tmp84 backlighting_weight $const9 	%filename{"E:/OSL_install\\shaders\\stdosl.h"} %line{144} %argrw{"wrr"}
+	max		___386_backlight $tmp84 $const10 	%argrw{"wrr"}
+	sub		$tmp85 $const9 ___386_sss 	%filename{"E:/github\\elaramax\\Shaders\\ei_standard.h"} %line{305} %argrw{"wrr"}
+	mul		$tmp86 ___386_kd $tmp85 	%argrw{"wrr"}
+	mul		___386_kdb $tmp86 ___386_backlight 	%argrw{"wrr"}
+	functioncall	$const11 177 	%line{307} %argrw{"r"}
+	min		$tmp87 diffuse_weight $const9 	%filename{"E:/OSL_install\\shaders\\stdosl.h"} %line{144} %argrw{"wrr"}
+	max		___386_diff $tmp87 $const10 	%argrw{"wrr"}
+	sub		$tmp88 $const9 ___386_sss 	%filename{"E:/github\\elaramax\\Shaders\\ei_standard.h"} %line{308} %argrw{"wrr"}
+	mul		$tmp89 ___386_kd $tmp88 	%argrw{"wrr"}
+	sub		$tmp90 $const9 ___386_backlight 	%argrw{"wrr"}
+	mul		$tmp91 $tmp89 $tmp90 	%argrw{"wrr"}
+	mul		___386_kdd $tmp91 ___386_diff 	%argrw{"wrr"}
+	gt		$tmp92 ___382_kt $const3 	%line{311} %argrw{"wrr"}
+	neq		$tmp93 $tmp92 $const3 	%argrw{"wrr"}
+	if		$tmp93 188 188 	%argrw{"r"}
+	backfacing	$tmp94 	%argrw{"w"}
+	neq		$tmp95 $tmp94 $const3 	%argrw{"wrr"}
+	assign		$tmp93 $tmp95 	%argrw{"wr"}
+	if		$tmp93 194 194 	%argrw{"r"}
+	assign		___386_kdd $const3 	%line{313} %argrw{"wr"}
+	assign		___386_kds $const3 	%line{314} %argrw{"wr"}
+	assign		___386_kdb $const3 	%line{315} %argrw{"wr"}
+	assign		___386_krs $const3 	%line{316} %argrw{"wr"}
+	assign		___386_krr $const3 	%line{317} %argrw{"wr"}
+	assign		___386_diffuse_result $const3 	%line{320} %argrw{"wr"}
+	gt		$tmp96 ___386_kdd $const3 	%line{322} %argrw{"wrr"}
+	if		$tmp96 199 199 	%argrw{"r"}
+	closure		$tmp97 $const27 ___386_Nshading roughness 	%line{324} %argrw{"wrrr"}
+	mul		___386_diffuse_result $tmp97 ___386_kdd 	%argrw{"wrr"}
+	assign		___386_sss_result $const3 	%line{327} %argrw{"wr"}
+	gt		$tmp98 ___386_kds $const3 	%line{329} %argrw{"wrr"}
+	if		$tmp98 216 216 	%argrw{"r"}
+	eq		$tmp99 ___386_no_specular $const3 	%line{331} %argrw{"wrr"}
+	if		$tmp99 210 212 	%argrw{"r"}
+	sub		$tmp100 $const9 sss_scale_color_alpha 	%line{333} %argrw{"wrr"}
+	mul		$tmp101 $tmp100 sss_scale_color_base 	%argrw{"wrr"}
+	add		___403_final_sss_scale_color $tmp101 sss_scale_color 	%argrw{"wrr"}
+	mul		$tmp103 sss_scale ___403_final_sss_scale_color 	%line{335} %argrw{"wrr"}
+	closure		$tmp102 $const28 ___386_Nshading $tmp103 	%argrw{"wrrr"}
+	mul		___386_sss_result $tmp102 ___386_kds 	%argrw{"wrr"}
+	closure		$tmp104 $const16 ___386_Nshading 	%line{340} %argrw{"wrr"}
+	mul		___386_sss_result $tmp104 ___386_kds 	%argrw{"wrr"}
+	sub		$tmp105 $const9 sss_color_alpha 	%line{343} %argrw{"wrr"}
+	mul		$tmp106 $tmp105 sss_color_base 	%argrw{"wrr"}
+	add		___402_final_sss_color $tmp106 sss_color 	%argrw{"wrr"}
+	mul		___386_sss_result ___386_sss_result ___402_final_sss_color 	%line{344} %argrw{"wrr"}
+	assign		___386_backlighting_result $const3 	%line{347} %argrw{"wr"}
+	gt		$tmp107 ___386_kdb $const3 	%line{349} %argrw{"wrr"}
+	if		$tmp107 221 221 	%argrw{"r"}
+	closure		$tmp108 $const29 ___386_Nshading 	%line{351} %argrw{"wrr"}
+	mul		___386_backlighting_result $tmp108 ___386_kdb 	%argrw{"wrr"}
+	assign		___386_specular_result $const3 	%line{354} %argrw{"wr"}
+	eq		$tmp109 ___386_no_specular $const3 	%line{356} %argrw{"wrr"}
+	neq		$tmp110 $tmp109 $const3 	%argrw{"wrr"}
+	if		$tmp110 228 228 	%argrw{"r"}
+	gt		$tmp111 ___386_krs $const3 	%argrw{"wrr"}
+	neq		$tmp112 $tmp111 $const3 	%argrw{"wrr"}
+	assign		$tmp110 $tmp112 	%argrw{"wr"}
+	if		$tmp110 343 343 	%argrw{"r"}
+	functioncall	$const30 235 	%line{358} %argrw{"r"}
+	getattribute	$tmp113 $const31 $const32 ___376_U 	%line{53} %argrw{"wrrw"}
+	dot		$tmp114 ___376_U N 	%line{55} %argrw{"wrr"}
+	mul		$tmp115 N $tmp114 	%argrw{"wrr"}
+	sub		$tmp116 ___376_U $tmp115 	%argrw{"wrr"}
+	normalize	___406_T $tmp116 	%argrw{"wr"}
+	neq		$tmp117 rotation $const3 	%line{360} %argrw{"wrr"}
+	if		$tmp117 308 308 	%argrw{"r"}
+	functioncall	$const33 240 	%line{362} %argrw{"r"}
+	div		$tmp119 $const34 $const35 	%filename{"E:/OSL_install\\shaders\\stdosl.h"} %line{88} %argrw{"wrr"}
+	mul		$tmp118 rotation $tmp119 	%argrw{"wrr"}
+	functioncall	$const36 308 	%filename{"E:/github\\elaramax\\Shaders\\ei_standard.h"} %line{362} %argrw{"r"}
+	cos		___377_c $tmp118 	%line{60} %argrw{"wr"}
+	sub		___377_t $const9 ___377_c 	%line{61} %argrw{"wrr"}
+	sin		___377_s $tmp118 	%line{62} %argrw{"wr"}
+	compref		$tmp120 ___386_Nshading $const3 	%line{63} %argrw{"wrr"}
+	mul		$tmp121 ___377_t $tmp120 	%argrw{"wrr"}
+	compref		$tmp122 ___386_Nshading $const5 	%argrw{"wrr"}
+	mul		___377_txy $tmp121 $tmp122 	%argrw{"wrr"}
+	compref		$tmp123 ___386_Nshading $const5 	%line{64} %argrw{"wrr"}
+	mul		$tmp124 ___377_t $tmp123 	%argrw{"wrr"}
+	compref		$tmp125 ___386_Nshading $const6 	%argrw{"wrr"}
+	mul		___377_tyz $tmp124 $tmp125 	%argrw{"wrr"}
+	compref		$tmp126 ___386_Nshading $const3 	%line{65} %argrw{"wrr"}
+	mul		$tmp127 ___377_t $tmp126 	%argrw{"wrr"}
+	compref		$tmp128 ___386_Nshading $const6 	%argrw{"wrr"}
+	mul		___377_txz $tmp127 $tmp128 	%argrw{"wrr"}
+	compref		$tmp129 ___386_Nshading $const3 	%line{66} %argrw{"wrr"}
+	mul		___377_sx ___377_s $tmp129 	%argrw{"wrr"}
+	compref		$tmp130 ___386_Nshading $const5 	%line{67} %argrw{"wrr"}
+	mul		___377_sy ___377_s $tmp130 	%argrw{"wrr"}
+	compref		$tmp131 ___386_Nshading $const6 	%line{68} %argrw{"wrr"}
+	mul		___377_sz ___377_s $tmp131 	%argrw{"wrr"}
+	compref		$tmp132 ___406_T $const3 	%line{71} %argrw{"wrr"}
+	compref		$tmp133 ___386_Nshading $const3 	%argrw{"wrr"}
+	mul		$tmp134 ___377_t $tmp133 	%argrw{"wrr"}
+	compref		$tmp135 ___386_Nshading $const3 	%argrw{"wrr"}
+	mul		$tmp136 $tmp134 $tmp135 	%argrw{"wrr"}
+	add		$tmp137 $tmp136 ___377_c 	%argrw{"wrr"}
+	mul		$tmp138 $tmp132 $tmp137 	%argrw{"wrr"}
+	compref		$tmp139 ___406_T $const5 	%argrw{"wrr"}
+	sub		$tmp140 ___377_txy ___377_sz 	%argrw{"wrr"}
+	mul		$tmp141 $tmp139 $tmp140 	%argrw{"wrr"}
+	add		$tmp142 $tmp138 $tmp141 	%argrw{"wrr"}
+	compref		$tmp143 ___406_T $const6 	%argrw{"wrr"}
+	add		$tmp144 ___377_txz ___377_sy 	%argrw{"wrr"}
+	mul		$tmp145 $tmp143 $tmp144 	%argrw{"wrr"}
+	add		$tmp146 $tmp142 $tmp145 	%argrw{"wrr"}
+	compref		$tmp147 ___406_T $const3 	%line{72} %argrw{"wrr"}
+	add		$tmp148 ___377_txy ___377_sz 	%argrw{"wrr"}
+	mul		$tmp149 $tmp147 $tmp148 	%argrw{"wrr"}
+	compref		$tmp150 ___406_T $const5 	%argrw{"wrr"}
+	compref		$tmp151 ___386_Nshading $const5 	%argrw{"wrr"}
+	mul		$tmp152 ___377_t $tmp151 	%argrw{"wrr"}
+	compref		$tmp153 ___386_Nshading $const5 	%argrw{"wrr"}
+	mul		$tmp154 $tmp152 $tmp153 	%argrw{"wrr"}
+	add		$tmp155 $tmp154 ___377_c 	%argrw{"wrr"}
+	mul		$tmp156 $tmp150 $tmp155 	%argrw{"wrr"}
+	add		$tmp157 $tmp149 $tmp156 	%argrw{"wrr"}
+	compref		$tmp158 ___406_T $const6 	%argrw{"wrr"}
+	sub		$tmp159 ___377_tyz ___377_sx 	%argrw{"wrr"}
+	mul		$tmp160 $tmp158 $tmp159 	%argrw{"wrr"}
+	add		$tmp161 $tmp157 $tmp160 	%argrw{"wrr"}
+	compref		$tmp162 ___406_T $const3 	%line{73} %argrw{"wrr"}
+	sub		$tmp163 ___377_txz ___377_sy 	%argrw{"wrr"}
+	mul		$tmp164 $tmp162 $tmp163 	%argrw{"wrr"}
+	compref		$tmp165 ___406_T $const5 	%argrw{"wrr"}
+	add		$tmp166 ___377_tyz ___377_sx 	%argrw{"wrr"}
+	mul		$tmp167 $tmp165 $tmp166 	%argrw{"wrr"}
+	add		$tmp168 $tmp164 $tmp167 	%argrw{"wrr"}
+	compref		$tmp169 ___406_T $const6 	%argrw{"wrr"}
+	compref		$tmp170 ___386_Nshading $const6 	%argrw{"wrr"}
+	mul		$tmp171 ___377_t $tmp170 	%argrw{"wrr"}
+	compref		$tmp172 ___386_Nshading $const6 	%argrw{"wrr"}
+	mul		$tmp173 $tmp171 $tmp172 	%argrw{"wrr"}
+	add		$tmp174 $tmp173 ___377_c 	%argrw{"wrr"}
+	mul		$tmp175 $tmp169 $tmp174 	%argrw{"wrr"}
+	add		$tmp176 $tmp168 $tmp175 	%argrw{"wrr"}
+	vector		___406_T $tmp146 $tmp161 $tmp176 	%argrw{"wrrr"}
+	gt		$tmp177 glossiness $const22 	%line{365} %argrw{"wrr"}
+	if		$tmp177 312 339 	%argrw{"r"}
+	closure		$tmp178 $const37 ___386_Nshading ___386_refl_eta_glossy 	%line{367} %argrw{"wrrr"}
+	mul		___386_specular_result $tmp178 ___386_krs 	%argrw{"wrr"}
+	eq		$tmp179 specular_mode $const3 	%line{369} %argrw{"wrr"}
+	if		$tmp179 330 339 	%argrw{"r"}
+	mul		$tmp180 glossiness $const18 	%line{371} %argrw{"wrr"}
+	sub		$tmp181 $const9 $tmp180 	%argrw{"wrr"}
+	sub		$tmp182 $const38 $const39 	%argrw{"wrr"}
+	mul		___409_asz $tmp181 $tmp182 	%argrw{"wrr"}
+	add		___409_ax $const39 ___409_asz 	%line{372} %argrw{"wrr"}
+	mul		$tmp183 ___409_asz anisotropy 	%line{373} %argrw{"wrr"}
+	add		___409_ay $const39 $tmp183 	%argrw{"wrr"}
+	lt		$tmp184 ___409_ax $const3 	%line{374} %argrw{"wrr"}
+	if		$tmp184 324 324 	%argrw{"r"}
+	assign		___409_ax $const3 	%argrw{"wr"}
+	lt		$tmp185 ___409_ay $const3 	%line{375} %argrw{"wrr"}
+	if		$tmp185 327 327 	%argrw{"r"}
+	assign		___409_ay $const3 	%argrw{"wr"}
+	closure		$tmp186 $const40 ___386_Nshading ___406_T ___409_ax ___409_ay 	%line{377} %argrw{"wrrrrr"}
+	mul		$tmp187 ___386_krs ___386_Fr 	%argrw{"wrr"}
+	mul		___386_specular_result $tmp186 $tmp187 	%argrw{"wrr"}
+	eq		$tmp188 specular_mode $const5 	%line{379} %argrw{"wrr"}
+	if		$tmp188 339 339 	%argrw{"r"}
+	mul		$tmp189 $const41 glossiness 	%line{381} %argrw{"wrr"}
+	mul		$tmp190 $tmp189 glossiness 	%argrw{"wrr"}
+	mul		$tmp191 $const42 glossiness 	%argrw{"wrr"}
+	sub		$tmp192 $tmp190 $tmp191 	%argrw{"wrr"}
+	add		___410_power $tmp192 $const43 	%argrw{"wrr"}
+	closure		$tmp193 $const44 ___386_Nshading ___410_power ___386_refl_eta_glossy 	%line{383} %argrw{"wrrrr"}
+	mul		___386_specular_result $tmp193 ___386_krs 	%argrw{"wrr"}
+	sub		$tmp194 $const9 specular_color_alpha 	%line{386} %argrw{"wrr"}
+	mul		$tmp195 $tmp194 specular_color_base 	%argrw{"wrr"}
+	add		___406_final_specular_color $tmp195 specular_color 	%argrw{"wrr"}
+	mul		___386_specular_result ___386_specular_result ___406_final_specular_color 	%line{387} %argrw{"wrr"}
+	assign		___386_reflection_result $const3 	%line{390} %argrw{"wr"}
+	eq		$tmp196 ___386_no_specular $const3 	%line{392} %argrw{"wrr"}
+	neq		$tmp197 $tmp196 $const3 	%argrw{"wrr"}
+	if		$tmp197 350 350 	%argrw{"r"}
+	gt		$tmp198 ___386_krr $const3 	%argrw{"wrr"}
+	neq		$tmp199 $tmp198 $const3 	%argrw{"wrr"}
+	assign		$tmp197 $tmp199 	%argrw{"wr"}
+	if		$tmp197 357 357 	%argrw{"r"}
+	closure		$tmp200 $const37 ___386_Nshading ___386_refl_eta 	%line{394} %argrw{"wrrr"}
+	mul		___386_reflection_result $tmp200 ___386_krr 	%argrw{"wrr"}
+	sub		$tmp201 $const9 reflection_color_alpha 	%line{396} %argrw{"wrr"}
+	mul		$tmp202 $tmp201 reflection_color_base 	%argrw{"wrr"}
+	add		___411_final_reflection_color $tmp202 reflection_color 	%argrw{"wrr"}
+	mul		___386_reflection_result ___386_reflection_result ___411_final_reflection_color 	%line{397} %argrw{"wrr"}
+	max		___386_ke $const10 emission_weight 	%line{400} %argrw{"wrr"}
+	assign		___386_emission_result $const3 	%line{402} %argrw{"wr"}
+	gt		$tmp203 ___386_ke $const3 	%line{404} %argrw{"wrr"}
+	if		$tmp203 367 367 	%argrw{"r"}
+	closure		$tmp204 $const45 	%line{406} %argrw{"wr"}
+	mul		___386_emission_result $tmp204 ___386_ke 	%argrw{"wrr"}
+	sub		$tmp205 $const9 emission_color_alpha 	%line{408} %argrw{"wrr"}
+	mul		$tmp206 $tmp205 emission_color_base 	%argrw{"wrr"}
+	add		___412_final_emission_color $tmp206 emission_color 	%argrw{"wrr"}
+	mul		___386_emission_result ___386_emission_result ___412_final_emission_color 	%line{409} %argrw{"wrr"}
+	sub		$tmp207 $const9 diffuse_color_alpha 	%line{413} %argrw{"wrr"}
+	mul		$tmp208 $tmp207 diffuse_color_base 	%argrw{"wrr"}
+	add		___386_final_diffuse_color $tmp208 diffuse_color 	%argrw{"wrr"}
+	add		$tmp209 ___386_diffuse_result ___386_backlighting_result 	%line{415} %argrw{"wrr"}
+	mul		$tmp210 $tmp209 ___386_final_diffuse_color 	%argrw{"wrr"}
+	add		$tmp211 $tmp210 ___386_sss_result 	%line{417} %argrw{"wrr"}
+	add		$tmp212 $tmp211 ___386_specular_result 	%line{418} %argrw{"wrr"}
+	add		$tmp213 $tmp212 ___386_reflection_result 	%line{419} %argrw{"wrr"}
+	add		$tmp214 $tmp213 ___382_refraction_result 	%line{420} %argrw{"wrr"}
+	add		result $tmp214 ___386_emission_result 	%argrw{"wrr"}
+	assign		___382_transp transparency_weight 	%line{423} %argrw{"wr"}
+	neq		$tmp215 transparency_invert_weight $const3 	%line{424} %argrw{"wrr"}
+	if		$tmp215 381 381 	%argrw{"r"}
+	sub		___382_transp $const9 ___382_transp 	%line{426} %argrw{"wrr"}
+	gt		$tmp216 ___382_transp $const3 	%line{429} %argrw{"wrr"}
+	if		$tmp216 392 392 	%argrw{"r"}
+	sub		$tmp217 $const9 transparency_color_alpha 	%line{431} %argrw{"wrr"}
+	mul		$tmp218 $tmp217 transparency_color_base 	%argrw{"wrr"}
+	add		___414_final_transparency_color $tmp218 transparency_color 	%argrw{"wrr"}
+	sub		$tmp219 $const9 ___382_transp 	%line{433} %argrw{"wrr"}
+	mul		$tmp220 result $tmp219 	%argrw{"wrr"}
+	closure		$tmp221 $const15 	%argrw{"wr"}
+	mul		$tmp222 ___414_final_transparency_color ___382_transp 	%argrw{"wrr"}
+	mul		$tmp223 $tmp221 $tmp222 	%argrw{"wrr"}
+	add		result $tmp220 $tmp223 	%argrw{"wrr"}
+	end

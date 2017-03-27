@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="gb2312"?>
+<Root>
+	<Param cn_name="渲染质量" en_name="RenderQuality" type="int" min="0" max="1" default="0" step="">
+		<Option cn_name="快速" en_name="Fast" value="0" />
+		<Option cn_name="中等" en_name="Fast" value="1" />
+		<Option cn_name="慢速" en_name="Fast" value="2" />
+	</Param>
+	<Param cn_name="图像大小" en_name="ImageSize" type="int" min="-6" max="16" default="0" step="0.01">
+		<Option cn_name="1024x1024" en_name="1024x1024" value="0" />
+		<Option cn_name="1024x2048" en_name="1024x2048" value="1" />
+	</Param>
+</Root>

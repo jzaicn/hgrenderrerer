@@ -143,17 +143,6 @@
     <ClInclude Include="HG_Material.h" />
     <ClInclude Include="HG_Mesh.h" />
     <ClInclude Include="HG_MeshInstance.h" />
-    <ClInclude Include="JsonCpp\allocator.h" />
-    <ClInclude Include="JsonCpp\assertions.h" />
-    <ClInclude Include="JsonCpp\autolink.h" />
-    <ClInclude Include="JsonCpp\config.h" />
-    <ClInclude Include="JsonCpp\features.h" />
-    <ClInclude Include="JsonCpp\forwards.h" />
-    <ClInclude Include="JsonCpp\json.h" />
-    <ClInclude Include="JsonCpp\reader.h" />
-    <ClInclude Include="JsonCpp\value.h" />
-    <ClInclude Include="JsonCpp\version.h" />
-    <ClInclude Include="JsonCpp\writer.h" />
     <ClInclude Include="MeshProcer.h" />
     <ClInclude Include="RenderDataExporter.h" />
     <ClInclude Include="RenderUI.h" />
