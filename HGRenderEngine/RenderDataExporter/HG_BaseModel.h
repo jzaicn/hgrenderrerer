@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "JsonCpp/json.h"
+#include "HGCode.h"
 
 #define GETSET(type,name)\
 private: type m_##name;\
@@ -36,7 +37,11 @@ private:
 	name##Temp.load(in[#name][i]);\
 	m_##name.push_back(##name##Temp);	}}
 
-
+#define HGLOBYTE(w)           ((BYTE)(((DWORD_PTR)(w)) & 0xff))
+#define HGGetRValue(rgb)      (HGLOBYTE(rgb))
+#define HGGetGValue(rgb)      (HGLOBYTE(((WORD)(rgb)) >> 8))
+#define HGGetBValue(rgb)      (HGLOBYTE((rgb)>>16))
+#define HGGetAValue(rgb)      (HGLOBYTE(((WORD)(rgb))>>24))
 
 class HG_Vec2;
 class HG_Vec3;
@@ -284,8 +289,8 @@ public:
 			m_mat[row].save(strMatRow);
 
 			CString strIndex;
-			strIndex.Format("%d",row);
-			out[strIndex.GetBuffer()] = strMatRow;
+			strIndex.Format(HGCode::convert("%d"),row);
+			out[(char*)strIndex.GetBuffer()] = strMatRow;
 		}
 	}
 
@@ -295,8 +300,8 @@ public:
 		for (int row = 0; row < 4 ; row++)
 		{
 			CString strIndex;
-			strIndex.Format("%d",row);
-			m_mat[row].load(in[strIndex.GetBuffer()]);
+			strIndex.Format(HGCode::convert("%d"),row);
+			m_mat[row].load(in[(char*)strIndex.GetBuffer()]);
 		}
 	}
 private:
