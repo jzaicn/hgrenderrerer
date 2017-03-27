@@ -20,8 +20,8 @@ DialogDisplayResult::DialogDisplayResult(CWnd* pParent /*=NULL*/)
 	m_isDrawingImage = false;
 	m_cur_image = NULL;
 	m_back_image = NULL;
-	m_ptDistanceBetweenViewingAndDiagramCenter.x = 300;
-	m_ptDistanceBetweenViewingAndDiagramCenter.y = 300;
+	m_ptDistanceBetweenViewingAndDiagramCenter.x = 0;
+	m_ptDistanceBetweenViewingAndDiagramCenter.y = 0;
 	m_fViewingScale = 1.0;
 }
 
@@ -144,8 +144,6 @@ void DialogDisplayResult::OnPaint()
 
 void DialogDisplayResult::OnMouseMove(UINT nFlags, CPoint point)
 {
-	HGLOG_DEBUG("OnMouseMove");
-
 	if(m_bDragging)
 	{
 		m_ptDistanceBetweenViewingAndDiagramCenter.x += point.x - m_ptDragStartPos.x;
@@ -164,7 +162,6 @@ void DialogDisplayResult::OnMouseMove(UINT nFlags, CPoint point)
 
 void DialogDisplayResult::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	HGLOG_DEBUG("OnLButtonDown");
 	SetFocus();
 	m_bDragging = true;
 	m_ptDragStartPos.x = point.x;
@@ -176,7 +173,6 @@ void DialogDisplayResult::OnLButtonDown(UINT nFlags, CPoint point)
 
 void DialogDisplayResult::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	HGLOG_DEBUG("OnLButtonUp");
 	SetFocus();
 	m_bDragging = false;
 

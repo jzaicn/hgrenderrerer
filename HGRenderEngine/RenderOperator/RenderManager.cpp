@@ -238,33 +238,45 @@ public:
 	~CallBackCore(){}
 	
 	static bool m_bool;
+
 //////////////////////////////////////////////////////////////////////////
 // 回调函数
 #if 1
 public:
-	static void dispaly_callback(uint_t width, uint_t height,const EH_RGBA *color_data)
+	static void dispaly_callback(uint_t ei_width, uint_t ei_height,const EH_RGBA *ei_image)
 	{
 		HGLOG_DEBUG("dispaly_callback");
 
-		CRect rcDrawArea(0,0,width,height);
+		int mfc_width = ei_width;
+		int mfc_height = ei_height;
+		CRect rcDrawArea(0,0,mfc_width,mfc_height);
 		Bitmap* m_pImg = ::new Bitmap(rcDrawArea.Width(), rcDrawArea.Height());
+		//渲染传递过来的图片坐标系是数学坐标系，我们显示的是屏幕坐标
+		//   y+↑                   十一→ x+
+		//     丨                   丨
+		//     十一→ x+            ↓ y+      
 		if (m_bool)
 		{
 			//HGLOG_DEBUG("-------------------------------------------");
-			int index = 0;
-			for (int wi = 0; wi < width ; wi++)
+			int ei_index = 0;
+
+			for (int ei_h = 0; ei_h < ei_height ; ei_h++)
 			{
-				for (int hi = 0; hi < height ; hi++)
+				for (int ei_w = 0; ei_w < ei_width ; ei_w++)
 				{
-					int r = (int)(color_data[hi + index][0] * 255.0);				
-					int g = (int)(color_data[hi + index][1] * 255.0);
-					int b = (int)(color_data[hi + index][2] * 255.0);
-					int a = (int)(color_data[hi + index][3] * 255.0);
+					//按行从最底下获取图片
+					int r = (int)(ei_image[ei_w + ei_index][0] * 255.0);				
+					int g = (int)(ei_image[ei_w + ei_index][1] * 255.0);
+					int b = (int)(ei_image[ei_w + ei_index][2] * 255.0);
+					int a = (int)(ei_image[ei_w + ei_index][3] * 255.0);
+
 					//HGLOG_DEBUG("color : ( %d , %d , %d, %d )",r,g,b,a);
 					Color color(a,b,g,r);
-					m_pImg->SetPixel(wi,hi,color);
+
+					//mfc 按屏幕位置，从图片底部赋值
+					m_pImg->SetPixel(ei_w,mfc_height-ei_h,color);
 				}
-				index += height;
+				ei_index += ei_width;
 			}
 			//HGLOG_DEBUG("==========================================");
 
