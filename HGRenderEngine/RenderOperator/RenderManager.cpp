@@ -162,7 +162,15 @@ public:
 		for (int i = 0; i < inval.get_verts().size() ; i++)
 		{
 			fill((EH_Vec)(outval.verts[i]),inval.get_verts().at(i));
+		}
+
+		for (int i = 0; i < inval.get_normals().size() ; i++)
+		{
 			fill((EH_Vec)(outval.normals[i]),inval.get_normals().at(i));
+		}
+
+		for (int i = 0; i < inval.get_uvs().size() ; i++)
+		{
 			fill((EH_Vec2)(outval.uvs[i]),inval.get_uvs().at(i));
 		}
 		
@@ -186,6 +194,8 @@ public:
 		fill(outval.diffuse_color,HG_Vec4());
 		outval.diffuse_tex.filename = NULL;
 		outval.diffuse_tex.repeat = 1.0;
+
+//TODO: 其他参数有无，还有数值调试
 // 		if (inval.get_type() == HG_Material::color)
 // 		{
 // 			fill((EH_RGB)outval.diffuse_color,inval.get_color());
@@ -195,38 +205,39 @@ public:
 // 			fill(outval.diffuse_tex,inval.get_image());
 // 		}
 		
-		outval.diffuse_weight = 1.0;
-		outval.roughness = 1.0;
-		outval.backlight = 1.0;
 
-		outval.specular_weight = 1.0;
-		fill(outval.specular_color,HG_Vec4());
-		outval.specular_tex.filename = NULL;
-		outval.specular_tex.repeat = 1.0;
-		outval.glossiness = 1.0;
-		outval.specular_fresnel = 1.0;
-		outval.anisotropy = 1.0;
-		outval.rotation = 1.0;
-
-		outval.transp_weight = 1.0;
-		outval.transp_invert_weight = 1.0;
-		outval.transp_tex.filename = NULL;
-		outval.transp_tex.repeat = 1.0;
-
-		outval.bump_weight = 1.0;
-		outval.bump_tex.filename = NULL;
-		outval.bump_tex.repeat = 1.0;
-		outval.normal_bump = 1.0;
-
-		outval.mirror_weight = 1.0;
-		fill(outval.mirror_color,HG_Vec4());
-		outval.mirror_fresnel = 1.0;
-
-		outval.refract_weight = 1.0;
-		outval.refract_invert_weight = 1.0;
-		fill(outval.refract_color,HG_Vec4());
-		outval.ior = 1.0;
-		outval.refract_glossiness = 1.0;
+// 		outval.diffuse_weight = 1.0;
+// 		outval.roughness = 1.0;
+// 		outval.backlight = 1.0;
+// 
+// 		outval.specular_weight = 1.0;
+// 		fill(outval.specular_color,HG_Vec4());
+// 		outval.specular_tex.filename = NULL;
+// 		outval.specular_tex.repeat = 1.0;
+// 		outval.glossiness = 1.0;
+// 		outval.specular_fresnel = 1.0;
+// 		outval.anisotropy = 1.0;
+// 		outval.rotation = 1.0;
+// 
+// 		outval.transp_weight = 1.0;
+// 		outval.transp_invert_weight = 1.0;
+// 		outval.transp_tex.filename = NULL;
+// 		outval.transp_tex.repeat = 1.0;
+// 
+// 		outval.bump_weight = 1.0;
+// 		outval.bump_tex.filename = NULL;
+// 		outval.bump_tex.repeat = 1.0;
+// 		outval.normal_bump = 1.0;
+// 
+// 		outval.mirror_weight = 1.0;
+// 		fill(outval.mirror_color,HG_Vec4());
+// 		outval.mirror_fresnel = 1.0;
+// 
+// 		outval.refract_weight = 1.0;
+// 		outval.refract_invert_weight = 1.0;
+// 		fill(outval.refract_color,HG_Vec4());
+// 		outval.ior = 1.0;
+// 		outval.refract_glossiness = 1.0;
 	}
 
 #endif
@@ -391,8 +402,12 @@ RenderManager& RenderManager::inst()
 
 void RenderManager::SaveESS(std::string path)
 {
+	HGLOG_DEBUG("场景构建中...");
+	DialogPlus::setStatusText(_T("场景构建中..."));
 	initWhenNot();
 
+#define HONGGUANG 1
+#if HONGGUANG
 
 	// 设置导出选项
 	EH_ExportOptions option;
@@ -455,6 +470,26 @@ void RenderManager::SaveESS(std::string path)
 	verts.push_back(HG_Vec3(-8.5f, 8.0f, -8.5f));
 	mesh.set_verts(verts);
 
+	std::vector<HG_Vec3> nromals;
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	nromals.push_back(HG_Vec3(0.0f,0.0f,1.0f));
+	mesh.set_normals(nromals);
+
+
 	std::vector<HG_Vec2> uvs;
 	uvs.push_back(HG_Vec2(0.0,0.0));
 	uvs.push_back(HG_Vec2(1.0,0.0));
@@ -496,8 +531,8 @@ void RenderManager::SaveESS(std::string path)
  		HG_Mesh hg_mesh = HG_SceneCenter::inst().ref_meshList().at(i);
  		EH_Mesh mesh;
  		mesh.verts = (EH_Vec*)malloc(sizeof(EH_Vec) * hg_mesh.get_verts().size());
- 		mesh.normals = (EH_Vec*)malloc(sizeof(EH_Vec) * hg_mesh.get_verts().size());
- 		mesh.uvs = (EH_Vec2*)malloc(sizeof(EH_Vec2) * hg_mesh.get_verts().size());
+ 		mesh.normals = (EH_Vec*)malloc(sizeof(EH_Vec) * hg_mesh.get_normals().size());
+ 		mesh.uvs = (EH_Vec2*)malloc(sizeof(EH_Vec2) * hg_mesh.get_uvs().size());
  		mesh.face_indices = (uint_t *)malloc(sizeof(uint_t) * hg_mesh.get_faces().size() * 3);
  
  		storage.fill(mesh,hg_mesh);
@@ -554,7 +589,7 @@ void RenderManager::SaveESS(std::string path)
 
 	HG_ModelInstance model;
 	model.set_unique_code("include_test_ess");
-	model.set_model_file("D:\\default.ess");
+	model.set_model_file("D:\\picture.ess");
 	model.set_mesh_to_world(inst_tran);
 	HG_SceneCenter::inst().addModelInstance(model);
 
@@ -573,7 +608,7 @@ void RenderManager::SaveESS(std::string path)
 	HG_SunLight sun;
 	sun.set_sun_height(0.0);
 	sun.set_sun_angle(0.0);
-	sun.set_sun_color(0xFFFFFFFF);
+	sun.set_sun_color(0xFFFFFFFF);//TODO: 修改颜色为hgvec4
 	HG_SceneCenter::inst().set_sun(sun);
 
 
@@ -592,12 +627,122 @@ void RenderManager::SaveESS(std::string path)
 	//导出结束
 	EH_end_export(storage.get_context());
 
-
 	storage.clearCharBuffer();
+#else
+	EH_Context *pContext = storage.get_context();
+	EH_ExportOptions option;
+	option.base85_encoding = false;
+	option.left_handed = true;
+	EH_begin_export(pContext, "D:\\example_ei.ess", &option);
+
+	EH_RenderOptions render_op;
+	render_op.quality = EH_MEDIUM;
+	EH_set_render_options(pContext, &render_op);
+
+	//create cam
+	EH_Camera cam;
+	cam.fov = 45;
+	cam.near_clip = 0.01f;
+	cam.far_clip = 1000.0f;
+	cam.image_width = 640;
+	cam.image_height = 480;
+	HG_Mat cam_tran = HG_Mat(
+		HG_Vec4(0.731353f, -0.681999f, -0.0f, 0.0f),
+		HG_Vec4(0.255481f, 0.27397f, 0.927184f, 0.0f),
+		HG_Vec4(-0.632338f, -0.678099f, 0.374607f, 0.0f),
+		HG_Vec4(-38.681263f, -49.142731f, 21.895681f, 1.0f)
+		);
+	storage.fill(cam.view_to_world,cam_tran);
+// 	eiMatrix cam_tran = ei_matrix(0.731353, -0.681999, -0.0, 0.0, 0.255481, 0.27397, 0.927184, 0.0, -0.632338, -0.678099, 0.374607, 0.0, -38.681263, -49.142731, 21.895681, 1.0);
+// 	memcpy(cam.view_to_world, &cam_tran.m[0][0], sizeof(EH_Mat));
+	EH_set_camera(pContext, &cam);
+
+	const char *mesh_name = "simple_mesh";
+	EH_Mesh simple_mesh;
+	float vertices[48] = {-8.5f, 0.0f, 8.5f,   8.5f, 0.0f, 8.5f,   8.5f, 8.0f, 8.5f,  -8.5f, 8.0f, 8.5f,
+		-8.5f, 8.0f, -8.5f,  8.5f, 8.0f, -8.5f,  8.5f, 0.0f, -8.5f, -8.5f, 0.0f, -8.5f,
+		8.5f, 0.0f, 8.5f,   8.5f, 0.0f, -8.5f,  8.5f, 8.0f, -8.5f,  8.5f, 8.0f, 8.5f,
+		-8.5f, 0.0f, -8.5f,  -8.5f, 0.0f, 8.5f,  -8.5f, 8.0f, 8.5f, -8.5f, 8.0f, -8.5f
+	};
+	float uvs[32] = {
+		0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0,
+		0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0,
+		0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0,
+		0.0,0.0, 1.0,0.0, 1.0,1.0, 0.0,1.0
+	};
+	uint_t indice[36] = {
+		0,2,1,
+		0,3,2,
+
+		1,2,6,
+		6,5,1,
+
+		4,5,6,
+		6,7,4,
+
+		2,3,6,
+		6,3,7,
+
+		0,7,3,
+		0,4,7,
+
+		0,1,5,
+		0,5,4
+	};
+	simple_mesh.num_verts = 16;
+	simple_mesh.num_faces = 12;
+	simple_mesh.verts = (EH_Vec*)vertices;
+	simple_mesh.face_indices = (uint_t*)indice;
+	simple_mesh.uvs = (EH_Vec2*)uvs;
+	EH_add_mesh(pContext, mesh_name, &simple_mesh);
+
+	const char *simple_mtl = "simple_mtl";
+	EH_Material simple_mat;
+	float diff[3] = {1, 0, 0};
+	memcpy(simple_mat.diffuse_color, diff, sizeof(EH_RGB));
+	EH_add_material(pContext, simple_mtl, &simple_mat);		
+
+	EH_Sun sun;
+	sun.dir[0] = 0;
+	sun.dir[1] = 0;
+	float color[3] = {1, 1, 1};
+	memcpy(sun.color, color, sizeof(color));
+	sun.intensity = 200;
+	EH_set_sun(pContext, &sun);
+
+	const char *simple_inst_name = "simple_inst_name";
+	EH_MeshInstance inst;
+	inst.mesh_name = mesh_name;
+	inst.mtl_name = simple_mtl;
+	HG_Mat inst_tran = HG_Mat(
+		HG_Vec4(1, 0, 0, 0),
+		HG_Vec4(0, 1, 0, 0),
+		HG_Vec4(0, 0, 1, 0),
+		HG_Vec4(0, 0, 0, 1)
+		);
+	storage.fill(inst.mesh_to_world,inst_tran);
+// 	eiMatrix inst_tran = ei_matrix(
+// 		1, 0, 0, 0,
+// 		0, 1, 0, 0,
+// 		0, 0, 1, 0,
+// 		0, 0, 0, 1
+// 		);
+// 	memcpy(inst.mesh_to_world, inst_tran.m, sizeof(inst.mesh_to_world));
+	EH_add_mesh_instance(pContext, simple_inst_name, &inst);
+
+	EH_AssemblyInstance include_inst;
+	include_inst.filename = "D:\\picture.ess";
+	storage.fill(include_inst.mesh_to_world,inst_tran);
+	//memcpy(include_inst.mesh_to_world, inst_tran.m, sizeof(include_inst.mesh_to_world));
+	EH_add_assembly_instance(pContext, "include_test_ess",&include_inst);
+
+	EH_end_export(pContext);
+#endif
+
 	
 
-	HGLOG_DEBUG("开始预处理");
-	DialogPlus::setStatusText(_T("开始预处理"));
+	HGLOG_DEBUG("场景构建完毕");
+	DialogPlus::setStatusText(_T("场景构建完毕"));
 
 }
 
