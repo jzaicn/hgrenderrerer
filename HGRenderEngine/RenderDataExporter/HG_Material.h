@@ -24,10 +24,10 @@ public:
 
 	HG_Material(UINT material_color,bool cull = false)
 	{
-		float r = (float)(HGGetRValue(material_color)) / 255.0;
-		float g = (float)(HGGetGValue(material_color)) / 255.0;
-		float b = (float)(HGGetBValue(material_color)) / 255.0;
-		float a = (float)(HGGetAValue(material_color)) / 255.0;
+		float r = (float)(HGGetRValue(material_color)) / 255.0f;
+		float g = (float)(HGGetGValue(material_color)) / 255.0f;
+		float b = (float)(HGGetBValue(material_color)) / 255.0f;
+		float a = (float)(HGGetAValue(material_color)) / 255.0f;
 		set_color(HG_Vec4(r,g,b,a));
 		set_type(color);
 		set_image("");
@@ -74,13 +74,6 @@ public:
 
 
 	virtual void load(const Json::Value& in) override;
-
-	UINT color2Uint()
-	{
-		UINT col;
-		
-		return 0;
-	}	
 
 private:
 

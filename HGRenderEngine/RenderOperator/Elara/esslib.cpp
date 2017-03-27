@@ -539,7 +539,7 @@ std::string AddNormalBump(EssWriter& writer, const std::string &normalMap){
 
 std::string AddMaterial(EssWriter& writer, const EH_Material& mat, std::string &matName, const std::string &rootPath)
 {
-	float eps = 0.0000001;
+	float eps = 0.0000001f;
 	std::string transparencyTex, diffuse_tex_node, normal_map_tex_node;
 	transparencyTex = mat.transp_weight > eps ? AddAlphaTexture(writer, mat.transp_tex.filename, mat.transp_tex.repeat, matName + "_a", rootPath): "";
 	if(mat.diffuse_tex.filename)

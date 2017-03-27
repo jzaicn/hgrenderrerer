@@ -432,7 +432,7 @@ bool WindowProcOnRendering(void *param, bool is_abort_render, EH_display_callbac
 
 	if (display_cb)
 	{
-		int color_num = rp->originalBuffer.size();
+		UINT color_num = rp->originalBuffer.size();
 		EH_RGBA *color_data = new EH_RGBA[color_num];
 		memset(color_data, 0, sizeof(color_data));
 		for(int i = 0; i < color_num; ++i)

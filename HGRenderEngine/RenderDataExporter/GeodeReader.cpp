@@ -348,7 +348,7 @@ int GeodeReader::getMaterialIndex(const osg::Geometry* geo, const osg::StateSet*
 		GeodeMatrial mat_image(img->getFileName());
 		for (UINT i = 0; i < m_material.size() ; i++)
 		{
-			if (m_material.at(i).Type() == GeodeMatrial::MType::image)
+			if (m_material.at(i).Type() == GeodeMatrial::image)
 			{
 				if( mat_image == m_material.at(i) )
 				{
@@ -443,7 +443,7 @@ void GeodeReader::createListUVs(const osg::Geometry* g)
 	const osg::Array * basetexcoords = g->getTexCoordArray(0);
 	if (basetexcoords && basetexcoords->getNumElements()>0)
 	{
-		for (int i = 0; i < m_listTriangles.size() ; i++)
+		for (UINT i = 0; i < m_listTriangles.size() ; i++)
 		{
 			//FbxVector2 texcoord;
 			if (basetexcoords->getType() == osg::Array::Vec2ArrayType)
@@ -501,7 +501,7 @@ void GeodeReader::createListVerts(const osg::Geometry* g)
 			return;
 		}
 		//FbxVector4 vertex;
-		for (int i = 0; i < m_listTriangles.size() ; i++)
+		for (UINT i = 0; i < m_listTriangles.size() ; i++)
 		{
 			if (basevecs->getType() == osg::Array::Vec3ArrayType)
 			{
@@ -551,7 +551,7 @@ void GeodeReader::createListNormals(const osg::Geometry* g)
 	if (basenormals && basenormals->getNumElements()>0)
 	{
 		//FbxVector4 normal;
-		for (int i = 0; i < m_listTriangles.size() ; i++)
+		for (UINT i = 0; i < m_listTriangles.size() ; i++)
 		{
 			if (basenormals->getType() == osg::Array::Vec3ArrayType)
 			{

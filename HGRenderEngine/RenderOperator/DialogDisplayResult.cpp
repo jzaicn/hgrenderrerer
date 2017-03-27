@@ -186,7 +186,7 @@ void DialogDisplayResult::OnLButtonUp(UINT nFlags, CPoint point)
 BOOL DialogDisplayResult::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
 	//TODO: 滚轮放大，应该在鼠标指着的区域为中心
-	float fDeltaScale = (((float)zDelta) / 120.0) * stepScale();
+	float fDeltaScale = (((float)zDelta) / 120.0f) * stepScale();
 	setScale(fDeltaScale);	
 
 	Invalidate();
@@ -247,15 +247,15 @@ void DialogDisplayResult::setScale(float scale)
 
 float DialogDisplayResult::minScale()
 {
-	return 0.01;
+	return 0.01f;
 }
 
 float DialogDisplayResult::maxScale()
 {
-	return 10.0;
+	return 10.0f;
 }
 
 float DialogDisplayResult::stepScale()
 {
-	return 0.1;
+	return 0.1f;
 }

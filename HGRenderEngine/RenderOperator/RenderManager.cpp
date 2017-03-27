@@ -72,15 +72,15 @@ public:
 	}
 	void fill(EH_RGB& outval,UINT inval)
 	{
-		outval[0] = (float)(GetRValue(inval)) / 255.0;
-		outval[1] = (float)(GetGValue(inval)) / 255.0;
-		outval[2] = (float)(GetBValue(inval)) / 255.0;
+		outval[0] = (float)(HGGetRValue(inval)) / 255.0f;
+		outval[1] = (float)(HGGetGValue(inval)) / 255.0f;
+		outval[2] = (float)(HGGetBValue(inval)) / 255.0f;
 	}
 	void fill(EH_RGBA& outval,UINT inval)
 	{
-		outval[0] = GetRValue(inval) / 255.0;
-		outval[1] = GetGValue(inval) / 255.0;
-		outval[2] = GetBValue(inval) / 255.0;
+		outval[0] = GetRValue(inval) / 255.0f;
+		outval[1] = GetGValue(inval) / 255.0f;
+		outval[2] = GetBValue(inval) / 255.0f;
 	}
 	void fill(EH_Vec& outval,HG_Vec3 inval)
 	{
@@ -262,11 +262,11 @@ public:
 		if (m_bool)
 		{
 			//HGLOG_DEBUG("-------------------------------------------");
-			int ei_index = 0;
+			UINT ei_index = 0;
 
-			for (int ei_h = 0; ei_h < ei_height ; ei_h++)
+			for (UINT ei_h = 0; ei_h < ei_height ; ei_h++)
 			{
-				for (int ei_w = 0; ei_w < ei_width ; ei_w++)
+				for (UINT ei_w = 0; ei_w < ei_width ; ei_w++)
 				{
 					//按行从最底下获取图片
 					int r = (int)(ei_image[ei_w + ei_index][0] * 255.0);				
@@ -406,11 +406,11 @@ void RenderManager::SaveESS(std::string path)
 	camera.set_image_width(640);
 	camera.set_image_height(480);
 	HG_Mat cam_tran = HG_Mat(
-		HG_Vec4(0.731353, -0.681999, -0.0, 0.0),
-		HG_Vec4(0.255481, 0.27397, 0.927184, 0.0),
-		HG_Vec4(-0.632338, -0.678099, 0.374607, 0.0),
-		HG_Vec4(-38.681263, -49.142731, 21.895681, 1.0)
-		);
+		HG_Vec4(0.731353f, -0.681999f, -0.0f, 0.0f),
+		HG_Vec4(0.255481f, 0.27397f, 0.927184f, 0.0f),
+		HG_Vec4(-0.632338f, -0.678099f, 0.374607f, 0.0f),
+		HG_Vec4(-38.681263f, -49.142731f, 21.895681f, 1.0f)
+	);
 	camera.set_view_to_world(cam_tran);
 	HG_SceneCenter::inst().addCamera(camera);
 
@@ -566,7 +566,7 @@ void RenderManager::SaveESS(std::string path)
 	HG_SunLight sun;
 	sun.set_sun_height(0.0);
 	sun.set_sun_angle(0.0);
-	sun.set_sun_color(HG_Vec4(1.0,1.0,1.0,1.0));
+	sun.set_sun_color(0xFFFFFFFF);
 	HG_SceneCenter::inst().set_sun(sun);
 
 

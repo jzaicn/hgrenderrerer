@@ -101,7 +101,7 @@ bool DialogPlus::get_check_bool(UINT macro)
 {
 	if (checkMacro(macro))
 	{
-		bool check = ((CButton*)GetDlgItem(macro))->GetCheck();
+		bool check = (bool)((CButton*)GetDlgItem(macro))->GetCheck();
 		return check;
 	}
 	return false;

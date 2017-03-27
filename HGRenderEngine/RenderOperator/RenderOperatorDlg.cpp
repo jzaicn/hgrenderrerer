@@ -196,27 +196,27 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 	m_wndStatusBar.MoveWindow(0,statusRect.bottom-20,statusRect.right,20);// 调整状态栏的位置和大小
 
 	//状态消息
-	indiceWidth[statusbar::info] = statusRect.Width() - m_paramSettingDlgContainerRect.Width() - m_paramSettingDlgContainerRect.Width();//init打开
-	//indiceWidth[statusbar::info] = statusRect.Width() - indiceWidth[statusbar::process] - indiceWidth[statusbar::scale];	//onsize打开
-	m_wndStatusBar.SetPaneInfo(statusbar::info,indicators[statusbar::info],SBPS_NORMAL, indiceWidth[statusbar::info]);
-	m_wndStatusBar.SetPaneText(statusbar::info,HGCode::convert("准备就绪"));//init 打开
+	indiceWidth[CRenderOperatorDlg::info] = statusRect.Width() - m_paramSettingDlgContainerRect.Width() - m_paramSettingDlgContainerRect.Width();//init打开
+	//indiceWidth[CRenderOperatorDlg::info] = statusRect.Width() - indiceWidth[CRenderOperatorDlg::process] - indiceWidth[CRenderOperatorDlg::scale];	//onsize打开
+	m_wndStatusBar.SetPaneInfo(CRenderOperatorDlg::info,indicators[CRenderOperatorDlg::info],SBPS_NORMAL, indiceWidth[CRenderOperatorDlg::info]);
+	m_wndStatusBar.SetPaneText(CRenderOperatorDlg::info,HGCode::convert("准备就绪"));//init 打开
 
 	//TODO: 以后可以尝试一下SBPS_NORMAL改为SBPS_OWNERDRAW，现在暂时用控件代替
 	//渲染进度
-	indiceWidth[statusbar::process] = m_paramSettingDlgContainerRect.Width();//init 打开，固定
-	m_wndStatusBar.SetPaneInfo(statusbar::process,indicators[statusbar::process],SBPS_NORMAL, indiceWidth[statusbar::process]);
-	m_wndStatusBar.SetPaneText(statusbar::process,HGCode::convert("999999"));//init 打开
+	indiceWidth[CRenderOperatorDlg::process] = m_paramSettingDlgContainerRect.Width();//init 打开，固定
+	m_wndStatusBar.SetPaneInfo(CRenderOperatorDlg::process,indicators[CRenderOperatorDlg::process],SBPS_NORMAL, indiceWidth[CRenderOperatorDlg::process]);
+	m_wndStatusBar.SetPaneText(CRenderOperatorDlg::process,HGCode::convert("999999"));//init 打开
 
 	//图片缩放比例
-	indiceWidth[statusbar::scale] = m_paramSettingDlgContainerRect.Width();//init 打开，固定
-	m_wndStatusBar.SetPaneInfo(statusbar::scale,indicators[statusbar::scale],SBPS_NORMAL, indiceWidth[statusbar::scale]);
-	m_wndStatusBar.SetPaneText(statusbar::scale,HGCode::convert("缩放100%"));//init 打开
+	indiceWidth[CRenderOperatorDlg::scale] = m_paramSettingDlgContainerRect.Width();//init 打开，固定
+	m_wndStatusBar.SetPaneInfo(CRenderOperatorDlg::scale,indicators[CRenderOperatorDlg::scale],SBPS_NORMAL, indiceWidth[CRenderOperatorDlg::scale]);
+	m_wndStatusBar.SetPaneText(CRenderOperatorDlg::scale,HGCode::convert("缩放100%"));//init 打开
 
 	//渲染进度
 	m_render_process_rect = statusRect;
 	m_render_process_rect.top = statusRect.bottom - 19;
-	m_render_process_rect.left = indiceWidth[statusbar::info];
-	m_render_process_rect.right = m_render_process_rect.left + indiceWidth[statusbar::process];
+	m_render_process_rect.left = indiceWidth[CRenderOperatorDlg::info];
+	m_render_process_rect.right = m_render_process_rect.left + indiceWidth[CRenderOperatorDlg::process];
 	m_render_process.MoveWindow(m_render_process_rect);
 
 	m_render_process.SetRange(0,100);
@@ -299,28 +299,28 @@ void CRenderOperatorDlg::OnSize(UINT nType, int cx, int cy)
 	// 	m_wndStatusBar.SetPaneInfo(1,indicators[1],SBPS_NORMAL, indiceWidth[1]);	
 
 	//状态消息
-	//indiceWidth[statusbar::info] = statusRect.Width() - m_paramSettingDlgContainerRect.Width() - m_paramSettingDlgContainerRect.Width();//init打开
-	indiceWidth[statusbar::info] = statusRect.Width() - indiceWidth[statusbar::process] - indiceWidth[statusbar::scale];	//onsize打开
-	m_wndStatusBar.SetPaneInfo(statusbar::info,indicators[statusbar::info],SBPS_NORMAL, indiceWidth[statusbar::info]);
-	//m_wndStatusBar.SetPaneText(statusbar::info,HGCode::convert("准备就绪"));//init 打开
+	//indiceWidth[CRenderOperatorDlg::info] = statusRect.Width() - m_paramSettingDlgContainerRect.Width() - m_paramSettingDlgContainerRect.Width();//init打开
+	indiceWidth[CRenderOperatorDlg::info] = statusRect.Width() - indiceWidth[CRenderOperatorDlg::process] - indiceWidth[CRenderOperatorDlg::scale];	//onsize打开
+	m_wndStatusBar.SetPaneInfo(CRenderOperatorDlg::info,indicators[CRenderOperatorDlg::info],SBPS_NORMAL, indiceWidth[CRenderOperatorDlg::info]);
+	//m_wndStatusBar.SetPaneText(CRenderOperatorDlg::info,HGCode::convert("准备就绪"));//init 打开
 
 	//TODO: 以后可以尝试一下SBPS_NORMAL改为SBPS_OWNERDRAW，现在暂时用控件代替
 	//渲染进度
-	//indiceWidth[statusbar::process] = m_paramSettingDlgContainerRect.Width();//init 打开，固定
-	m_wndStatusBar.SetPaneInfo(statusbar::process,indicators[statusbar::process],SBPS_NORMAL, indiceWidth[statusbar::process]);
-	//m_wndStatusBar.SetPaneText(statusbar::process,HGCode::convert("999999"));//init 打开
+	//indiceWidth[CRenderOperatorDlg::process] = m_paramSettingDlgContainerRect.Width();//init 打开，固定
+	m_wndStatusBar.SetPaneInfo(CRenderOperatorDlg::process,indicators[CRenderOperatorDlg::process],SBPS_NORMAL, indiceWidth[CRenderOperatorDlg::process]);
+	//m_wndStatusBar.SetPaneText(CRenderOperatorDlg::process,HGCode::convert("999999"));//init 打开
 
 	//图片缩放比例
-	//indiceWidth[statusbar::scale] = m_paramSettingDlgContainerRect.Width();//init 打开，固定
-	m_wndStatusBar.SetPaneInfo(statusbar::scale,indicators[statusbar::scale],SBPS_NORMAL, indiceWidth[statusbar::scale]);
-	//m_wndStatusBar.SetPaneText(statusbar::scale,HGCode::convert("缩放100%"));//init 打开
+	//indiceWidth[CRenderOperatorDlg::scale] = m_paramSettingDlgContainerRect.Width();//init 打开，固定
+	m_wndStatusBar.SetPaneInfo(CRenderOperatorDlg::scale,indicators[CRenderOperatorDlg::scale],SBPS_NORMAL, indiceWidth[CRenderOperatorDlg::scale]);
+	//m_wndStatusBar.SetPaneText(CRenderOperatorDlg::scale,HGCode::convert("缩放100%"));//init 打开
 
 	//HACK: 这里statusbar长度不准
 	//渲染进度
 	m_render_process_rect = statusRect;
 	m_render_process_rect.top = statusRect.bottom - 19;
-	m_render_process_rect.left = indiceWidth[statusbar::info];
-	m_render_process_rect.right = m_render_process_rect.left + indiceWidth[statusbar::process];
+	m_render_process_rect.left = indiceWidth[CRenderOperatorDlg::info];
+	m_render_process_rect.right = m_render_process_rect.left + indiceWidth[CRenderOperatorDlg::process];
 	m_render_process.MoveWindow(m_render_process_rect);
 
 	Invalidate(TRUE);
@@ -594,7 +594,7 @@ LRESULT CRenderOperatorDlg::OnRenderStatusUpdate(WPARAM w,LPARAM l)
 	case DialogPlus::update_status_text:
 		{
 			CString str = (TCHAR*)l;
-			m_wndStatusBar.SetPaneText(statusbar::info,str);
+			m_wndStatusBar.SetPaneText(CRenderOperatorDlg::info,str);
 		}
 		break;
 	default:
@@ -646,8 +646,12 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 	DialogPlus::Send(DialogPlus::RENDER_IMAGE_UPDATE,NULL,(LPARAM)m_pImg);
 #endif // 0
 
+#if 1	//构造渲染场景
+
+
 	RenderManager::inst().SaveESS("");
 
+#endif
 
 // 	Json::Value root;
 // 

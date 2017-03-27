@@ -48,7 +48,7 @@ namespace HgLog {
 		static bool initConfigLogCategory(std::string configpath = ".\\HgLog.conf");
 
 		static void setVsConsole();
-		static void setRollingFile(log4cpp::Priority::PriorityLevel level = log4cpp::Priority::PriorityLevel::ERROR);
+		static void setRollingFile(log4cpp::Priority::PriorityLevel level = log4cpp::Priority::ERROR);
 		static void setUdpLog();
 		static void setNTEventLogAppender();
 	};

@@ -62,6 +62,11 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	//	MFC 多字节工程
 public:
+	//方便使用
+	static const char* convert(const char* str)
+	{
+		return str;
+	}
 	static void CString_Unicode_To_GB2312(CString& cstr);
 	static void CString_GB2312_To_Unicode(CString& cstr);
 #endif

@@ -54,7 +54,7 @@ HGSceneNodeVisitor::HGSceneNodeVisitor(void)
 {
 	m_level = 0;
 	//设置默认递归全部子节点
-	setTraversalMode(osg::NodeVisitor::TraversalMode::TRAVERSE_ALL_CHILDREN);
+	setTraversalMode(osg::NodeVisitor::TRAVERSE_ALL_CHILDREN);
 	setTraversalMask(0xffffffff);
 	setNodeMaskOverride(0);
 	setVisitorType(osg::NodeVisitor::NODE_VISITOR);
