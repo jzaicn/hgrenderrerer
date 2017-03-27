@@ -290,10 +290,16 @@ public:
 	static void log_callback(EH_Severity severity, const char *msg)
 	{
 		HGLOG_DEBUG("log_callback level:%d , msg: %s ",(int)severity , msg);
+		
 	}
 	static bool progress_callback(float progress)
 	{
-		HGLOG_DEBUG("progress_callback : %f ",progress);
+		HGLOG_DEBUG("progress_callback : %f%% ",progress);
+
+		CString strprogress;
+		strprogress.Format(_T("渲染进度 : %0.2f%%"),progress);
+		DialogPlus::setStatusText(strprogress);
+
 		DialogPlus::Post(DialogPlus::RENDER_STATUS_UPDATE,DialogPlus::update_process,DialogPlus::getAccuracyInt(progress));
 		return true;
 	}
@@ -317,12 +323,10 @@ private:
 public:
 	virtual BOOL InitInstance()	
 	{
-		DialogPlus::Post(DialogPlus::RENDER_BEGIN);
 		return TRUE;
 	}
 	virtual int ExitInstance() 
 	{
-		DialogPlus::Post(DialogPlus::RENDER_DONE);
 		return CWinThread::ExitInstance();
 	};
 	bool checkRunable()
@@ -346,6 +350,8 @@ public:
 		{
 			EH_start_render(m_context,m_scenePath.c_str(),false);
 		}
+		DialogPlus::Post(DialogPlus::RENDER_STATUS_UPDATE,DialogPlus::update_process,100);
+		DialogPlus::Post(DialogPlus::RENDER_DONE);
 		return true;
 	}
 protected:
@@ -386,6 +392,7 @@ RenderManager& RenderManager::inst()
 void RenderManager::SaveESS(std::string path)
 {
 	initWhenNot();
+
 
 	// 设置导出选项
 	EH_ExportOptions option;
@@ -587,7 +594,10 @@ void RenderManager::SaveESS(std::string path)
 
 
 	storage.clearCharBuffer();
+	
 
+	HGLOG_DEBUG("开始预处理");
+	DialogPlus::setStatusText(_T("开始预处理"));
 
 }
 
@@ -614,8 +624,8 @@ void RenderManager::Begin()
 {	
 	if (!renderThread)
 	{
-		HGLOG_DEBUG("启动渲染");
-		DialogPlus::setStatusText(_T("启动渲染"));
+		HGLOG_DEBUG("正在预处理数据...");
+		DialogPlus::setStatusText(_T("正在预处理数据..."));
 
 		initWhenNot();
 
@@ -627,8 +637,8 @@ void RenderManager::Begin()
 	}
 	else
 	{
-		HGLOG_DEBUG("正在渲染中...");
-		DialogPlus::setStatusText(_T("正在渲染中，请稍后..."));
+		HGLOG_DEBUG("正在生成数据...");
+		DialogPlus::setStatusText(_T("正在生成数据..."));
 	}
 }
 
