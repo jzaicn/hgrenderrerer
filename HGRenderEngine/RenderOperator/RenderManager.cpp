@@ -72,9 +72,9 @@ public:
 	}
 	void fill(EH_RGB& outval,UINT inval)
 	{
-		outval[0] = GetRValue(inval) / 255.0;
-		outval[1] = GetGValue(inval) / 255.0;
-		outval[2] = GetBValue(inval) / 255.0;
+		outval[0] = (float)(GetRValue(inval)) / 255.0;
+		outval[1] = (float)(GetGValue(inval)) / 255.0;
+		outval[2] = (float)(GetBValue(inval)) / 255.0;
 	}
 	void fill(EH_RGBA& outval,UINT inval)
 	{
@@ -176,7 +176,7 @@ public:
 	}
 	void fill(EH_RenderOptions& outval,HG_RenderParam inval)
 	{
-		outval.quality = inval.get_render_quality();
+		outval.quality = (EH_RenderQuality)inval.get_render_quality();
 	}
 	void fill(EH_Material& outval,HG_Material inval)
 	{
@@ -507,7 +507,7 @@ void RenderManager::SaveESS(std::string path)
 	HG_Material material;
 	material.set_unique_code("simple_mtl");
 	material.set_color(HG_Vec4(1, 0, 0,1));
-	material.set_type(HG_Material.color);
+	material.set_type(HG_Material::color);
 	HG_SceneCenter::inst().addMaterial(material);
 
 	// 材质 列表
@@ -566,18 +566,15 @@ void RenderManager::SaveESS(std::string path)
 	HG_SunLight sun;
 	sun.set_sun_height(0.0);
 	sun.set_sun_angle(0.0);
-	//TODO: 修改所有颜色UINT 和 HG_VEC4都可以设置
-	sun.set_sun_color(0xFFFFFFFF);
+	sun.set_sun_color(HG_Vec4(1.0,1.0,1.0,1.0));
 	HG_SceneCenter::inst().set_sun(sun);
 
 
 
-
-
 	//阳光
-	EH_Sun sun;
-	storage.fill(sun,HG_SceneCenter::inst().get_sun());
-	EH_set_sun(storage.get_context(),&sun);
+	EH_Sun eh_sun;
+	storage.fill(eh_sun,HG_SceneCenter::inst().get_sun());
+	EH_set_sun(storage.get_context(),&eh_sun);
 
 
 	// 	//天空

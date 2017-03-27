@@ -4,15 +4,49 @@
 class HG_Material :public HG_BaseModel
 {
 public:
-	HG_Material(void);
-	~HG_Material(void);
-
+	//类型分类
 	typedef enum{
 		color,
 		image,
 	}MType;
+	
+	//白色默认
+	static HG_Material Material_ColorWhite;
 
-	static HG_Material DefaultMaterial_ColorWhite;
+	HG_Material(void)
+	{
+		set_type(color);
+		set_image("");
+		set_color(HG_Vec4(1.0,1.0,1.0,1.0));
+		set_cull_back(false);
+	};
+	~HG_Material(void);
+
+	HG_Material(UINT material_color,bool cull = false)
+	{
+		float r = (float)(HGGetRValue(material_color)) / 255.0;
+		float g = (float)(HGGetGValue(material_color)) / 255.0;
+		float b = (float)(HGGetBValue(material_color)) / 255.0;
+		float a = (float)(HGGetAValue(material_color)) / 255.0;
+		set_color(HG_Vec4(r,g,b,a));
+		set_type(color);
+		set_image("");
+		set_cull_back(cull);
+	};
+	HG_Material(HG_Vec4 material_color,bool cull = false)
+	{
+		set_type(color);
+		set_image("");
+		set_color(material_color);
+		set_cull_back(cull);
+	};
+	HG_Material(std::string image_path,bool cull = false)
+	{
+		set_type(image);
+		set_image(image_path);
+		set_color(HG_Vec4());
+		set_cull_back(cull);
+	};
 
 	HG_Material(const HG_Material& other)	
 	{
@@ -40,6 +74,13 @@ public:
 
 
 	virtual void load(const Json::Value& in) override;
+
+	UINT color2Uint()
+	{
+		UINT col;
+		
+		return 0;
+	}	
 
 private:
 

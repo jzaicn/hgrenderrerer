@@ -37,7 +37,11 @@ private:
 	name##Temp.load(in[#name][i]);\
 	m_##name.push_back(##name##Temp);	}}
 
-
+#define HGLOBYTE(w)           ((BYTE)(((DWORD_PTR)(w)) & 0xff))
+#define HGGetRValue(rgb)      (HGLOBYTE(rgb))
+#define HGGetGValue(rgb)      (HGLOBYTE(((WORD)(rgb)) >> 8))
+#define HGGetBValue(rgb)      (HGLOBYTE((rgb)>>16))
+#define HGGetAValue(rgb)      (HGLOBYTE(((WORD)(rgb))>>24))
 
 class HG_Vec2;
 class HG_Vec3;
