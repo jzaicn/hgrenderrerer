@@ -579,8 +579,6 @@ void RenderManager::SaveESS(std::string path)
 // 	storage.clearCharBuffer();
 }
 
-
-
 void RenderManager::SettingUpdate()
 {
 	HG_SceneCenter::inst().get_exposure();
@@ -593,43 +591,72 @@ void RenderManager::initial()
 	EH_set_display_callback(storage.get_context(),callback.dispaly_callback);
 }
 
-
+//////////////////////////////////////////////////////////////////////////
+// 渲染工作流
+#if 1
 void RenderManager::Begin()
 {	
-	DialogPlus::setStatusText(_T("开始渲染"));
-	HGLOG_DEBUG("开始渲染");
-	if (storage.initWhenNot())
-	{
-		initial();
-	}
 	if (!renderThread)
 	{
+		HGLOG_DEBUG("启动渲染");
+		DialogPlus::setStatusText(_T("启动渲染"));
+
+		if (storage.initWhenNot())
+		{
+			initial();
+		}
+
 		renderThread = new RenderWorkThread();
 		renderThread->CreateThread(CREATE_SUSPENDED);
 		renderThread->set_context(storage.get_context());
 		renderThread->set_scenePath(get_scene_path());
 		renderThread->ResumeThread();					//运行
 	}
+	else
+	{
+		HGLOG_DEBUG("正在渲染中...");
+		DialogPlus::setStatusText(_T("正在渲染中，请稍后..."));
+	}
 }
 
 void RenderManager::Stop()
 {
-	HGLOG_DEBUG("RenderManager::Stop");
-	Clear();
+	if (!renderThread)
+	{
+		HGLOG_DEBUG("没有正在执行的渲染");
+		DialogPlus::setStatusText(_T("没有正在执行的渲染"));
+	}
+	else
+	{
+		HGLOG_DEBUG("正在停止渲染...");
+		DialogPlus::setStatusText(_T("正在停止渲染..."));
+		Clear();
+	}
 }
 
 void RenderManager::Done()
 {
-	HGLOG_DEBUG("RenderManager::Done");
-	Clear();
+	if (!renderThread)
+	{
+		HGLOG_DEBUG("完成。没有正在执行的渲染");
+		DialogPlus::setStatusText(_T("完成。没有正在执行的渲染"));
+	}
+	else
+	{
+		Clear();
+		HGLOG_DEBUG("渲染完成");
+		DialogPlus::setStatusText(_T("渲染完成"));
+	}
 }
 
 void RenderManager::Clear()
 {
-	HGLOG_DEBUG("RenderManager::Clear");
+	HGLOG_DEBUG("结束渲染任务");
 	if (renderThread)
 	{
 		renderThread->SuspendThread();
 		delete renderThread;
 	}
 }
+
+#endif
