@@ -2,15 +2,7 @@
 #include "HG_Material.h"
 #include <stdexcept>
 
-HG_Material HG_Material::DefaultMaterial_ColorWhite = HG_Material();
-
-HG_Material::HG_Material(void)
-{
-	set_type(color);
-	set_image("");
-	set_color(HG_Vec4(1.0,1.0,1.0,1.0));
-	set_cull_back(false);
-}
+HG_Material HG_Material::Material_ColorWhite = HG_Material();
 
 
 HG_Material::~HG_Material(void)
