@@ -18,11 +18,11 @@ public:
 		set_type(color);
 		set_image("");
 		set_color(HG_Vec4(1.0,1.0,1.0,1.0));
-		set_cull_back(false);
+		set_cull_back(true);
 	};
 	~HG_Material(void);
 
-	HG_Material(UINT material_color,bool cull = false)
+	HG_Material(UINT material_color,bool cull = true)
 	{
 		float r = (float)(HGGetRValue(material_color)) / 255.0f;
 		float g = (float)(HGGetGValue(material_color)) / 255.0f;
@@ -33,14 +33,14 @@ public:
 		set_image("");
 		set_cull_back(cull);
 	};
-	HG_Material(HG_Vec4 material_color,bool cull = false)
+	HG_Material(HG_Vec4 material_color,bool cull = true)
 	{
 		set_type(color);
 		set_image("");
 		set_color(material_color);
 		set_cull_back(cull);
 	};
-	HG_Material(std::string image_path,bool cull = false)
+	HG_Material(std::string image_path,bool cull = true)
 	{
 		set_type(image);
 		set_image(image_path);
