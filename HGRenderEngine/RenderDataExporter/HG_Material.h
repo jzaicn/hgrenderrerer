@@ -24,11 +24,7 @@ public:
 
 	HG_Material(UINT material_color,bool cull = true)
 	{
-		float r = (float)(HGGetRValue(material_color)) / 255.0f;
-		float g = (float)(HGGetGValue(material_color)) / 255.0f;
-		float b = (float)(HGGetBValue(material_color)) / 255.0f;
-		float a = (float)(HGGetAValue(material_color)) / 255.0f;
-		set_color(HG_Vec4(r,g,b,a));
+		set_color(HG_Vec4(material_color));
 		set_type(color);
 		set_image("");
 		set_cull_back(cull);

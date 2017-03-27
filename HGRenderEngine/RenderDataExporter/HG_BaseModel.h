@@ -183,6 +183,19 @@ public:
 		set_z(0);
 		set_w(0);
 	}
+	HG_Vec4(UINT material_color)
+	{
+		float r = (float)(HGGetRValue(material_color)) / 255.0f;
+		float g = (float)(HGGetGValue(material_color)) / 255.0f;
+		float b = (float)(HGGetBValue(material_color)) / 255.0f;
+		//float a = (float)(HGGetAValue(material_color)) / 255.0f; 
+		float a = 1.0f; 
+		set_x(r);
+		set_y(g);
+		set_z(b);
+		//TODO: 理论上应该默认是1.0的
+		set_w(a);
+	}
 	HG_Vec4(float x, float y,float z,float w)
 	{
 		set_x(x);
@@ -207,7 +220,11 @@ public:
 		set_w(other.get_w());
 		return *this;
 	}
-
+	UINT get_color_uint()
+	{
+		HG_Vec4 vec4 = *this;
+		return HGCONV2RGB(vec4);
+	}
 
 	virtual std::string get_classname() { return "HG_Vec4"; };
 

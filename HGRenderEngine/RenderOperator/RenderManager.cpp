@@ -608,7 +608,7 @@ void RenderManager::SaveESS(std::string path)
 	HG_SunLight sun;
 	sun.set_sun_height(0.0);
 	sun.set_sun_angle(0.0);
-	sun.set_sun_color(0xFFFFFFFF);//TODO: 修改颜色为hgvec4
+	sun.set_sun_color(HG_Vec4(1.0,1.0,1.0,1.0));//TODO: 修改颜色为hgvec4
 	HG_SceneCenter::inst().set_sun(sun);
 
 

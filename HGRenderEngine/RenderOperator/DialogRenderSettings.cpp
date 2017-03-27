@@ -385,7 +385,7 @@ void DialogRenderSettings::set_SunLight(HG_SunLight sun_light)
 {
 	set_check_bool(	IDC_SUN_CONTROL,				sun_light.get_sun_enable());
 	set_edit_float(	IDC_SUN_LIGHT_INTENSITY_EDIT,	sun_light.get_sun_light_intensity());
-	set_color_uint(	IDC_SUN_COLOR_BTN,				sun_light.get_sun_color());
+	set_color_uint(	IDC_SUN_COLOR_BTN,				sun_light.get_sun_color_uint());
 	set_edit_float(	IDC_SOFT_SHADOW_SLIDER,			sun_light.get_soft_shadow());
 	set_edit_float(	IDC_SUN_ANGLE_SLIDER,			sun_light.get_sun_angle());
 	set_edit_float(	IDC_SUN_HIGHT_SLIDER,			sun_light.get_sun_height());

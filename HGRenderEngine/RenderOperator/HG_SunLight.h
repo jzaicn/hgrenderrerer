@@ -8,7 +8,7 @@ public:
 	{
 		set_sun_enable(true);
 		set_sun_light_intensity(0.0);
-		set_sun_color(0);
+		set_sun_color(HG_Vec4(1.0,1.0,1.0,1.0));
 		set_soft_shadow(0.0);
 		set_sun_angle(0.0);
 		set_sun_height(0.0);
@@ -51,26 +51,31 @@ public:
 	{
 		out["sun_enable"] = get_sun_enable();
 		out["sun_light_intensity"] = get_sun_light_intensity();
-		out["sun_color"] = get_sun_color();
 		out["soft_shadow"] = get_soft_shadow();
 		out["sun_angle"] = get_sun_angle();
 		out["sun_height"] = get_sun_height();
+		ref_sun_color().save(out["sun_color"]);
 	}
 
 	virtual void load(const Json::Value& in) override
 	{
 		set_sun_enable(in["sun_enable"].asBool());
 		set_sun_light_intensity(in["sun_light_intensity"].asFloat());
-		set_sun_color(in["sun_color"].asUInt());
 		set_soft_shadow(in["soft_shadow"].asFloat());
 		set_sun_angle(in["sun_angle"].asFloat());
 		set_sun_height(in["sun_height"].asFloat());
+		ref_sun_color().load(in["sun_color"]);
+	}
+	
+	UINT get_sun_color_uint()
+	{
+		return get_sun_color().get_color_uint();
 	}
 
 private:
 	GETSET(bool,sun_enable);
 	GETSET(float,sun_light_intensity);
-	GETSET(UINT,sun_color);
+	GETSET(HG_Vec4,sun_color);
 	GETSET(float,soft_shadow);
 	GETSET(float,sun_angle);
 	GETSET(float,sun_height);
