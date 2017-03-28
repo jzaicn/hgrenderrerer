@@ -25,7 +25,7 @@ public:
 	// 缩放图像到原始尺寸
 	void GetImageData();
 	// 保存配置
-	void SaveESS(std::string path);
+	void SaveESS(std::string path, bool flag);
 	// 读取配置
 	void LoadESS(std::string path);
 	// 渲染设置更新

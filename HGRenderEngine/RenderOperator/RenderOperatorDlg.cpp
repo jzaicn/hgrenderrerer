@@ -651,8 +651,8 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 #if 1	//ππ‘Ï‰÷»æ≥°æ∞
 
 
-	RenderManager::inst().SaveESS("");
-
+	RenderManager::inst().SaveESS("",true);
+	RenderManager::inst().SaveESS("",false);
 #endif
 
 // 	Json::Value root;
