@@ -42,9 +42,14 @@ BEGIN_MESSAGE_MAP(DialogDisplayResult, CDialogEx)
 	//////////////////////////////////////////////////////////////////////////
 	// 自定义消息
 	ON_MESSAGE(RENDER_IMAGE_UPDATE,&DialogDisplayResult::OnRenderImageUpdate)	// 渲染图片更新
+	ON_MESSAGE(RENDER_SAVE_IMAGE,&DialogDisplayResult::OnRenderImageSave)		// 渲染图片保存
+	ON_MESSAGE(RENDER_LOAD_IMAGE,&DialogDisplayResult::OnRenderImageLoad)		// 渲染图片加载
+	ON_MESSAGE(RENDER_ZOOM_ORIGIN_IMAGE,&DialogDisplayResult::OnZoomOriginImage)// 缩放图像到原始尺寸
+	ON_MESSAGE(RENDER_ZOOM_FIT_IMAGE,&DialogDisplayResult::OnZoomFitImage)		// 缩放图像到适应窗口
+	ON_MESSAGE(RENDER_ZOOM_IN_IMAGE,&DialogDisplayResult::OnZoomInImage)		// 放大图像
+	ON_MESSAGE(RENDER_ZOOM_OUT_IMAGE,&DialogDisplayResult::OnZoomOutImage)		// 缩小图像
+
 	ON_WM_MOUSEMOVE()
-//	ON_WM_MOUSEWHEEL()
-//	ON_WM_MOUSEHWHEEL()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_ERASEBKGND()
@@ -203,7 +208,7 @@ BOOL DialogDisplayResult::OnEraseBkgnd(CDC* pDC)
 	return TRUE;
 }
 
-
+//////////////////////////////////////////////////////////////////////////
 
 
 LRESULT DialogDisplayResult::OnRenderImageUpdate(WPARAM w,LPARAM l)
@@ -232,6 +237,79 @@ LRESULT DialogDisplayResult::OnRenderImageUpdate(WPARAM w,LPARAM l)
 	return 0;
 }
 
+LRESULT DialogDisplayResult::OnRenderImageSave(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnSaveImage");
+	if (m_cur_image)
+	{
+		CLSID clsid;
+		GetEncoderClsid(L"image/png", &clsid);
+		m_cur_image->Save(L"D:\\render.png",&clsid);
+	}
+	return 0;
+}
+
+LRESULT DialogDisplayResult::OnRenderImageLoad(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnLoadImage");
+	return 0;
+}
+LRESULT DialogDisplayResult::OnZoomOriginImage(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnZoomOriginImage");
+	return 0;
+}
+
+LRESULT DialogDisplayResult::OnZoomFitImage(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnZoomFitImage");
+	return 0;
+}
+
+LRESULT DialogDisplayResult::OnZoomInImage(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnZoomInImage");
+	return 0;
+}
+
+LRESULT DialogDisplayResult::OnZoomOutImage(WPARAM w,LPARAM l)
+{
+	HGLOG_DEBUG("OnZoomOutImage");
+	return 0;
+}
+
+INT DialogDisplayResult::GetEncoderClsid(const WCHAR *format, CLSID *pClsid)    
+{    
+	UINT  num = 0;          // number of image encoders      
+	UINT  size = 0;         // size of the image encoder array in bytes      
+
+	ImageCodecInfo* pImageCodecInfo = NULL;     
+
+	GetImageEncodersSize(&num, &size);     
+	if(size == 0)     
+		return -1;  // Failure      
+
+	pImageCodecInfo = (ImageCodecInfo*)(malloc(size));     
+	if(pImageCodecInfo == NULL)     
+		return -1;  // Failure      
+
+	GetImageEncoders(num, size, pImageCodecInfo);     
+
+	for(UINT j = 0; j < num; ++j)     
+	{     
+		if( wcscmp(pImageCodecInfo[j].MimeType, format) == 0 )     
+		{     
+			*pClsid = pImageCodecInfo[j].Clsid;     
+			free(pImageCodecInfo);     
+			return j;  // Success      
+		}         
+	}     
+
+	free(pImageCodecInfo);     
+	return -1;  // Failure     
+}   
+
+//////////////////////////////////////////////////////////////////////////
 void DialogDisplayResult::setScale(float scale)
 {
 	if (m_fViewingScale < minScale())

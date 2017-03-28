@@ -93,13 +93,7 @@ BEGIN_MESSAGE_MAP(CRenderOperatorDlg, DialogPlus)
 
 	//////////////////////////////////////////////////////////////////////////
 	// 自定义消息
-	ON_MESSAGE(RENDER_SAVE_IMAGE,&CRenderOperatorDlg::OnSaveImage)	// 打开图像
-	ON_MESSAGE(RENDER_LOAD_IMAGE,&CRenderOperatorDlg::OnLoadImage)	// 保存图像
 	ON_MESSAGE(RENDER_EXIT,&CRenderOperatorDlg::OnExit)	// 退出
-	ON_MESSAGE(RENDER_ZOOM_ORIGIN_IMAGE,&CRenderOperatorDlg::OnZoomOriginImage)	// 缩放图像到原始尺寸
-	ON_MESSAGE(RENDER_ZOOM_FIT_IMAGE,&CRenderOperatorDlg::OnZoomFitImage)	// 缩放图像到适应窗口
-	ON_MESSAGE(RENDER_ZOOM_IN_IMAGE,&CRenderOperatorDlg::OnZoomInImage)	// 放大图像
-	ON_MESSAGE(RENDER_ZOOM_OUT_IMAGE,&CRenderOperatorDlg::OnZoomOutImage)	// 缩小图像
 	ON_MESSAGE(RENDER_TOOLBAR_SHOW_HIDE,&CRenderOperatorDlg::OnToolbarShowHide)	// 工具栏 隐藏/显示
 	ON_MESSAGE(RENDER_PARAM_SHOW_HIDE,&CRenderOperatorDlg::OnParamShowHide)		// 图片尺寸配置  隐藏/显示
 	ON_MESSAGE(RENDER_SETTINGS_SHOW_HIDE,&CRenderOperatorDlg::OnSettingShowHide)// 渲染效果配置  隐藏/显示
@@ -435,45 +429,10 @@ afx_msg void CRenderOperatorDlg::menu_help()
 //////////////////////////////////////////////////////////////////////////
 // 自定义消息事件路由
 #if 1
-LRESULT CRenderOperatorDlg::OnSaveImage(WPARAM w,LPARAM l)
-{
-	HGLOG_DEBUG("OnSaveImage");
-	return 0;
-}
-
-LRESULT CRenderOperatorDlg::OnLoadImage(WPARAM w,LPARAM l)
-{
-	HGLOG_DEBUG("OnLoadImage");
-	return 0;
-}
-
 LRESULT CRenderOperatorDlg::OnExit(WPARAM w,LPARAM l)
 {
 	HGLOG_DEBUG("OnExit");
-	return 0;
-}
-
-LRESULT CRenderOperatorDlg::OnZoomOriginImage(WPARAM w,LPARAM l)
-{
-	HGLOG_DEBUG("OnZoomOriginImage");
-	return 0;
-}
-
-LRESULT CRenderOperatorDlg::OnZoomFitImage(WPARAM w,LPARAM l)
-{
-	HGLOG_DEBUG("OnZoomFitImage");
-	return 0;
-}
-
-LRESULT CRenderOperatorDlg::OnZoomInImage(WPARAM w,LPARAM l)
-{
-	HGLOG_DEBUG("OnZoomInImage");
-	return 0;
-}
-
-LRESULT CRenderOperatorDlg::OnZoomOutImage(WPARAM w,LPARAM l)
-{
-	HGLOG_DEBUG("OnZoomOutImage");
+	CDialogEx::OnCancel();
 	return 0;
 }
 
@@ -652,7 +611,7 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 
 
 	RenderManager::inst().SaveESS("",true);
-	RenderManager::inst().SaveESS("",false);
+	//RenderManager::inst().SaveESS("",false);
 #endif
 
 // 	Json::Value root;

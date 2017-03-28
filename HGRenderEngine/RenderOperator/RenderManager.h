@@ -26,6 +26,11 @@ public:
 	void GetImageData();
 	// 保存配置
 	void SaveESS(std::string path, bool flag);
+
+	void hg_test_ess_data();
+
+	void ei_test_ess_data();
+
 	// 读取配置
 	void LoadESS(std::string path);
 	// 渲染设置更新

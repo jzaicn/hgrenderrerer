@@ -411,7 +411,12 @@ void RenderManager::SaveESS(std::string path, bool isHGFlag)
 	DialogPlus::setStatusText(_T("场景构建中..."));
 
 	initWhenNot();
-	
+	if (isHGFlag)
+	{
+		//ei_test_ess_data();
+		hg_test_ess_data();
+	}
+	else
 	try
 	{
 		// 设置导出选项
@@ -709,7 +714,7 @@ void RenderManager::hg_test_ess_data()
 
 	HG_ModelInstance model;
 	model.set_unique_code("include_test_ess");
-	model.set_model_file("D:\\picture.ess");
+	model.set_model_file("D:\\default.ess");
 	model.set_mesh_to_world(inst_tran);
 	HG_SceneCenter::inst().addModelInstance(model);
 
@@ -857,7 +862,7 @@ void RenderManager::ei_test_ess_data()
 		EH_add_mesh_instance(pContext, simple_inst_name, &inst);
 
 		EH_AssemblyInstance include_inst;
-		include_inst.filename = "D:\\picture.ess";
+		include_inst.filename = "D:\\default.ess";
 		storage.fill(include_inst.mesh_to_world,inst_tran);
 		//memcpy(include_inst.mesh_to_world, inst_tran.m, sizeof(include_inst.mesh_to_world));
 		EH_add_assembly_instance(pContext, "include_test_ess",&include_inst);

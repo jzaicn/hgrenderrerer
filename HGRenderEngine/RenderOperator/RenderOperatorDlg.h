@@ -115,20 +115,8 @@ public:
 	// 自定义消息路由
 #if 1
 public:
-	// 保存图像
-	afx_msg virtual LRESULT OnSaveImage(WPARAM w,LPARAM l);
-	// 打开图像
-	afx_msg virtual LRESULT OnLoadImage(WPARAM w,LPARAM l);
 	// 退出
 	afx_msg virtual LRESULT OnExit(WPARAM w,LPARAM l);
-	// 缩放图像到原始尺寸
-	afx_msg virtual LRESULT OnZoomOriginImage(WPARAM w,LPARAM l);
-	// 缩放图像到适应窗口
-	afx_msg virtual LRESULT OnZoomFitImage(WPARAM w,LPARAM l);
-	// 放大图像
-	afx_msg virtual LRESULT OnZoomInImage(WPARAM w,LPARAM l);
-	// 缩小图像
-	afx_msg virtual LRESULT OnZoomOutImage(WPARAM w,LPARAM l);
 	// 工具栏 隐藏/显示
 	afx_msg virtual LRESULT OnToolbarShowHide(WPARAM w,LPARAM l);
 	// 图片尺寸配置  隐藏/显示

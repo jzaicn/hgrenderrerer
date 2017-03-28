@@ -49,19 +49,22 @@ BOOL DialogRenderToolBar::OnInitDialog()
 	// 异常: OCX 属性页应返回 FALSE
 }
 
+//////////////////////////////////////////////////////////////////////////
+// 工具栏按钮
 
+//保存
 void DialogRenderToolBar::OnBnClickedSaveBtn()
 {
 	Post(RENDER_SAVE_IMAGE);
 }
 
-
+// 缩放图片 原始大小
 void DialogRenderToolBar::OnBnClickedZoomOriginBtn()
 {
 	Post(RENDER_ZOOM_ORIGIN_IMAGE);
 }
 
-
+// 缩放图片 适应窗口
 void DialogRenderToolBar::OnBnClickedZoomFitBtn()
 {
 	Post(RENDER_ZOOM_FIT_IMAGE);

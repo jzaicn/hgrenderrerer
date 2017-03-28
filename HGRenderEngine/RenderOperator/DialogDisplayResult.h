@@ -22,13 +22,28 @@ public:
 	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	virtual BOOL OnInitDialog();
-	afx_msg virtual LRESULT OnRenderImageUpdate(WPARAM w,LPARAM l);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 
+	// 刷新渲染图片
+	afx_msg virtual LRESULT OnRenderImageUpdate(WPARAM w,LPARAM l);
+	// 保存图像
+	afx_msg virtual LRESULT OnRenderImageSave(WPARAM w,LPARAM l);
+	// 打开图像
+	afx_msg virtual LRESULT OnRenderImageLoad(WPARAM w,LPARAM l);
+	// 缩放图像到原始尺寸
+	afx_msg virtual LRESULT OnZoomOriginImage(WPARAM w,LPARAM l);
+	// 缩放图像到适应窗口
+	afx_msg virtual LRESULT OnZoomFitImage(WPARAM w,LPARAM l);
+	// 放大图像
+	afx_msg virtual LRESULT OnZoomInImage(WPARAM w,LPARAM l);
+	// 缩小图像
+	afx_msg virtual LRESULT OnZoomOutImage(WPARAM w,LPARAM l);
+
+	INT GetEncoderClsid(const WCHAR *format, CLSID *pClsid);
 private:
 	CRect m_oldRect;
 	CRect m_newRect;
