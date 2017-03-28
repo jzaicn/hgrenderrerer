@@ -221,20 +221,20 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 	GetClientRect(m_oldRect);
 
 
-// 	// 加载文件
-// 	std::ifstream readStream("d:\\room.json");
-// 	if (readStream.is_open())
-// 	{
-// 		std::string result;
-// 		readStream >> result;
-// 
-// 		Json::Value output;
-// 		Json::Reader reader;
-// 		reader.parse(result,output);
-// 
-// 		HGLOG_DEBUG(output.toStyledString());
-// 		HG_SceneCenter::inst().load(output);
-// 	}
+	// 加载文件
+	std::ifstream readStream("d:\\room.json");
+	if (readStream.is_open())
+	{
+		std::string result;
+		readStream >> result;
+
+		Json::Value output;
+		Json::Reader reader;
+		reader.parse(result,output);
+
+		HGLOG_DEBUG(output.toStyledString());
+		HG_SceneCenter::inst().load(output);
+	}
 	
 	//ShowWindow(SW_MAXIMIZE);
 
@@ -607,11 +607,18 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 	DialogPlus::Send(DialogPlus::RENDER_IMAGE_UPDATE,NULL,(LPARAM)m_pImg);
 #endif // 0
 
-#if 1	//构造渲染场景
-
-
+#if 0	//构造渲染场景
 	RenderManager::inst().SaveESS("",true);
 	//RenderManager::inst().SaveESS("",false);
+#endif
+
+	
+#if	1	//渲染外部场景
+	RenderManager::inst().SaveESS("",true);
+#endif
+
+#if 0	//停止渲染
+	DialogPlus::Send(DialogPlus::RENDER_STOP);
 #endif
 
 // 	Json::Value root;
