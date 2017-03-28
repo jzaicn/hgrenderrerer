@@ -7,6 +7,7 @@
 #include "XmlHandlePlus/XmlHandlePlus.h"
 #include "XmlHandlePlus/tinyxml.h"
 #include "HGCode.h"
+#include "HgLog/HgLog.h"
 
 // ImageSetting 对话框
 
@@ -59,8 +60,9 @@ BOOL DialogImageSettings::OnInitDialog()
 			{
 				XmlHandlePlus optItemPlus(*optItem);
 				m_RenderQuality.AddString(HGCode::convert(optItemPlus.getAttr("cn_name").c_str()));
+				m_RenderQualityValue.push_back(atoi(optItemPlus.getAttr("value").c_str()));
 			}
-			m_RenderQuality.SetCurSel(atoi(node.getAttr("default").c_str()));
+			m_RenderQuality.SetCurSel(findQualityCurSelByValue(atoi(node.getAttr("default").c_str())));
 		}
 		else if (node.getAttr("en_name").compare("ImageSize") == 0)
 		{
@@ -99,29 +101,36 @@ HG_RenderParam DialogImageSettings::get_RenderParam()
 {
 	HG_RenderParam param;
 
-	int quality = ((CComboBox*)GetDlgItem(IDC_IMAGE_SIZE_COMBO))->GetCurSel();
-	param.set_render_quality(quality);
-
-	CString width_heigh;
-	((CComboBox*)GetDlgItem(IDC_IMAGE_SIZE_COMBO))->GetWindowText(width_heigh);
-	int splitx = width_heigh.Find(_T("x"));
-	if (splitx == -1 || splitx == 0 || splitx == width_heigh.GetLength() )
+	try
 	{
+		int qualitySel = ((CComboBox*)GetDlgItem(IDC_IMAGE_SIZE_COMBO))->GetCurSel();
+		param.set_render_quality(m_RenderQualityValue[qualitySel]);
+
+		CString width_heigh;
+		((CComboBox*)GetDlgItem(IDC_IMAGE_SIZE_COMBO))->GetWindowText(width_heigh);
+		int splitx = width_heigh.Find(_T("x"));
+		if (splitx == -1 || splitx == 0 || splitx == width_heigh.GetLength() )
+		{
+			return param;
+		}
+		CString width = width_heigh.Left(splitx);
+		CString height = width_heigh.Right(width_heigh.GetLength() - splitx -1);
+		param.set_render_width(atoi(HGCode::convert(width.GetBuffer())));
+		param.set_render_height(atoi(HGCode::convert(height.GetBuffer())));
+
+
 		return param;
 	}
-	CString width = width_heigh.Left(splitx);
-	CString height = width_heigh.Right(width_heigh.GetLength() - splitx -1);
-	param.set_render_width(atoi(HGCode::convert(width.GetBuffer())));
-	param.set_render_height(atoi(HGCode::convert(height.GetBuffer())));
-
-
-	return param;
+	catch (...)
+	{
+		HGLOG_ERROR("保存界面参数到数据结构错误 [DialogImageSettings::get_RenderParam]");
+	}
 }
 
 void DialogImageSettings::set_RenderParam(HG_RenderParam param)
 {
 	int quality = param.get_render_quality();
-	((CComboBox*)GetDlgItem(IDC_IMAGE_SIZE_COMBO))->SetCurSel(quality);
+	((CComboBox*)GetDlgItem(IDC_IMAGE_SIZE_COMBO))->SetCurSel(findQualityCurSelByValue(quality));
 
 	
 	int width = param.get_render_width();
@@ -130,3 +139,16 @@ void DialogImageSettings::set_RenderParam(HG_RenderParam param)
 	width_heigh.Format(_T("%dx%d"),width,height);
 	((CComboBox*)GetDlgItem(IDC_IMAGE_SIZE_COMBO))->SetWindowText(width_heigh);
 }
+
+int DialogImageSettings::findQualityCurSelByValue(int val)
+{
+	for (int i = 0; i < m_RenderQualityValue.size() ; i++)
+	{
+		if(val == m_RenderQualityValue.at(i))
+		{
+			return i;
+		}
+	}
+	return 0;
+}
+

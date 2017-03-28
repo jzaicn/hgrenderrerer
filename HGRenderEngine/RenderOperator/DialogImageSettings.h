@@ -22,6 +22,8 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
+	// 渲染质量对应的值
+	std::vector<int> m_RenderQualityValue;
 	// 渲染质量
 	CComboBox m_RenderQuality;
 	// 图像大小
@@ -33,4 +35,5 @@ public:
 
 	HG_RenderParam get_RenderParam();
 	void set_RenderParam(HG_RenderParam param);
+	int findQualityCurSelByValue(int val);
 };
