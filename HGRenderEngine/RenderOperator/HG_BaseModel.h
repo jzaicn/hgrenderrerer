@@ -36,11 +36,12 @@ private:
 
 
 
-
 class HG_Vec2;
 class HG_Vec3;
 class HG_Vec4;
 class HG_Mat;
+
+
 
 
 class HG_BaseModel
@@ -53,11 +54,12 @@ public:
 
 	virtual std::string get_classname() { return "HG_BaseModel"; };
 
-	virtual void save(Json::Value& val){};
-	virtual void load(const Json::Value& val){};
-};
-//TODO: 统一化所有save load接口
 
+	virtual void save(Json::Value& out) {}
+	virtual void load(const Json::Value& in) {}
+
+};
+//TODO: 统一化所有save load接口.
 
 class HG_Vec2 : HG_BaseModel
 {
@@ -88,6 +90,7 @@ public:
 
 	virtual std::string get_classname() override { return "HG_Vec2"; };
 
+
 	virtual void save(Json::Value& out) override
 	{
 		out["x"] = get_x();
@@ -107,6 +110,8 @@ private:
 	GETSET(float,y);
 
 };
+
+
 
 class HG_Vec3 : HG_BaseModel
 {

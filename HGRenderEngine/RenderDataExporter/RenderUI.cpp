@@ -38,8 +38,9 @@ void RenderUI::showRenderDlg()
 	HGLOG_DEBUG("scene ok");
 #endif // 0
 
+	HG_SceneCenter::inst().clear();
 	//设置读取外部ive模型
-#if 0	
+#if 1	
 	//osg::Node *node00 = osgDB::readNodeFile( "E:\\XIANGMUSOFT\\TYBSOFT2016-back\\Ironware\\连接类\\层板托(衣柜)\\板拖.IVE" );
 	osg::Node *node00 = osgDB::readNodeFile( "D:\\123123123\\trian3.ive" );
 	if (node00)
@@ -68,13 +69,18 @@ void RenderUI::showRenderDlg()
 
 	//设置读取外部模型，并设置摄像机
 #if 1
-	HG_Mat inst_tran = HG_Mat(
-		HG_Vec4(1, 0, 0, 0),
-		HG_Vec4(0, 1, 0, 0),
-		HG_Vec4(0, 0, 1, 0),
-		HG_Vec4(0, 0, 0, 1)
-		);
-	HG_SceneCenter::inst().addModelInstance(HG_ModelInstance("D:\\default.ess",inst_tran));
+// 	HG_ModelInstance model;
+// 	model.set_unique_code("include_test_ess");
+// 	model.set_model_file("D:\\default.ess");
+// 	model.set_mesh_to_world(HG_Mat(
+// 		HG_Vec4(1, 0, 0, 0),
+// 		HG_Vec4(0, 1, 0, 0),
+// 		HG_Vec4(0, 0, 1, 0),
+// 		HG_Vec4(0, 0, 0, 1)
+// 		));
+// 	HG_SceneCenter::inst().addModelInstance(model);
+
+
 	HG_Camera camera;
 	camera.set_view_to_world(HG_Mat(
 		HG_Vec4(0.731353f, -0.681999f, -0.0f, 0.0f),

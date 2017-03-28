@@ -671,6 +671,24 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 //	HGLOG_DEBUG(root.toStyledString());
 
 	
+#if INITIAL_LOAD_ROOM == 0
 
+	// ╪стьнд╪Ч
+	std::ifstream readStream("d:\\room.json");
+	if (readStream.is_open())
+	{
+		std::string result;
+		readStream >> result;
+
+		Json::Value output;
+		Json::Reader reader;
+		reader.parse(result,output);
+
+		HGLOG_DEBUG(output.toStyledString());
+		HG_SceneCenter::inst().clear();
+		HG_SceneCenter::inst().load(output);
+	}
+	RenderManager::inst().SaveESS("",false);
+#endif
 
 }

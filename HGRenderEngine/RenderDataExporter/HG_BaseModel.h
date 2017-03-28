@@ -59,7 +59,7 @@ public:
 	virtual void load(const Json::Value& in) {}
 
 };
-//TODO: 统一化所有save load接口
+//TODO: 统一化所有save load接口.
 
 class HG_Vec2 : HG_BaseModel
 {
