@@ -26,9 +26,9 @@ void HG_SceneCenter::save(Json::Value& out)
 	JsonVectorSave(HG_ModelInstance,modelList);
 	JsonVectorSave(HG_Material,materialList);
 	JsonVectorSave(HG_MeshInstance,meshInstanceList);
+	JsonVectorSave(HG_SunLight,sun);
+	JsonVectorSave(HG_SkyLight,sky);
 	ref_exposure().save(out["exposure"]);
-	ref_sky().save(out["sky"]);
-	ref_sun().save(out["sun"]);
 	ref_param().save(out["param"]);
 }
 
@@ -42,10 +42,10 @@ void HG_SceneCenter::load(const Json::Value& in)
 	JsonVectorLoad(HG_ModelInstance,modelList);
 	JsonVectorLoad(HG_Material,materialList);
 	JsonVectorLoad(HG_MeshInstance,meshInstanceList);
-	ref_exposure().load(in["exposure"]);
-	ref_sky().load(in["sky"]);
-	ref_sun().load(in["sun"]);
+	JsonVectorLoad(HG_SunLight,sun);
+	JsonVectorLoad(HG_SkyLight,sky);
 	ref_param().load(in["param"]);
+	ref_exposure().load(in["exposure"]);
 }
 
 

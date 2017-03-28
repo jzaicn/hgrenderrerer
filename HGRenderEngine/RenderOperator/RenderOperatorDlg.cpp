@@ -547,9 +547,9 @@ LRESULT CRenderOperatorDlg::OnBegin(WPARAM w,LPARAM l)
 {
 	HGLOG_DEBUG("OnBegin");
 
+	HG_SceneCenter::inst().addSun(paramSettingDlg.get_SunLight());
+	HG_SceneCenter::inst().addSky(paramSettingDlg.get_SkyLight());
 	HG_SceneCenter::inst().set_exposure(paramSettingDlg.get_Exposure());
-	HG_SceneCenter::inst().set_sky(paramSettingDlg.get_SkyLight());
-	HG_SceneCenter::inst().set_sun(paramSettingDlg.get_SunLight());
 	HG_SceneCenter::inst().set_param(imageSettingDlg.get_RenderParam());
 
 	//RenderManager::inst().SaveESS("D:\\my_scene.ess");
