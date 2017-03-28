@@ -13,6 +13,7 @@ public:
 		set_intensity(other.get_intensity());
 		set_size(other.get_size());
 		set_light_to_world(other.get_light_to_world());
+		set_unique_code(other.get_unique_code());
 	}
 
 	HG_Light& operator=(const HG_Light &other)	
@@ -22,6 +23,7 @@ public:
 		set_intensity(other.get_intensity());
 		set_size(other.get_size());
 		set_light_to_world(other.get_light_to_world());
+		set_unique_code(other.get_unique_code());
 		return *this;
 	}
 
@@ -47,6 +49,7 @@ private:
 	GETSET(float,intensity);
 	GETSET(HG_Vec2,size);		
 	GETSET(HG_Mat,light_to_world);		
+	GETSET(std::string,unique_code);	
 
 
 };

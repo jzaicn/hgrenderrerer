@@ -244,7 +244,13 @@ public:
 // 		outval.ior = 1.0;
 // 		outval.refract_glossiness = 1.0;
 	}
-
+	void fill(EH_Light& outval,HG_Light inval)
+	{
+		outval.type = (EH_LightType)inval.get_type();
+		outval.intensity = inval.get_intensity();
+		fill(outval.light_to_world,inval.get_light_to_world());
+		fill(outval.size,inval.get_size());
+	}
 #endif
 
 };
@@ -440,6 +446,15 @@ void RenderManager::SaveESS(std::string path, bool isHGFlag)
 		else
 		{
 			HGLOG_WARN("camera empty");
+		}
+
+		// 灯光 列表
+		for (int i = 0; i < HG_SceneCenter::inst().ref_lightList().size() ; i++)
+		{
+			HG_Light hg_light = HG_SceneCenter::inst().ref_lightList().at(i);
+			EH_Light light;
+			storage.fill(light,hg_light);
+			EH_add_light(storage.get_context(),hg_light.get_unique_code().c_str(),&light);
 		}
 
 		// mesh 列表

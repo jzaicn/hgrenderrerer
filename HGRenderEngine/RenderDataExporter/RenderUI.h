@@ -8,5 +8,8 @@ public:
 	~RenderUI(void){};
 
 	static void showRenderDlg();
+
+	static void save2file();
+
 };
 
