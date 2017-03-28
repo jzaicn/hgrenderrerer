@@ -69,10 +69,10 @@ public:
 		ref_modelList().clear();
 		ref_materialList().clear();
 		ref_meshInstanceList().clear();
-		set_exposure(HG_Exposure());
-		set_sky(HG_SkyLight());
-		set_sun(HG_SunLight());
+		ref_sun().clear();
+		ref_sky().clear();
 		set_param(HG_RenderParam());
+		set_exposure(HG_Exposure());
 	}
 	
 	template <typename T> 
@@ -114,6 +114,15 @@ public:
 		ref_cameraList().push_back(camera);
 	}
 
+	void addSun(HG_SunLight sun)
+	{
+		ref_sun().push_back(sun);
+	}
+
+	void addSky(HG_SkyLight sky)
+	{
+		ref_sky().push_back(sky);
+	}
 
 private:
 	//camera
@@ -134,16 +143,16 @@ private:
 	//mesh实例 多大，在哪，方向，和什么材质关联，用的是哪个实例
 	GETSET(std::vector<HG_MeshInstance>,meshInstanceList);
 	
-	//曝光参数
-	GETSET(HG_Exposure,exposure);
+	//太阳参数
+	GETSET(std::vector<HG_SunLight>,sun);	
 
 	//天空参数
-	GETSET(HG_SkyLight,sky);
-
-	//太阳参数
-	GETSET(HG_SunLight,sun);
+	GETSET(std::vector<HG_SkyLight>,sky);
 
 	//图片参数
 	GETSET(HG_RenderParam,param);
+
+	//曝光参数
+	GETSET(HG_Exposure,exposure);
 };
 
