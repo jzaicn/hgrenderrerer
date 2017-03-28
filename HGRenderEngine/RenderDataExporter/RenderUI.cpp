@@ -39,7 +39,7 @@ void RenderUI::showRenderDlg()
 #endif // 0
 
 	//设置读取外部ive模型
-#if 1	
+#if 0	
 	//osg::Node *node00 = osgDB::readNodeFile( "E:\\XIANGMUSOFT\\TYBSOFT2016-back\\Ironware\\连接类\\层板托(衣柜)\\板拖.IVE" );
 	osg::Node *node00 = osgDB::readNodeFile( "D:\\123123123\\trian3.ive" );
 	if (node00)
@@ -67,20 +67,27 @@ void RenderUI::showRenderDlg()
 #endif
 
 	//设置读取外部模型，并设置摄像机
-#if 0
-	HG_SceneCenter::inst().addModelInstance(HG_ModelInstance("D:\\picture.ess",HG_Mat()));
+#if 1
+	HG_Mat inst_tran = HG_Mat(
+		HG_Vec4(1, 0, 0, 0),
+		HG_Vec4(0, 1, 0, 0),
+		HG_Vec4(0, 0, 1, 0),
+		HG_Vec4(0, 0, 0, 1)
+		);
+	HG_SceneCenter::inst().addModelInstance(HG_ModelInstance("D:\\default.ess",inst_tran));
 	HG_Camera camera;
-	camera.set_view_to_world(
-		HG_Mat(
-			HG_Vec4( -0.957354    , 0.288917      ,-0.0            ,0.0 ), 
-			HG_Vec4( -0.103087    ,-0.341588      , 0.934179       ,0.0 ), 
-			HG_Vec4(  0.2699      , 0.89434       , 0.356804       ,0.0 ), 
-			HG_Vec4( -53.738983   , 1015.807617   , 780.762573     ,1.0 )
+	camera.set_view_to_world(HG_Mat(
+		HG_Vec4(0.731353f, -0.681999f, -0.0f, 0.0f),
+		HG_Vec4(0.255481f, 0.27397f, 0.927184f, 0.0f),
+		HG_Vec4(-0.632338f, -0.678099f, 0.374607f, 0.0f),
+		HG_Vec4(-38.681263f, -49.142731f, 21.895681f, 1.0f)
 		)
 	);
-	camera.set_cubemap_render(false);
-	camera.set_far_clip(1000.0);
-	camera.set_near_clip(0.0);
+	camera.set_fov(45.0f);
+	camera.set_near_clip(0.01f);
+	camera.set_far_clip(1000.0f);
+	camera.set_image_width(640);
+	camera.set_image_height(480);
 	HG_SceneCenter::inst().addCamera(camera);
 #endif
 
@@ -94,8 +101,8 @@ void RenderUI::showRenderDlg()
 	//保存到文件
 #if 1
 	Json::FastWriter fastwriter;
-	//std::string result = fastwriter.write(output);
-	std::string result = output.toStyledString();
+	std::string result = fastwriter.write(output);
+	//std::string result = output.toStyledString();
 	std::ofstream  writestream("d:\\room.json");
 	if (writestream.is_open())
 	{

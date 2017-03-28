@@ -11,20 +11,7 @@ public: void set_##name(type _arg){this->m_##name=_arg;}\
 public:	type& ref_##name() { return this->m_##name; }\
 private:
 
-// 	#define GETSET_VECTYPE(type,name)\
-// 	private: type m_##name; \
-// 	public: void get_##name(type& val) { for (UINT i = 0; i < sizeof(type) ; i++) { val[i] = m_##name[i] ; } } \
-// 	public: void set_##name(const type& val) { for (UINT i = 0; i < sizeof(type) ; i++) { m_##name[i] = val[i]; } } \
-// 	public: float get_##name##_at(UINT _i) { return m_##name[_i] ; } \
-// 	public: float set_##name##_at(UINT _i,float val) { m_##name[_i] = val; } \
-// 	void clear_##name() { for (UINT i = 0;i<sizeof(type);i++) { m_##name[i] = 0; } }\
-// 	private:
-// 
-// 	#define CREATE_IMPLEMENT(type) \
-// 	type* val = (type*)(malloc(sizeof(type))); \
-// 	if (!val) { throw std::runtime_error("##type ´´½¨Ê§°Ü"); }\
-// 	saveTo(*val); return val; \
-// 
+
 
 #define JsonVectorSave(type,name)	\
 { Json::Value arr##name; for (UINT i = 0; i < m_##name##.size() ; i++) {  \
@@ -37,6 +24,7 @@ private:
 	name##Temp.load(in[#name][i]);\
 	m_##name.push_back(##name##Temp);	}}
 
+
 #define HGLOBYTE(w)           ((((UINT)(w)) & 0xff))
 #define HGGetRValue(rgb)      (HGLOBYTE(rgb))
 #define HGGetGValue(rgb)      (HGLOBYTE((rgb) >> 8))
@@ -46,6 +34,7 @@ private:
 #define HGRGB(r,g,b)          (((HGLOBYTE(r)|((HGLOBYTE(g))<<8))|((HGLOBYTE(b))<<16)))
 #define HGCONV2RGB(vec4)      HGRGB((UINT)(vec4.get_x()*255.0),(UINT)(vec4.get_y()*255.0),(UINT)(vec4.get_z()*255.0))
 
+#define SAVE(value,json)      { save(m_##value,#value,json); }
 
 
 class HG_Vec2;
@@ -60,13 +49,59 @@ public:
 	HG_BaseModel(void){};
 	virtual ~HG_BaseModel(void){};
 	HG_BaseModel(const HG_BaseModel& other)	{}
-	
 	HG_BaseModel& operator=(const HG_BaseModel &other)	{return *this;}
 
 	virtual std::string get_classname() { return "HG_BaseModel"; };
 
-	virtual void save(Json::Value& out){};
-	virtual void load(const Json::Value& in){};
+	virtual void save(Json::Value& val){};
+	virtual void load(const Json::Value& val){};
+	virtual void diff(const Json::Value& val){};
+	virtual void update(const Json::Value& val){};
+	
+	void save(int& value,std::string name,const Json::Value& json)
+	{
+		value = json[name].asInt();
+	}
+	void load(int& value,std::string name,Json::Value& json)
+	{
+		json[name] = value;
+	}
+	
+	void save(UINT& value,std::string name,const Json::Value& json)
+	{
+		value = json[name].asUInt();
+	}
+	void load(UINT& value,std::string name,Json::Value& json)
+	{
+		json[name] = value;
+	}
+
+	void save(float& value,std::string name,const Json::Value& json)
+	{
+		value = json[name].asFloat();
+	}
+	void load(float& value,std::string name,Json::Value& json)
+	{
+		json[name] = value;
+	}
+
+	void save(bool& value,std::string name,const Json::Value& json)
+	{
+		value = json[name].asBool();
+	}
+	void load(bool& value,std::string name,Json::Value& json)
+	{
+		json[name] = value;
+	}
+
+	void save(std::string& value,std::string name,const Json::Value& json)
+	{
+		value = json[name].asString();
+	}
+	void load(std::string& value,std::string name,Json::Value& json)
+	{
+		json[name] = value;
+	}
 };
 
 class HG_Vec2 : HG_BaseModel
