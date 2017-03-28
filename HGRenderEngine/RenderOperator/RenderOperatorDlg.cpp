@@ -16,6 +16,8 @@
 #define new DEBUG_NEW
 #endif
 
+#define INITIAL_LOAD_ROOM 0
+
 //////////////////////////////////////////////////////////////////////////
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 #if 1
@@ -220,6 +222,7 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 	GetClientRect(m_newRect);
 	GetClientRect(m_oldRect);
 
+#if INITIAL_LOAD_ROOM
 
 	// 加载文件
 	std::ifstream readStream("d:\\room.json");
@@ -235,7 +238,8 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 		HGLOG_DEBUG(output.toStyledString());
 		HG_SceneCenter::inst().load(output);
 	}
-	
+
+#endif
 	//ShowWindow(SW_MAXIMIZE);
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
@@ -565,9 +569,11 @@ LRESULT CRenderOperatorDlg::OnRenderStatusUpdate(WPARAM w,LPARAM l)
 }
 
 
+
 #endif
 using namespace Gdiplus;
 #include "HGCode.h"
+#include "HG_BaseModel.h"
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
 // 	CString cstr = HGCode::convert("宏光软件");
@@ -613,7 +619,7 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 #endif
 
 	
-#if	1	//渲染外部场景
+#if	0	//渲染外部场景
 	RenderManager::inst().SaveESS("",true);
 #endif
 
@@ -621,22 +627,50 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 	DialogPlus::Send(DialogPlus::RENDER_STOP);
 #endif
 
-// 	Json::Value root;
-// 
-// 	root["123"] = 123;
+
+	Json::Value root;
+	float value = 100.0;	
+
+	//root << ("x",value);
+	//save(value,std::string("x"),root);
+
+	HG_BaseModel base;
+	HG_Vec2 vec2;
+	HG_Vec3 vec3;
+
+// 	template<typename TYPE>
+// 	void typeCheck(TYPE data)
+// 	{
+// 		if(std::is_same<TYPE,HG_BaseModel>::value)
+// 		{
+// 			std::cout<<"int type"<<std::endl;
+// 		}
+// 		else if(std::is_same<TYPE,HG_Vec2>::value)
+// 		{
+// 			std::cout<<"string type"<<std::endl;
+// 		}
+// 		else
+// 		{
+// 			std::cout<<"other type";
+// 		}
+// 	}
 
 
-// 	HG_RenderParam contex=imageSettingDlg.get_RenderParam();
-// 	HG_Exposure exp  = paramSettingDlg.get_Exposure();
-// 	HG_SunLight sun = paramSettingDlg.get_SunLight();
-// 	HG_SkyLight sky = paramSettingDlg.get_SkyLight();
+
+// 	HGLOG_DEBUG("HG_BaseModel == HG_BaseModel%d",decay_equiv<HG_BaseModel,HG_BaseModel>::value);
+// 	HGLOG_DEBUG("HG_BaseModel == HG_Vec2%d",decay_equiv<HG_BaseModel,HG_Vec2>::value);
+// 	HGLOG_DEBUG("HG_Vec3 == HG_Vec2%d",decay_equiv<HG_Vec3,HG_Vec2>::value);
+
+
+// 	root = aaa(root,"asdasd",value);
+// 	HGLOG_DEBUG(root.toStyledString());
 // 
-// 	exp.set_exposure_enable(!exp.get_exposure_enable());
-// 	paramSettingDlg.set_Exposure(exp);
-// 	paramSettingDlg.set_SunLight(sun);
-// 	paramSettingDlg.set_SkyLight(sky);
-// 	imageSettingDlg.set_RenderParam(param);
-// 
-// 	//TODO: 修改重绘部分，使其更新譬如选中状态等
-// 	Invalidate();
+// 	DOUBLE2 d2(500.0f);
+// 	root = aaa(root,"aaaaa",d2);
+
+//	HGLOG_DEBUG(root.toStyledString());
+
+	
+
+
 }

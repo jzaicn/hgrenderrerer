@@ -34,13 +34,14 @@ private:
 #define HGRGB(r,g,b)          (((HGLOBYTE(r)|((HGLOBYTE(g))<<8))|((HGLOBYTE(b))<<16)))
 #define HGCONV2RGB(vec4)      HGRGB((UINT)(vec4.get_x()*255.0),(UINT)(vec4.get_y()*255.0),(UINT)(vec4.get_z()*255.0))
 
-#define SAVE(value,json)      { save(m_##value,#value,json); }
 
 
 class HG_Vec2;
 class HG_Vec3;
 class HG_Vec4;
 class HG_Mat;
+
+
 
 
 class HG_BaseModel
@@ -53,56 +54,12 @@ public:
 
 	virtual std::string get_classname() { return "HG_BaseModel"; };
 
-	virtual void save(Json::Value& val){};
-	virtual void load(const Json::Value& val){};
-	virtual void diff(const Json::Value& val){};
-	virtual void update(const Json::Value& val){};
-	
-	void save(int& value,std::string name,const Json::Value& json)
-	{
-		value = json[name].asInt();
-	}
-	void load(int& value,std::string name,Json::Value& json)
-	{
-		json[name] = value;
-	}
-	
-	void save(UINT& value,std::string name,const Json::Value& json)
-	{
-		value = json[name].asUInt();
-	}
-	void load(UINT& value,std::string name,Json::Value& json)
-	{
-		json[name] = value;
-	}
 
-	void save(float& value,std::string name,const Json::Value& json)
-	{
-		value = json[name].asFloat();
-	}
-	void load(float& value,std::string name,Json::Value& json)
-	{
-		json[name] = value;
-	}
+	virtual void save(Json::Value& out) {}
+	virtual void load(const Json::Value& in) {}
 
-	void save(bool& value,std::string name,const Json::Value& json)
-	{
-		value = json[name].asBool();
-	}
-	void load(bool& value,std::string name,Json::Value& json)
-	{
-		json[name] = value;
-	}
-
-	void save(std::string& value,std::string name,const Json::Value& json)
-	{
-		value = json[name].asString();
-	}
-	void load(std::string& value,std::string name,Json::Value& json)
-	{
-		json[name] = value;
-	}
 };
+//TODO: 统一化所有save load接口
 
 class HG_Vec2 : HG_BaseModel
 {
@@ -133,6 +90,7 @@ public:
 
 	virtual std::string get_classname() override { return "HG_Vec2"; };
 
+
 	virtual void save(Json::Value& out) override
 	{
 		out["x"] = get_x();
@@ -152,6 +110,8 @@ private:
 	GETSET(float,y);
 
 };
+
+
 
 class HG_Vec3 : HG_BaseModel
 {

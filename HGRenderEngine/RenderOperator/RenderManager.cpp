@@ -413,8 +413,8 @@ void RenderManager::SaveESS(std::string path, bool isHGFlag)
 	initWhenNot();
 	if (isHGFlag)
 	{
-		//ei_test_ess_data();
-		hg_test_ess_data();
+		ei_test_ess_data();
+		//hg_test_ess_data();
 	}
 	else
 	try
