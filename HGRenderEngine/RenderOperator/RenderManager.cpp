@@ -150,7 +150,7 @@ public:
 	}
 	void fill(EH_MeshInstance& outval,HG_MeshInstance inval)
 	{
-		outval.mesh_name = createConstChar(inval.get_material_code());
+		outval.mesh_name = createConstChar(inval.get_mesh_code());
 		fill(outval.mesh_to_world,inval.get_mesh_to_world());
 		outval.mtl_name = createConstChar(inval.get_material_code());
 	}
@@ -585,32 +585,32 @@ void RenderManager::SaveESS(std::string path, bool isHGFlag)
 		 	HG_SceneCenter::inst().addMeshUseMaterial(inst);
 		 
 		 
-		// 	// mesh 实例 列表
-		// 	for (int i = 0; i < HG_SceneCenter::inst().ref_meshInstanceList().size() ; i++)
-		// 	{
-		// 	 	HG_MeshInstance hg_meshInst = HG_SceneCenter::inst().ref_meshInstanceList().at(i);
-		// 	 	EH_MeshInstance meshInst;
-		// 	 	storage.fill(meshInst,hg_meshInst);
-		// 	 	EH_add_mesh_instance(storage.get_context(),hg_meshInst.get_unique_code().c_str(),&meshInst);
-		// 	}
-		// 
-		// 
-		// 
-		// 	HG_ModelInstance model;
-		// 	model.set_unique_code("include_test_ess");
-		// 	model.set_model_file("D:\\picture.ess");
-		// 	model.set_mesh_to_world(inst_tran);
-		// 	HG_SceneCenter::inst().addModelInstance(model);
-		// 
-		// 
-		// 	//外部对象列表
-		// 	for (int i = 0; i < HG_SceneCenter::inst().ref_modelList().size() ; i++)
-		// 	{
-		// 		HG_ModelInstance hg_model = HG_SceneCenter::inst().ref_modelList().at(i);
-		// 		EH_AssemblyInstance model;
-		// 		storage.fill(model,hg_model);
-		// 		EH_add_assembly_instance(storage.get_context(),hg_model.get_unique_code().c_str(),&model);
-		// 	}
+		 	// mesh 实例 列表
+		 	for (int i = 0; i < HG_SceneCenter::inst().ref_meshInstanceList().size() ; i++)
+		 	{
+		 	 	HG_MeshInstance hg_meshInst = HG_SceneCenter::inst().ref_meshInstanceList().at(i);
+		 	 	EH_MeshInstance meshInst;
+		 	 	storage.fill(meshInst,hg_meshInst);
+		 	 	EH_add_mesh_instance(storage.get_context(),hg_meshInst.get_unique_code().c_str(),&meshInst);
+		 	}
+		 
+		 
+		 
+		 	HG_ModelInstance model;
+		 	model.set_unique_code("include_test_ess");
+		 	model.set_model_file("D:\\picture.ess");
+		 	model.set_mesh_to_world(inst_tran);
+		 	HG_SceneCenter::inst().addModelInstance(model);
+		 
+		 
+		 	//外部对象列表
+		 	for (int i = 0; i < HG_SceneCenter::inst().ref_modelList().size() ; i++)
+		 	{
+		 		HG_ModelInstance hg_model = HG_SceneCenter::inst().ref_modelList().at(i);
+		 		EH_AssemblyInstance model;
+		 		storage.fill(model,hg_model);
+		 		EH_add_assembly_instance(storage.get_context(),hg_model.get_unique_code().c_str(),&model);
+		 	}
 		// 
 		// 
 		// 
@@ -715,15 +715,7 @@ void RenderManager::SaveESS(std::string path, bool isHGFlag)
 	 	float diff[3] = {1, 0, 0};
 	 	memcpy(simple_mat.diffuse_color, diff, sizeof(EH_RGB));
 	 	EH_add_material(pContext, simple_mtl, &simple_mat);		
-	// 
-	// 	EH_Sun sun;
-	// 	sun.dir[0] = 0;
-	// 	sun.dir[1] = 0;
-	// 	float color[3] = {1, 1, 1};
-	// 	memcpy(sun.color, color, sizeof(color));
-	// 	sun.intensity = 200;
-	// 	EH_set_sun(pContext, &sun);
-	 
+
 	 	const char *simple_inst_name = "simple_inst_name";
 	 	EH_MeshInstance inst;
 	 	inst.mesh_name = mesh_name;
@@ -743,12 +735,23 @@ void RenderManager::SaveESS(std::string path, bool isHGFlag)
 	 // 		);
 	 // 	memcpy(inst.mesh_to_world, inst_tran.m, sizeof(inst.mesh_to_world));
 	 	EH_add_mesh_instance(pContext, simple_inst_name, &inst);
-	// 
-	// 	EH_AssemblyInstance include_inst;
-	// 	include_inst.filename = "D:\\picture.ess";
-	// 	storage.fill(include_inst.mesh_to_world,inst_tran);
-	// 	//memcpy(include_inst.mesh_to_world, inst_tran.m, sizeof(include_inst.mesh_to_world));
-	// 	EH_add_assembly_instance(pContext, "include_test_ess",&include_inst);
+	 
+	 	EH_AssemblyInstance include_inst;
+	 	include_inst.filename = "D:\\picture.ess";
+	 	storage.fill(include_inst.mesh_to_world,inst_tran);
+	 	//memcpy(include_inst.mesh_to_world, inst_tran.m, sizeof(include_inst.mesh_to_world));
+	 	EH_add_assembly_instance(pContext, "include_test_ess",&include_inst);
+
+		// 
+		// 	EH_Sun sun;
+		// 	sun.dir[0] = 0;
+		// 	sun.dir[1] = 0;
+		// 	float color[3] = {1, 1, 1};
+		// 	memcpy(sun.color, color, sizeof(color));
+		// 	sun.intensity = 200;
+		// 	EH_set_sun(pContext, &sun);
+
+
 
 		EH_end_export(pContext);
 	}
