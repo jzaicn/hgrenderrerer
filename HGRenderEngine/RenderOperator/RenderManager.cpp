@@ -200,7 +200,7 @@ public:
 		}
 		
 
-//TODO: 其他参数有无，还有数值调试
+//TODO: 材质的其他参数有无，还有数值调试
 // 		if (inval.get_type() == HG_Material::color)
 // 		{
 // 			fill((EH_RGB)outval.diffuse_color,inval.get_color());

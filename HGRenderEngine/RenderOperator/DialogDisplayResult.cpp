@@ -310,6 +310,9 @@ INT DialogDisplayResult::GetEncoderClsid(const WCHAR *format, CLSID *pClsid)
 }   
 
 //////////////////////////////////////////////////////////////////////////
+//TODO: 处理根据鼠标位置缩放图片
+//TODO: 处理新图片重置位置
+//TODO: 处理更改分辨率重置位置
 void DialogDisplayResult::setScale(float scale)
 {
 	if (m_fViewingScale < minScale())
