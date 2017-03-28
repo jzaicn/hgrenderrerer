@@ -611,21 +611,29 @@ void RenderManager::SaveESS(std::string path, bool isHGFlag)
 		 		storage.fill(model,hg_model);
 		 		EH_add_assembly_instance(storage.get_context(),hg_model.get_unique_code().c_str(),&model);
 		 	}
-		// 
-		// 
-		// 
-		// 	HG_SunLight sun;
-		// 	sun.set_sun_height(0.0);
-		// 	sun.set_sun_angle(0.0);
-		// 	sun.set_sun_color(HG_Vec4(1.0,1.0,1.0,1.0));//TODO: 修改颜色为hgvec4
-		// 	HG_SceneCenter::inst().set_sun(sun);
-		// 
-		// 
-		// 
-		// 	//阳光
-		// 	EH_Sun eh_sun;
-		// 	storage.fill(eh_sun,HG_SceneCenter::inst().get_sun());
-		// 	EH_set_sun(storage.get_context(),&eh_sun);
+		 
+		 
+		 
+		HG_SunLight sun;
+		sun.set_sun_light_intensity(200.0);
+		sun.set_sun_height(0.0);
+		sun.set_sun_angle(0.0);
+		sun.set_sun_color(HG_Vec4(1.0,1.0,1.0,1.0));//TODO: 修改颜色为hgvec4
+		HG_SceneCenter::inst().addSun(sun);
+		 
+		 
+		// 设置阳光
+		if (HG_SceneCenter::inst().get_sun().size() > 0)
+		{
+			EH_Sun eh_sun;
+			storage.fill(eh_sun,HG_SceneCenter::inst().get_sun().at(0));
+			EH_set_sun(storage.get_context(),&eh_sun);
+		}
+		else
+		{
+			HGLOG_WARN("Sun empty");
+		}
+
 
 
 		// 	//天空
@@ -742,14 +750,14 @@ void RenderManager::SaveESS(std::string path, bool isHGFlag)
 	 	//memcpy(include_inst.mesh_to_world, inst_tran.m, sizeof(include_inst.mesh_to_world));
 	 	EH_add_assembly_instance(pContext, "include_test_ess",&include_inst);
 
-		// 
-		// 	EH_Sun sun;
-		// 	sun.dir[0] = 0;
-		// 	sun.dir[1] = 0;
-		// 	float color[3] = {1, 1, 1};
-		// 	memcpy(sun.color, color, sizeof(color));
-		// 	sun.intensity = 200;
-		// 	EH_set_sun(pContext, &sun);
+ 		 
+ 		EH_Sun sun;
+ 		sun.dir[0] = 0;
+ 		sun.dir[1] = 0;
+ 		float color[3] = {1, 1, 1};
+ 		memcpy(sun.color, color, sizeof(color));
+ 		sun.intensity = 200;
+ 		EH_set_sun(pContext, &sun);
 
 
 
