@@ -46,7 +46,7 @@
 #include "hg3d\Girder.h"
 #include "hg3d\ExtrudeMaterial.h"
 #include "hg3d\LineMaterial.h"
-
+#include "hg3d\Utils.h"
 
 #include "GeodeReader.h"
 
@@ -169,28 +169,29 @@ bool HGSceneNodeVisitor::ProcessGroup(osg::Group* node)
 		std::string modeFile;
 		osg::Matrix mat;
 
-
+		
 // 		{ 
 // 			hg3d::Entity* conv = dynamic_cast<hg3d::Entity*>(node);
 // 			osg::Quat quat = conv->getAttitude();
 // 			conv->getMatrix();
 // 			conv->computeLocalToWorldMatrix();
 // 			conv->getWorldMatrices(0);
+// 			hg3d::getFullFileName(conv->get_modelFile());
 // 		 	if (conv) { function } 
 // 		}
 
-		CHECK_IF_DO(hg3d::Entity,node,{  modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::Girder,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::Door,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::AlumStrip,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::Glass,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::Model,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::Shape,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::NDoorCore,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::NDoorFrame,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::NDoorPocket,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::DoorWindow,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::SliderDoor,node,{ modeFile = conv->get_modelFile();mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Entity,node,{  modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Girder,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Door,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::AlumStrip,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Glass,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Model,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Shape,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::NDoorCore,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::NDoorFrame,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::NDoorPocket,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::DoorWindow,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::SliderDoor,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
 
 		if (!modeFile.empty())
 		{
@@ -200,10 +201,16 @@ bool HGSceneNodeVisitor::ProcessGroup(osg::Group* node)
 			HGLOG_DEBUG("[%f %f %f ]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
 			HGLOG_DEBUG("[%f %f %f ]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
 			HGLOG_DEBUG("[%f %f %f ]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
-
-			HG_SceneCenter::inst().addModelInstance(HG_ModelInstance(modeFile,convertToHG_Mat(mat)));
-
-			return true;
+			
+			CString highModelPath = modeFile.c_str();
+			highModelPath.Replace(".IVE",".ess");
+			if (PathFileExists(highModelPath))
+			{
+				modeFile = highModelPath.GetBuffer();
+				HGLOG_DEBUG("high mode file: %s",modeFile.c_str());
+				HG_SceneCenter::inst().addModelInstance(HG_ModelInstance(modeFile,convertToHG_Mat(mat)));
+				return true;
+			}
 		}
 		else
 		{
