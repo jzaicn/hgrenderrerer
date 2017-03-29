@@ -960,6 +960,7 @@ void RenderManager::Clear()
 	if (renderThread)
 	{
 		renderThread->SuspendThread();
+		renderThread->Delete();
 		//delete renderThread;
 		renderThread = NULL;
 	}

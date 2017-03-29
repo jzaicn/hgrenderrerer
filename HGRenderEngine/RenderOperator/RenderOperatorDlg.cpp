@@ -670,8 +670,7 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 
 //	HGLOG_DEBUG(root.toStyledString());
 
-	
-#if INITIAL_LOAD_ROOM == 0
+#if 1
 
 	// ╪стьнд╪Ч
 	std::ifstream readStream("d:\\room.json");
