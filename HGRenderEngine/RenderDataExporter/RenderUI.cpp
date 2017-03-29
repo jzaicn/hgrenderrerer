@@ -176,7 +176,9 @@ void RenderUI::showRenderDlg()
 
 #endif
 
-
+	//TODO: 处理所有模型比例调整到max比例，调整摄像机有效距离100W（当前比例）
+	//TODO: 调整矩阵设置缩放比例
+	//TODO: 调整天空光
 	//输出三角形模型 不加茶壶模型 ， 加灯光
 #if 1
 	//ok
