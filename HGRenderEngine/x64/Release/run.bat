@@ -1,1 +1,1 @@
-call cmd
+er.exe -display D:\my_scene.ess 
