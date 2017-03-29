@@ -72,7 +72,7 @@ BOOL DialogRenderSettings::OnInitDialog()
 void DialogRenderSettings::initFromSetting()
 {
 	TiXmlDocument doc;
-	doc.LoadFile("E:\\HGRENDER\\trunk\\HGRenderEngine\\Release\\RenderParam.xml");
+	doc.LoadFile("RenderParam.xml");
 	XmlHandlePlus docHandler(&doc);
 
 	std::vector<TiXmlNode*> nodes = docHandler.findAll("/Root/Param/");

@@ -46,7 +46,7 @@ BOOL DialogImageSettings::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 	TiXmlDocument doc;
-	doc.LoadFile("E:\\HGRENDER\\trunk\\HGRenderEngine\\Release\\ImageParam.xml");
+	doc.LoadFile("ImageParam.xml");
 	XmlHandlePlus docHandler(&doc);
 
 	std::vector<TiXmlNode*> nodes = docHandler.findAll("/Root/Param/");
