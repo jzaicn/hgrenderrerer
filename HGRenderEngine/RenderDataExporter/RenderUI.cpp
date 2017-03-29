@@ -27,7 +27,7 @@ void RenderUI::save2file()
 	Json::Value output;
 	HG_SceneCenter::inst().save(output);
 
-	//保存到文件
+	//保存到文件,一行json
 	Json::FastWriter fastwriter;
 	std::string result = fastwriter.write(output);
 	//std::string result = output.toStyledString();
@@ -37,6 +37,15 @@ void RenderUI::save2file()
 		writestream << result ;
 		writestream.flush();
 		writestream.close();
+	}
+
+	//展开的json
+	std::ofstream  writestream2("d:\\room_open.json");
+	if (writestream2.is_open())
+	{
+		writestream2 << output.toStyledString() ;
+		writestream2.flush();
+		writestream2.close();
 	}
 }
 
@@ -169,7 +178,7 @@ void RenderUI::showRenderDlg()
 
 
 	//输出三角形模型 不加茶壶模型 ， 加灯光
-#if 0
+#if 1
 	//ok
 
 // 	osg::Node *node00 = osgDB::readNodeFile( "D:\\trian3.ive" );
@@ -211,7 +220,7 @@ void RenderUI::showRenderDlg()
 #endif
 
 	//输出房间模型
-#if 1
+#if 0
 	hg3d::SceneMgr* sm = hg3d::CompositeViewer::getSingleton()->getSceneMgr();
 
 	//遍历整个场景
@@ -225,10 +234,14 @@ void RenderUI::showRenderDlg()
 	osg::Camera* cam = sm->getHUD();
 	osg::Matrix camMatrix = cam->getViewMatrix();
 	HG_Mat worldMatrix = HG_Mat(
-		HG_Vec4(camMatrix(0,0),camMatrix(0,1),camMatrix(0,2),camMatrix(0,3)),
-		HG_Vec4(camMatrix(1,0),camMatrix(1,1),camMatrix(1,2),camMatrix(1,3)),
-		HG_Vec4(camMatrix(2,0),camMatrix(2,1),camMatrix(2,2),camMatrix(2,3)),
-		HG_Vec4(camMatrix(3,0),camMatrix(3,1),camMatrix(3,2),camMatrix(3,3))
+// 		HG_Vec4(camMatrix(0,0),camMatrix(0,1),camMatrix(0,2),camMatrix(0,3)),
+// 		HG_Vec4(camMatrix(1,0),camMatrix(1,1),camMatrix(1,2),camMatrix(1,3)),
+// 		HG_Vec4(camMatrix(2,0),camMatrix(2,1),camMatrix(2,2),camMatrix(2,3)),
+// 		HG_Vec4(camMatrix(3,0),camMatrix(3,1),camMatrix(3,2),camMatrix(3,3))
+HG_Vec4(-0.636078,-0.771625,-0.0,0.0),
+HG_Vec4(0.586748,-0.483678,0.649448,0.0),
+HG_Vec4(-0.50113,0.4131,0.760406,0.0),
+HG_Vec4(-5196.911621,3183.984131,7388.293457,1.0)
 		);
 	HG_Camera camera;
 	camera.set_view_to_world(worldMatrix);
