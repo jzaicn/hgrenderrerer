@@ -291,12 +291,12 @@ void RenderUI::showRenderDlg()
 	camera.set_image_height(480);
 	HG_SceneCenter::inst().addCamera(camera);
 
-	HG_SunLight sun;
-	sun.set_sun_height(0);
-	sun.set_sun_angle(0);
-	sun.set_sun_light_intensity(200);
-	sun.set_sun_color(0xFFFFFFFF);
-	HG_SceneCenter::inst().addSun(sun);
+// 	HG_SunLight sun;
+// 	sun.set_sun_height(0);
+// 	sun.set_sun_angle(0);
+// 	sun.set_sun_light_intensity(200);
+// 	sun.set_sun_color(0xFFFFFFFF);
+// 	HG_SceneCenter::inst().addSun(sun);
 
 	save2file();
 
