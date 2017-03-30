@@ -45,8 +45,11 @@
 #include "hg3d\Girder.h"
 #include "hg3d\ExtrudeMaterial.h"
 #include "hg3d\LineMaterial.h"
-
+#include "hg3d\Utils.h"
+#include "osgDB/WriteFile"
+#include "osgDB/FileUtils"
 #include "HG_SceneCenter.h"
+#include "HG_Config.h"
 
 //////////////////////////////////////////////////////////////////////////
 // 三角形处理器
@@ -340,25 +343,28 @@ int GeodeReader::getMaterialIndex(const osg::Geometry* geo, const osg::StateSet*
 	const osg::Texture* osgTexture = dynamic_cast<const osg::Texture*>(ss->getTextureAttribute(0, osg::StateAttribute::TEXTURE));
 	const osg::Array* osgColorArr = geo->getColorArray();
 
+	//保存图像  //HGLOG_DEBUG("img src:%s",img->getFileName().c_str());
 	if (osgTexture)
 	{
-		//TODO: 保存图像
+		//获得图片对象
 		const osg::Image* img = osgTexture->getImage(0);
-		//HGLOG_DEBUG("img src:%s",img->getFileName().c_str());
-		GeodeMatrial mat_image(img->getFileName());
-		for (UINT i = 0; i < m_material.size() ; i++)
+		std::string image_name = img->getFileName();
+		std::string export_name = HG_Config::inst().get_texture_export_path(image_name);
+		GeodeMatrial mat_image(export_name);
+		for (UINT findMaterialIndex = 0; findMaterialIndex < m_material.size() ; findMaterialIndex++)
 		{
-			if (m_material.at(i).Type() == GeodeMatrial::image)
+			if (m_material.at(findMaterialIndex) == mat_image)
 			{
-				if( mat_image == m_material.at(i) )
-				{
-					return i;
-				}
+				return findMaterialIndex;
 			}
 		}
-
+		osgDB::makeDirectoryForFile(export_name);
+		if (!osgDB::writeImageFile(*img,export_name))
+		{
+			HGLOG_DEBUG("保存贴图资源失败，%s",export_name);
+		}
 		m_material.push_back(mat_image);	
-		return m_material.size() - 1;
+		return m_material.size() - 1;		
 	}
 	if (osgMaterial)
 	{
