@@ -84,6 +84,15 @@
     <ClCompile Include="RenderUI.cpp">
       <Filter>Main</Filter>
     </ClCompile>
+    <ClCompile Include="HG_Math.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Config.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="HGTools.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Export.h">
@@ -136,6 +145,15 @@
     </ClInclude>
     <ClInclude Include="RenderUI.h">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Math.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="HG_Config.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="HGTools.h">
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

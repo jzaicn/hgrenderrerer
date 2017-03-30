@@ -4,6 +4,7 @@
 #include "Elara/ElaraHomeAPI.h"
 #include "HgLog/HgLog.h"
 #include "HGCode.h"
+#include "HG_Math.h"
 #include "DialogPlus.h"
 
 using namespace Gdiplus;
@@ -291,13 +292,13 @@ public:
 				for (UINT ei_w = 0; ei_w < ei_width ; ei_w++)
 				{
 					//按行从最底下获取图片
-					int r = (int)(ei_image[ei_w + ei_index][0] * 255.0);				
-					int g = (int)(ei_image[ei_w + ei_index][1] * 255.0);
-					int b = (int)(ei_image[ei_w + ei_index][2] * 255.0);
-					int a = (int)(ei_image[ei_w + ei_index][3] * 255.0);
+					int r = clamp((int)(ei_image[ei_w + ei_index][0] * 255.0),0,255);				
+					int g = clamp((int)(ei_image[ei_w + ei_index][1] * 255.0),0,255);
+					int b = clamp((int)(ei_image[ei_w + ei_index][2] * 255.0),0,255);
+					int a = clamp((int)(ei_image[ei_w + ei_index][3] * 255.0),0,255);
 
 					//HGLOG_DEBUG("color : ( %d , %d , %d, %d )",r,g,b,a);
-					Color color(a,b,g,r);
+					Color color(a,r,g,b);
 
 					//mfc 按屏幕位置，从图片底部赋值
 					m_pImg->SetPixel(ei_w,mfc_height-ei_h,color);

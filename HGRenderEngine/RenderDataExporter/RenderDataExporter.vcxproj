@@ -113,8 +113,11 @@
     <None Include="res\RenderDataExporter.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="HGTools.cpp" />
     <ClCompile Include="HG_BaseModel.cpp" />
     <ClCompile Include="GeodeReader.cpp" />
+    <ClCompile Include="HG_Config.cpp" />
+    <ClCompile Include="HG_Math.cpp" />
     <ClCompile Include="HG_ModelInstance.cpp" />
     <ClCompile Include="HG_SceneCenter.cpp" />
     <ClCompile Include="HGSceneNodeVisitor.cpp" />
@@ -132,9 +135,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HGTools.h" />
     <ClInclude Include="HG_BaseModel.h" />
     <ClInclude Include="Export.h" />
     <ClInclude Include="GeodeReader.h" />
+    <ClInclude Include="HG_Config.h" />
+    <ClInclude Include="HG_Math.h" />
     <ClInclude Include="HG_ModelInstance.h" />
     <ClInclude Include="HG_SceneCenter.h" />
     <ClInclude Include="HGSceneNodeVisitor.h" />
