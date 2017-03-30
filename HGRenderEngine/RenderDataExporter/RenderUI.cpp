@@ -55,7 +55,6 @@ void RenderUI::showRenderDlg()
 	HgLog::HgLog::initDebugLogCategory();
 	HG_SceneCenter::inst().clear();
 
-
 	
 	//设置读取外部ive模型
 #if 0	
@@ -183,7 +182,7 @@ void RenderUI::showRenderDlg()
 #if 1
 	//ok
 
-// 	osg::Node *node00 = osgDB::readNodeFile( "D:\\trian3.ive" );
+// 	osg::Node *node00 = osgDB::readNodeFile( "D:\\trian.ive" );
 // 	if (node00)
 // 	{
 // 		HGSceneNodeVisitor vistor;
@@ -195,27 +194,60 @@ void RenderUI::showRenderDlg()
 	model.set_unique_code("include_test_ess");
 	model.set_model_file("D:\\hlightpad.ess");
 	model.set_mesh_to_world(HG_Mat(
-		HG_Vec4(72.393044,0.0,0.0,0.0),
-		HG_Vec4(0.0,72.393044,0.0,0.0),
-		HG_Vec4(0.0,0.0,7.900704,0.0),
+		HG_Vec4(1,0.0,0.0,0.0),
+		HG_Vec4(0.0,1,0.0,0.0),
+		HG_Vec4(0.0,0.0,1,0.0),
 		HG_Vec4(-0.887037,-3.9764,-188.070313,1.0)
 		));
 	HG_SceneCenter::inst().addModelInstance(model);
 
-	HG_Camera camera;
-	camera.set_view_to_world(HG_Mat(
-		HG_Vec4(-0.636078,-0.771625,-0.0,0.0),
-		HG_Vec4(0.586748,-0.483678,0.649448,0.0),
-		HG_Vec4(-0.50113,0.4131,0.760406,0.0),
-		HG_Vec4(-5196.911621,3183.984131,7388.293457,1.0)
-		)
-		);
+	hg3d::SceneMgr* sm = hg3d::CompositeViewer::getSingleton()->getSceneMgr();
+	
+	//获得osg 摄像机
+ 	osgViewer::View* camview = hg3d::CompositeViewer::getSingleton()->getPerspectiveView();
+	osg::Camera* cam = camview->getCamera();
+	osg::Matrix camMatrix = cam->getViewMatrix();
+	HGLOG_DEBUG("get camera view matrix");
+	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(0,0),camMatrix(0,1),camMatrix(0,2),camMatrix(0,3));
+	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(1,0),camMatrix(1,1),camMatrix(1,2),camMatrix(1,3));
+	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(2,0),camMatrix(2,1),camMatrix(2,2),camMatrix(2,3));
+	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(3,0),camMatrix(3,1),camMatrix(3,2),camMatrix(3,3));
+	HGLOG_DEBUG("");
+	
+	camMatrix.invert(camMatrix);
+
+	
+
+	//转换后得到
+	HGLOG_DEBUG("transform camera view matrix");
+	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(0,0),camMatrix(0,1),camMatrix(0,2),camMatrix(0,3));
+	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(1,0),camMatrix(1,1),camMatrix(1,2),camMatrix(1,3));
+	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(2,0),camMatrix(2,1),camMatrix(2,2),camMatrix(2,3));
+	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(3,0),camMatrix(3,1),camMatrix(3,2),camMatrix(3,3));
+	HGLOG_DEBUG("");
+	HG_Mat worldMatrix = HG_Mat(
+		HG_Vec4(camMatrix(0,0),camMatrix(0,1),camMatrix(0,2),camMatrix(0,3)),
+		HG_Vec4(camMatrix(1,0),camMatrix(1,1),camMatrix(1,2),camMatrix(1,3)),
+		HG_Vec4(camMatrix(2,0),camMatrix(2,1),camMatrix(2,2),camMatrix(2,3)),
+		HG_Vec4(camMatrix(3,0),camMatrix(3,1),camMatrix(3,2),camMatrix(3,3))
+	);
+
+
+	HG_Camera camera ;
+	camera.set_view_to_world(worldMatrix);
 	camera.set_fov(45.0f);
 	camera.set_near_clip(0.01f);
-	camera.set_far_clip(1000.0f);
+	camera.set_far_clip(1000000.0f);
 	camera.set_image_width(640);
 	camera.set_image_height(480);
 	HG_SceneCenter::inst().addCamera(camera);
+
+	HG_SunLight sun;
+	sun.set_sun_height(0);
+	sun.set_sun_angle(0);
+	sun.set_sun_light_intensity(200);
+	sun.set_sun_color(0xFFFFFFFF);
+	HG_SceneCenter::inst().addSun(sun);
 
 	save2file();
 
