@@ -70,5 +70,4 @@ public:
 	static void CString_Unicode_To_GB2312(CString& cstr);
 	static void CString_GB2312_To_Unicode(CString& cstr);
 #endif
-
 };

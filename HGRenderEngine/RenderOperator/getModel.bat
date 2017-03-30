@@ -22,6 +22,11 @@ mklink /H HG_SkyLight.cpp ..\RenderDataExporter\HG_SkyLight.cpp
 mklink /H HG_SkyLight.h ..\RenderDataExporter\HG_SkyLight.h
 mklink /H HG_SunLight.cpp ..\RenderDataExporter\HG_SunLight.cpp
 mklink /H HG_SunLight.h ..\RenderDataExporter\HG_SunLight.h
-
+mklink /H HGCode.cpp ..\RenderDataExporter\HGCode.cpp
+mklink /H HGCode.h ..\RenderDataExporter\HGCode.h
+mklink /H HG_Config.cpp ..\RenderDataExporter\HG_Config.cpp
+mklink /H HG_Config.h ..\RenderDataExporter\HG_Config.h
+mklink /H HG_Math.cpp ..\RenderDataExporter\HG_Math.cpp
+mklink /H HG_Math.h ..\RenderDataExporter\HG_Math.h
 
 pause
