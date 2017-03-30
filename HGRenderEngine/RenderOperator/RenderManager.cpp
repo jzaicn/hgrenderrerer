@@ -518,14 +518,14 @@ void RenderManager::SaveESS(std::string path, bool isHGFlag)
 
 
 
-		//TODO: 临时加阳光作为方向光
-		EH_Sun sun;
-		sun.dir[0] = 0;
-		sun.dir[1] = 0;
-		float color[3] = {1, 1, 1};
-		memcpy(sun.color, color, sizeof(color));
-		sun.intensity = 200;
-		EH_set_sun(storage.get_context(), &sun);
+// 		//TODO: 临时加阳光作为方向光
+// 		EH_Sun sun;
+// 		sun.dir[0] = 0;
+// 		sun.dir[1] = 0;
+// 		float color[3] = {1, 1, 1};
+// 		memcpy(sun.color, color, sizeof(color));
+// 		sun.intensity = 200;
+// 		EH_set_sun(storage.get_context(), &sun);
 
 
 
