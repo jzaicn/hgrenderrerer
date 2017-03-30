@@ -53,6 +53,8 @@ private:
 
 	bool ProcessGroup(osg::Group* node);
 
+	bool SaveModel(std::string& modeFile, osg::Matrix& mat);
+
 	HG_Mat convertToHG_Mat(osg::Matrix mat);
 
 	void ProcessGeode(osg::Geode* geode);

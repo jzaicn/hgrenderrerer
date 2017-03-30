@@ -258,31 +258,16 @@ void RenderUI::showRenderDlg()
 
 	//输出房间模型
 #if 1
-// 	//遍历整个场景
-// 	hg3d::SceneMgr* sm = hg3d::CompositeViewer::getSingleton()->getSceneMgr();
-// 	HGSceneNodeVisitor vistor;				
-// 	osg::Group* root = sm->get3DScene();
-// 	root->accept(vistor);
-// 	HGLOG_DEBUG("scene ok");
+	//遍历整个场景
+	hg3d::SceneMgr* sm = hg3d::CompositeViewer::getSingleton()->getSceneMgr();
+	HGSceneNodeVisitor vistor;				
+	osg::Group* root = sm->get3DScene();
+	root->accept(vistor);
+	HGLOG_DEBUG("scene ok");
 
-	osg::Node *node00 = osgDB::readNodeFile( "D:\\trian.ive" );
-	if (node00)
-	{
-		HGSceneNodeVisitor vistor;
-		node00->accept(vistor);
-		HGLOG_DEBUG("load ok");
-	}
-
-	HG_ModelInstance model;
-	model.set_unique_code("include_test_ess");
-	model.set_model_file("D:\\hlightpad.ess");
-	model.set_mesh_to_world(HG_Mat(
-		HG_Vec4(1,0.0,0.0,0.0),
-		HG_Vec4(0.0,1,0.0,0.0),
-		HG_Vec4(0.0,0.0,1,0.0),
-		HG_Vec4(-0.887037,-3.9764,-188.070313,1.0)
-		));
-	HG_SceneCenter::inst().addModelInstance(model);
+	HG_SceneCenter::inst().ref_meshList().clear();
+	HG_SceneCenter::inst().ref_materialList().clear();
+	HG_SceneCenter::inst().ref_meshInstanceList().clear();
 
 	//获得osg 摄像机
 	osgViewer::View* camview = hg3d::CompositeViewer::getSingleton()->getPerspectiveView();
@@ -294,7 +279,7 @@ void RenderUI::showRenderDlg()
 		HG_Vec4(camMatrix(1,0),camMatrix(1,1),camMatrix(1,2),camMatrix(1,3)),
 		HG_Vec4(camMatrix(2,0),camMatrix(2,1),camMatrix(2,2),camMatrix(2,3)),
 		HG_Vec4(camMatrix(3,0),camMatrix(3,1),camMatrix(3,2),camMatrix(3,3))
-		);
+	);
 	
 	//添加摄像机到场景
 	HG_Camera camera ;
@@ -306,16 +291,17 @@ void RenderUI::showRenderDlg()
 	camera.set_image_height(480);
 	HG_SceneCenter::inst().addCamera(camera);
 
-	// 	HG_SunLight sun;
-	// 	sun.set_sun_height(0);
-	// 	sun.set_sun_angle(0);
-	// 	sun.set_sun_light_intensity(200);
-	// 	sun.set_sun_color(0xFFFFFFFF);
-	// 	HG_SceneCenter::inst().addSun(sun);
+	HG_SunLight sun;
+	sun.set_sun_height(0);
+	sun.set_sun_angle(0);
+	sun.set_sun_light_intensity(200);
+	sun.set_sun_color(0xFFFFFFFF);
+	HG_SceneCenter::inst().addSun(sun);
 
 	save2file();
 
 #endif
 
 }
+
 

@@ -113,7 +113,7 @@
     <None Include="res\RenderDataExporter.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HGTools.cpp" />
+    <ClCompile Include="HGCode.cpp" />
     <ClCompile Include="HG_BaseModel.cpp" />
     <ClCompile Include="GeodeReader.cpp" />
     <ClCompile Include="HG_Config.cpp" />
@@ -126,7 +126,6 @@
     <ClCompile Include="HG_Material.cpp" />
     <ClCompile Include="HG_Mesh.cpp" />
     <ClCompile Include="HG_MeshInstance.cpp" />
-    <ClCompile Include="MeshProcer.cpp" />
     <ClCompile Include="RenderDataExporter.cpp" />
     <ClCompile Include="RenderUI.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -135,7 +134,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HGTools.h" />
+    <ClInclude Include="HGCode.h" />
     <ClInclude Include="HG_BaseModel.h" />
     <ClInclude Include="Export.h" />
     <ClInclude Include="GeodeReader.h" />
@@ -149,7 +148,6 @@
     <ClInclude Include="HG_Material.h" />
     <ClInclude Include="HG_Mesh.h" />
     <ClInclude Include="HG_MeshInstance.h" />
-    <ClInclude Include="MeshProcer.h" />
     <ClInclude Include="RenderDataExporter.h" />
     <ClInclude Include="RenderUI.h" />
     <ClInclude Include="Resource.h" />

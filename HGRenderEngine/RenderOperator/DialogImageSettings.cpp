@@ -125,6 +125,7 @@ HG_RenderParam DialogImageSettings::get_RenderParam()
 	{
 		HGLOG_ERROR("保存界面参数到数据结构错误 [DialogImageSettings::get_RenderParam]");
 	}
+	return param;
 }
 
 void DialogImageSettings::set_RenderParam(HG_RenderParam param)

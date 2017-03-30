@@ -1,1 +1,1 @@
-er.exe -display D:\my_scene.ess 
+er.exe -display -interactive D:\my_scene.ess 

@@ -5,6 +5,7 @@
 #include <string>
 
 #define HGCodeCharBuffMaxLen 512
+#define NETPOST
 
 class HGCode
 {
@@ -58,9 +59,10 @@ public:
 	{
 		return char_Gb2312_To_Unicode(str.c_str());
 	}
-#else
+
 	//////////////////////////////////////////////////////////////////////////
 	//	MFC 多字节工程
+#else
 public:
 	//方便使用
 	static const char* convert(const char* str)
@@ -70,4 +72,18 @@ public:
 	static void CString_Unicode_To_GB2312(CString& cstr);
 	static void CString_GB2312_To_Unicode(CString& cstr);
 #endif
+	static void string_Unicode_To_GB2312(std::string& cstr);
+	static void string_GB2312_To_Unicode(std::string& cstr);
+
+#ifdef NETPOST
+public:
+	static std::string UrlGB2312(char * str);                           //urlgb2312编码
+	static std::string UrlUTF8(char * str);                             //urlutf8 编码
+	static std::string UrlUTF8Decode(std::string str);                  //urlutf8解码
+	static std::string UrlGB2312Decode(std::string str);                //urlgb2312解码
+private:
+	static char StrToBin(char *str);
+	static char HGCode:: CharToInt(char ch);
+#endif
+
 };

@@ -68,6 +68,22 @@ void HGCode::CString_GB2312_To_Unicode(CString& cstr)
 
 #endif
 
+void HGCode::string_Unicode_To_GB2312(std::string& cstr)
+{
+	std::string str;
+	one_UTF_8To_GB2312(str,const_cast<char*>(cstr.c_str()),cstr.length());
+	cstr = str;
+}
+
+void HGCode::string_GB2312_To_Unicode(std::string& cstr)
+{
+	std::string str;
+	one_GB2312_To_UTF8(str,const_cast<char*>(cstr.c_str()),cstr.length());
+	cstr = str;
+}
+
+
+
 
 void HGCode::one_UTF8_To_Unicode(wchar_t* pOut,char *pText)
 {
@@ -199,3 +215,123 @@ void HGCode::one_UTF_8To_GB2312(std::string &pOut, char *pText, int pLen)
 //{
 //	return CString(UTF8_To_ws(src).c_str()).GetBuffer();
 //}
+#ifdef NETPOST
+//把str编码为网页中的 GB2312 url encode ,英文不变，汉字双字节 如%3D%AE%88
+std::string HGCode::UrlGB2312(char * str)
+{
+	std::string dd;
+	size_t len = strlen(str);
+	for (size_t i=0;i<len;i++)
+	{
+		if(isalnum((BYTE)str[i]))
+		{
+			char tempbuff[2];
+			sprintf(tempbuff,"%c",str[i]);
+			dd.append(tempbuff);
+		}
+		else if (isspace((BYTE)str[i]))
+		{
+			dd.append("+");
+		}
+		else
+		{
+			char tempbuff[4];
+			sprintf(tempbuff,"%%%X%X",((BYTE*)str)[i] >>4,((BYTE*)str)[i] %16);
+			dd.append(tempbuff);
+		}
+
+	}
+	return dd;
+}
+
+//把str编码为网页中的 UTF-8 url encode ,英文不变，汉字三字节 如%3D%AE%88
+
+std::string HGCode::UrlUTF8(char * str)
+{
+	std::string tt;
+	std::string dd;
+	one_GB2312_To_UTF8(tt,str,(int)strlen(str));
+	//GB2312ToUTF_8(tt,str,(int)strlen(str));
+
+	size_t len=tt.length();
+	for (size_t i=0;i<len;i++)
+	{
+		if(isalnum((BYTE)tt.at(i)))
+		{
+			char tempbuff[2]={0};
+			sprintf(tempbuff,"%c",(BYTE)tt.at(i));
+			dd.append(tempbuff);
+		}
+		else if (isspace((BYTE)tt.at(i)))
+		{
+			dd.append("+");
+		}
+		else
+		{
+			char tempbuff[4];
+			sprintf(tempbuff,"%%%X%X",((BYTE)tt.at(i)) >>4,((BYTE)tt.at(i)) %16);
+			dd.append(tempbuff);
+		}
+
+	}
+	return dd;
+}
+//把url GB2312解码
+std::string HGCode::UrlGB2312Decode(std::string str)
+{
+	std::string output="";
+	char tmp[2];
+	int i=0,idx=0,ndx,len=str.length();
+
+	while(i<len){
+		if(str[i]=='%'){
+			tmp[0]=str[i+1];
+			tmp[1]=str[i+2];
+			output += StrToBin(tmp);
+			i=i+3;
+		}
+		else if(str[i]=='+'){
+			output+=' ';
+			i++;
+		}
+		else{
+			output+=str[i];
+			i++;
+		}
+	}
+
+	return output;
+}
+//把url utf8解码
+std::string HGCode::UrlUTF8Decode(std::string str)
+{
+	std::string output="";
+
+	std::string temp =UrlGB2312Decode(str);//
+
+	one_UTF_8To_GB2312(output,(char *)temp.data(),strlen(temp.data()));
+	//UTF_8ToGB2312(output,(char *)temp.data(),strlen(temp.data()));
+
+	return output;
+
+}
+//做为解Url使用
+char HGCode:: CharToInt(char ch){
+	if(ch>='0' && ch<='9')return (char)(ch-'0');
+	if(ch>='a' && ch<='f')return (char)(ch-'a'+10);
+	if(ch>='A' && ch<='F')return (char)(ch-'A'+10);
+	return -1;
+}
+char HGCode::StrToBin(char *str){
+	char tempWord[2];
+	char chn;
+
+	tempWord[0] = CharToInt(str[0]);                         //make the B to 11 -- 00001011
+	tempWord[1] = CharToInt(str[1]);                         //make the 0 to 0 -- 00000000
+
+	chn = (tempWord[0] << 4) | tempWord[1];                //to change the BO to 10110000
+
+	return chn;
+}
+
+#endif

@@ -48,9 +48,6 @@
     <ClCompile Include="HGSceneNodeVisitor.cpp">
       <Filter>Logic</Filter>
     </ClCompile>
-    <ClCompile Include="MeshProcer.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
     <ClCompile Include="GeodeReader.cpp">
       <Filter>Logic</Filter>
     </ClCompile>
@@ -90,7 +87,7 @@
     <ClCompile Include="HG_Config.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
-    <ClCompile Include="HGTools.cpp">
+    <ClCompile Include="HGCode.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
   </ItemGroup>
@@ -108,9 +105,6 @@
       <Filter>Frame</Filter>
     </ClInclude>
     <ClInclude Include="HGSceneNodeVisitor.h">
-      <Filter>Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshProcer.h">
       <Filter>Logic</Filter>
     </ClInclude>
     <ClInclude Include="GeodeReader.h">
@@ -152,7 +146,7 @@
     <ClInclude Include="HG_Config.h">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="HGTools.h">
+    <ClInclude Include="HGCode.h">
       <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>

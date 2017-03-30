@@ -348,23 +348,48 @@ int GeodeReader::getMaterialIndex(const osg::Geometry* geo, const osg::StateSet*
 	{
 		//获得图片对象
 		const osg::Image* img = osgTexture->getImage(0);
-		std::string image_name = img->getFileName();
-		std::string export_name = HG_Config::inst().get_texture_export_path(image_name);
-		GeodeMatrial mat_image(export_name);
-		for (UINT findMaterialIndex = 0; findMaterialIndex < m_material.size() ; findMaterialIndex++)
+		if (img)
 		{
-			if (m_material.at(findMaterialIndex) == mat_image)
+			//获得这个贴图的名称
+			std::string file_name = img->getFileName();
+			CString image_read_name = img->getFileName().c_str();
+			image_read_name.Replace(":","");
+			image_read_name.Replace("\\","");
+			image_read_name.Replace(" ","");
+			image_read_name.Replace("-","");
+			image_read_name.Replace(".tga","");
+			std::string process_name = HGCode::UrlUTF8(image_read_name.GetBuffer());
+			process_name += ".tga";
+
+			//获得这个文件的原位置
+			std::string full_file_name = hg3d::getFullFileName(img->getFileName());
+
+			//文件应该放置到的新位置
+			std::string export_name = HG_Config::inst().get_texture_export_path(process_name);
+		
+			//判断资源是否存在
+			GeodeMatrial mat_image(export_name);
+			for (UINT findMaterialIndex = 0; findMaterialIndex < m_material.size() ; findMaterialIndex++)
 			{
-				return findMaterialIndex;
+				if (m_material.at(findMaterialIndex) == mat_image)
+				{
+					return findMaterialIndex;
+				}
 			}
+
+			//把资源保存到指定目录
+			if (!osgDB::makeDirectoryForFile(export_name))
+			{
+				HGLOG_DEBUG("不能创建目录 %s",export_name.c_str());
+			}
+			if (!osgDB::writeImageFile(*img,export_name))
+			{
+				HGLOG_DEBUG("保存贴图资源失败，%s",export_name);
+			}
+			m_material.push_back(mat_image);	
+			return m_material.size() - 1;	
 		}
-		osgDB::makeDirectoryForFile(export_name);
-		if (!osgDB::writeImageFile(*img,export_name))
-		{
-			HGLOG_DEBUG("保存贴图资源失败，%s",export_name);
-		}
-		m_material.push_back(mat_image);	
-		return m_material.size() - 1;		
+			
 	}
 	if (osgMaterial)
 	{

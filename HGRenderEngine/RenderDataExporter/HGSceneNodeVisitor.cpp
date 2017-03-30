@@ -47,8 +47,10 @@
 #include "hg3d\ExtrudeMaterial.h"
 #include "hg3d\LineMaterial.h"
 #include "hg3d\Utils.h"
-
+#include "HG_Mesh.h"
+#include "HG_Config.h"
 #include "GeodeReader.h"
+#include "osgDB/FileUtils"
 
 HGSceneNodeVisitor::HGSceneNodeVisitor(void)
 {
@@ -193,35 +195,81 @@ bool HGSceneNodeVisitor::ProcessGroup(osg::Group* node)
 		CHECK_IF_DO(hg3d::DoorWindow,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
 		CHECK_IF_DO(hg3d::SliderDoor,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
 
-		if (!modeFile.empty())
-		{
-			//TODO: 查找高模，成功则不再分发
-			HGLOG_DEBUG("mode file: %s",modeFile.c_str());
-			HGLOG_DEBUG("[%f %f %f ]",mat(0,0),mat(0,1),mat(0,2),mat(0,3));
-			HGLOG_DEBUG("[%f %f %f ]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
-			HGLOG_DEBUG("[%f %f %f ]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
-			HGLOG_DEBUG("[%f %f %f ]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
-			
-			CString highModelPath = modeFile.c_str();
-			highModelPath.Replace(".IVE",".ess");
-			if (PathFileExists(highModelPath))
-			{
-				modeFile = highModelPath.GetBuffer();
-				HGLOG_DEBUG("high mode file: %s",modeFile.c_str());
-				HG_SceneCenter::inst().addModelInstance(HG_ModelInstance(modeFile,convertToHG_Mat(mat)));
-				return true;
-			}
-		}
-		else
-		{
-			return false;
-		}
+		return SaveModel(modeFile, mat);
 	}
 	//if (isGroupPanel(node)) ;
 	//else 
 
 
 
+	return false;
+}
+
+bool HGSceneNodeVisitor::SaveModel(std::string& modeFile, osg::Matrix& mat)
+{
+	//TODO: 查找高模，成功则不再分发
+	HGLOG_DEBUG("mode file: %s",modeFile.c_str());
+	HGLOG_DEBUG("[ %f %f %f %f ]",mat(0,0),mat(0,1),mat(0,2),mat(0,3));
+	HGLOG_DEBUG("[ %f %f %f %f ]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
+	HGLOG_DEBUG("[ %f %f %f %f ]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
+	HGLOG_DEBUG("[ %f %f %f %f ]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
+	//mat.invert(mat);
+
+	CString strMatrix;
+	CString oneMatrix;
+	oneMatrix.Format("[%f%f%f%f]",mat(0,0),mat(0,1),mat(0,2),mat(0,3));
+	strMatrix+=oneMatrix;
+	oneMatrix.Format("[%f%f%f%f]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
+	strMatrix+=oneMatrix;
+	oneMatrix.Format("[%f%f%f%f]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
+	strMatrix+=oneMatrix;
+	oneMatrix.Format("[%f%f%f%f]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
+	strMatrix+=oneMatrix;
+	strMatrix = HGCode::UrlUTF8(strMatrix.GetBuffer()).c_str();
+
+	if (!modeFile.empty())
+	{
+		//查找高模
+		CString highModelPath = modeFile.c_str();
+		highModelPath.Replace(".IVE",".ess");
+		if (PathFileExists(highModelPath))
+		{
+			//找到高模
+			modeFile = highModelPath.GetBuffer();
+			
+			//更改文件名为ascii
+			std::string file_new_name = modeFile;
+			CString replacestring = file_new_name.c_str();
+			replacestring.Replace(" ","");
+			replacestring.Replace("-","");
+			replacestring.Replace(":","");
+			replacestring.Replace("\\","");
+			replacestring.Replace(".ess","");
+			file_new_name = replacestring.GetBuffer();
+			file_new_name = HGCode::UrlUTF8(const_cast<char*>(file_new_name.c_str()));
+			file_new_name += ".ess";
+
+			//文件应该放置到的新位置
+			std::string export_name = HG_Config::inst().get_model_export_path(file_new_name);
+
+			//把文件拷贝到新目录
+			if (!osgDB::makeDirectoryForFile(export_name))
+			{
+				HGLOG_DEBUG("不能创建目录 %s",export_name.c_str());
+			}
+			if (osgDB::FileOpResult::OK != osgDB::copyFile(modeFile,export_name))
+			{
+				HGLOG_DEBUG("不能拷贝到指定目录 %s",export_name.c_str());
+			}
+
+			//保存
+			HGLOG_DEBUG("high mode file: %s",export_name.c_str());
+			HG_ModelInstance modelinst = HG_ModelInstance(export_name,convertToHG_Mat(mat));
+			modelinst.set_unique_code(strMatrix.GetBuffer());
+			HG_SceneCenter::inst().addModelInstance(modelinst);
+			return true;
+		}
+	}
 	return false;
 }
 
@@ -235,7 +283,6 @@ HG_Mat HGSceneNodeVisitor::convertToHG_Mat(osg::Matrix mat)
 	return hgmat;
 }
 
-#include "HG_Mesh.h"
 
 void HGSceneNodeVisitor::ProcessGeode(osg::Geode* geode)
 {

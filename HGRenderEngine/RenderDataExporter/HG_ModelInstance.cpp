@@ -4,6 +4,7 @@
 
 HG_ModelInstance::HG_ModelInstance(void)
 {
+	set_unique_code("");
 	set_model_file("");
 	set_mesh_to_world(HG_Mat());
 }
@@ -11,6 +12,7 @@ HG_ModelInstance::HG_ModelInstance(void)
 
 HG_ModelInstance::HG_ModelInstance(std::string model_file,HG_Mat mesh_to_world)
 {
+	set_unique_code(model_file);
 	set_model_file(model_file);
 	set_mesh_to_world(mesh_to_world);
 }
