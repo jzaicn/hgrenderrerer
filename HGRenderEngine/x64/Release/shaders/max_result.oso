@@ -2,28 +2,8 @@ OpenShadingLanguage 1.00
 # Compiled by oslc 1.7.2
 # options: 
 surface max_result
-param	closure color	input			%read{4,8} %write{2147483647,-1}
-global	closure color	Ci	%read{2147483647,-1} %write{4,9}
-local	float	vis	%read{2,8} %write{0,1}
-const	int	$const1	1		%read{0,2} %write{2147483647,-1}
-temp	int	$tmp1	%read{2147483647,-1} %write{1,1}
-const	string	$const2	"visibility"		%read{1,1} %write{2147483647,-1}
-temp	int	$tmp2	%read{3,3} %write{2,2}
-temp	closure color	$tmp3	%read{7,7} %write{5,5}
-const	string	$const3	"transparent"		%read{5,5} %write{2147483647,-1}
-temp	float	$tmp4	%read{7,7} %write{6,6}
-const	float	$const4	1		%read{6,6} %write{2147483647,-1}
-temp	closure color	$tmp5	%read{9,9} %write{7,7}
-temp	closure color	$tmp6	%read{9,9} %write{8,8}
+param	closure color	input			%read{0,0} %write{2147483647,-1}
+global	closure color	Ci	%read{2147483647,-1} %write{0,0}
 code ___main___
-	assign		vis $const1 	%filename{"E:/github/elaramax/Shaders/max_result.osl"} %line{23} %argrw{"wr"}
-	getattribute	$tmp1 $const2 vis 	%line{24} %argrw{"wrw"}
-	eq		$tmp2 vis $const1 	%line{25} %argrw{"wrr"}
-	if		$tmp2 5 10 	%argrw{"r"}
-	assign		Ci input 	%line{27} %argrw{"wr"}
-	closure		$tmp3 $const3 	%line{31} %argrw{"wr"}
-	sub		$tmp4 $const4 vis 	%argrw{"wrr"}
-	mul		$tmp5 $tmp3 $tmp4 	%argrw{"wrr"}
-	mul		$tmp6 input vis 	%argrw{"wrr"}
-	add		Ci $tmp5 $tmp6 	%argrw{"wrr"}
+	assign		Ci input 	%filename{"E:/github/elaramax/Shaders/max_result.osl"} %line{23} %argrw{"wr"}
 	end

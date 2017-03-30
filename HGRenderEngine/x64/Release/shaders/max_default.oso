@@ -3,11 +3,10 @@ OpenShadingLanguage 1.00
 # options: 
 shader max_default
 global	normal	N	%read{2,4} %write{2147483647,-1}
-global	closure color	Ci	%read{2147483647,-1} %write{10,15}
+global	closure color	Ci	%read{2147483647,-1} %write{6,6}
 local	color	wire_color	%read{3,3} %write{0,1}
-local	closure color	input	%read{10,14} %write{5,5}
-local	float	vis	%read{8,14} %write{6,7}
-const	int	$const1	1		%read{0,8} %write{2147483647,-1}
+local	closure color	input	%read{6,6} %write{5,5}
+const	int	$const1	1		%read{0,0} %write{2147483647,-1}
 temp	int	$tmp1	%read{2147483647,-1} %write{1,1}
 const	string	$const2	"wire_color"		%read{1,1} %write{2147483647,-1}
 temp	closure color	$tmp2	%read{3,3} %write{2,2}
@@ -17,15 +16,6 @@ temp	closure color	$tmp4	%read{5,5} %write{4,4}
 const	float	$const4	0.30000001		%read{4,4} %write{2147483647,-1}
 const	float	$const5	1.6		%read{4,4} %write{2147483647,-1}
 const	string	$const6	"microfacet_beckmann"		%read{4,4} %write{2147483647,-1}
-temp	int	$tmp5	%read{2147483647,-1} %write{7,7}
-const	string	$const7	"visibility"		%read{7,7} %write{2147483647,-1}
-temp	int	$tmp6	%read{9,9} %write{8,8}
-temp	closure color	$tmp7	%read{13,13} %write{11,11}
-const	string	$const8	"transparent"		%read{11,11} %write{2147483647,-1}
-temp	float	$tmp8	%read{13,13} %write{12,12}
-const	float	$const9	1		%read{12,12} %write{2147483647,-1}
-temp	closure color	$tmp9	%read{15,15} %write{13,13}
-temp	closure color	$tmp10	%read{15,15} %write{14,14}
 code ___main___
 	assign		wire_color $const1 	%filename{"E:/github/elaramax/Shaders/max_default.osl"} %line{21} %argrw{"wr"}
 	getattribute	$tmp1 $const2 wire_color 	%line{22} %argrw{"wrw"}
@@ -33,14 +23,5 @@ code ___main___
 	mul		$tmp3 $tmp2 wire_color 	%argrw{"wrr"}
 	closure		$tmp4 $const6 N $const4 $const5 	%argrw{"wrrrr"}
 	add		input $tmp3 $tmp4 	%argrw{"wrr"}
-	assign		vis $const1 	%line{26} %argrw{"wr"}
-	getattribute	$tmp5 $const7 vis 	%line{27} %argrw{"wrw"}
-	eq		$tmp6 vis $const1 	%line{28} %argrw{"wrr"}
-	if		$tmp6 11 16 	%argrw{"r"}
-	assign		Ci input 	%line{30} %argrw{"wr"}
-	closure		$tmp7 $const8 	%line{34} %argrw{"wr"}
-	sub		$tmp8 $const9 vis 	%argrw{"wrr"}
-	mul		$tmp9 $tmp7 $tmp8 	%argrw{"wrr"}
-	mul		$tmp10 input vis 	%argrw{"wrr"}
-	add		Ci $tmp9 $tmp10 	%argrw{"wrr"}
+	assign		Ci input 	%line{26} %argrw{"wr"}
 	end
