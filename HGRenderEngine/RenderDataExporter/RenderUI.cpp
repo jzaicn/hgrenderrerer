@@ -265,9 +265,6 @@ void RenderUI::showRenderDlg()
 	root->accept(vistor);
 	HGLOG_DEBUG("scene ok");
 
-	HG_SceneCenter::inst().ref_meshList().clear();
-	HG_SceneCenter::inst().ref_materialList().clear();
-	HG_SceneCenter::inst().ref_meshInstanceList().clear();
 
 	//»ñµÃosg ÉãÏñ»ú
 	osgViewer::View* camview = hg3d::CompositeViewer::getSingleton()->getPerspectiveView();
