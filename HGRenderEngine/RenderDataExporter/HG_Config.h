@@ -6,7 +6,7 @@ class HG_Config
 private:
 	HG_Config(void)
 	{
-		//需要设置到\\结束 ex: D:\\***\\
+		//需要设置到\\结束 ex: "D:\\***\\"
 		m_export_path = ("D:\\export\\");
 		m_texture_relative_path = ("textures\\");
 	}
@@ -17,7 +17,7 @@ private:
 	}
 public:
 
-	HG_Config& inst()
+	static HG_Config& inst()
 	{
 		return m_config;
 	}
