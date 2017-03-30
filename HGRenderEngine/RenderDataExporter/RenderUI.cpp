@@ -179,16 +179,17 @@ void RenderUI::showRenderDlg()
 	//TODO: 调整矩阵设置缩放比例
 	//TODO: 调整天空光
 	//输出三角形模型 不加茶壶模型 ， 加灯光
+	//TODO: 调整摄像机参数，现在的能用，但跟实际的情况不一样，有视场效应
 #if 1
 	//ok
 
-// 	osg::Node *node00 = osgDB::readNodeFile( "D:\\trian.ive" );
-// 	if (node00)
-// 	{
-// 		HGSceneNodeVisitor vistor;
-// 		node00->accept(vistor);
-// 		HGLOG_DEBUG("load ok");
-// 	}
+	osg::Node *node00 = osgDB::readNodeFile( "D:\\trian.ive" );
+	if (node00)
+	{
+		HGSceneNodeVisitor vistor;
+		node00->accept(vistor);
+		HGLOG_DEBUG("load ok");
+	}
 
 	HG_ModelInstance model;
 	model.set_unique_code("include_test_ess");
@@ -207,24 +208,24 @@ void RenderUI::showRenderDlg()
  	osgViewer::View* camview = hg3d::CompositeViewer::getSingleton()->getPerspectiveView();
 	osg::Camera* cam = camview->getCamera();
 	osg::Matrix camMatrix = cam->getViewMatrix();
-	HGLOG_DEBUG("get camera view matrix");
-	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(0,0),camMatrix(0,1),camMatrix(0,2),camMatrix(0,3));
-	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(1,0),camMatrix(1,1),camMatrix(1,2),camMatrix(1,3));
-	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(2,0),camMatrix(2,1),camMatrix(2,2),camMatrix(2,3));
-	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(3,0),camMatrix(3,1),camMatrix(3,2),camMatrix(3,3));
-	HGLOG_DEBUG("");
+// 	HGLOG_DEBUG("get camera view matrix");
+// 	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(0,0),camMatrix(0,1),camMatrix(0,2),camMatrix(0,3));
+// 	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(1,0),camMatrix(1,1),camMatrix(1,2),camMatrix(1,3));
+// 	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(2,0),camMatrix(2,1),camMatrix(2,2),camMatrix(2,3));
+// 	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(3,0),camMatrix(3,1),camMatrix(3,2),camMatrix(3,3));
+// 	HGLOG_DEBUG("");
 	
-	camMatrix.invert(camMatrix);
+	camMatrix = camMatrix.inverse(camMatrix);
 
 	
 
 	//转换后得到
-	HGLOG_DEBUG("transform camera view matrix");
-	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(0,0),camMatrix(0,1),camMatrix(0,2),camMatrix(0,3));
-	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(1,0),camMatrix(1,1),camMatrix(1,2),camMatrix(1,3));
-	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(2,0),camMatrix(2,1),camMatrix(2,2),camMatrix(2,3));
-	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(3,0),camMatrix(3,1),camMatrix(3,2),camMatrix(3,3));
-	HGLOG_DEBUG("");
+// 	HGLOG_DEBUG("transform camera view matrix");
+// 	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(0,0),camMatrix(0,1),camMatrix(0,2),camMatrix(0,3));
+// 	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(1,0),camMatrix(1,1),camMatrix(1,2),camMatrix(1,3));
+// 	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(2,0),camMatrix(2,1),camMatrix(2,2),camMatrix(2,3));
+// 	HGLOG_DEBUG("[%f %f %f %f ]",camMatrix(3,0),camMatrix(3,1),camMatrix(3,2),camMatrix(3,3));
+// 	HGLOG_DEBUG("");
 	HG_Mat worldMatrix = HG_Mat(
 		HG_Vec4(camMatrix(0,0),camMatrix(0,1),camMatrix(0,2),camMatrix(0,3)),
 		HG_Vec4(camMatrix(1,0),camMatrix(1,1),camMatrix(1,2),camMatrix(1,3)),
@@ -242,12 +243,12 @@ void RenderUI::showRenderDlg()
 	camera.set_image_height(480);
 	HG_SceneCenter::inst().addCamera(camera);
 
-	HG_SunLight sun;
-	sun.set_sun_height(0);
-	sun.set_sun_angle(0);
-	sun.set_sun_light_intensity(200);
-	sun.set_sun_color(0xFFFFFFFF);
-	HG_SceneCenter::inst().addSun(sun);
+// 	HG_SunLight sun;
+// 	sun.set_sun_height(0);
+// 	sun.set_sun_angle(0);
+// 	sun.set_sun_light_intensity(200);
+// 	sun.set_sun_color(0xFFFFFFFF);
+// 	HG_SceneCenter::inst().addSun(sun);
 
 	save2file();
 
