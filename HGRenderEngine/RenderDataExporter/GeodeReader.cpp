@@ -276,27 +276,34 @@ void GeodeReader::processGeometery(osg::Geode* _geode)
 		const osg::Geometry* g = m_geode->getDrawable(i)->asGeometry();
 		if (g != NULL)
 		{
-			//解析当前网格模型 geometry
+			try
+			{
+				//解析当前网格模型 geometry
 
-			//保存state是为了提取材质
-			pushStateSet(g->getStateSet());
+				//保存state是为了提取材质
+				pushStateSet(g->getStateSet());
 
-			//保存多边形三角化顺序
-			createListTriangle(g, m_listTriangles, texcoords, i);
+				//保存多边形三角化顺序
+				createListTriangle(g, m_listTriangles, texcoords, i);
 
-			popStateSet(g->getStateSet());
+				popStateSet(g->getStateSet());
 
-			//创建顶点集合
-			createListVerts(g);
+				//创建顶点集合
+				createListVerts(g);
 
-			//创建法线集合
-			createListNormals(g);
+					//创建法线集合
+				createListNormals(g);
 
-			//创建UV集合
-			createListUVs(g);
+				//创建UV集合
+				createListUVs(g);
 
-			//创建网格模型保存到外部
-			saveMesh(g,i);
+				//创建网格模型保存到外部
+				saveMesh(g,i);
+			}
+			catch (std::logic_error& err)
+			{
+				HGLOG_DEBUG("创建gemotory失败 : %s",err.what());
+			}
 		}
 	}
 	//debugTriangleList();
@@ -528,8 +535,7 @@ void GeodeReader::createListVerts(const osg::Geometry* g)
 		assert(basevecs);
 		if (!basevecs || basevecs->getNumElements()==0)
 		{
-			HGLOG_WARN("顶点集合不存在");
-			return;
+			throw std::logic_error("顶点集合不存在");
 		}
 		//FbxVector4 vertex;
 		for (UINT i = 0; i < m_listTriangles.size() ; i++)
