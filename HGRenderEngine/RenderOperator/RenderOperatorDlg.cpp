@@ -577,6 +577,14 @@ using namespace Gdiplus;
 #include <time.h>
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
+	long finish = 0;
+	long start = clock();
+
+	HGLOG_DEBUG("开始");
+	finish = clock();
+	HGLOG_DEBUG("耗时 %0.2f s",(double)(finish-start)/CLOCKS_PER_SEC);
+	start = clock();
+
 // 	CString cstr = HGCode::convert("宏光软件");
 // 
 // 	const char* p = nullptr;
@@ -629,52 +637,9 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 #endif
 
 
-	Json::Value root;
-	float value = 100.0;	
-
-	//root << ("x",value);
-	//save(value,std::string("x"),root);
-
-	HG_BaseModel base;
-	HG_Vec2 vec2;
-	HG_Vec3 vec3;
-
-// 	template<typename TYPE>
-// 	void typeCheck(TYPE data)
-// 	{
-// 		if(std::is_same<TYPE,HG_BaseModel>::value)
-// 		{
-// 			std::cout<<"int type"<<std::endl;
-// 		}
-// 		else if(std::is_same<TYPE,HG_Vec2>::value)
-// 		{
-// 			std::cout<<"string type"<<std::endl;
-// 		}
-// 		else
-// 		{
-// 			std::cout<<"other type";
-// 		}
-// 	}
-
-
-
-// 	HGLOG_DEBUG("HG_BaseModel == HG_BaseModel%d",decay_equiv<HG_BaseModel,HG_BaseModel>::value);
-// 	HGLOG_DEBUG("HG_BaseModel == HG_Vec2%d",decay_equiv<HG_BaseModel,HG_Vec2>::value);
-// 	HGLOG_DEBUG("HG_Vec3 == HG_Vec2%d",decay_equiv<HG_Vec3,HG_Vec2>::value);
-
-
-// 	root = aaa(root,"asdasd",value);
-// 	HGLOG_DEBUG(root.toStyledString());
-// 
-// 	DOUBLE2 d2(500.0f);
-// 	root = aaa(root,"aaaaa",d2);
-
-//	HGLOG_DEBUG(root.toStyledString());
 
 #if 1
 	HGLOG_DEBUG("开始加载json");
-	long start=clock();
-	long finish=0;
 	// 加载文件
 	std::ifstream readStream("d:\\room.json");
 	if (readStream.is_open())
@@ -682,22 +647,42 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 		std::string result;
 		readStream >> result;
 
+		HGLOG_DEBUG("加载json完毕");
+		finish = clock();
+		HGLOG_DEBUG("耗时 %0.2f s",(double)(finish-start)/CLOCKS_PER_SEC);
+		start = clock();
+
 		Json::Value output;
 		Json::Reader reader;
 		reader.parse(result,output);
 
-		//HGLOG_DEBUG(output.toStyledString());
+
+		HGLOG_DEBUG("解析json完毕");
+		finish = clock();
+		HGLOG_DEBUG("耗时 %0.2f s",(double)(finish-start)/CLOCKS_PER_SEC);
+		start = clock();
+
+		
 		HG_SceneCenter::inst().clear();
 		HG_SceneCenter::inst().load(output);
-		finish=clock();
-		HGLOG_DEBUG("加载json完成, 耗时 %0.2f s",(double)(finish-start)/CLOCKS_PER_SEC);
+		
+		HGLOG_DEBUG("加载数据完毕");
+		finish = clock();
+		HGLOG_DEBUG("耗时 %0.2f s",(double)(finish-start)/CLOCKS_PER_SEC);
+		start = clock();
 	}
-	long start0=clock();
-	HGLOG_DEBUG("开始导出ess ,开始导出前耗时 %0.2fs",(double)(start0-finish)/CLOCKS_PER_SEC);
-	long start1=clock();
+
+	HGLOG_DEBUG("开始导出ess");
+	finish = clock();
+	HGLOG_DEBUG("耗时 %0.2f s",(double)(finish-start)/CLOCKS_PER_SEC);
+	start = clock();
+
 	RenderManager::inst().SaveESS("",false);
-	long finish1=clock();
-	HGLOG_DEBUG("导出ess完成, 耗时 %0.2f s",(double)(finish1-start1)/CLOCKS_PER_SEC);
+	
+	HGLOG_DEBUG("导出ess完毕");
+	finish = clock();
+	HGLOG_DEBUG("耗时 %0.2f s",(double)(finish-start)/CLOCKS_PER_SEC);
+	start = clock();
 
 #endif
 

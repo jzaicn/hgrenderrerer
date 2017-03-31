@@ -60,7 +60,8 @@ void RenderUI::showRenderDlg()
 {
 	HgLog::HgLog::initDebugLogCategory();
 	HG_SceneCenter::inst().clear();
-
+	long finish = 0;
+	long start = clock();
 	
 	//设置读取外部ive模型
 #if 0	
@@ -265,12 +266,21 @@ void RenderUI::showRenderDlg()
 
 	//输出房间模型
 #if 1
+	HGLOG_DEBUG("开始遍历场景");
+	finish = clock();
+	HGLOG_DEBUG("耗时 %0.2f s",(double)(finish-start)/CLOCKS_PER_SEC);
+	start = clock();
+
 	//遍历整个场景
 	hg3d::SceneMgr* sm = hg3d::CompositeViewer::getSingleton()->getSceneMgr();
 	HGSceneNodeVisitor vistor;				
 	osg::Group* root = sm->get3DScene();
 	root->accept(vistor);
-	HGLOG_DEBUG("scene ok");
+	
+	HGLOG_DEBUG("遍历场景完毕");
+	finish = clock();
+	HGLOG_DEBUG("耗时 %0.2f s",(double)(finish-start)/CLOCKS_PER_SEC);
+	start = clock();
 
 
 	//获得osg 摄像机
@@ -295,14 +305,24 @@ void RenderUI::showRenderDlg()
 	camera.set_image_height(480);
 	HG_SceneCenter::inst().addCamera(camera);
 
-// 	HG_SunLight sun;
-// 	sun.set_sun_height(0);
-// 	sun.set_sun_angle(0);
-// 	sun.set_sun_light_intensity(200);
-// 	sun.set_sun_color(0xFFFFFFFF);
-// 	HG_SceneCenter::inst().addSun(sun);
+	HG_SunLight sun;
+	sun.set_sun_height(0);
+	sun.set_sun_angle(0);
+	sun.set_sun_light_intensity(200);
+	sun.set_sun_color(0xFFFFFFFF);
+	HG_SceneCenter::inst().addSun(sun);
+
+	HGLOG_DEBUG("准备导出json");
+	finish = clock();
+	HGLOG_DEBUG("耗时 %0.2f s",(double)(finish-start)/CLOCKS_PER_SEC);
+	start = clock();
 
 	save2file();
+
+	HGLOG_DEBUG("导出json完毕");
+	finish = clock();
+	HGLOG_DEBUG("耗时 %0.2f s",(double)(finish-start)/CLOCKS_PER_SEC);
+	start = clock();
 
 #endif
 
