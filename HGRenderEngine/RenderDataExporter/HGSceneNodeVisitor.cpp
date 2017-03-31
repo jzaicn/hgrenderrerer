@@ -119,13 +119,12 @@ bool HGSceneNodeVisitor::isGroupModel(osg::Node& node)
 //判断是否跳过这个节点
 bool HGSceneNodeVisitor::isIgnore(osg::Node& node)
 {
-	return false;
 	//TODO: 开了这两个书桌的桌角没了 Borer BorerShow 处理柜体配置或者筛选列表修复这个问题
 	CHECK_IF_DO(hg3d::Borer,&node,{ return true; });
 	CHECK_IF_DO(hg3d::BorerShow,&node,{ return true; });
 
 	// 过滤
-// 	CHECK_IF_DO(osg::Node,&node,{ return conv->getName().compare("hide_box") == 0; });
+ 	CHECK_IF_DO(osg::Node,&node,{ return conv->getName().compare("hide_box") == 0; });
 // 	CHECK_IF_DO(osg::Node,&node,{ return conv->getName().compare("木肖") == 0; });
 // 	CHECK_IF_DO(osg::Node,&node,{ return conv->getName().compare("偏心件") == 0; });
 // 	CHECK_IF_DO(osg::Node,&node,{ return conv->getName().compare("偏心轮孔位") == 0; });
@@ -196,21 +195,27 @@ bool HGSceneNodeVisitor::ProcessModel(osg::Group* node)
 // 		 	if (conv) { function } 
 // 		}
 
-		CHECK_IF_DO(hg3d::Entity,node,{  modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::Girder,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::Door,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::AlumStrip,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::Glass,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::Model,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::Shape,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::NDoorCore,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::NDoorFrame,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::NDoorPocket,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::DoorWindow,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
-		CHECK_IF_DO(hg3d::SliderDoor,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Entity,node,{  modeFile = (conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Girder,node,{ modeFile = (conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Door,node,{ modeFile = (conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::AlumStrip,node,{ modeFile = (conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Glass,node,{ modeFile = (conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Model,node,{ modeFile = (conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::Shape,node,{ modeFile = (conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::NDoorCore,node,{ modeFile = (conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::NDoorFrame,node,{ modeFile = (conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::NDoorPocket,node,{ modeFile = (conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::DoorWindow,node,{ modeFile = (conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
+		CHECK_IF_DO(hg3d::SliderDoor,node,{ modeFile = (conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
 
-		if (!isIgnoreModel(modeFile))
+		if (isIgnoreModel(modeFile))
+		{	
+			//要过滤的模型，直接返回，不需要再次操作
+			return true;
+		}
+		else
 		{
+			modeFile = hg3d::getFullFileName(modeFile);
 			return SaveModel(modeFile, mat);
 		}
 		
@@ -223,7 +228,13 @@ bool HGSceneNodeVisitor::ProcessModel(osg::Group* node)
 bool HGSceneNodeVisitor::isIgnoreModel(const std::string& modeFile)
 {
 	std::string ignore_path = hg3d::getFullFileName(HG_Config::inst().get_model_ignore_path());
-	if ( std::string::npos != modeFile.find(ignore_path))
+	std::string full_file_name = hg3d::getFullFileName(modeFile);
+	if ( std::string::npos != full_file_name.find(ignore_path))
+	{
+		return true;
+	}
+
+	if (modeFile.empty())
 	{
 		return true;
 	}
@@ -232,34 +243,34 @@ bool HGSceneNodeVisitor::isIgnoreModel(const std::string& modeFile)
 }
 bool HGSceneNodeVisitor::SaveModel(const std::string& modeFile, const osg::Matrix& mat_in)
 {
-	osg::Matrix mat = mat_in;
-	//TODO: 查找高模，成功则不再分发
-	HGLOG_DEBUG("mode file: %s",modeFile.c_str());	
-	HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(0,0),mat(0,1),mat(0,2),mat(0,3));
-	HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
-	HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
-	HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
-	//mat.invert(mat);
-
-	CString strMatrix;
-	CString oneMatrix;
-	oneMatrix.Format("[%0.2f%0.2f%0.2f%0.2f]",mat(0,0),mat(0,1),mat(0,2),mat(0,3));
-	strMatrix+=oneMatrix;
-	oneMatrix.Format("[%0.2f%0.2f%0.2f%0.2f]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
-	strMatrix+=oneMatrix;
-	oneMatrix.Format("[%0.2f%0.2f%0.2f%0.2f]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
-	strMatrix+=oneMatrix;
-	oneMatrix.Format("[%0.2f%0.2f%0.2f%0.2f]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
-	strMatrix+=oneMatrix;
-	strMatrix = HGCode::UrlUTF8(strMatrix.GetBuffer()).c_str();
-
 	if (!modeFile.empty())
 	{
+		osg::Matrix mat = mat_in;
+		//TODO: 查找高模，成功则不再分发
+		HGLOG_DEBUG("mode file: %s",modeFile.c_str());	
+		HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(0,0),mat(0,1),mat(0,2),mat(0,3));
+		HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
+		HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
+		HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
+		//mat.invert(mat);
+
+		CString strMatrix;
+		CString oneMatrix;
+		oneMatrix.Format("[%0.2f%0.2f%0.2f%0.2f]",mat(0,0),mat(0,1),mat(0,2),mat(0,3));
+		strMatrix+=oneMatrix;
+		oneMatrix.Format("[%0.2f%0.2f%0.2f%0.2f]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
+		strMatrix+=oneMatrix;
+		oneMatrix.Format("[%0.2f%0.2f%0.2f%0.2f]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
+		strMatrix+=oneMatrix;
+		oneMatrix.Format("[%0.2f%0.2f%0.2f%0.2f]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
+		strMatrix+=oneMatrix;
+		strMatrix = HGCode::UrlUTF8(strMatrix.GetBuffer()).c_str();
+
 		//查找高模
 		CString highModelPath = modeFile.c_str();
 		highModelPath.Replace(".hgi",".ess");
 		highModelPath.Replace(".IVE",".ess");
-		if (PathFileExists(highModelPath))
+		if (osgDB::fileExists(highModelPath.GetBuffer()))
 		{
 			//找到高模
 			std::string hight_mode_file = highModelPath.GetBuffer();
@@ -284,17 +295,19 @@ bool HGSceneNodeVisitor::SaveModel(const std::string& modeFile, const osg::Matri
 			{
 				HGLOG_DEBUG("不能创建目录 %s",export_name.c_str());
 			}
-			if (osgDB::FileOpResult::OK != osgDB::copyFile(modeFile,export_name))
+			else if (osgDB::FileOpResult::OK != osgDB::copyFile(modeFile,export_name))
 			{
 				HGLOG_DEBUG("不能拷贝到指定目录 %s",export_name.c_str());
 			}
-
-			//保存
-			HGLOG_DEBUG("high mode file: %s",export_name.c_str());
-			HG_ModelInstance modelinst = HG_ModelInstance(export_name,convertToHG_Mat(mat));
-			modelinst.set_unique_code(strMatrix.GetBuffer());
-			HG_SceneCenter::inst().addModelInstance(modelinst);
-			return true;
+			else
+			{
+				//保存
+				HGLOG_DEBUG("high mode file: %s",export_name.c_str());
+				HG_ModelInstance modelinst = HG_ModelInstance(export_name,convertToHG_Mat(mat));
+				modelinst.set_unique_code(strMatrix.GetBuffer());
+				HG_SceneCenter::inst().addModelInstance(modelinst);
+				return true;
+			}
 		}
 		else
 		{
