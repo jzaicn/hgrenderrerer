@@ -10,6 +10,7 @@ private:
 		m_export_path = ("D:\\export\\");
 		m_texture_relative_path = ("textures\\");
 		m_model_relative_path = ("models\\");
+		m_model_ignore_path = ("Ironware\\¡¨Ω”¿‡\\");
 	}
 
 	~HG_Config(void)
@@ -33,10 +34,16 @@ public:
 		return m_export_path + m_model_relative_path + model_name;
 	}
 
+	std::string get_model_ignore_path()
+	{
+		return m_model_ignore_path;
+	}
+
 private:
 	static HG_Config m_config;
 	std::string m_export_path;
 	std::string m_texture_relative_path;
 	std::string m_model_relative_path;
+	std::string m_model_ignore_path;
 };
 

@@ -37,7 +37,7 @@ private:
 	bool isGroupModel(osg::Node& node);
 
 	//判断是否跳过这个节点
-	bool isGroupIgnore(osg::Node& node);
+	bool isIgnore(osg::Node& node);
 
 	//判断是否板件
 	bool isGroupPanel(osg::Node& node);
@@ -51,9 +51,10 @@ private:
 	//递归遍历所有子节点
 	virtual void apply(osg::Node& node);
 
-	bool ProcessGroup(osg::Group* node);
+	bool ProcessModel(osg::Group* node);
 
-	bool SaveModel(std::string& modeFile, osg::Matrix& mat);
+	bool isIgnoreModel(const std::string& modeFile);
+	bool SaveModel(const std::string& modeFile, const osg::Matrix& mat_in);
 
 	HG_Mat convertToHG_Mat(osg::Matrix mat);
 

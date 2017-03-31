@@ -20,9 +20,12 @@
 
 
 
-
+#include<time.h>
 void RenderUI::save2file()
 {
+	HGLOG_DEBUG("开始导出json");
+	long start=clock();
+
 	//定义输出json格式
 	Json::Value output;
 	HG_SceneCenter::inst().save(output);
@@ -39,14 +42,17 @@ void RenderUI::save2file()
 		writestream.close();
 	}
 
-	//展开的json
-	std::ofstream  writestream2("d:\\room_open.json");
-	if (writestream2.is_open())
-	{
-		writestream2 << output.toStyledString() ;
-		writestream2.flush();
-		writestream2.close();
-	}
+	long finish=clock();
+	HGLOG_DEBUG("导出json完成,耗时 %0.2f s",(double)(finish-start)/CLOCKS_PER_SEC);
+
+// 	//展开的json
+// 	std::ofstream  writestream2("d:\\room_open.json");
+// 	if (writestream2.is_open())
+// 	{
+// 		writestream2 << output.toStyledString() ;
+// 		writestream2.flush();
+// 		writestream2.close();
+// 	}
 }
 
 
@@ -250,6 +256,7 @@ void RenderUI::showRenderDlg()
 // 	sun.set_sun_color(0xFFFFFFFF);
 // 	HG_SceneCenter::inst().addSun(sun);
 
+	
 	save2file();
 
 #endif

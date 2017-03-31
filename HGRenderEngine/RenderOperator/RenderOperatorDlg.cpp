@@ -574,6 +574,7 @@ LRESULT CRenderOperatorDlg::OnRenderStatusUpdate(WPARAM w,LPARAM l)
 using namespace Gdiplus;
 #include "HGCode.h"
 #include "HG_BaseModel.h"
+#include <time.h>
 void CRenderOperatorDlg::OnBnClickedButton1()
 {
 // 	CString cstr = HGCode::convert("宏光软件");
@@ -671,7 +672,9 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 //	HGLOG_DEBUG(root.toStyledString());
 
 #if 1
-
+	HGLOG_DEBUG("开始加载json");
+	long start=clock();
+	long finish=0;
 	// 加载文件
 	std::ifstream readStream("d:\\room.json");
 	if (readStream.is_open())
@@ -683,11 +686,19 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 		Json::Reader reader;
 		reader.parse(result,output);
 
-		HGLOG_DEBUG(output.toStyledString());
+		//HGLOG_DEBUG(output.toStyledString());
 		HG_SceneCenter::inst().clear();
 		HG_SceneCenter::inst().load(output);
+		finish=clock();
+		HGLOG_DEBUG("加载json完成, 耗时 %0.2f s",(double)(finish-start)/CLOCKS_PER_SEC);
 	}
+	long start0=clock();
+	HGLOG_DEBUG("开始导出ess ,开始导出前耗时 %0.2fs",(double)(start0-finish)/CLOCKS_PER_SEC);
+	long start1=clock();
 	RenderManager::inst().SaveESS("",false);
+	long finish1=clock();
+	HGLOG_DEBUG("导出ess完成, 耗时 %0.2f s",(double)(finish1-start1)/CLOCKS_PER_SEC);
+
 #endif
 
 }

@@ -160,23 +160,23 @@ public:
 		outval.num_verts = inval.get_verts().size();
 		outval.num_faces = inval.get_faces().size();
 
-		for (int i = 0; i < inval.get_verts().size() ; i++)
+		for (UINT i = 0; i < inval.get_verts().size() ; i++)
 		{
 			fill((EH_Vec)(outval.verts[i]),inval.get_verts().at(i));
 		}
 
-		for (int i = 0; i < inval.get_normals().size() ; i++)
+		for (UINT i = 0; i < inval.get_normals().size() ; i++)
 		{
 			fill((EH_Vec)(outval.normals[i]),inval.get_normals().at(i));
 		}
 
-		for (int i = 0; i < inval.get_uvs().size() ; i++)
+		for (UINT i = 0; i < inval.get_uvs().size() ; i++)
 		{
 			fill((EH_Vec2)(outval.uvs[i]),inval.get_uvs().at(i));
 		}
 		
-		int faceIndex = 0;
-		for (int i = 0; i < inval.get_faces().size() ; i++)
+		UINT faceIndex = 0;
+		for (UINT i = 0; i < inval.get_faces().size() ; i++)
 		{
 			fill((uint_t)(outval.face_indices[faceIndex++]),inval.get_faces().at(i).get_t1());
 			fill((uint_t)(outval.face_indices[faceIndex++]),inval.get_faces().at(i).get_t2());

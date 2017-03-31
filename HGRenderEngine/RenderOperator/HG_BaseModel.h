@@ -3,6 +3,7 @@
 #include <vector>
 #include "JsonCpp/json.h"
 #include "HGCode.h"
+#include <math.h>
 
 #define GETSET(type,name)\
 private: type m_##name;\
@@ -81,11 +82,35 @@ public:
 	}
 	~HG_Vec2(void){};
 
+	/*---- operator ----*/
 	HG_Vec2& operator=(const HG_Vec2 &other)
 	{
 		set_x(other.get_x());
 		set_y(other.get_y());
 		return *this;
+	}
+
+	bool operator==(const HG_Vec2 &other)
+	{
+		if(get_x() != other.get_x() || get_y() != other.get_y())
+			return true;
+		return false;
+	}
+
+	bool operator!=(const HG_Vec2 &other)
+	{
+		if(get_x() != other.get_x() || get_y() != other.get_y())
+			return true;
+		return false;
+	}
+
+	float& operator[](const int index)
+	{
+		if (index > 1 || index < 0)
+			throw std::out_of_range("Index out of range");
+		if(index == 0)
+			return m_x;
+		return m_y;
 	}
 
 	virtual std::string get_classname() override { return "HG_Vec2"; };
@@ -136,6 +161,7 @@ public:
 	}
 	~HG_Vec3(void){};
 
+	/*---- operator ----*/
 	HG_Vec3& operator=(const HG_Vec3 &other)
 	{
 		set_x(other.get_x());
@@ -144,6 +170,30 @@ public:
 		return *this;
 	}
 
+	bool operator==(const HG_Vec3 &other)
+	{
+		if(get_x() != other.get_x() || get_y() != other.get_y() || get_z() != other.get_z())
+			return true;
+		return false;
+	}
+
+	bool operator!=(const HG_Vec3 &other)
+	{
+		if(get_x() != other.get_x() || get_y() != other.get_y() || get_z() != other.get_z())
+			return true;
+		return false;
+	}
+
+	float& operator[](const int index)
+	{
+		if (index > 2 || index < 0)
+			throw std::out_of_range("Index out of range");
+		if(index == 0)
+			return m_x;
+		if(index == 1)
+			return m_y;
+		return m_z;
+	}
 
 	std::string get_classname(){ return "HG_Vec3"; };
 
@@ -207,6 +257,7 @@ public:
 	}
 	~HG_Vec4(void){};
 
+	/*---- operator ----*/
 	HG_Vec4& operator=(const HG_Vec4 &other)
 	{
 		set_x(other.get_x());
@@ -215,6 +266,34 @@ public:
 		set_w(other.get_w());
 		return *this;
 	}
+
+	bool operator==(const HG_Vec4 &other)
+	{
+		if(get_x() != other.get_x() || get_y() != other.get_y() || get_z() != other.get_z() || get_w() != other.get_w())
+			return true;
+		return false;
+	}
+
+	bool operator!=(const HG_Vec4 &other)
+	{
+		if(get_x() != other.get_x() || get_y() != other.get_y() || get_z() != other.get_z() || get_w() != other.get_w())
+			return true;
+		return false;
+	}
+
+	float& operator[](const int index)
+	{
+		if (index > 3 || index < 0)
+			throw std::out_of_range("Index out of range");
+		if(index == 0)
+			return m_x;
+		if(index == 1)
+			return m_y;
+		if(index == 2)
+			return m_z;
+		return m_w;
+	}
+
 	UINT get_color_uint()
 	{
 		HG_Vec4 vec4 = *this;
@@ -276,6 +355,7 @@ public:
 	}
 	~HG_Mat(void){};
 
+	/*---- operator ----*/
 	HG_Mat& operator=(const HG_Mat &other)
 	{
 		set_mat(_matrix);
@@ -285,6 +365,46 @@ public:
 		m_mat[2] = other.m_mat[2];
 		m_mat[3] = other.m_mat[3];
 		return *this;
+	}
+
+	bool operator==(const HG_Mat &other)
+	{
+		if(m_mat != other.m_mat)
+			return false;
+		return true;
+	}
+
+	bool operator!=(const HG_Mat &other)
+	{
+		if(m_mat != other.m_mat)
+			return true;
+		return false;
+	}
+
+	HG_Vec4& operator[](int row)
+	{
+		return m_mat[row];
+	}
+
+	HG_Mat operator*(const HG_Mat &other)
+	{
+		HG_Mat newMat;
+		for(int col = 0; col < 4; col++)
+		{
+			for(int row = 0; row < 4; row++)
+				newMat[row][col] = multiply(0, other, col);
+		}
+
+		return newMat;
+	}
+
+	void operator*=(const HG_Mat &other)
+	{
+		for(int col = 0; col < 4; col++)
+		{
+			for(int row = 0; row < 4; row++)
+				m_mat[row][col] = multiply(0, other, col);
+		}
 	}
 
 	virtual std::string get_classname() { return "HG_Mat"; };
@@ -321,7 +441,27 @@ public:
 			m_mat[row].load(in[(char*)strIndex.GetBuffer()]);
 		}
 	}
+
+	static HG_Mat identityMatrix()
+	{
+		return HG_Mat(HG_Vec4(1, 0, 0, 0), 
+			HG_Vec4(0, 1, 0, 0), 
+			HG_Vec4(0, 0, 1, 0), 
+			HG_Vec4(0, 0, 0, 1));
+	}
+
 private:
 	HG_Vec4 _matrix[4];
 	GETSET(HG_Vec4*,mat);
+
+	float multiply(int row, const HG_Mat& other, int col)
+	{
+		HG_Vec4 vRow = m_mat[row];
+		float total = 0;
+		for(int i = 0; i < 4; i++)
+		{
+			total += vRow[i] * other.get_mat()[i][col];
+		}
+		return total;
+	}
 };

@@ -38,6 +38,7 @@
 #include "hgcw\hgCst\Model.h"
 #include "hgcw\hgCst\Shape.h"
 #include "hgcw\hgCst\SliderDoor.h"
+#include "hgcw\hgCst\Ironware.h"
 #include "hg3d\Entity.h"
 #include "hg3d\NDoorCore.h"
 #include "hg3d\NDoorFrame.h"
@@ -116,10 +117,26 @@ bool HGSceneNodeVisitor::isGroupModel(osg::Node& node)
 }
 
 //判断是否跳过这个节点
-bool HGSceneNodeVisitor::isGroupIgnore(osg::Node& node)
+bool HGSceneNodeVisitor::isIgnore(osg::Node& node)
 {
+	return false;
+	//TODO: 开了这两个书桌的桌角没了 Borer BorerShow 处理柜体配置或者筛选列表修复这个问题
 	CHECK_IF_DO(hg3d::Borer,&node,{ return true; });
 	CHECK_IF_DO(hg3d::BorerShow,&node,{ return true; });
+
+	// 过滤
+// 	CHECK_IF_DO(osg::Node,&node,{ return conv->getName().compare("hide_box") == 0; });
+// 	CHECK_IF_DO(osg::Node,&node,{ return conv->getName().compare("木肖") == 0; });
+// 	CHECK_IF_DO(osg::Node,&node,{ return conv->getName().compare("偏心件") == 0; });
+// 	CHECK_IF_DO(osg::Node,&node,{ return conv->getName().compare("偏心轮孔位") == 0; });
+// 
+// 
+// 	CHECK_IF_DO(osg::Geometry,&node,{ return (conv->getName().compare("hide_box")==0); });
+// 	CHECK_IF_DO(hg3d::Ironware,&node,{ return true; });
+// 	CHECK_IF_DO(osg::Node,&node,{ return conv->getName().compare("Ironware") == 0; });
+// 	CHECK_IF_DO(osg::Node,&node,{ return conv->getName().compare("Eccentric") == 0; });
+
+
 	return false;
 }
 
@@ -138,34 +155,31 @@ bool HGSceneNodeVisitor::isGroupPanel(osg::Node& node)
 void HGSceneNodeVisitor::apply(osg::Node& node)
 {
 	//如果是组
-	if (isGroup(node))
+	if (isIgnore(node))
 	{
-		debugGroup(*node.asGroup());
+	}
+	else if (isGroup(node))
+	{
+		//debugGroup(*node.asGroup());
 	
-		if (!ProcessGroup(node.asGroup()))
+		if (!ProcessModel(node.asGroup()))
 		{
 			groupRoute(node);
-		}		
-		
-		return;
+		}
 	}
 	else
 	{
-		debugNode(node);
+		//debugNode(node);
 
 		//如果是可以画的实体
 		if (isGeode(node))
 		{
-			osg::Geode* geode = node.asGeode();
-			ProcessGeode(geode);
-			
+			ProcessGeode(node.asGeode());	
 		}
 	}
 }
-bool HGSceneNodeVisitor::ProcessGroup(osg::Group* node)
+bool HGSceneNodeVisitor::ProcessModel(osg::Group* node)
 {
-	if (isGroupIgnore(*node)) return true;
-	//if (isGroupLiner(node)) ;
 	if (isGroupModel(*node)) 
 	{
 		std::string modeFile;
@@ -195,24 +209,36 @@ bool HGSceneNodeVisitor::ProcessGroup(osg::Group* node)
 		CHECK_IF_DO(hg3d::DoorWindow,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
 		CHECK_IF_DO(hg3d::SliderDoor,node,{ modeFile = hg3d::getFullFileName(conv->get_modelFile());mat = conv->getWorldMatrices().at(0); });
 
-		return SaveModel(modeFile, mat);
+		if (!isIgnoreModel(modeFile))
+		{
+			return SaveModel(modeFile, mat);
+		}
+		
 	}
-	//if (isGroupPanel(node)) ;
-	//else 
 
 
 
 	return false;
 }
-
-bool HGSceneNodeVisitor::SaveModel(std::string& modeFile, osg::Matrix& mat)
+bool HGSceneNodeVisitor::isIgnoreModel(const std::string& modeFile)
 {
+	std::string ignore_path = hg3d::getFullFileName(HG_Config::inst().get_model_ignore_path());
+	if ( std::string::npos != modeFile.find(ignore_path))
+	{
+		return true;
+	}
+
+	return false;
+}
+bool HGSceneNodeVisitor::SaveModel(const std::string& modeFile, const osg::Matrix& mat_in)
+{
+	osg::Matrix mat = mat_in;
 	//TODO: 查找高模，成功则不再分发
-	HGLOG_DEBUG("mode file: %s",modeFile.c_str());
-	HGLOG_DEBUG("[ %f %f %f %f ]",mat(0,0),mat(0,1),mat(0,2),mat(0,3));
-	HGLOG_DEBUG("[ %f %f %f %f ]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
-	HGLOG_DEBUG("[ %f %f %f %f ]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
-	HGLOG_DEBUG("[ %f %f %f %f ]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
+	HGLOG_DEBUG("mode file: %s",modeFile.c_str());	
+	HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(0,0),mat(0,1),mat(0,2),mat(0,3));
+	HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
+	HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
+	HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
 	//mat.invert(mat);
 
 	CString strMatrix;
@@ -231,14 +257,15 @@ bool HGSceneNodeVisitor::SaveModel(std::string& modeFile, osg::Matrix& mat)
 	{
 		//查找高模
 		CString highModelPath = modeFile.c_str();
+		highModelPath.Replace(".hgi",".ess");
 		highModelPath.Replace(".IVE",".ess");
 		if (PathFileExists(highModelPath))
 		{
 			//找到高模
-			modeFile = highModelPath.GetBuffer();
+			std::string hight_mode_file = highModelPath.GetBuffer();
 			
 			//更改文件名为ascii
-			std::string file_new_name = modeFile;
+			std::string file_new_name = hight_mode_file;
 			CString replacestring = file_new_name.c_str();
 			replacestring.Replace(" ","");
 			replacestring.Replace("-","");
@@ -268,6 +295,10 @@ bool HGSceneNodeVisitor::SaveModel(std::string& modeFile, osg::Matrix& mat)
 			modelinst.set_unique_code(strMatrix.GetBuffer());
 			HG_SceneCenter::inst().addModelInstance(modelinst);
 			return true;
+		}
+		else
+		{
+			HGLOG_DEBUG("找不到对应模型");
 		}
 	}
 	return false;
