@@ -150,6 +150,9 @@
     <ClInclude Include="RenderManager.h">
       <Filter>Logic</Filter>
     </ClInclude>
+    <ClInclude Include="HG_Config.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Elara\ElaraHomeAPI.cpp">
@@ -235,6 +238,9 @@
     </ClCompile>
     <ClCompile Include="RenderManager.cpp">
       <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="HG_Config.cpp">
+      <Filter>Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

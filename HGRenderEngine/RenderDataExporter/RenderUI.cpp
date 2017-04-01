@@ -10,7 +10,9 @@
 #include "osg\StateSet"
 #include <fstream>
 #include "HG_Light.h"
-
+#include "osgDB/FileUtils"
+#include "HGTools.h"
+#include "HG_Config.h"
 
 #define TestConvert(class_type,point)	\
 {	class_type* conv = dynamic_cast<class_type*>(point); \
@@ -55,11 +57,12 @@ void RenderUI::save2file()
 // 	}
 }
 
-
 void RenderUI::showRenderDlg()
 {
 	HgLog::HgLog::initDebugLogCategory();
 	HG_SceneCenter::inst().clear();
+	HGTools::deletePathFiles(HG_Config::inst().get_file_export_path().c_str());
+
 	long finish = 0;
 	long start = clock();
 	
@@ -276,6 +279,7 @@ void RenderUI::showRenderDlg()
 	HGSceneNodeVisitor vistor;				
 	osg::Group* root = sm->get3DScene();
 	root->accept(vistor);
+
 	
 	HGLOG_DEBUG("±éÀú³¡¾°Íê±Ï");
 	finish = clock();
@@ -325,7 +329,7 @@ void RenderUI::showRenderDlg()
 	start = clock();
 
 #endif
-
+	system("call E:\\HGRENDER\\trunk\\HGRenderEngine\\x64\\Release\\RenderOperator.exe");
 }
 
 

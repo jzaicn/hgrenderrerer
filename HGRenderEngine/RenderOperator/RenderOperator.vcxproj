@@ -156,9 +156,11 @@
     <ClInclude Include="HgLog\HgLog.h" />
     <ClInclude Include="HG_BaseModel.h" />
     <ClInclude Include="HG_Camera.h" />
+    <ClInclude Include="HG_Config.h" />
     <ClInclude Include="HG_Exposure.h" />
     <ClInclude Include="HG_Light.h" />
     <ClInclude Include="HG_Material.h" />
+    <ClInclude Include="HG_Math.h" />
     <ClInclude Include="HG_Mesh.h" />
     <ClInclude Include="HG_MeshInstance.h" />
     <ClInclude Include="HG_ModelInstance.h" />
@@ -188,9 +190,11 @@
     <ClCompile Include="HgLog\HgLog.cpp" />
     <ClCompile Include="HG_BaseModel.cpp" />
     <ClCompile Include="HG_Camera.cpp" />
+    <ClCompile Include="HG_Config.cpp" />
     <ClCompile Include="HG_Exposure.cpp" />
     <ClCompile Include="HG_Light.cpp" />
     <ClCompile Include="HG_Material.cpp" />
+    <ClCompile Include="HG_Math.cpp" />
     <ClCompile Include="HG_Mesh.cpp" />
     <ClCompile Include="HG_MeshInstance.cpp" />
     <ClCompile Include="HG_ModelInstance.cpp" />

@@ -241,12 +241,11 @@ bool HGSceneNodeVisitor::isIgnoreModel(const std::string& modeFile)
 
 	return false;
 }
-bool HGSceneNodeVisitor::SaveModel(const std::string& modeFile, const osg::Matrix& mat_in)
+bool HGSceneNodeVisitor::SaveModel(std::string modeFile, osg::Matrix mat)
 {
+	//TODO: 图片应该也要按model的方式处理一次
 	if (!modeFile.empty())
 	{
-		osg::Matrix mat = mat_in;
-		//TODO: 查找高模，成功则不再分发
 		HGLOG_DEBUG("mode file: %s",modeFile.c_str());	
 		HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(0,0),mat(0,1),mat(0,2),mat(0,3));
 		HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
@@ -254,17 +253,18 @@ bool HGSceneNodeVisitor::SaveModel(const std::string& modeFile, const osg::Matri
 		HGLOG_DEBUG("[ %6.2f %6.2f %6.2f %6.2f ]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
 		//mat.invert(mat);
 
-		CString strMatrix;
+		CString strMatrix = "MatrixModelName";
 		CString oneMatrix;
-		oneMatrix.Format("[%0.2f%0.2f%0.2f%0.2f]",mat(0,0),mat(0,1),mat(0,2),mat(0,3));
+		oneMatrix.Format("[%0.0f%0.0f%0.0f%0.0f]",mat(0,0),mat(0,1),mat(0,2),mat(0,3));
 		strMatrix+=oneMatrix;
-		oneMatrix.Format("[%0.2f%0.2f%0.2f%0.2f]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
+		oneMatrix.Format("[%0.0f%0.0f%0.0f%0.0f]",mat(1,0),mat(1,1),mat(1,2),mat(1,3));
 		strMatrix+=oneMatrix;
-		oneMatrix.Format("[%0.2f%0.2f%0.2f%0.2f]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
+		oneMatrix.Format("[%0.0f%0.0f%0.0f%0.0f]",mat(2,0),mat(2,1),mat(2,2),mat(2,3));
 		strMatrix+=oneMatrix;
-		oneMatrix.Format("[%0.2f%0.2f%0.2f%0.2f]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
+		oneMatrix.Format("[%0.0f%0.0f%0.0f%0.0f]",mat(3,0),mat(3,1),mat(3,2),mat(3,3));
 		strMatrix+=oneMatrix;
 		strMatrix = HGCode::UrlUTF8(strMatrix.GetBuffer()).c_str();
+		strMatrix.Replace("%","");
 
 		//查找高模
 		CString highModelPath = modeFile.c_str();
@@ -272,6 +272,8 @@ bool HGSceneNodeVisitor::SaveModel(const std::string& modeFile, const osg::Matri
 		highModelPath.Replace(".IVE",".ess");
 		if (osgDB::fileExists(highModelPath.GetBuffer()))
 		{
+			std::string file_name = hg3d::getFileNameWithoutExt(modeFile);
+
 			//找到高模
 			std::string hight_mode_file = highModelPath.GetBuffer();
 			
@@ -283,8 +285,9 @@ bool HGSceneNodeVisitor::SaveModel(const std::string& modeFile, const osg::Matri
 			replacestring.Replace(":","");
 			replacestring.Replace("\\","");
 			replacestring.Replace(".ess","");
+			replacestring = HGCode::UrlUTF8(const_cast<char*>(std::string(replacestring.GetBuffer()).c_str())).c_str();
+			replacestring.Replace("%","");
 			file_new_name = replacestring.GetBuffer();
-			file_new_name = HGCode::UrlUTF8(const_cast<char*>(file_new_name.c_str()));
 			file_new_name += ".ess";
 
 			//文件应该放置到的新位置
@@ -295,8 +298,9 @@ bool HGSceneNodeVisitor::SaveModel(const std::string& modeFile, const osg::Matri
 			{
 				HGLOG_DEBUG("不能创建目录 %s",export_name.c_str());
 			}
-			else if (osgDB::FileOpResult::OK != osgDB::copyFile(modeFile,export_name))
+			else if (osgDB::FileOpResult::OK != osgDB::copyFile(hight_mode_file,export_name))
 			{
+				//TODO: 复制过的模型也应该不用再复制，提高效率
 				HGLOG_DEBUG("不能拷贝到指定目录 %s",export_name.c_str());
 			}
 			else

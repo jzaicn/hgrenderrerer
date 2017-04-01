@@ -11,6 +11,7 @@ private:
 		m_texture_relative_path = ("textures\\");
 		m_model_relative_path = ("models\\");
 		m_model_ignore_path = ("Ironware\\¡¨Ω”¿‡\\");
+		m_execute_path = ("E:\\HGRENDER\\trunk\\HGRenderEngine\\x64\\Release\\");
 	}
 
 	~HG_Config(void)
@@ -38,6 +39,16 @@ public:
 	{
 		return m_model_ignore_path;
 	}
+	
+	std::string get_file_path(std::string relative_file_path)
+	{
+		return m_execute_path + relative_file_path;
+	}
+
+	std::string get_file_export_path()
+	{
+		return m_model_ignore_path;
+	}
 
 private:
 	static HG_Config m_config;
@@ -45,5 +56,6 @@ private:
 	std::string m_texture_relative_path;
 	std::string m_model_relative_path;
 	std::string m_model_ignore_path;
+	std::string m_execute_path;
 };
 

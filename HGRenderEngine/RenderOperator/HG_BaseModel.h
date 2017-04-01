@@ -3,6 +3,7 @@
 #include <vector>
 #include "JsonCpp/json.h"
 #include "HGCode.h"
+#include "HG_Math.h"
 #include <math.h>
 
 #define GETSET(type,name)\
@@ -90,18 +91,16 @@ public:
 		return *this;
 	}
 
-	bool operator==(const HG_Vec2 &other)
+	virtual bool operator==(const HG_Vec2 &other)
 	{
-		if(get_x() != other.get_x() || get_y() != other.get_y())
+		if(HG_Math::compareF(get_x(), other.get_x()) && HG_Math::compareF(get_y(), other.get_y()))
 			return true;
 		return false;
 	}
 
 	bool operator!=(const HG_Vec2 &other)
 	{
-		if(get_x() != other.get_x() || get_y() != other.get_y())
-			return true;
-		return false;
+		return !(*this == other);
 	}
 
 	float& operator[](const int index)
@@ -172,16 +171,14 @@ public:
 
 	bool operator==(const HG_Vec3 &other)
 	{
-		if(get_x() != other.get_x() || get_y() != other.get_y() || get_z() != other.get_z())
+		if(HG_Math::compareF(get_x(), other.get_x()) && HG_Math::compareF(get_y(), other.get_y()) && HG_Math::compareF(get_z(), other.get_z()))
 			return true;
 		return false;
 	}
 
 	bool operator!=(const HG_Vec3 &other)
 	{
-		if(get_x() != other.get_x() || get_y() != other.get_y() || get_z() != other.get_z())
-			return true;
-		return false;
+		return !(*this == other);
 	}
 
 	float& operator[](const int index)
@@ -269,16 +266,14 @@ public:
 
 	bool operator==(const HG_Vec4 &other)
 	{
-		if(get_x() != other.get_x() || get_y() != other.get_y() || get_z() != other.get_z() || get_w() != other.get_w())
+		if(HG_Math::compareF(get_x(), other.get_x()) && HG_Math::compareF(get_y(), other.get_y()) && HG_Math::compareF(get_z(), other.get_z()) && HG_Math::compareF(get_w(), other.get_w()))
 			return true;
 		return false;
 	}
 
 	bool operator!=(const HG_Vec4 &other)
 	{
-		if(get_x() != other.get_x() || get_y() != other.get_y() || get_z() != other.get_z() || get_w() != other.get_w())
-			return true;
-		return false;
+		return !(*this == other);
 	}
 
 	float& operator[](const int index)
@@ -369,16 +364,15 @@ public:
 
 	bool operator==(const HG_Mat &other)
 	{
-		if(m_mat != other.m_mat)
-			return false;
+		for(int row = 0; row < 4; row++)
+			if(m_mat[row] != other.m_mat[row])
+				return false;
 		return true;
 	}
 
 	bool operator!=(const HG_Mat &other)
 	{
-		if(m_mat != other.m_mat)
-			return true;
-		return false;
+		return !(*this == other);
 	}
 
 	HG_Vec4& operator[](int row)
@@ -392,7 +386,12 @@ public:
 		for(int col = 0; col < 4; col++)
 		{
 			for(int row = 0; row < 4; row++)
-				newMat[row][col] = multiply(0, other, col);
+			{
+				float total = 0;
+				for(int i = 0; i < 4; i++)
+					total += get_mat()[row][i] * other.get_mat()[i][col];
+				newMat[row][col] = total;
+			}
 		}
 
 		return newMat;
@@ -400,11 +399,7 @@ public:
 
 	void operator*=(const HG_Mat &other)
 	{
-		for(int col = 0; col < 4; col++)
-		{
-			for(int row = 0; row < 4; row++)
-				m_mat[row][col] = multiply(0, other, col);
-		}
+		*this = *this * other;
 	}
 
 	virtual std::string get_classname() { return "HG_Mat"; };
@@ -450,18 +445,36 @@ public:
 			HG_Vec4(0, 0, 0, 1));
 	}
 
+	//get rotation matrix for axis - x:0 y:1 z:2
+	static HG_Mat rotationMatrix(float angle, int axis)
+	{
+		float cosAngle = cos(angle);
+		float sinAngle = sin(angle);
+
+		HG_Vec4 v1 = HG_Vec4(1, 0, 0, 0);
+		HG_Vec4 v2 = HG_Vec4(0, 1, 0, 0);
+		HG_Vec4 v3 = HG_Vec4(0, 0, 1, 0);
+
+		if(axis == 0) //x axis
+		{
+			v2 = HG_Vec4(0, cosAngle, -sinAngle, 0);
+			v3 = HG_Vec4(0, sinAngle, cosAngle, 0);
+		}
+		if(axis == 1) //y axis
+		{
+			v1 = HG_Vec4(cosAngle, 0, sinAngle, 0);
+			v3 = HG_Vec4(-sinAngle, 0, cosAngle, 0);
+		}
+		if(axis == 2) //z axis
+		{
+			v1 = HG_Vec4(cosAngle, -sinAngle, 0, 0);
+			v2 = HG_Vec4(sinAngle, cosAngle, 0, 0);
+		}
+
+		return HG_Mat(v1, v2, v3, HG_Vec4(0, 0, 0, 1));
+	}
+
 private:
 	HG_Vec4 _matrix[4];
 	GETSET(HG_Vec4*,mat);
-
-	float multiply(int row, const HG_Mat& other, int col)
-	{
-		HG_Vec4 vRow = m_mat[row];
-		float total = 0;
-		for(int i = 0; i < 4; i++)
-		{
-			total += vRow[i] * other.get_mat()[i][col];
-		}
-		return total;
-	}
 };

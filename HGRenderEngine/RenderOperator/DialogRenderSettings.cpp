@@ -7,7 +7,7 @@
 
 #include "XmlHandlePlus/XmlHandlePlus.h"
 #include "XmlHandlePlus/tinyxml.h"
-
+#include "HG_Config.h"
 #include "HGCode.h"
 
 // DialogRenderSettings ¶Ô»°¿ò
@@ -72,7 +72,7 @@ BOOL DialogRenderSettings::OnInitDialog()
 void DialogRenderSettings::initFromSetting()
 {
 	TiXmlDocument doc;
-	doc.LoadFile("RenderParam.xml");
+	doc.LoadFile(HG_Config::inst().get_file_path("RenderParam.xml"));
 	XmlHandlePlus docHandler(&doc);
 
 	std::vector<TiXmlNode*> nodes = docHandler.findAll("/Root/Param/");

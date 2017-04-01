@@ -8,6 +8,7 @@
 #include "XmlHandlePlus/tinyxml.h"
 #include "HGCode.h"
 #include "HgLog/HgLog.h"
+#include "HG_Config.h"
 
 // ImageSetting 对话框
 
@@ -39,14 +40,12 @@ END_MESSAGE_MAP()
 
 // ImageSetting 消息处理程序
 
-#include "XmlHandlePlus/XmlHandlePlus.h"
-
 BOOL DialogImageSettings::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
 	TiXmlDocument doc;
-	doc.LoadFile("ImageParam.xml");
+	doc.LoadFile(HG_Config::inst().get_file_path("ImageParam.xml"));
 	XmlHandlePlus docHandler(&doc);
 
 	std::vector<TiXmlNode*> nodes = docHandler.findAll("/Root/Param/");

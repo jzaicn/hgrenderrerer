@@ -54,7 +54,7 @@ private:
 	bool ProcessModel(osg::Group* node);
 
 	bool isIgnoreModel(const std::string& modeFile);
-	bool SaveModel(const std::string& modeFile, const osg::Matrix& mat_in);
+	bool SaveModel(std::string modeFile, osg::Matrix mat_in);
 
 	HG_Mat convertToHG_Mat(osg::Matrix mat);
 

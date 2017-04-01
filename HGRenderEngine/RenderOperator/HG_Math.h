@@ -11,5 +11,9 @@ class HG_Math
 public:
 	HG_Math(void);
 	~HG_Math(void);
+
+	//compare float
+	static bool compareF(float a, float b);
+
 };
 

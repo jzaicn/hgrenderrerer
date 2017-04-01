@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HGCode.cpp" />
+    <ClCompile Include="HGTools.cpp" />
     <ClCompile Include="HG_BaseModel.cpp" />
     <ClCompile Include="GeodeReader.cpp" />
     <ClCompile Include="HG_Config.cpp" />
@@ -135,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HGCode.h" />
+    <ClInclude Include="HGTools.h" />
     <ClInclude Include="HG_BaseModel.h" />
     <ClInclude Include="Export.h" />
     <ClInclude Include="GeodeReader.h" />

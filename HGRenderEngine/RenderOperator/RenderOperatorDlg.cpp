@@ -240,6 +240,7 @@ BOOL CRenderOperatorDlg::OnInitDialog()
 	}
 
 #endif
+	OnBnClickedButton1();
 	//ShowWindow(SW_MAXIMIZE);
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
@@ -685,5 +686,5 @@ void CRenderOperatorDlg::OnBnClickedButton1()
 	start = clock();
 
 #endif
-
+	system("call E:\\HGRENDER\\trunk\\HGRenderEngine\\x64\\Release\\run.bat");
 }

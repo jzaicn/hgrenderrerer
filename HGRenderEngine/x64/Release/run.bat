@@ -1,1 +1,1 @@
-er.exe -display -interactive D:\my_scene.ess 
+E:\HGRENDER\trunk\HGRenderEngine\x64\Release\er.exe -display -interactive D:\my_scene.ess 

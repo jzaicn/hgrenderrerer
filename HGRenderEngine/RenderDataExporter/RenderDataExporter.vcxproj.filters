@@ -90,6 +90,9 @@
     <ClCompile Include="HGCode.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="HGTools.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Export.h">
@@ -147,6 +150,9 @@
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="HGCode.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="HGTools.h">
       <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
